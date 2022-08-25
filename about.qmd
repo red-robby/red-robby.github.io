@@ -9,7 +9,7 @@ This site is a collection of my (Jakob's) notes and presentation materials for S
 If you've spotted a bug on the website or a discrepancy between my notes and the official course 
 material, please let me know so it can be corrected.
 
-_Note that in the case of a discrepancy, the official course material takes precedence over anything found here_.
+_Note that in the case of a discrepancy, the official course material takes precedence._
 
 ### Source Code
 
