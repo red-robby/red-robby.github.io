@@ -4,21 +4,21 @@
     "href": "about.html",
     "title": "About This Site",
     "section": "",
-    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material written by Professor Sanchez, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence over anything found here."
+    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material written by Professor Sanchez, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence over anything found here.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "stat33b",
+    "title": "Welcome!",
     "section": "",
-    "text": "tmp"
+    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material written by Professor Sanchez, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence over anything found here.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   },
   {
     "objectID": "lab-use.html",
     "href": "lab-use.html",
     "title": "Using the Slides",
     "section": "",
-    "text": "The keyboard shortcuts are provided below. These can also be seen while viewing the slides by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view\n\n\n\nThe slides will also be available as PDFs on bCourses for your convenience."
+    "text": "The keyboard shortcuts available while viewing the slides are provided below. These can also be seen by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view\n\n\n\nThe slides will also be available as PDFs on bCourses."
   },
   {
     "objectID": "lab01.html#welcome",
