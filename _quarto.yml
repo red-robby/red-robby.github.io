@@ -23,7 +23,6 @@ website:
         contents: 
           - lab-use.qmd
           - lab01.qmd
-          - code-test.qmd
       - section: "Notes"
       - section: "Practice Problems"
 
