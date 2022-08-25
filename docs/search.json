@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About This Site",
+    "section": "",
+    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material written by Professor Sanchez, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence over anything found here."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "stat33b",
+    "section": "",
+    "text": "tmp"
+  },
+  {
+    "objectID": "lab-use.html",
+    "href": "lab-use.html",
+    "title": "Using the Slides",
+    "section": "",
+    "text": "The keyboard shortcuts are provided below. These can also be seen while viewing the slides by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view\n\n\n\nThe slides will also be available as PDFs on bCourses for your convenience."
+  },
+  {
+    "objectID": "lab01.html#welcome",
+    "href": "lab01.html#welcome",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Welcome!",
+    "text": "Welcome!\nWelcome to STAT 33B! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nSections:\n\n9 AM - 10 AM and 10 AM -11 AM in Evans 342\n2 PM -3 PM and 3 PM - 4 PM in Cory 289\n\nOffice Hours: TBD in Evans 432"
+  },
+  {
+    "objectID": "lab01.html#expectations",
+    "href": "lab01.html#expectations",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Expectations",
+    "text": "Expectations\nThis is a 1 unit class.\n\n\nWeekly Lab (13 total)\nMonthly Quiz (3 total)\nBiweekly – every 2 weeks – Homework (6 total)\nFinal Exam"
+  },
+  {
+    "objectID": "lab01.html#our-lab",
+    "href": "lab01.html#our-lab",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Our Lab",
+    "text": "Our Lab\nHere’s the tentative structure for our labs.\n\n\nFor the first 15-20 minutes, I’ll lecture briefly on select topics from the week’s material.\nAfterwards, you are free to work on the lab, and I’m available to help."
+  },
+  {
+    "objectID": "lab01.html#installing-r-and-rstudio",
+    "href": "lab01.html#installing-r-and-rstudio",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Installing R and RStudio",
+    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/\n\nLet me know if you have technical difficulties."
+  },
+  {
+    "objectID": "lab01.html#rstudio-demo",
+    "href": "lab01.html#rstudio-demo",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RStudio Demo",
+    "text": "RStudio Demo\nSeparate window."
+  },
+  {
+    "objectID": "lab01.html#rmarkdown",
+    "href": "lab01.html#rmarkdown",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown",
+    "text": "RMarkdown\nRMarkdown (.rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
+  },
+  {
+    "objectID": "lab01.html#this-is-rmarkdown",
+    "href": "lab01.html#this-is-rmarkdown",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "This is RMarkdown?",
+    "text": "This is RMarkdown?\n\n\n## RMarkdown\n\nRMarkdown (``.rmd``) is file type that allows us to merge,\n\n-   Formatted written material,\n-   and **R** code\n\ninto a single document."
+  },
+  {
+    "objectID": "lab01.html#rmarkdown---basic-formatting",
+    "href": "lab01.html#rmarkdown---basic-formatting",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown - Basic Formatting",
+    "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized_!"
+  },
+  {
+    "objectID": "lab01.html#headers",
+    "href": "lab01.html#headers",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Headers",
+    "text": "Headers\nAren’t headers…\n… just lovely?\n\n\n## Headers\n\n### Aren't headers...\n\n#### ... just lovely?\n\n\n\n\\(N\\) # characters denotes an \\(Nth\\) level header."
+  },
+  {
+    "objectID": "lab01.html#font-face-bold",
+    "href": "lab01.html#font-face-bold",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Bold",
+    "text": "Font Face: Bold\nI’m bold and uncontrolled!\n\n\n## Font Face: **Bold**\n\nI'm **bold** and **uncontrolled!**\n\n\n\nSurrounding text with ** at each end makes it bold."
+  },
+  {
+    "objectID": "lab01.html#font-face-italics",
+    "href": "lab01.html#font-face-italics",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Italics",
+    "text": "Font Face: Italics\nDon’t eat that burger! Don’t eat that burger!\n\n\n## Font Face: _Italics_\n\nDon't eat _that_ burger! Don't _eat_ that burger!\n\n\n\nSurrounding text with _ at each end italicizes it."
+  },
+  {
+    "objectID": "lab01.html#font-face-plain-text-or-code",
+    "href": "lab01.html#font-face-plain-text-or-code",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Plain Text or Code",
+    "text": "Font Face: Plain Text or Code\nThe variable x passed into function main.\n\n\n## Font Face: ``Plain Text or Code``\n\nThe variable ``x`` passed into function ``main``.\n\n\n\nSurrounding text with `` at each end makes it plain text (like code)."
+  },
+  {
+    "objectID": "lab01.html#and-more",
+    "href": "lab01.html#and-more",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "And more…",
+    "text": "And more…\nWe can also embed lists, tables, images, and many other components!"
+  },
+  {
+    "objectID": "lab01.html#code-chunks",
+    "href": "lab01.html#code-chunks",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Code Chunks",
+    "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\nprint(\"Hello, World!\")\n\n[1] \"Hello, World!\"\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
+  },
+  {
+    "objectID": "lab01.html#code-chunk-plot-example",
+    "href": "lab01.html#code-chunk-plot-example",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Code Chunk: Plot Example",
+    "text": "Code Chunk: Plot Example\n\n\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", \n     ylab = \"Quiz Grade (%)\")"
+  },
+  {
+    "objectID": "lab01.html#knitting",
+    "href": "lab01.html#knitting",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Knitting",
+    "text": "Knitting\nGoing from the plain text format to a presentation format (.pdf, .html) is called knitting the document."
+  },
+  {
+    "objectID": "lab01.html#rmarkdown-demo",
+    "href": "lab01.html#rmarkdown-demo",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown Demo",
+    "text": "RMarkdown Demo\nSeparate window."
+  },
+  {
+    "objectID": "times.html",
+    "href": "times.html",
+    "title": "Office Hours/Lab Sections",
+    "section": "",
+    "text": "Lab Sections\n\n9 AM - 10 AM and 10 AM -11 AM in Evans 342\n2 PM -3 PM and 3 PM - 4 PM in Cory 289"
+  }
+]
