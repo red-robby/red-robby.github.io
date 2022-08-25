@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "stat33b - js"
+  sidebar:
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url: https://github.com/red-robby/red-robby.github.io
+          - text: Report a Bug
+            url: https://github.com/red-robby/red-robby.github.io/issues/new
+    style: "floating"
+    search: true
+    contents: 
+      - section: "Info"
+        contents:
+          - about.qmd
+          - times.qmd
+      - section: "Lab Slides"
+        contents: 
+          - lab-use.qmd
+          - lab01.qmd
+      - section: "Notes"
+      - section: "Practice Problems"
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
