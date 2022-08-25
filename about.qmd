@@ -1,0 +1,16 @@
+---
+title: "About This Site"
+---
+
+This site is a collection of my (Jakob's) notes and presentation materials for STAT 33B. It will be updated as the semester progresses.
+
+### Well that's not right...
+
+If you've spotted a bug on the website or a discrepancy between my notes and the official course 
+material written by Professor Sanchez, please let me know so it can be corrected.
+
+_Note that in the case of a discrepancy, the official course material takes precedence over anything found here_.
+
+### Source Code
+
+If you're interested, the source code for this website is available [here](https://github.com/red-robby/red-robby.github.io).
