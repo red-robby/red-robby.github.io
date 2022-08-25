@@ -23,11 +23,12 @@ website:
         contents: 
           - lab-use.qmd
           - lab01.qmd
+          - code-test.qmd
       - section: "Notes"
       - section: "Practice Problems"
 
 format:
   html:
-    theme: flatly
+    theme: default
     css: styles.css
     toc: true
