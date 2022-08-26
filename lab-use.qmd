@@ -20,5 +20,3 @@ The keyboard shortcuts available while viewing the slides are provided below. Th
 | `E`                              | PDF export mode              |
 | `M`                              | Toggle menu                  |
 | `S`                              | Speaker notes view           |
-
-The slides will also be available as PDFs on bCourses.
