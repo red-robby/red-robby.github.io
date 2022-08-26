@@ -25,7 +25,7 @@
     "href": "lab01.html#welcome",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Welcome!",
-    "text": "Welcome!\nWelcome to STAT 33B! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nSections:\n\n9 AM - 10 AM and 10 AM - 11 AM in Evans 342\n2 PM - 3 PM and 3 PM - 4 PM in Cory 289\n\nOffice Hours: TBD in Evans 432"
+    "text": "Welcome!\nWelcome to STAT 33B! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nSections:\n\n9 AM - 10 AM and 10 AM - 11 AM in Evans 342\n2 PM - 3 PM and 3 PM - 4 PM in Cory 289\n\nOffice Hours: TBD in Evans 434"
   },
   {
     "objectID": "lab01.html#expectations",
@@ -46,7 +46,7 @@
     "href": "lab01.html#installing-r-and-rstudio",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Installing R and RStudio",
-    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/\n\nLet me know if you have technical difficulties."
+    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/"
   },
   {
     "objectID": "lab01.html#rstudio-demo",
@@ -74,7 +74,7 @@
     "href": "lab01.html#rmarkdown---basic-formatting",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "RMarkdown - Basic Formatting",
-    "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized_!"
+    "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized!_"
   },
   {
     "objectID": "lab01.html#headers",
@@ -123,14 +123,14 @@
     "href": "lab01.html#code-chunk-plot-example",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Code Chunk: Plot Example",
-    "text": "Code Chunk: Plot Example\n\n\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", \n     ylab = \"Quiz Grade (%)\")"
+    "text": "Code Chunk: Plot Example\n\n\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")"
   },
   {
     "objectID": "lab01.html#knitting",
     "href": "lab01.html#knitting",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Knitting",
-    "text": "Knitting\nGoing from the plain text format to a presentation format (.pdf, .html) is called knitting the document."
+    "text": "Knitting\nGoing from the plain text format (.rmd) to a presentation format (.pdf, .html) is called knitting the document."
   },
   {
     "objectID": "lab01.html#rmarkdown-demo",

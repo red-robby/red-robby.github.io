@@ -17,7 +17,7 @@ Welcome to STAT 33B! I'll be your uGSI, **Jakob Sorensen**.
 
     -   2 PM - 3 PM and 3 PM - 4 PM in *Cory 289*
     
--   Office Hours: TBD in *Evans 432*
+-   Office Hours: TBD in *Evans 434*
 :::
 
 ## Expectations
@@ -51,8 +51,6 @@ Please install R and RStudio now if you haven't already.
 -   **R**: *https://www.r-project.org/*
 
 -   **RStudio:** *https://www.rstudio.com/products/rstudio/*
-
-Let me know if you have technical difficulties.
 
 ## RStudio Demo
 
@@ -120,7 +118,7 @@ This is \textbf{bold!} But this is merely \textit{emphasized!}
 **RMarkdown**
 
 ```{rmd, echo=TRUE}
-This is **bold!** But this is merely _emphasized_!
+This is **bold!** But this is merely _emphasized!_
 ```
 :::
 
@@ -221,14 +219,14 @@ print(paste("x + y =", x + y))
 ::: {.fragment .fade-up}
 ```{r, echo=TRUE}
 plot(1:10, seq(10, 100, 10), type = "l", 
-     xlab = "Time Spent Studying (Hours)", 
-     ylab = "Quiz Grade (%)")
+     xlab = "Time Spent Studying (Hours)", ylab = "Quiz Grade (%)")
 ```
 :::
 
 ## Knitting
 
-Going from the plain text format to a presentation format (`.pdf`, `.html`) is called *knitting* the document.
+Going from the plain text format (`.rmd`) to a presentation format (`.pdf`, `.html`) 
+is called *knitting* the document.
 
 ## RMarkdown Demo
 
