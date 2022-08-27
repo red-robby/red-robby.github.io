@@ -1,7 +1,9 @@
 ---
 title: "Lab 01: Setup, RMarkdown"
 date: "August 26th, 2022"
-format: revealjs
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
 editor: visual
 ---
 
