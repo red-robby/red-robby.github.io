@@ -2,9 +2,14 @@
 title: "Office Hours/Lab Sections"
 ---
 
+All meetings will follow [*Berkeley Time*](https://www.dailycal.org/2020/09/04/not-all-uc-berkeley-professors-use-berkeley-time-for-online-classes-students-say/).
+
 ### Office Hours
 
--   TBD in *Evans 434*
+-   Thursdays, 10 AM - 11 AM via [Zoom](https://berkeley.zoom.us/j/94387793073)[^1]
+-   Fridays, 11 AM - 12 AM and 4 PM - 6 PM in *Evans 434*
+
+[^1]: You must be logged into your UC Berkeley associated Zoom account to access the meeting.
 
 ### Lab Sections
 
