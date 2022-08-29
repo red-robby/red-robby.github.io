@@ -140,6 +140,174 @@
     "text": "RMarkdown Demo\nSeparate window.\n\n\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab02.html#the-crux-of-r",
+    "href": "lab02.html#the-crux-of-r",
+    "title": "Lab 02: Vectors, Types",
+    "section": "The Crux of R",
+    "text": "The Crux of R\nMost R code relies heavily on\n\n\nVectors"
+  },
+  {
+    "objectID": "lab02.html#oh-my-taxes",
+    "href": "lab02.html#oh-my-taxes",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases."
+  },
+  {
+    "objectID": "lab02.html#oh-my-taxes-1",
+    "href": "lab02.html#oh-my-taxes-1",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75"
+  },
+  {
+    "objectID": "lab02.html#oh-my-taxes-2",
+    "href": "lab02.html#oh-my-taxes-2",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax"
+  },
+  {
+    "objectID": "lab02.html#oh-my-taxes-3",
+    "href": "lab02.html#oh-my-taxes-3",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nprint(sum(boba_tax, books_tax, food_tax))\n\n[1] 8.840625\n\n\n\n\nVery cumbersome…"
+  },
+  {
+    "objectID": "lab02.html#tedius-and-error-prone",
+    "href": "lab02.html#tedius-and-error-prone",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Tedius and Error Prone",
+    "text": "Tedius and Error Prone\nWe computed the tax purchase by purchase…\n\n\nBoba Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nBook Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nFood Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes"
+  },
+  {
+    "objectID": "lab02.html#an-easier-way",
+    "href": "lab02.html#an-easier-way",
+    "title": "Lab 02: Vectors, Types",
+    "section": "An Easier Way?",
+    "text": "An Easier Way?\nWe’d like to do it all at once.\n\n\n\nCosts\n\n\n\n\n*\n\n\n\n\nTax Rate\n\n\n\n\n=\n\n\n\n\nTaxes\n\n\n\n\n… where Costs contains all individual purchase costs, and Taxes contains all individual taxes.\n\nFor this, R provides vectors."
+  },
+  {
+    "objectID": "lab02.html#vector",
+    "href": "lab02.html#vector",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector",
+    "text": "Vector\nA contiguous array of 1 or more objects, where all objects are the same type."
+  },
+  {
+    "objectID": "lab02.html#aside-type",
+    "href": "lab02.html#aside-type",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Aside: Type?",
+    "text": "Aside: Type?\nOur values are ultimately bits in our computer. How does our program know how to interpret these bits?\n\n\nBy assigning a type to the value!\n\n\n\nWe may wants the bits to be interpreted as\n\nintegers\nreal numbers\ntext (strings)\nlogical values (true or false?)\n\n… or something else."
+  },
+  {
+    "objectID": "lab02.html#types-rs-responsibility",
+    "href": "lab02.html#types-rs-responsibility",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Types: R’s Responsibility",
+    "text": "Types: R’s Responsibility\nTo make sense of the bits…\n\n\nProgramming languages are responsible for keeping track of the types assigned to each variable.\n\n\n\nSome languages1 are statically typed, which means types are explicit and unchanging (usually).\nAn Example: C++\n\nint x = 3;\nint y = 7;\ndouble z = 0.4;\nstd::string school = \"UC Berkeley\";\nx = \"Berkeley High School\" # ERROR, type changed!\n\n\nC and Java are two other commonly used statically typed languages."
+  },
+  {
+    "objectID": "lab02.html#r-dynamically-typed",
+    "href": "lab02.html#r-dynamically-typed",
+    "title": "Lab 02: Vectors, Types",
+    "section": "R: Dynamically Typed",
+    "text": "R: Dynamically Typed\nR is dynamically typed, which means we’re free to modify the type of a variable.\n\nx <- \"Is\"\nx <- 7 \nx <- \"my favorite number?\" \nx <- TRUE\n\n\nNote that R infers the variable’s type for us (in C and Java we’d need to write int x = 71).\n\nModern C++ supports type inference when the auto keyword is used."
+  },
+  {
+    "objectID": "lab02.html#rs-not-so-many-types",
+    "href": "lab02.html#rs-not-so-many-types",
+    "title": "Lab 02: Vectors, Types",
+    "section": "R’s Not-So-Many Types",
+    "text": "R’s Not-So-Many Types\nR only has a few types you should be aware of for this class.\n\n\nLogical: TRUE/T or FALSE/F\nInteger: Whole numbers (e.g., 7L, -5L, 0L)1\nDouble: Fractional numbers (e.g., 5.4, -8.3211, 8.0)\nCharacter: Strings (e.g., \"Hello, World!\", \"X\")\n\n\nR will interpret numbers as doubles by default. Append L to the end of a number if you want R to interpret it as an integer."
+  },
+  {
+    "objectID": "lab02.html#querying-type",
+    "href": "lab02.html#querying-type",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Querying Type",
+    "text": "Querying Type\nUse the function typeof to get the type of a variable or literal1.\n\n\ntypeof(\"It was you who killed him!\")\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3L)\n\n[1] \"integer\"\n\n\n\n\n\nnoooo <- \"No. I am your father.\"\ntypeof(noooo)\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3.5 + 7L)\n\n[1] \"double\"\n\n\n\nWe call a value we’ve written explicitly in our code a literal."
+  },
+  {
+    "objectID": "lab02.html#modifying-type-casting",
+    "href": "lab02.html#modifying-type-casting",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Modifying Type (Casting)",
+    "text": "Modifying Type (Casting)\nCasting is the act of modifying the type of a value.\n\nImplicit\nIn certain contexts, R will cast a value to a different type automatically. We call this an implicit cast.\n\nx <- 3L\ny <- x + 0.5 # 3L cast to a double to complete the operation"
+  },
+  {
+    "objectID": "lab02.html#modifying-type-casting-yourself",
+    "href": "lab02.html#modifying-type-casting-yourself",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Modifying Type (Casting) Yourself",
+    "text": "Modifying Type (Casting) Yourself\nCasting is the act of modifying the type of a value.\nExplicit\nCasts you ask R to make explicitly are called explicit casts. Use the as.<type> functions for this.\n\nx <- 1\nprint(as.logical(x))\n\n[1] TRUE\n\nx <- 37.39303\nprint(as.character(x))\n\n[1] \"37.39303\"\n\nprint(as.numeric(x >= 30))\n\n[1] 1"
+  },
+  {
+    "objectID": "lab02.html#did-we-modify-x",
+    "href": "lab02.html#did-we-modify-x",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Did we modify x?",
+    "text": "Did we modify x?\nas.<type>(x) returns a new value with the specified type.\n\nx <- 1\nprint(typeof(x))\n\n[1] \"double\"\n\nprint(typeof(as.logical(x)))\n\n[1] \"logical\"\n\nprint(typeof(x))  # unchanged!\n\n[1] \"double\"\n\n\n\nTo modify x, reassign x.\n\nx <- as.logical(x)\nprint(typeof(x))\n\n[1] \"logical\""
+  },
+  {
+    "objectID": "lab02.html#vector-creation",
+    "href": "lab02.html#vector-creation",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Creation",
+    "text": "Vector: Creation\nA contiguous array of 1 or more objects, where all objects are the same type.\n\nCreating Vectors\nUse c (short for combine or concatenate) to create a vector.\n\nx <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)  # type: double\ny <- c(\"Cory\", \"Dwinelle\", \"Evans\")  # type: character\nz <- c(TRUE, FALSE, FALSE, FALSE)    # type: logical\nshort_cut <- 10:100                  # a short cut for 10, 11, ..., 100"
+  },
+  {
+    "objectID": "lab02.html#vector-access",
+    "href": "lab02.html#vector-access",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Access",
+    "text": "Vector: Access\nA contiguous array of 1 or more objects, where all objects are the same type.\nAccessing Elements\nUse <vector>[N] to access the \\(Nth\\) element of a vector.\n\nprint(x[1])  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)\n\n[1] 1\n\nprint(y[2])  # reference: y <- c(\"Cory\", \"Dwinelle\", \"Evans\") \n\n[1] \"Dwinelle\"\n\nprint(z[3])  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)\n\n[1] FALSE\n\n\n\n\nR is not 0-indexed like most programming languages."
+  },
+  {
+    "objectID": "lab02.html#vector-operations",
+    "href": "lab02.html#vector-operations",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Operations",
+    "text": "Vector: Operations\nWe can apply operations to vectors directly, causing the operation to be done to all its elements (vectorization).\n\n\nx <- c(1, 2, 4, 8)\nprint(x * 10)  # multiply all elements in x by 10, forming a new vector\n\n[1] 10 20 40 80\n\nprint(x + c(1, 2, 3, 4))  # add two vectors together, component wise \n\n[1]  2  4  7 12\n\n\n\n\nR will recycle values (loop to the start) if the vectors used in the operation aren’t of the same size.\n\nprint(c(0, 1, 2, 3) + c(1, 100))\n\n[1]   1 101   3 103"
+  },
+  {
+    "objectID": "lab02.html#taxes-are-due",
+    "href": "lab02.html#taxes-are-due",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Taxes are Due…",
+    "text": "Taxes are Due…\nRecall our taxes code.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nprint(sum(boba_tax, books_tax, food_tax))\n\n[1] 8.840625"
+  },
+  {
+    "objectID": "lab02.html#taxes-are-due-now-with-vectors",
+    "href": "lab02.html#taxes-are-due-now-with-vectors",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Taxes are Due… Now with Vectors!",
+    "text": "Taxes are Due… Now with Vectors!\n\nsales_tax <- 0.1025\npurchases <- c(7.0, 54.50, 24.75)\ntaxes <- purchases * sales_tax\nprint(sum(taxes))\n\n[1] 8.840625\n\n\n\nGreat! But we’ve lost information. What do the values in purchases represent?\n\n\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\n\n\nprint(purchases)\n\n boba books  food \n 7.00 54.50 24.75"
+  },
+  {
+    "objectID": "lab02.html#access-with-names",
+    "href": "lab02.html#access-with-names",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Access with Names",
+    "text": "Access with Names\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\nprint(purchases)\n\n boba books  food \n 7.00 54.50 24.75 \n\n\nAccess is possible with names, <vector>[<element-name>].\n\nprint(purchases[\"boba\"])\n\nboba \n   7 \n\nprint(purchases[\"books\"])\n\nbooks \n 54.5"
+  },
+  {
+    "objectID": "lab02.html#on-forming-vectors",
+    "href": "lab02.html#on-forming-vectors",
+    "title": "Lab 02: Vectors, Types",
+    "section": "On Forming Vectors",
+    "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nprint(c(c(1, 2, 3), 4, c(5, 6)))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nprint(rep(\"->\", 10))\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nprint(rep(c(\"->\", \"<-\"), 5))  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nprint(seq(0, 12, 3))   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "test.html",
+    "href": "test.html",
+    "title": "Test",
+    "section": "",
+    "text": "viewof x = Inputs.range([0, 100])\nviewof clicker = Inputs.button(\"Submit\")\nviewof clicker2 = Inputs.button(\"Cancel\")\nviewof counter = Inputs.button([\n  [\"Increment\", value => value + 1],\n  [\"Decrement\", value => value - 1],\n  [\"Reset\", () => 0]\n], {label: \"Counter\", value: 0})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe value x is !\n\nviewof show_answer = Inputs.button(\"Show Answer\")\nviewof recordsFile = Inputs.file({label: \"Records\", accept: \".json\"})\nviewof rgb = Inputs.form([\n  Inputs.range([0, 255], {step: 1, label: \"r\"}),\n  Inputs.range([0, 255], {step: 1, label: \"g\"}),\n  Inputs.range([0, 255], {step: 1, label: \"b\"})\n])\n\nmd`r: ${rgb[0]} g: ${rgb[1]} b: ${rgb[2]}`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMore advanced stuff.\n\nviewof replay = Inputs.button(\"Replay\")\nprogress = {\n  replay;\n  const width = 360;\n  const height = 20;\n  const context = DOM.context2d(width, height);\n  context.canvas.style.border = \"solid 1px black\";\n  for (let i = width; i >= 0; --i) {\n    context.clearRect(0, 0, width, height);\n    context.fillRect(0, 0, i, height);\n    yield context.canvas;\n  }\n}\nmd`I can write **markdown** here?`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nviewof my_test = Inputs.button(\"Test\")\nsome_code = {\n  my_test;\n  const width = 300;\n  const height = 20;\n  const context = DOM.context2d(width, height);\n  context.canvas.style.border = \"solid 1px blue\";\n  for (let i = width; i >= 0; i -= 2) {\n    context.clearRect(0, 0, width, height);\n    context.fillRect(0, 0, i, height);\n    yield context.canvas;\n  }\n}\n\nmy_test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nviewof showAnswer = Inputs.button(\"Show Answer\")\n\nmd`showAnswer: ${showAnswer > 0}`"
+  },
+  {
     "objectID": "times.html",
     "href": "times.html",
     "title": "Office Hours/Lab Sections",

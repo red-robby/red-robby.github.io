@@ -3,15 +3,10 @@ project:
   output-dir: docs
 
 website:
-  title: "stat33b - js"
+  title: "stat33b"
+  favicon: "images/icon.png"
   sidebar:
-    tools:
-      - icon: github
-        menu:
-          - text: Source Code
-            url: https://github.com/red-robby/red-robby.github.io
-          - text: Report a Bug
-            url: https://github.com/red-robby/red-robby.github.io/issues/new
+    logo: "images/logo.png"
     style: "floating"
     search: true
     contents: 

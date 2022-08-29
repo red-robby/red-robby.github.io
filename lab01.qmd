@@ -4,6 +4,7 @@ date: "August 26th, 2022"
 format: 
   revealjs:
     footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
 editor: visual
 ---
 
