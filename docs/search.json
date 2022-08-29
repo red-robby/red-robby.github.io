@@ -301,13 +301,6 @@
     "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nprint(c(c(1, 2, 3), 4, c(5, 6)))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nprint(rep(\"->\", 10))\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nprint(rep(c(\"->\", \"<-\"), 5))  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nprint(seq(0, 12, 3))   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
   },
   {
-    "objectID": "test.html",
-    "href": "test.html",
-    "title": "Test",
-    "section": "",
-    "text": "viewof x = Inputs.range([0, 100])\nviewof clicker = Inputs.button(\"Submit\")\nviewof clicker2 = Inputs.button(\"Cancel\")\nviewof counter = Inputs.button([\n  [\"Increment\", value => value + 1],\n  [\"Decrement\", value => value - 1],\n  [\"Reset\", () => 0]\n], {label: \"Counter\", value: 0})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe value x is !\n\nviewof show_answer = Inputs.button(\"Show Answer\")\nviewof recordsFile = Inputs.file({label: \"Records\", accept: \".json\"})\nviewof rgb = Inputs.form([\n  Inputs.range([0, 255], {step: 1, label: \"r\"}),\n  Inputs.range([0, 255], {step: 1, label: \"g\"}),\n  Inputs.range([0, 255], {step: 1, label: \"b\"})\n])\n\nmd`r: ${rgb[0]} g: ${rgb[1]} b: ${rgb[2]}`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMore advanced stuff.\n\nviewof replay = Inputs.button(\"Replay\")\nprogress = {\n  replay;\n  const width = 360;\n  const height = 20;\n  const context = DOM.context2d(width, height);\n  context.canvas.style.border = \"solid 1px black\";\n  for (let i = width; i >= 0; --i) {\n    context.clearRect(0, 0, width, height);\n    context.fillRect(0, 0, i, height);\n    yield context.canvas;\n  }\n}\nmd`I can write **markdown** here?`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nviewof my_test = Inputs.button(\"Test\")\nsome_code = {\n  my_test;\n  const width = 300;\n  const height = 20;\n  const context = DOM.context2d(width, height);\n  context.canvas.style.border = \"solid 1px blue\";\n  for (let i = width; i >= 0; i -= 2) {\n    context.clearRect(0, 0, width, height);\n    context.fillRect(0, 0, i, height);\n    yield context.canvas;\n  }\n}\n\nmy_test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nviewof showAnswer = Inputs.button(\"Show Answer\")\n\nmd`showAnswer: ${showAnswer > 0}`"
-  },
-  {
     "objectID": "times.html",
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
