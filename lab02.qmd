@@ -1,0 +1,509 @@
+---
+title: "Lab 02: Vectors, Types"
+date: "September 2nd, 2022"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+editor: visual
+---
+
+## The Crux of R
+
+### Most R code relies heavily on
+
+::: {.fragment .fade-right}
+::: {.r-fit-text style="color: blue;"}
+Vectors
+:::
+:::
+
+## Oh my taxes! {auto-animate="true"}
+
+Suppose we'd like to compute how much sales tax we're paying for some of our purchases.
+
+## Oh my taxes! {auto-animate="true"}
+
+Suppose we'd like to compute how much sales tax we're paying for some of our purchases.
+
+```{r, echo=TRUE}
+sales_tax <- 0.1025  # in Berkeley today
+boba <- 7.0
+books <- 54.50
+food <- 24.75
+```
+
+## Oh my taxes! {auto-animate="true"}
+
+Suppose we'd like to compute how much sales tax we're paying for some of our purchases.
+
+```{r, echo=TRUE}
+sales_tax <- 0.1025  # in Berkeley today
+boba <- 7.0
+books <- 54.50
+food <- 24.75
+
+boba_tax <- boba * sales_tax
+books_tax <- books * sales_tax
+food_tax <- food * sales_tax
+```
+
+## Oh my taxes! {auto-animate="true"}
+
+Suppose we'd like to compute how much sales tax we're paying for some of our purchases.
+
+```{r, echo=TRUE}
+sales_tax <- 0.1025  # in Berkeley today
+boba <- 7.0
+books <- 54.50
+food <- 24.75
+
+boba_tax <- boba * sales_tax
+books_tax <- books * sales_tax
+food_tax <- food * sales_tax
+
+sum(boba_tax, books_tax, food_tax)
+```
+
+::: {style="color: red;"}
+::: {.fragment .fade-right}
+*Very cumbersome...*
+:::
+:::
+
+## Tedius and Error Prone {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+
+### We computed the tax purchase by purchase...
+
+::: r-hstack
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Boba Cost**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+\*
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Tax Rate**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+=
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Taxes**
+:::
+
+:::
+
+::: r-hstack
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Book Cost**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+\*
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Tax Rate**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+=
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Taxes**
+:::
+
+:::
+
+::: r-hstack
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Food Cost**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+\*
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Tax Rate**
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+=
+:::
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Taxes**
+:::
+
+:::
+
+## An Easier Way? {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+### We'd like to do it all at once.
+
+::: r-hstack
+
+::: {.fragment .fade-up fragment-index=1}
+
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Costs**
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+::: {data-id="box1" auto-animate-delay="0.2" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+\*
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+::: {data-id="box1" auto-animate-delay="0.4" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Tax Rate**
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+::: {data-id="box1" auto-animate-delay="0.8" style="background: #2780e3; border-radius: 10px; text-align: center; width: 50px; height: 75px; margin: 10px;"}
+=
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+::: {data-id="box1" auto-animate-delay="1" style="background: #2780e3; border-radius: 10px; text-align: center; width: 200px; height: 75px; margin: 10px;"}
+**Taxes**
+:::
+:::
+:::
+
+. . .
+
+... where **Costs** contains all individual purchase costs, and **Taxes** contains 
+all individual taxes.
+
+::: {.r-fit-text}
+For this, R provides **_vectors_**.
+:::
+
+## Vector
+
+A contiguous array of 1 or more objects, where all objects *are the same type*.
+
+## Aside: Type?
+
+Our values are ultimately bits in our computer. How does our program know how to interpret these bits?
+
+::: {style="color: blue;"}
+::: {.fragment .fade-right}
+**By assigning a *type* to the value!**
+:::
+:::
+
+. . .
+
+We may wants the bits to be interpreted as
+
+-   integers
+-   real numbers
+-   text (strings)
+-   logical values (true or false?)
+
+... or something else.
+
+## Types: R's Responsibility
+
+To make sense of the bits...
+
+::: {style="color: blue;"}
+::: {.fragment .fade-right}
+Programming languages are responsible for keeping track of the types assigned to each variable.
+:::
+:::
+
+. . .
+
+Some languages[^1] are *statically typed*, which means types are explicit and unchanging (usually).
+
+[^1]: C and Java are two other commonly used statically typed languages.
+
+### An Example: C++
+
+```{cpp, echo=TRUE, eval=FALSE}
+int x = 3;
+int y = 7;
+double z = 0.4;
+std::string school = "UC Berkeley";
+x = "Berkeley High School" # ERROR, type changed!
+```
+
+## R: *Dynamically Typed*
+
+R is *dynamically typed*, which means we're free to modify the type of a variable.
+
+```{r, echo=TRUE}
+x <- "Is"
+x <- 7 
+x <- "my favorite number?" 
+x <- TRUE
+```
+
+::: {.fragment .fade-right}
+Note that R infers the variable's type for us (in C and Java we'd need to write `int x = 7`[^3]).
+:::
+
+[^3]: Modern C++ supports type inference when the ``auto`` keyword is used.
+
+## R's Not-So-Many Types
+
+R only has a few types you should be aware of for this class.
+
+::: incremental
+-   **Logical:** `TRUE`/`T` or `FALSE`/`F`
+-   **Integer:** Whole numbers (e.g., `7L`, `-5L`, `0L`)[^4]
+-   **Double:** Fractional numbers (e.g., `5.4`, `-8.3211`, `8.0`)
+-   **Character:** Strings (e.g., `"Hello, World!"`, `"X"`)
+:::
+
+[^4]: R will interpret numbers as *doubles* by default. Append `L` to the end of a number if you want R to interpret it as an *integer*.
+
+## Querying Type
+
+Use the function ``typeof`` to get the type of a variable or literal[^5].
+
+::: {.fragment .fade-up}
+```{r, echo=TRUE}
+typeof("It was you who killed him!")
+```
+:::
+
+::: {.fragment .fade-up}
+```{r, echo=TRUE}
+typeof(3L)
+```
+:::
+
+::: {.fragment .fade-up}
+```{r, echo=TRUE}
+noooo <- "No. I am your father."
+typeof(noooo)
+```
+:::
+
+::: {.fragment .fade-up}
+```{r, echo=TRUE}
+typeof(3.5 + 7L)
+```
+:::
+
+[^5]: We call a value we've written explicitly in our code a  _literal_. 
+
+## Modifying Type (Casting) {auto-animate=true}
+
+_Casting_ is the act of modifying the type of a value.
+
+. . .
+
+### Implicit
+
+In certain contexts, R will cast a value to a different type automatically. We 
+call this an _implicit cast_.
+
+```{r, echo=TRUE}
+x <- 3L
+y <- x + 0.5 # 3L cast to a double to complete the operation
+```
+
+## Modifying Type (Casting) Yourself {auto-animate=true}
+
+_Casting_ is the act of modifying the type of a value.
+
+### Explicit
+
+Casts you ask R to make explicitly are called _explicit casts_. Use the ``as.<type>``
+functions for this.
+
+```{r, echo=TRUE}
+x <- 1
+as.logical(x)
+x <- 37.39303
+as.character(x)
+as.numeric(x >= 30)
+```
+
+## Did we modify ``x``?
+
+``as.<type>(x)`` returns a new value with the specified type.
+
+```{r, echo=TRUE}
+x <- 1
+typeof(x)
+typeof(as.logical(x))
+typeof(x)  # unchanged!
+```
+
+. . .
+
+To modify ``x``, reassign ``x``.
+
+```{r, echo=TRUE}
+x <- as.logical(x)
+typeof(x)
+```
+
+## Vector: Creation
+
+A contiguous array of 1 or more objects, where all objects *are the same type*.
+
+. . .
+
+### Creating Vectors
+
+Use ``c`` (short for _combine_ or _concatenate_) to create a vector. 
+
+```{r, echo=TRUE}
+x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)  # type: double
+y <- c("Cory", "Dwinelle", "Evans")  # type: character
+z <- c(TRUE, FALSE, FALSE, FALSE)    # type: logical
+short_cut <- 10:100                  # a short cut for 10, 11, ..., 100
+```
+
+## Vector: Access
+
+A contiguous array of 1 or more objects, where all objects *are the same type*.
+
+### Accessing Elements
+
+Use ``<vector>[N]`` to access the $Nth$ element of a vector.
+
+```{r, echo=TRUE}
+x[1]  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)
+y[2]  # reference: y <- c("Cory", "Dwinelle", "Evans") 
+z[c(1, 3, 4)]  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)
+```
+
+::: {style="color: red;"}
+::: {.fragment .fade-right}
+**R is _not_ 0-indexed like most programming languages.**
+:::
+:::
+
+## Vector: Operations
+
+We can apply operations to vectors directly, causing the operation to be done 
+to all its elements (**_vectorization_**).
+
+. . .
+
+```{r, echo=TRUE}
+x <- c(1, 2, 4, 8)
+x * 10  # multiply all elements in x by 10, forming a new vector
+x + c(1, 2, 3, 4)  # add two vectors together, component wise 
+```
+
+. . .
+
+R will _recycle_ values (loop to the start) if the vectors used in the operation 
+aren't of the same size.
+
+```{r, echo=TRUE}
+c(0, 1, 2, 3) + c(1, 100)
+```
+
+## Taxes are Due... {auto-animate="true"}
+
+Recall our taxes code. 
+
+```{r, echo=TRUE}
+sales_tax <- 0.1025  # in Berkeley today
+boba <- 7.0
+books <- 54.50
+food <- 24.75
+
+boba_tax <- boba * sales_tax
+books_tax <- books * sales_tax
+food_tax <- food * sales_tax
+
+sum(boba_tax, books_tax, food_tax)
+```
+
+## Taxes are Due... Now with Vectors! {auto-animate="true"}
+
+```{r, echo=TRUE}
+sales_tax <- 0.1025
+purchases <- c(7.0, 54.50, 24.75)
+taxes <- purchases * sales_tax
+sum(taxes)
+```
+
+::: {.fragment .fade-right}
+Great! *But we've lost information*. What do the values in `purchases` represent?
+:::
+
+. . .
+
+```{r, echo=TRUE}
+purchases <- c(boba = 7.0, books = 54.50, food = 24.75)
+```
+
+We can associate a name with each value in a vector.
+
+. . .
+
+```{r, echo=TRUE}
+purchases
+```
+
+## Access with Names {auto-animate="true"}
+
+```{r, echo=TRUE}
+purchases <- c(boba = 7.0, books = 54.50, food = 24.75)
+```
+
+We can associate a name with each value in a vector.
+
+```{r, echo=TRUE}
+purchases
+```
+
+Access is possible with names, ``<vector>[<element-name>]``.
+
+```{r, echo=TRUE}
+purchases["boba"]
+purchases[c("books", "food")]
+```
+
+## On Forming Vectors
+
+The ``c`` function can concatenate vectors (flatten them).
+
+```{r, echo=TRUE}
+c(c(1, 2, 3), 4, c(5, 6))
+```
+. . .
+
+Want a vector of $N$ identical values? Use ``rep``!
+
+```{r, echo=TRUE}
+rep("->", 10)
+```
+```{r, echo=TRUE}
+rep(c("->", "<-"), 5)  # also flattens
+```
+
+. . .
+
+Want a sequence of values from $A$ to $B$ by increments of $I$? Use ``seq``!
+
+```{r, echo=TRUE}
+seq(0, 12, 3)   # from 0 (A) to 12 (B) by increments of 2 (I)
+```

@@ -172,7 +172,7 @@
     "href": "lab02.html#oh-my-taxes-3",
     "title": "Lab 02: Vectors, Types",
     "section": "Oh my taxes!",
-    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nprint(sum(boba_tax, books_tax, food_tax))\n\n[1] 8.840625\n\n\n\n\nVery cumbersome…"
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625\n\n\n\n\nVery cumbersome…"
   },
   {
     "objectID": "lab02.html#tedius-and-error-prone",
@@ -242,14 +242,14 @@
     "href": "lab02.html#modifying-type-casting-yourself",
     "title": "Lab 02: Vectors, Types",
     "section": "Modifying Type (Casting) Yourself",
-    "text": "Modifying Type (Casting) Yourself\nCasting is the act of modifying the type of a value.\nExplicit\nCasts you ask R to make explicitly are called explicit casts. Use the as.<type> functions for this.\n\nx <- 1\nprint(as.logical(x))\n\n[1] TRUE\n\nx <- 37.39303\nprint(as.character(x))\n\n[1] \"37.39303\"\n\nprint(as.numeric(x >= 30))\n\n[1] 1"
+    "text": "Modifying Type (Casting) Yourself\nCasting is the act of modifying the type of a value.\nExplicit\nCasts you ask R to make explicitly are called explicit casts. Use the as.<type> functions for this.\n\nx <- 1\nas.logical(x)\n\n[1] TRUE\n\nx <- 37.39303\nas.character(x)\n\n[1] \"37.39303\"\n\nas.numeric(x >= 30)\n\n[1] 1"
   },
   {
     "objectID": "lab02.html#did-we-modify-x",
     "href": "lab02.html#did-we-modify-x",
     "title": "Lab 02: Vectors, Types",
     "section": "Did we modify x?",
-    "text": "Did we modify x?\nas.<type>(x) returns a new value with the specified type.\n\nx <- 1\nprint(typeof(x))\n\n[1] \"double\"\n\nprint(typeof(as.logical(x)))\n\n[1] \"logical\"\n\nprint(typeof(x))  # unchanged!\n\n[1] \"double\"\n\n\n\nTo modify x, reassign x.\n\nx <- as.logical(x)\nprint(typeof(x))\n\n[1] \"logical\""
+    "text": "Did we modify x?\nas.<type>(x) returns a new value with the specified type.\n\nx <- 1\ntypeof(x)\n\n[1] \"double\"\n\ntypeof(as.logical(x))\n\n[1] \"logical\"\n\ntypeof(x)  # unchanged!\n\n[1] \"double\"\n\n\n\nTo modify x, reassign x.\n\nx <- as.logical(x)\ntypeof(x)\n\n[1] \"logical\""
   },
   {
     "objectID": "lab02.html#vector-creation",
@@ -263,42 +263,42 @@
     "href": "lab02.html#vector-access",
     "title": "Lab 02: Vectors, Types",
     "section": "Vector: Access",
-    "text": "Vector: Access\nA contiguous array of 1 or more objects, where all objects are the same type.\nAccessing Elements\nUse <vector>[N] to access the \\(Nth\\) element of a vector.\n\nprint(x[1])  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)\n\n[1] 1\n\nprint(y[2])  # reference: y <- c(\"Cory\", \"Dwinelle\", \"Evans\") \n\n[1] \"Dwinelle\"\n\nprint(z[3])  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)\n\n[1] FALSE\n\n\n\n\nR is not 0-indexed like most programming languages."
+    "text": "Vector: Access\nA contiguous array of 1 or more objects, where all objects are the same type.\nAccessing Elements\nUse <vector>[N] to access the \\(Nth\\) element of a vector.\n\nx[1]  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)\n\n[1] 1\n\ny[2]  # reference: y <- c(\"Cory\", \"Dwinelle\", \"Evans\") \n\n[1] \"Dwinelle\"\n\nz[c(1, 3, 4)]  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)\n\n[1]  TRUE FALSE FALSE\n\n\n\n\nR is not 0-indexed like most programming languages."
   },
   {
     "objectID": "lab02.html#vector-operations",
     "href": "lab02.html#vector-operations",
     "title": "Lab 02: Vectors, Types",
     "section": "Vector: Operations",
-    "text": "Vector: Operations\nWe can apply operations to vectors directly, causing the operation to be done to all its elements (vectorization).\n\n\nx <- c(1, 2, 4, 8)\nprint(x * 10)  # multiply all elements in x by 10, forming a new vector\n\n[1] 10 20 40 80\n\nprint(x + c(1, 2, 3, 4))  # add two vectors together, component wise \n\n[1]  2  4  7 12\n\n\n\n\nR will recycle values (loop to the start) if the vectors used in the operation aren’t of the same size.\n\nprint(c(0, 1, 2, 3) + c(1, 100))\n\n[1]   1 101   3 103"
+    "text": "Vector: Operations\nWe can apply operations to vectors directly, causing the operation to be done to all its elements (vectorization).\n\n\nx <- c(1, 2, 4, 8)\nx * 10  # multiply all elements in x by 10, forming a new vector\n\n[1] 10 20 40 80\n\nx + c(1, 2, 3, 4)  # add two vectors together, component wise \n\n[1]  2  4  7 12\n\n\n\n\nR will recycle values (loop to the start) if the vectors used in the operation aren’t of the same size.\n\nc(0, 1, 2, 3) + c(1, 100)\n\n[1]   1 101   3 103"
   },
   {
     "objectID": "lab02.html#taxes-are-due",
     "href": "lab02.html#taxes-are-due",
     "title": "Lab 02: Vectors, Types",
     "section": "Taxes are Due…",
-    "text": "Taxes are Due…\nRecall our taxes code.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nprint(sum(boba_tax, books_tax, food_tax))\n\n[1] 8.840625"
+    "text": "Taxes are Due…\nRecall our taxes code.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625"
   },
   {
     "objectID": "lab02.html#taxes-are-due-now-with-vectors",
     "href": "lab02.html#taxes-are-due-now-with-vectors",
     "title": "Lab 02: Vectors, Types",
     "section": "Taxes are Due… Now with Vectors!",
-    "text": "Taxes are Due… Now with Vectors!\n\nsales_tax <- 0.1025\npurchases <- c(7.0, 54.50, 24.75)\ntaxes <- purchases * sales_tax\nprint(sum(taxes))\n\n[1] 8.840625\n\n\n\nGreat! But we’ve lost information. What do the values in purchases represent?\n\n\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\n\n\nprint(purchases)\n\n boba books  food \n 7.00 54.50 24.75"
+    "text": "Taxes are Due… Now with Vectors!\n\nsales_tax <- 0.1025\npurchases <- c(7.0, 54.50, 24.75)\ntaxes <- purchases * sales_tax\nsum(taxes)\n\n[1] 8.840625\n\n\n\nGreat! But we’ve lost information. What do the values in purchases represent?\n\n\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\n\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75"
   },
   {
     "objectID": "lab02.html#access-with-names",
     "href": "lab02.html#access-with-names",
     "title": "Lab 02: Vectors, Types",
     "section": "Access with Names",
-    "text": "Access with Names\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\nprint(purchases)\n\n boba books  food \n 7.00 54.50 24.75 \n\n\nAccess is possible with names, <vector>[<element-name>].\n\nprint(purchases[\"boba\"])\n\nboba \n   7 \n\nprint(purchases[\"books\"])\n\nbooks \n 54.5"
+    "text": "Access with Names\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75 \n\n\nAccess is possible with names, <vector>[<element-name>].\n\npurchases[\"boba\"]\n\nboba \n   7 \n\npurchases[c(\"books\", \"food\")]\n\nbooks  food \n54.50 24.75"
   },
   {
     "objectID": "lab02.html#on-forming-vectors",
     "href": "lab02.html#on-forming-vectors",
     "title": "Lab 02: Vectors, Types",
     "section": "On Forming Vectors",
-    "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nprint(c(c(1, 2, 3), 4, c(5, 6)))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nprint(rep(\"->\", 10))\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nprint(rep(c(\"->\", \"<-\"), 5))  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nprint(seq(0, 12, 3))   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
+    "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nc(c(1, 2, 3), 4, c(5, 6))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nrep(\"->\", 10)\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nrep(c(\"->\", \"<-\"), 5)  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nseq(0, 12, 3)   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
   },
   {
     "objectID": "times.html",

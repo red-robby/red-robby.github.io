@@ -18,6 +18,7 @@ website:
         contents: 
           - lab-use.qmd
           - lab01.qmd
+          - lab02.qmd
       - section: "Notes"
       - section: "Practice Problems"
 
