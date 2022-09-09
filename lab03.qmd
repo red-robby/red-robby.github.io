@@ -251,11 +251,19 @@ person[1]
 person[[1]]
 ```
 
-. . .
+## List: Square Brackets, Two Methods?
+
+```{r, echo=TRUE}
+person[1]
+```
 
 The first (one set of square brackets) returns a _list_ with only the first object.
 
 . . .
+
+```{r, echo=TRUE}
+person[[1]]
+```
 
 The second (two sets of square brackets) returns the underlying object (a string).
 

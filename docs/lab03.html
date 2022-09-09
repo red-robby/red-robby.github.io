@@ -709,10 +709,24 @@ $bool
 </div>
 </div>
 </div>
-<div class="fragment">
-<p>The first (one set of square brackets) returns a <em>list</em> with only the first object.</p>
+</section>
+<section id="list-square-brackets-two-methods" class="slide level2">
+<h2>List: Square Brackets, Two Methods?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>person[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$name
+[1] "Franz Liszt"</code></pre>
 </div>
+</div>
+<p>The first (one set of square brackets) returns a <em>list</em> with only the first object.</p>
 <div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>person[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Franz Liszt"</code></pre>
+</div>
+</div>
 <p>The second (two sets of square brackets) returns the underlying object (a string).</p>
 </div>
 </section>
@@ -721,7 +735,7 @@ $bool
 <p>Note that when using double square brackets <code>[[]]</code>, you can only access one object at a time.</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>person[[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>person[[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in person[[c(1, 2)]]: subscript out of bounds</code></pre>
 </div>
@@ -730,7 +744,7 @@ $bool
 <div class="fragment">
 <p>This isn’t an issue with single square brackets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>person[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>person[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$name
 [1] "Franz Liszt"

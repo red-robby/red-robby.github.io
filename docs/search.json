@@ -410,7 +410,14 @@
     "href": "lab03.html#lists-access-with-square-brackets",
     "title": "Lab 03: Matrices, Lists",
     "section": "Lists: Access with Square Brackets",
-    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- list(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nThe second (two sets of square brackets) returns the underlying object (a string)."
+    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- list(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\nperson[[1]]\n\n[1] \"Franz Liszt\""
+  },
+  {
+    "objectID": "lab03.html#list-square-brackets-two-methods",
+    "href": "lab03.html#list-square-brackets-two-methods",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "List: Square Brackets, Two Methods?",
+    "text": "List: Square Brackets, Two Methods?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\nThe second (two sets of square brackets) returns the underlying object (a string)."
   },
   {
     "objectID": "lab03.html#lists-only-one",
