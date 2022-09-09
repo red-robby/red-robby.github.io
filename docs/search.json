@@ -7,6 +7,34 @@
     "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   },
   {
+    "objectID": "autograder.html",
+    "href": "autograder.html",
+    "title": "About the Auto Grader",
+    "section": "",
+    "text": "I’ve implemented an auto grader for the class. This is the first semester it’s been used, and the first time in a statistics class as far as I know, so it is still in beta. The format of providing your answers is different than before, so I’ve provided some examples below."
+  },
+  {
+    "objectID": "autograder.html#simple-example-question",
+    "href": "autograder.html#simple-example-question",
+    "title": "About the Auto Grader",
+    "section": "1. Simple Example Question",
+    "text": "1. Simple Example Question\nIn the case of a question with a direct answer, you’ll assign your answer to a variable named after the question number (in this case, answer1).\nObtain the Star Wars characters whose height is greater than 100 cm using the data frame starwars.\n\nanswer1 <- NULL # replace with your answer\nanswer1 <- dplyr::filter(dplyr::starwars, height > 100) # what you'd write"
+  },
+  {
+    "objectID": "autograder.html#example-question-with-subparts",
+    "href": "autograder.html#example-question-with-subparts",
+    "title": "About the Auto Grader",
+    "section": "1.1. Example Question with Subparts",
+    "text": "1.1. Example Question with Subparts\nIn cases of questions with subparts, you may be asked to assign your answer to items in a list. Use the $ operator to access and set the answers.\n\nanswer1.1 <- list(\n  a = NULL,\n  b = NULL,\n  c = NULL\n)\n\n\n1.1A: Numeric Persona\nWhat is your favorite number?\n\nanswer1.1$a <- 7\n\n\n\n1.1B: A Lovely Sentence\nWhat is your favorite sentence?\n\nanswer1.1$b <- \"GO BEARS!\"\n\n\n\n1.2C: Animalistic\nWhat is your favorite animal?\n\nanswer1.1$c <- \"bear\""
+  },
+  {
+    "objectID": "autograder.html#example-question-with-a-function",
+    "href": "autograder.html#example-question-with-a-function",
+    "title": "About the Auto Grader",
+    "section": "1.3: Example Question with a Function",
+    "text": "1.3: Example Question with a Function\nIn other cases, you’ll be asked to write a function. In that case, just fill in the body of the function.\nWrite a function every_nth that obtains every \\(nth\\) element from a vector for \\(n \\geq 1\\).\n\nevery_nth <- function(v, n) {\n  # Your code here\n  v[c(TRUE, rep(FALSE, n - 1))] # error checking excluded\n}\n\nUh-oh, LeetCode in R?\n\n\nCode\ntwo_sum <- function(nums, target) {\n  num_indices <- new.env() # we use an environment as a hash map\n  for (i in seq_along(nums)) {\n    dif <- as.character(target - nums[i])\n    dif_index <- num_indices[[dif]]\n    if (!is.null(dif_index))\n      return(c(i, dif_index))\n    num_indices[[as.character(nums[i])]] <- i\n  }\n  -1\n}"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Welcome!",
@@ -299,6 +327,146 @@
     "title": "Lab 02: Vectors, Types",
     "section": "On Forming Vectors",
     "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nc(c(1, 2, 3), 4, c(5, 6))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nrep(\"->\", 10)\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nrep(c(\"->\", \"<-\"), 5)  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nseq(0, 12, 3)   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "lab03.html#higher-dimensions-by-hand",
+    "href": "lab03.html#higher-dimensions-by-hand",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Higher Dimensions by Hand!",
+    "text": "Higher Dimensions by Hand!\nVectors gave us the ability to form 1 dimensional data.\nIf we desired data in, say, 2 dimensions, we could still use a vector.\n\nx <- 1:100\nrows <- 10\ncols <- 10\n\n# Get the item at row i, column j\ni <- 7\nj <- 5\nx[(i - 1) * cols + j] # Don't try this at home!\n\n[1] 65\n\n\n\n\nWho wants to do that?"
+  },
+  {
+    "objectID": "lab03.html#higher-dimensions-passed-to-r",
+    "href": "lab03.html#higher-dimensions-passed-to-r",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Higher Dimensions, Passed to R",
+    "text": "Higher Dimensions, Passed to R\nThankfully, R has a set of functions that make this easy for us.\n\nx <- matrix(1:100, nrow = 10, ncol = 10)\nx\n\n      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]\n [1,]    1   11   21   31   41   51   61   71   81    91\n [2,]    2   12   22   32   42   52   62   72   82    92\n [3,]    3   13   23   33   43   53   63   73   83    93\n [4,]    4   14   24   34   44   54   64   74   84    94\n [5,]    5   15   25   35   45   55   65   75   85    95\n [6,]    6   16   26   36   46   56   66   76   86    96\n [7,]    7   17   27   37   47   57   67   77   87    97\n [8,]    8   18   28   38   48   58   68   78   88    98\n [9,]    9   19   29   39   49   59   69   79   89    99\n[10,]   10   20   30   40   50   60   70   80   90   100\n\nx[7, 9] # we can specify the row and column, sep. by a comma\n\n[1] 87"
+  },
+  {
+    "objectID": "lab03.html#row-major-column-major",
+    "href": "lab03.html#row-major-column-major",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Row-Major, Column-Major",
+    "text": "Row-Major, Column-Major\nThe matrix function stores the given vector in column-major order by default. Our previous code assumed row-major order.\n\nTo see what this means, let’s turn m into two matrices, one for each.\n\nm <- 1:9\n\n\n\nRow-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\nColumn-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\n\n\n\n\nSo row-major fills in the matrix by row, and column-major does so by column."
+  },
+  {
+    "objectID": "lab03.html#specifying-row-major-column-major",
+    "href": "lab03.html#specifying-row-major-column-major",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Specifying Row-Major, Column-Major",
+    "text": "Specifying Row-Major, Column-Major\nAs said, the default is column-major.\nIf you’d prefer row-major, call matrix with byrow = TRUE.\n\n\n\nRow-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3, \n  byrow = TRUE\n)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\nColumn-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3\n)\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9"
+  },
+  {
+    "objectID": "lab03.html#matrix-functions-rbind",
+    "href": "lab03.html#matrix-functions-rbind",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: rbind",
+    "text": "Matrix Functions: rbind\nrbind combines the rows of the inputs into a new matrix.\n\nrbind(1:3, 3:1)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    3    2    1\n\nrbind(matrix(1:6, nrow = 3, ncol = 2), c(-100, 100))\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n[4,] -100  100\n\nrbind(matrix(1:3, nrow = 1, ncol = 3), matrix(9:11, nrow = 1, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    9   10   11"
+  },
+  {
+    "objectID": "lab03.html#matrix-functions-cbind",
+    "href": "lab03.html#matrix-functions-cbind",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: cbind",
+    "text": "Matrix Functions: cbind\ncbind combines the columns of the inputs into a new matrix.\n\ncbind(1:3, 3:1)\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    2\n[3,]    3    1\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), c(0, 50, 100))\n\n     [,1] [,2] [,3]\n[1,]    1    4    0\n[2,]    2    5   50\n[3,]    3    6  100\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), matrix(6:1, nrow = 3, ncol = 2))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    6    3\n[2,]    2    5    5    2\n[3,]    3    6    4    1"
+  },
+  {
+    "objectID": "lab03.html#matrix-functions-nrow-ncol",
+    "href": "lab03.html#matrix-functions-nrow-ncol",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: nrow, ncol",
+    "text": "Matrix Functions: nrow, ncol\nWith vectors, we use length to obtain the number of objects. Similarly, for matrices:\n\nTo obtain the number of rows, use nrow:\n\nnrow(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 5\n\n\n\n\nTo obtain the number of columns, use ncol:\n\nncol(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 4"
+  },
+  {
+    "objectID": "lab03.html#accessing-elements",
+    "href": "lab03.html#accessing-elements",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Accessing Elements",
+    "text": "Accessing Elements\nUse <matrix>[i, j] to get the value at the ith row and jth column.\n\nx[2, 4]\n\n[1] 32\n\n\n\nIf you want the ith row, use <matrix>[i,].\n\nx[2,]\n\n [1]  2 12 22 32 42 52 62 72 82 92\n\n\n\n\nSimilarly, if you want the jth column, use <matrix>[,j].\n\nx[,4]\n\n [1] 31 32 33 34 35 36 37 38 39 40\n\n\n\n\nNote that a vector is returned in each case."
+  },
+  {
+    "objectID": "lab03.html#lists",
+    "href": "lab03.html#lists",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists",
+    "text": "Lists\nLists allow us to store collection of objects, as with vectors, except every object need not be the same type.\n\nlist(1:7, \"Go Bears!\", TRUE)\n\n[[1]]\n[1] 1 2 3 4 5 6 7\n\n[[2]]\n[1] \"Go Bears!\"\n\n[[3]]\n[1] TRUE\n\n\n\nAlso, the objects of a list need not be atomic types. As you can see, the first object above is a vector. We can even have lists of lists.\n\nlist(list(1:7, \"Go Bears!\", TRUE), list(7:1, \"!sraeB oG\", FALSE))"
+  },
+  {
+    "objectID": "lab03.html#lists-names",
+    "href": "lab03.html#lists-names",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Names",
+    "text": "Lists: Names\nWe can assign names to the objects.\n\nmy_list = list(nums = 1:7, str = \"Go Bears!\", bool = TRUE)\nmy_list\n\n$nums\n[1] 1 2 3 4 5 6 7\n\n$str\n[1] \"Go Bears!\"\n\n$bool\n[1] TRUE"
+  },
+  {
+    "objectID": "lab03.html#lists-access-by-name",
+    "href": "lab03.html#lists-access-by-name",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Access by Name",
+    "text": "Lists: Access by Name\nThen access the objects by name with the $ operator.\n\nmy_list$nums\n\n[1] 1 2 3 4 5 6 7\n\nmy_list$str\n\n[1] \"Go Bears!\"\n\nmy_list$bool\n\n[1] TRUE"
+  },
+  {
+    "objectID": "lab03.html#lists-access-with-square-brackets",
+    "href": "lab03.html#lists-access-with-square-brackets",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Access with Square Brackets",
+    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- c(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n         name \n\"Franz Liszt\" \n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nThe second (two set of square brackets) returns the underlying object (a string)."
+  },
+  {
+    "objectID": "lab03.html#lists-only-one",
+    "href": "lab03.html#lists-only-one",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Only One!",
+    "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: attempt to select more than one element in vectorIndex\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n         name    profession \n\"Franz Liszt\"     \"Pianist\" \n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "practice/practice-vector.html",
+    "href": "practice/practice-vector.html",
+    "title": "Practice: Vector Introduction",
+    "section": "",
+    "text": "This page is a collection of practice problems related to vectors, particularly vector subsetting and vectorization. The purpose here is to practice these concepts, so do not use control statements (if/else/for/while).\nDo not worry about error checking for these problems. That is, assume the user of your function has passed in valid arguments."
+  },
+  {
+    "objectID": "practice/practice-vector.html#intervals",
+    "href": "practice/practice-vector.html#intervals",
+    "title": "Practice: Vector Introduction",
+    "section": "1. Intervals",
+    "text": "1. Intervals\nWrite a function that returns every \\(n\\)th element from a vector (\\(n \\geq 1\\)).\n\nevery_nth <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nevery_nth <- function(v, n) {\n  v[c(TRUE, rep(FALSE, n - 1))] \n}\n\n# Alternate Solution\nevery_nth <- function(v, n) {\n  v[seq(1, length(v), n)]\n}\n\n\nNow write a function that sets every \\(n\\)th element of a vector to the maximum value in the vector. The rest should be set to the minimum.\n\nnth_minmax_modification <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nnth_minmax_modification <- function(v, n) {\n  largest <- max(v)\n  smallest <- min(v)\n  pattern <- c(TRUE, rep(FALSE, n - 1))\n  v[pattern] <- largest\n  v[!pattern] <- smallest\n  v\n}\n\n# Alternate Solution\nnth_minmax_modification <- function(v, n) {\n  largest <- max(v)\n  smallest <- min(v)\n  v[seq(1, length(v), n)] <- largest\n  v[v != largest] <- smallest\n  v\n}"
+  },
+  {
+    "objectID": "practice/practice-vector.html#inclusion-exclusion",
+    "href": "practice/practice-vector.html#inclusion-exclusion",
+    "title": "Practice: Vector Introduction",
+    "section": "2. Inclusion, Exclusion",
+    "text": "2. Inclusion, Exclusion\nWrite a function that returns a vector which excludes all elements equal to some specified value.\n\nexclude <- function(v, to_exclude) {\n  # Your code here\n}\n\n\n\nShow Solution\nexclude <- function(v, to_exclude) {\n  v[v != to_exclude]\n}\n\n\nNow write a function that returns a vector which excludes all elements equal to any of the elements in a specified vector.\nHint: you may find the %in% operator helpful.\n\nexclude <- function(v, to_exclude) {\n  # Your code here\n}\n\n\n\nShow Solution\nexclude <- function(v, to_exclude) {\n  v[!(v %in% to_exclude)]\n}\n\n\nNow do the same, but this time include only the elements equal to any of the elements in the specified vector.\n\ninclude <- function(v, to_include) {\n  # Your code here\n}\n\n\n\nShow Solution\ninclude <- function(v, to_include) {\n  v[v %in% to_include]\n}"
+  },
+  {
+    "objectID": "practice/practice-vector.html#palindrome",
+    "href": "practice/practice-vector.html#palindrome",
+    "title": "Practice: Vector Introduction",
+    "section": "3. Palindrome",
+    "text": "3. Palindrome\nA palindrome is a sequence that is read the same forwards and backwards. Return whether a specified vector is a palindrome.\n\nis_palindrome <- function(v) {\n  # Your code here\n}\n\n\n\nShow Solution\nis_palindrome <- function(v) {\n  all(rev(v) == v)\n}\n\n# If you didn't know about the `all` function, you could have used `sum`.\n\nis_palindrome <- function(v) {\n  sum(rev(v) == v) == length(v)\n}\n\n# Alternate Solution\nis_palindrome <- function(v) {\n  mid_index <- length(v) / 2\n  all(v[1:mid_index] == v[length(v):(mid_index + 1)])\n}\n\n# Did you spot the implicit cast? It may be better to be explicit.\nis_palindrome <- function(v) {\n  mid_index <- as.integer(length(v) / 2)\n  all(v[1:mid_index] == v[length(v):(mid_index + 1)])\n}\n\n# I've made an explicit cast now, but this isn't where the implicit cast occurred.\n# Q: Where did it occur?\n\n\nNow write a function that checks if a vector is a palindrome, or could be turned into a palindrome with at most \\(n\\) modifications. The only valid modification is changing an existing number to a different number.\n\nis_palindrome_or_close <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nis_palindrome_or_close <- function(v, n) {\n  mid_index <- length(v) / 2\n  invalid_count <- sum(v[1:mid_index] != v[length(v):(mid_index + 1)])\n  invalid_count <= n\n}"
+  },
+  {
+    "objectID": "practice/practice-vector.html#roman-numerals",
+    "href": "practice/practice-vector.html#roman-numerals",
+    "title": "Practice: Vector Introduction",
+    "section": "4. Roman Numerals",
+    "text": "4. Roman Numerals\nWrite a function that takes a vector v of numbers and returns a vector where each number in v has been converted to its roman numeral equivalent.\n\n\n\nNumber\nRoman Numeral\n\n\n\n\n1\nI\n\n\n2\nII\n\n\n3\nIII\n\n\n4\nIV\n\n\n5\nV\n\n\n6\nVI\n\n\n7\nVII\n\n\n8\nVIII\n\n\n9\nIX\n\n\n10\nX\n\n\n\n\nto_roman <- function(v) {\n  # Your code here\n}\n\n\n\nShow Solution\nto_roman <- function(v) {\n  ref <- c(\"I\", \"II\", \"III\", \"IV\", \"V\", \"VI\", \"VII\", \"VIII\", \"IX\", \"X\")\n  ref[v]\n}"
+  },
+  {
+    "objectID": "practice/practice-vector.html#unit-conversion",
+    "href": "practice/practice-vector.html#unit-conversion",
+    "title": "Practice: Vector Introduction",
+    "section": "5. Unit Conversion",
+    "text": "5. Unit Conversion\nWrite a function that converts a vector of inches to centimeters. Note that 1 inches is equivalent to 2.54 centimeters.\n\ninches_to_cm <- function(inches) {\n  # Your code here\n}\n\n\n\nShow Solution\ninches_to_cm <- function(inches) {\n  inches * 2.54\n}\n\n\nWrite a function that converts a vector of temperatures from Fahrenheit to Celsius. The conversion formula is\n\\[^{\\circ}C = \\frac{^{\\circ}F - 32}{1.8}.\\]\n\nfahrenheit_to_celsius <- function(fahrenheit) {\n  # Your code here\n}\n\n\n\nShow Solution\nfahrenheit_to_celsius <- function(fahrenheit) {\n  (fahrenheit - 32) / 1.8\n}"
+  },
+  {
+    "objectID": "practice/practice-vector.html#ranges",
+    "href": "practice/practice-vector.html#ranges",
+    "title": "Practice: Vector Introduction",
+    "section": "6. Ranges",
+    "text": "6. Ranges\nWrite a function that removes all values outside of the given range (inclusive).\n\nin_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nin_range <- function(v, min, max) {\n  v[v >= min & v <= max]\n}\n\n\nNow write a function that turns all values strictly outside the range into replacement.\n\nreplace_outside_range <- function(v, min, max, replacement) {\n  # Your code here\n}\n\n\n\nShow Solution\nreplace_outside_range <- function(v, min, max, replacement) {\n  v[v < min | v > max] <- replacement\n  v\n}\n\n\nNow write a function that instead brings all values into the range. If a value is less than min, it should be set to min. If a value is greater than max, it should be set to max.\n\nrestrict_to_bounds <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nrestrict_to_bounds <- function(v, min, max) {\n  v[v < min] <- min\n  v[v > max] <- max\n  v\n}"
   },
   {
     "objectID": "times.html",
