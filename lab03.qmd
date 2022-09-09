@@ -239,7 +239,7 @@ Be careful! There are two types of access with lists.
 . . .
 
 ```{r, echo=TRUE}
-person <- c(name = "Franz Liszt", profession = "Pianist", alive = FALSE)
+person <- list(name = "Franz Liszt", profession = "Pianist", alive = FALSE)
 ```
 
 . . .
@@ -257,7 +257,7 @@ The first (one set of square brackets) returns a _list_ with only the first obje
 
 . . .
 
-The second (two set of square brackets) returns the underlying object (a string).
+The second (two sets of square brackets) returns the underlying object (a string).
 
 ## Lists: Only One!
 

@@ -692,7 +692,7 @@ $bool
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">name =</span> <span class="st">"Franz Liszt"</span>, <span class="at">profession =</span> <span class="st">"Pianist"</span>, <span class="at">alive =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>person <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"Franz Liszt"</span>, <span class="at">profession =</span> <span class="st">"Pianist"</span>, <span class="at">alive =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -700,8 +700,8 @@ $bool
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>person[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         name 
-"Franz Liszt" </code></pre>
+<pre><code>$name
+[1] "Franz Liszt"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>person[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -713,7 +713,7 @@ $bool
 <p>The first (one set of square brackets) returns a <em>list</em> with only the first object.</p>
 </div>
 <div class="fragment">
-<p>The second (two set of square brackets) returns the underlying object (a string).</p>
+<p>The second (two sets of square brackets) returns the underlying object (a string).</p>
 </div>
 </section>
 <section id="lists-only-one" class="slide level2">
@@ -723,7 +723,7 @@ $bool
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>person[[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in person[[c(1, 2)]]: attempt to select more than one element in vectorIndex</code></pre>
+<pre><code>Error in person[[c(1, 2)]]: subscript out of bounds</code></pre>
 </div>
 </div>
 </div>
@@ -732,8 +732,11 @@ $bool
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>person[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         name    profession 
-"Franz Liszt"     "Pianist" </code></pre>
+<pre><code>$name
+[1] "Franz Liszt"
+
+$profession
+[1] "Pianist"</code></pre>
 </div>
 </div>
 <div class="fragment fade-up">

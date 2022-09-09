@@ -410,14 +410,14 @@
     "href": "lab03.html#lists-access-with-square-brackets",
     "title": "Lab 03: Matrices, Lists",
     "section": "Lists: Access with Square Brackets",
-    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- c(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n         name \n\"Franz Liszt\" \n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nThe second (two set of square brackets) returns the underlying object (a string)."
+    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- list(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nThe second (two sets of square brackets) returns the underlying object (a string)."
   },
   {
     "objectID": "lab03.html#lists-only-one",
     "href": "lab03.html#lists-only-one",
     "title": "Lab 03: Matrices, Lists",
     "section": "Lists: Only One!",
-    "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: attempt to select more than one element in vectorIndex\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n         name    profession \n\"Franz Liszt\"     \"Pianist\" \n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
+    "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: subscript out of bounds\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n$name\n[1] \"Franz Liszt\"\n\n$profession\n[1] \"Pianist\"\n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
   },
   {
     "objectID": "practice/practice-vector.html",
