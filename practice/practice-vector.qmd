@@ -1,0 +1,299 @@
+---
+title: "Practice: Vector Introduction"
+---
+
+This page is a collection of practice problems related to vectors, particularly 
+vector subsetting and vectorization. The purpose here is to practice these concepts, 
+so **do not use control statements** (``if``/``else``/``for``/``while``).
+
+Do not worry about error checking for these problems. That is, assume the user of your function has passed in valid arguments.
+
+## 1. Intervals
+
+Write a function that returns every $n$th element from a vector ($n \geq 1$).
+
+```{r}
+every_nth <- function(v, n) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+every_nth <- function(v, n) {
+  v[c(TRUE, rep(FALSE, n - 1))] 
+}
+
+# Alternate Solution
+every_nth <- function(v, n) {
+  v[seq(1, length(v), n)]
+}
+```
+
+Now write a function that sets every $n$th element of a vector to the maximum 
+value in the vector. The rest should be set to the minimum.
+
+```{r}
+nth_minmax_modification <- function(v, n) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+nth_minmax_modification <- function(v, n) {
+  largest <- max(v)
+  smallest <- min(v)
+  pattern <- c(TRUE, rep(FALSE, n - 1))
+  v[pattern] <- largest
+  v[!pattern] <- smallest
+  v
+}
+```
+
+## 2. Inclusion, Exclusion
+
+Write a function that returns a vector that excludes all elements equal to
+some specified value. 
+
+```{r}
+exclude <- function(v, to_exclude) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+
+exclude <- function(v, to_exclude) {
+  v[v != to_exclude]
+}
+```
+
+
+Now write a function that returns a vector that _excludes_ all elements equal to
+any of the elements in a vector. 
+
+Hint: you may find the ``%in%`` operator
+helpful.
+
+```{r}
+exclude <- function(v, to_exclude) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+exclude <- function(v, to_exclude) {
+  v[!(v %in% to_exclude)]
+}
+```
+
+Now do the same, but this time _include_
+only the elements equal to any of the elements in the specified vector.
+
+```{r}
+include <- function(v, to_include) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+include <- function(v, to_include) {
+  v[v %in% to_include]
+}
+```
+## 3. Palindrome
+
+A _palindrome_ is a sequence that is read the same forwards and backwards. Return 
+whether a specified vector is a palindrome. 
+
+```{r}
+is_palindrome <- function(v) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+
+is_palindrome <- function(v) {
+  all(rev(v) == v)
+}
+
+# If you didn't know about the `all` function, you could have used `sum`.
+
+is_palindrome <- function(v) {
+  sum(rev(v) == v) == length(v)
+}
+
+# Alternate Solution
+is_palindrome <- function(v) {
+  mid_index <- length(v) / 2
+  all(v[1:mid_index] == v[length(v):(mid_index + 1)])
+}
+
+# Did you spot the implicit cast? It may be better to be explicit.
+is_palindrome <- function(v) {
+  mid_index <- as.integer(length(v) / 2)
+  all(v[1:mid_index] == v[length(v):(mid_index + 1)])
+}
+
+# I've made an explicit cast now, but this isn't where the implicit cast occurred.
+# Q: Where did it occur?
+```
+
+Now write a function that checks if a vector is a palindrome, 
+_or could be turned into a palindrome with at most_ $n$ _modifications_. The only 
+valid modification is changing an existing number to a different number.
+
+```{r}
+is_palindrome_or_close <- function(v, n) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+is_palindrome_or_close <- function(v, n) {
+  mid_index <- length(v) / 2
+  invalid_count <- sum(v[1:mid_index] != v[length(v):(mid_index + 1)])
+  invalid_count <= n
+}
+```
+
+## 4. Roman Numerals
+
+Write a function that takes a vector ``v`` of numbers and returns a vector where 
+each number in ``v`` has been converted to its roman numeral equivalent.
+
+| Number | Roman Numeral |
+|--------|---------------|
+| 1      | I             |
+| 2      | II            |
+| 3      | III           |
+| 4      | IV            |
+| 5      | V             |
+| 6      | VI            |
+| 7      | VII           |
+| 8      | VIII          |
+| 9      | IX            |
+| 10     | X             |
+
+
+```{r}
+to_roman <- function(v) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+to_roman <- function(v) {
+  ref <- c("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X")
+  ref[v]
+}
+```
+
+## 5. Unit Conversion
+
+Write a function that converts a vector of inches to centimeters.
+Note that 1 inches is equivalent to 2.54 centimeters.
+
+```{r}
+inches_to_cm <- function(inches) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+inches_to_cm <- function(inches) {
+  inches * 2.54
+}
+```
+
+Write a function that converts a vector of temperatures from
+Fahrenheit to Celsius. The conversion formula is
+
+$$^{\circ}C = \frac{^{\circ}F - 32}{1.8}.$$
+```{r}
+fahrenheit_to_celsius <- function(fahrenheit) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+fahrenheit_to_celsius <- function(fahrenheit) {
+  (fahrenheit - 32) / 1.8
+}
+```
+
+
+## 6. Ranges
+
+Write a function that removes all values outside of the given range (inclusive).
+
+```{r}
+in_range <- function(v, min, max) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+in_range <- function(v, min, max) {
+  v[v >= min & v <= max]
+}
+```
+
+Now write a function that turns all values strictly outside the range into ``replacement``.
+
+```{r}
+replace_outside_range <- function(v, min, max, replacement) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+replace_outside_range <- function(v, min, max, replacement) {
+  v[v < min | v > max] <- replacement
+  v
+}
+```
+
+Now write a function that instead brings all values into the range. If a value
+is less than ``min``, it should be set to ``min``. If a value is greater than 
+``max``, it should be set to ``max``.
+
+```{r}
+restrict_to_bounds <- function(v, min, max) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+restrict_to_bounds <- function(v, min, max) {
+  v[v < min] <- min
+  v[v > max] <- max
+  v
+}
+```
