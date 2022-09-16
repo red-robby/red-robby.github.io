@@ -312,7 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="inclusion-exclusion" class="level2">
 <h2 class="anchored" data-anchor-id="inclusion-exclusion">2. Inclusion, Exclusion</h2>
-<p>Write a function that returns a vector that excludes all elements equal to some specified value.</p>
+<p>Write a function that returns a vector that <em>excludes</em> all elements equal to some specified value, <code>to_exclude</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>exclude <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_exclude) {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code here</span></span>
@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now write a function that returns a vector that <em>excludes</em> all elements equal to any of the elements in a vector.</p>
+<p>Now write a function that returns a vector that <em>excludes</em> all elements equal to any of the elements in the vector <code>to_exclude</code>.</p>
 <p>Hint: you may find the <code>%in%</code> operator helpful.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>exclude <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_exclude) {</span>
@@ -338,10 +338,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>Show Solution</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>exclude <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_exclude) {</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  v[<span class="sc">!</span>(v <span class="sc">%in%</span> to_exclude)]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: Does this solution also work for the previous question?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now do the same, but this time <em>include</em> only the elements equal to any of the elements in the specified vector.</p>
+<p>Now do the same, but this time <em>include</em> only the elements equal to any of the elements in the vector <code>to_include</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>include <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_include) {</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code here</span></span>
@@ -393,7 +394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: Where did it occur?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now write a function that checks if a vector is a palindrome, <em>or could be turned into a palindrome with at most</em> <span class="math inline">\(n\)</span> <em>modifications</em>. The only valid modification is changing an existing number to a different number.</p>
+<p>Now write a function that checks if a vector is a palindrome, <em>or could be turned into a palindrome with at most</em> <code>n</code> <em>modifications</em>. The only valid modification is changing an existing value to a different value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>is_palindrome_or_close <span class="ot">&lt;-</span> <span class="cf">function</span>(v, n) {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code here</span></span>
@@ -543,14 +544,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Now write a function that instead brings all values into the range. If a value is less than <code>min</code>, it should be set to <code>min</code>. If a value is greater than <code>max</code>, it should be set to <code>max</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>restrict_to_bounds <span class="ot">&lt;-</span> <span class="cf">function</span>(v, min, max) {</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>restrict_to_range <span class="ot">&lt;-</span> <span class="cf">function</span>(v, min, max) {</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code here</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details>
 <summary>Show Solution</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>restrict_to_bounds <span class="ot">&lt;-</span> <span class="cf">function</span>(v, min, max) {</span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>restrict_to_range <span class="ot">&lt;-</span> <span class="cf">function</span>(v, min, max) {</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  v[v <span class="sc">&lt;</span> min] <span class="ot">&lt;-</span> min</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  v[v <span class="sc">&gt;</span> max] <span class="ot">&lt;-</span> max</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  v</span>
