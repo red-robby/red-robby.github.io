@@ -23,6 +23,8 @@ website:
           - lab04.qmd
       - section: "Notes"
       - section: "Practice Problems"
+        contents:
+          - practice/practice-vector.qmd
 
 format:
   html:

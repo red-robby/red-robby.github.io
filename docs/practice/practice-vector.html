@@ -211,7 +211,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <span class="sidebar-item-text sidebar-link text-start">Notes</span>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">Practice Problems</span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Practice Problems</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/practice-vector.html" class="sidebar-item-text sidebar-link active">Practice: Vector Introduction</a>
+  </div>
+</li>
+      </ul>
   </li>
     </ul>
     </div>
@@ -289,22 +301,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  v[pattern] <span class="ot">&lt;-</span> largest</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  v[<span class="sc">!</span>pattern] <span class="ot">&lt;-</span> smallest</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  v</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternate Solution</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>nth_minmax_modification <span class="ot">&lt;-</span> <span class="cf">function</span>(v, n) {</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  largest <span class="ot">&lt;-</span> <span class="fu">max</span>(v)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  smallest <span class="ot">&lt;-</span> <span class="fu">min</span>(v)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  v[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(v), n)] <span class="ot">&lt;-</span> largest</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  v[v <span class="sc">!=</span> largest] <span class="ot">&lt;-</span> smallest</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  v</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="inclusion-exclusion" class="level2">
 <h2 class="anchored" data-anchor-id="inclusion-exclusion">2. Inclusion, Exclusion</h2>
-<p>Write a function that returns a vector which excludes all elements equal to some specified value.</p>
+<p>Write a function that returns a vector that excludes all elements equal to some specified value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>exclude <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_exclude) {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code here</span></span>
@@ -318,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now write a function that returns a vector which <em>excludes</em> all elements equal to any of the elements in a specified vector.</p>
+<p>Now write a function that returns a vector that <em>excludes</em> all elements equal to any of the elements in a vector.</p>
 <p>Hint: you may find the <code>%in%</code> operator helpful.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>exclude <span class="ot">&lt;-</span> <span class="cf">function</span>(v, to_exclude) {</span>
