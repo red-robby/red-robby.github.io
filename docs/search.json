@@ -427,6 +427,90 @@
     "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: subscript out of bounds\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n$name\n[1] \"Franz Liszt\"\n\n$profession\n[1] \"Pianist\"\n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab04.html#tables",
+    "href": "lab04.html#tables",
+    "title": "Lab 04: Data Frames",
+    "section": "Tables",
+    "text": "Tables\nYou likely use spreadsheet software (Excel, Google Sheets, LibreOffice) to deal with tables.\n\nYou define some named columns, and include data on each row.\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n5\n6\n\n\n7\n8\n9\n\n\n\n\n\nFor this, R provides data frames."
+  },
+  {
+    "objectID": "lab04.html#data-frames-lists-of-vectors",
+    "href": "lab04.html#data-frames-lists-of-vectors",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Lists of Vectors",
+    "text": "Data Frames: Lists of Vectors\nTo start, a data frame is a list of vectors.\n\n\nlist(\n  1:10,\n  c(\"apple\", \"orange\", \"banana\"),\n  rep(c(TRUE, FALSE, FALSE), 4)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n[1] \"apple\"  \"orange\" \"banana\"\n\n[[3]]\n [1]  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE\n\n\n\n\nIs this a data frame?"
+  },
+  {
+    "objectID": "lab04.html#data-frames-additional-constraints",
+    "href": "lab04.html#data-frames-additional-constraints",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Additional Constraints",
+    "text": "Data Frames: Additional Constraints\nAdditionally, the vectors must all be the same size.\n\n\nlist(\n  1:10,\n  rep(\"apple\", 10),\n  rep(c(TRUE, FALSE), 5)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n [1] \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\"\n[10] \"apple\"\n\n[[3]]\n [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE"
+  },
+  {
+    "objectID": "lab04.html#data-frames-attributes",
+    "href": "lab04.html#data-frames-attributes",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Attributes",
+    "text": "Data Frames: Attributes\nData frames also have some important attributes:\n\ncolumn names, queried with names() or colnames()\nrow names, queried with row.names()\n\n\nUse nrow and ncol to get the number of rows and columns, respectively, as with matrices."
+  },
+  {
+    "objectID": "lab04.html#data-frames-creation",
+    "href": "lab04.html#data-frames-creation",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Creation",
+    "text": "Data Frames: Creation\nUse data.frame() to create a data frame.\n\nfood <- data.frame(\n  name = c(\"orange\", \"bok choy\", \"strawberry\"),\n  category = c(\"fruit\", \"vegetable\", \"fruit\"),\n  num_available = c(35, 20, 12)\n)\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12"
+  },
+  {
+    "objectID": "lab04.html#data-frames-access",
+    "href": "lab04.html#data-frames-access",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access",
+    "text": "Data Frames: Access\n\nAccess is similar to matrices. Pass in vectors of indices, logical values, or names (strings)."
+  },
+  {
+    "objectID": "lab04.html#data-frames-access---single-elements",
+    "href": "lab04.html#data-frames-access---single-elements",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access - Single Elements",
+    "text": "Data Frames: Access - Single Elements\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the object at the 1st row, 2nd column?\n\n\nfood[1, 2]\n\n[1] \"fruit\""
+  },
+  {
+    "objectID": "lab04.html#data-frames-access---rows-columns",
+    "href": "lab04.html#data-frames-access---rows-columns",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access - Rows, Columns",
+    "text": "Data Frames: Access - Rows, Columns\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the first and second rows?\n\n\nfood[1:2,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\n\n\n\nHow do we access the third column?\n\n\n\nfood[,3]\n\n[1] 35 20 12"
+  },
+  {
+    "objectID": "lab04.html#data-frames-more-access-examples",
+    "href": "lab04.html#data-frames-more-access-examples",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: More Access Examples",
+    "text": "Data Frames: More Access Examples\nMore examples:\n\nfood[,c(\"name\", \"category\")]\n\n        name  category\n1     orange     fruit\n2   bok choy vegetable\n3 strawberry     fruit\n\nfood[food$num_available >= 20,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\nfood[, \"category\"]\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\n\n\n\nDid you notice something?\n\n\n\nIf we access a single column, we get a vector. Otherwise, we get a data frame."
+  },
+  {
+    "objectID": "lab04.html#data-frames-operator",
+    "href": "lab04.html#data-frames-operator",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: $ Operator",
+    "text": "Data Frames: $ Operator\nAs data frames are lists, you can access its vectors with the $ operator.\n\n\nfood$name\n\n[1] \"orange\"     \"bok choy\"   \"strawberry\"\n\nfood$category\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\nfood$num_available\n\n[1] 35 20 12\n\n\n\n\nWe can add new columns using the $ operator.\n\nfood$for_sale <- c(TRUE, FALSE, FALSE)\nfood\n\n        name  category num_available for_sale\n1     orange     fruit            35     TRUE\n2   bok choy vegetable            20    FALSE\n3 strawberry     fruit            12    FALSE"
+  },
+  {
+    "objectID": "lab04.html#helpful-functions-head-tail",
+    "href": "lab04.html#helpful-functions-head-tail",
+    "title": "Lab 04: Data Frames",
+    "section": "Helpful Functions: head, tail",
+    "text": "Helpful Functions: head, tail\nTo see the first or last n rows, use head() or tail(), respectively. n defaults to 6.\n\n\n\n\n\n\n\n\n\n\nhead(df)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n4 4 4\n5 5 5\n6 6 6\n\nhead(df, n = 3)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n\n\n\n\ntail(df)\n\n      x   y\n95   95  95\n96   96  96\n97   97  97\n98   98  98\n99   99  99\n100 100 100\n\ntail(df, n = 3)\n\n      x   y\n98   98  98\n99   99  99\n100 100 100"
+  },
+  {
+    "objectID": "lab04.html#missing-values",
+    "href": "lab04.html#missing-values",
+    "title": "Lab 04: Data Frames",
+    "section": "Missing Values",
+    "text": "Missing Values\nAs our vectors have to be the same size, how do we simulate empty cells in a table?\nWe use a special data type, NA (“Not Available”).\n\n\ndata.frame(\n  names = c(\"Bob the Builder\", \"Spongebob\", \"Darth Vader\"),\n  major = c(\"Civil Engineering\", \"Culinary Studies\", NA),\n  age   = c(32, NA, 44)\n)\n\n            names             major age\n1 Bob the Builder Civil Engineering  32\n2       Spongebob  Culinary Studies  NA\n3     Darth Vader              <NA>  44\n\n\n\nNote that we can freely combine this special type with any other type in a vector.\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "practice/practice-vector.html",
     "href": "practice/practice-vector.html",
     "title": "Practice: Vector Introduction",

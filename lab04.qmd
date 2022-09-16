@@ -1,0 +1,229 @@
+---
+title: "Lab 04: Data Frames"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+editor: visual
+---
+
+## Tables
+
+You likely use spreadsheet software (Excel, Google Sheets, LibreOffice) to deal
+with tables.
+
+. . .
+
+You define some named columns, and include data on each row.
+
+| A | B | C |
+|---|---|---|
+| 1 | 2 | 3 |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+For this, R provides data frames.
+:::
+:::
+
+## Data Frames: Lists of Vectors
+
+To start, a data frame is a _list of vectors_.
+
+. . .
+
+```{r, echo=TRUE}
+list(
+  1:10,
+  c("apple", "orange", "banana"),
+  rep(c(TRUE, FALSE, FALSE), 4)
+)
+```
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+Is this a data frame?
+:::
+:::
+
+## Data Frames: Additional Constraints
+
+Additionally, the vectors _must all be the same size_.
+
+. . .
+
+```{r, echo=TRUE}
+list(
+  1:10,
+  rep("apple", 10),
+  rep(c(TRUE, FALSE), 5)
+)
+```
+
+## Data Frames: Attributes
+
+Data frames also have some important attributes:
+
+- column names, queried with `names()` or `colnames()`
+- row names, queried with `row.names()`
+
+. . .
+
+Use `nrow` and `ncol` to get the number of rows and columns, respectively, as with 
+matrices.
+
+## Data Frames: Creation
+
+Use ``data.frame()`` to create a data frame.
+
+```{r, echo=TRUE}
+food <- data.frame(
+  name = c("orange", "bok choy", "strawberry"),
+  category = c("fruit", "vegetable", "fruit"),
+  num_available = c(35, 20, 12)
+)
+food
+```
+
+## Data Frames: Access
+
+::: {style="color: blue;"}
+Access is similar to matrices. Pass in vectors of _indices_, _logical values_,
+or _names_ (strings).
+:::
+
+## Data Frames: Access - Single Elements
+
+Using the data frame...
+
+```{r, echo=TRUE}
+food
+```
+
+How do we access the object at the 1st row, 2nd column?
+
+. . .
+
+```{r, echo=TRUE}
+food[1, 2]
+```
+
+## Data Frames: Access - Rows, Columns
+
+Using the data frame...
+
+```{r, echo=TRUE}
+food
+```
+
+How do we access the first and second rows?
+
+. . .
+
+```{r, echo=TRUE}
+food[1:2,]
+```
+
+. . .
+
+How do we access the third column?
+
+. . .
+
+```{r, echo=TRUE}
+food[,3]
+```
+
+## Data Frames: More Access Examples
+
+More examples:
+
+```{r, echo=TRUE}
+food[,c("name", "category")]
+food[food$num_available >= 20,]
+food[, "category"]
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+Did you notice something?
+:::
+:::
+
+::: {.fragment .fade-up}
+If we access a single column, we get a _vector_. Otherwise, we get a _data frame_.
+:::
+
+## Data Frames: ``$`` Operator
+
+As data frames are lists, you can access its vectors with the ``$`` operator.
+
+. . .
+
+```{r, echo=TRUE}
+food$name
+food$category
+food$num_available
+```
+
+. . .
+
+We can add new columns using the ``$`` operator.
+
+```{r, echo=TRUE}
+food$for_sale <- c(TRUE, FALSE, FALSE)
+food
+```
+
+## Helpful Functions: ``head``, ``tail``
+
+To see the first or last ``n`` rows, use ``head()`` or ``tail()``, respectively.
+``n`` defaults to 6.
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+df <- data.frame(x = 1:100, y = 1:100)
+```
+
+. . .
+
+::: columns
+
+::: {.column  width="50%"}
+```{r, echo=TRUE}
+head(df)
+head(df, n = 3)
+```
+:::
+
+::: {.column  width="50%"}
+```{r, echo=TRUE}
+tail(df)
+tail(df, n = 3)
+``` 
+:::
+:::
+
+## Missing Values
+
+As our vectors have to be the same size, how do we simulate empty cells in a table?
+
+We use a special data type, ``NA`` ("Not Available"). 
+
+. . .
+
+```{r, echo=TRUE}
+data.frame(
+  names = c("Bob the Builder", "Spongebob", "Darth Vader"),
+  major = c("Civil Engineering", "Culinary Studies", NA),
+  age   = c(32, NA, 44)
+)
+```
+::: {.fragment .fade-up}
+Note that we can freely combine this special type with any other type in a vector.
+:::
