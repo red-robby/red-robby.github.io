@@ -1,0 +1,42 @@
+---
+title: "Algorithmic Problems"
+---
+
+## LeetCode in R?...
+
+This page consists of algorithmic problems implemented in R, for fun and an 
+extra challenge. Nothing here is in scope for STAT 33B. If you think you've 
+solved some fun problem successfully in R, please send it to me! I'd be happy 
+to include it here for others to see. 
+
+If you're looking for problems to solve, I'd recommend [Codeforces](https://codeforces.com/problemset) 
+or [LeetCode](https://leetcode.com/problemset/all/). 
+Unfortunately, neither has R support. For this, I'd recommend [CodeChef](https://www.codechef.com/).
+
+## Two Sum
+
+To start, the most popular problem on LeetCode! Click [here](https://leetcode.com/problems/two-sum/) to read the problem.
+
+```{r}
+two_sum <- function(nums, target) {
+  # Your code here
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show Solution
+two_sum <- function(nums, target) {
+  num_indices <- new.env() # we use an environment as a hash map
+  for (i in seq_along(nums)) {
+    dif <- as.character(target - nums[i])
+    dif_index <- num_indices[[dif]]
+    if (!is.null(dif_index))
+      return(c(i, dif_index))
+    num_indices[[as.character(nums[i])]] <- i
+  }
+  -1
+}
+```
+
+_This page is in progress. Contributions are welcome._

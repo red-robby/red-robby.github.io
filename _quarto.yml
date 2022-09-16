@@ -25,6 +25,7 @@ website:
       - section: "Practice Problems"
         contents:
           - practice/practice-vector.qmd
+          - practice/algorithmic-problems.qmd
 
 format:
   html:

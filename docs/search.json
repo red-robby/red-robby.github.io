@@ -511,51 +511,65 @@
     "text": "Missing Values\nAs our vectors have to be the same size, how do we simulate empty cells in a table?\nWe use a special data type, NA (“Not Available”).\n\n\ndata.frame(\n  names = c(\"Bob the Builder\", \"Spongebob\", \"Darth Vader\"),\n  major = c(\"Civil Engineering\", \"Culinary Studies\", NA),\n  age   = c(32, NA, 44)\n)\n\n            names             major age\n1 Bob the Builder Civil Engineering  32\n2       Spongebob  Culinary Studies  NA\n3     Darth Vader              <NA>  44\n\n\n\nNote that we can freely combine this special type with any other type in a vector.\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "practice/algorithmic-problems.html",
+    "href": "practice/algorithmic-problems.html",
+    "title": "Algorithmic Problems",
+    "section": "",
+    "text": "This page consists of algorithmic problems implemented in R, for fun and an extra challenge. Nothing here is in scope for STAT 33B. If you think you’ve solved some fun problem successfully in R, please send it to me! I’d be happy to include it here for others to see.\nIf you’re looking for problems to solve, I’d recommend Codeforces or LeetCode. Unfortunately, neither has R support. For this, I’d recommend CodeChef."
+  },
+  {
+    "objectID": "practice/algorithmic-problems.html#two-sum",
+    "href": "practice/algorithmic-problems.html#two-sum",
+    "title": "Algorithmic Problems",
+    "section": "Two Sum",
+    "text": "Two Sum\nTo start, the most popular problem on LeetCode! Click here to read the problem.\n\ntwo_sum <- function(nums, target) {\n  # Your code here\n}\n\n\n\nShow Solution\ntwo_sum <- function(nums, target) {\n  num_indices <- new.env() # we use an environment as a hash map\n  for (i in seq_along(nums)) {\n    dif <- as.character(target - nums[i])\n    dif_index <- num_indices[[dif]]\n    if (!is.null(dif_index))\n      return(c(i, dif_index))\n    num_indices[[as.character(nums[i])]] <- i\n  }\n  -1\n}\n\n\nThis page is in progress. Contributions are welcome."
+  },
+  {
     "objectID": "practice/practice-vector.html",
     "href": "practice/practice-vector.html",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "",
     "text": "This page is a collection of practice problems related to vectors, particularly vector subsetting and vectorization. The purpose here is to practice these concepts, so do not use control statements (if/else/for/while).\nDo not worry about error checking for these problems. That is, assume the user of your function has passed in valid arguments."
   },
   {
     "objectID": "practice/practice-vector.html#intervals",
     "href": "practice/practice-vector.html#intervals",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "1. Intervals",
     "text": "1. Intervals\nWrite a function that returns every \\(n\\)th element from a vector (\\(n \\geq 1\\)).\n\nevery_nth <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nevery_nth <- function(v, n) {\n  v[c(TRUE, rep(FALSE, n - 1))] \n}\n\n# Alternate Solution\nevery_nth <- function(v, n) {\n  v[seq(1, length(v), n)]\n}\n\n\nNow write a function that sets every \\(n\\)th element of a vector to the maximum value in the vector. The rest should be set to the minimum.\n\nnth_minmax_modification <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nnth_minmax_modification <- function(v, n) {\n  largest <- max(v)\n  smallest <- min(v)\n  pattern <- c(TRUE, rep(FALSE, n - 1))\n  v[pattern] <- largest\n  v[!pattern] <- smallest\n  v\n}"
   },
   {
     "objectID": "practice/practice-vector.html#inclusion-exclusion",
     "href": "practice/practice-vector.html#inclusion-exclusion",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "2. Inclusion, Exclusion",
     "text": "2. Inclusion, Exclusion\nWrite a function that returns a vector that excludes all elements equal to some specified value.\n\nexclude <- function(v, to_exclude) {\n  # Your code here\n}\n\n\n\nShow Solution\nexclude <- function(v, to_exclude) {\n  v[v != to_exclude]\n}\n\n\nNow write a function that returns a vector that excludes all elements equal to any of the elements in a vector.\nHint: you may find the %in% operator helpful.\n\nexclude <- function(v, to_exclude) {\n  # Your code here\n}\n\n\n\nShow Solution\nexclude <- function(v, to_exclude) {\n  v[!(v %in% to_exclude)]\n}\n\n\nNow do the same, but this time include only the elements equal to any of the elements in the specified vector.\n\ninclude <- function(v, to_include) {\n  # Your code here\n}\n\n\n\nShow Solution\ninclude <- function(v, to_include) {\n  v[v %in% to_include]\n}"
   },
   {
     "objectID": "practice/practice-vector.html#palindrome",
     "href": "practice/practice-vector.html#palindrome",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "3. Palindrome",
     "text": "3. Palindrome\nA palindrome is a sequence that is read the same forwards and backwards. Return whether a specified vector is a palindrome.\n\nis_palindrome <- function(v) {\n  # Your code here\n}\n\n\n\nShow Solution\nis_palindrome <- function(v) {\n  all(rev(v) == v)\n}\n\n# If you didn't know about the `all` function, you could have used `sum`.\n\nis_palindrome <- function(v) {\n  sum(rev(v) == v) == length(v)\n}\n\n# Alternate Solution\nis_palindrome <- function(v) {\n  mid_index <- length(v) / 2\n  all(v[1:mid_index] == v[length(v):(mid_index + 1)])\n}\n\n# Did you spot the implicit cast? It may be better to be explicit.\nis_palindrome <- function(v) {\n  mid_index <- as.integer(length(v) / 2)\n  all(v[1:mid_index] == v[length(v):(mid_index + 1)])\n}\n\n# I've made an explicit cast now, but this isn't where the implicit cast occurred.\n# Q: Where did it occur?\n\n\nNow write a function that checks if a vector is a palindrome, or could be turned into a palindrome with at most \\(n\\) modifications. The only valid modification is changing an existing number to a different number.\n\nis_palindrome_or_close <- function(v, n) {\n  # Your code here\n}\n\n\n\nShow Solution\nis_palindrome_or_close <- function(v, n) {\n  mid_index <- length(v) / 2\n  invalid_count <- sum(v[1:mid_index] != v[length(v):(mid_index + 1)])\n  invalid_count <= n\n}"
   },
   {
     "objectID": "practice/practice-vector.html#roman-numerals",
     "href": "practice/practice-vector.html#roman-numerals",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "4. Roman Numerals",
     "text": "4. Roman Numerals\nWrite a function that takes a vector v of numbers and returns a vector where each number in v has been converted to its roman numeral equivalent.\n\n\n\nNumber\nRoman Numeral\n\n\n\n\n1\nI\n\n\n2\nII\n\n\n3\nIII\n\n\n4\nIV\n\n\n5\nV\n\n\n6\nVI\n\n\n7\nVII\n\n\n8\nVIII\n\n\n9\nIX\n\n\n10\nX\n\n\n\n\nto_roman <- function(v) {\n  # Your code here\n}\n\n\n\nShow Solution\nto_roman <- function(v) {\n  ref <- c(\"I\", \"II\", \"III\", \"IV\", \"V\", \"VI\", \"VII\", \"VIII\", \"IX\", \"X\")\n  ref[v]\n}"
   },
   {
     "objectID": "practice/practice-vector.html#unit-conversion",
     "href": "practice/practice-vector.html#unit-conversion",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "5. Unit Conversion",
     "text": "5. Unit Conversion\nWrite a function that converts a vector of inches to centimeters. Note that 1 inches is equivalent to 2.54 centimeters.\n\ninches_to_cm <- function(inches) {\n  # Your code here\n}\n\n\n\nShow Solution\ninches_to_cm <- function(inches) {\n  inches * 2.54\n}\n\n\nWrite a function that converts a vector of temperatures from Fahrenheit to Celsius. The conversion formula is\n\\[^{\\circ}C = \\frac{^{\\circ}F - 32}{1.8}.\\]\n\nfahrenheit_to_celsius <- function(fahrenheit) {\n  # Your code here\n}\n\n\n\nShow Solution\nfahrenheit_to_celsius <- function(fahrenheit) {\n  (fahrenheit - 32) / 1.8\n}"
   },
   {
     "objectID": "practice/practice-vector.html#ranges",
     "href": "practice/practice-vector.html#ranges",
-    "title": "Practice: Vector Introduction",
+    "title": "Vector Introduction",
     "section": "6. Ranges",
     "text": "6. Ranges\nWrite a function that removes all values outside of the given range (inclusive).\n\nin_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nin_range <- function(v, min, max) {\n  v[v >= min & v <= max]\n}\n\n\nNow write a function that turns all values strictly outside the range into replacement.\n\nreplace_outside_range <- function(v, min, max, replacement) {\n  # Your code here\n}\n\n\n\nShow Solution\nreplace_outside_range <- function(v, min, max, replacement) {\n  v[v < min | v > max] <- replacement\n  v\n}\n\n\nNow write a function that instead brings all values into the range. If a value is less than min, it should be set to min. If a value is greater than max, it should be set to max.\n\nrestrict_to_bounds <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nrestrict_to_bounds <- function(v, min, max) {\n  v[v < min] <- min\n  v[v > max] <- max\n  v\n}"
   },
