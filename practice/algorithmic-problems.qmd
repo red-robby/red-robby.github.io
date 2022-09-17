@@ -39,4 +39,73 @@ two_sum <- function(nums, target) {
 }
 ```
 
+## QAQ
+
+This one from Codeforces has a strange problem statement, but it's a good 
+exercise in using prefix arrays. Click [here](https://codeforces.com/contest/894/problem/A)
+to read the problem.
+
+```{r}
+qaq <- function(string) {
+  # Your code here
+}
+```
+
+I've provided two solutions. The first uses ``for``/``if`` and is more typical 
+of what you'd see in other languages (and is maybe easier for you to read). The 
+second is a _R'ified_ version that doesn't use ``for``/``if``, instead relying on 
+vectorization and functional programming. 
+
+```{r}
+#| code-fold: true
+#| code-summary: Show ``for``/``if`` Solution
+
+qaq <- function(string) {
+  # Form a prefix vector for the number of "Q"s at each index.
+  q_count <- numeric(nchar(string))
+  for (i in 1:nchar(string)) {
+    is_q <- as.integer(substr(string, i, i) == "Q")
+    q_count[i] <- ifelse(i > 1, q_count[i - 1] + is_q, is_q)
+  }
+  
+  # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
+  # obtain this value for each "A" and sum them.  
+  count <- 0
+  for (i in 1:nchar(string)) {
+    if (substr(string, i, i) == "A") {
+      q_before = q_count[i]
+      q_after = tail(q_count, 1) - q_count[i]
+      count <- count + q_before * q_after
+    }
+  }
+  count
+}
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Show _R'ified_ Solution
+qaq <- function(string) {
+  # We'll be using these three packages
+  require(magrittr, stringr, purrr)
+  # Obtain the individual characters in `string`.
+  characters <- 1:nchar(string) %>%
+    str_sub(string, ., .)
+  
+  # Form a prefix vector for the number of "Q"s at each index.
+  q_count <- characters %>% 
+    equals("Q") %>%
+    as.numeric() %>%
+    accumulate(`+`)
+  
+  # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
+  # obtain this value for each "A" and sum them.
+  characters %>%
+    equals("A") %>%
+    multiply_by(q_count) %>%
+    multiply_by(tail(q_count, 1) - q_count) %>%
+    sum()
+}
+```
+
 _This page is in progress. Contributions are welcome._
