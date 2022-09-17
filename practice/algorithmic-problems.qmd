@@ -88,6 +88,7 @@ qaq <- function(string) {
 qaq <- function(string) {
   # We'll be using these three packages
   require(magrittr, stringr, purrr)
+  
   # Obtain the individual characters in `string`.
   characters <- 1:nchar(string) %>%
     str_sub(string, ., .)
