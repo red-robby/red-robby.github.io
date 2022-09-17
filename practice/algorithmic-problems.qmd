@@ -86,7 +86,7 @@ qaq <- function(string) {
 #| code-fold: true
 #| code-summary: Show _R'ified_ Solution
 qaq <- function(string) {
-  # We'll be using these three packages
+  # We'll be using these three packages.
   require(magrittr, stringr, purrr)
   
   # Obtain the individual characters in `string`.
