@@ -52,7 +52,7 @@ qaq <- function(string) {
 ```
 
 I've provided two solutions. The first uses ``for``/``if`` and is more typical 
-of what you'd see in other languages (and is maybe easier for you to read). The 
+of what you'd see in other languages (and may be easier for you to read). The 
 second is a _R'ified_ version that doesn't use ``for``/``if``, instead relying on 
 vectorization and functional programming. 
 
