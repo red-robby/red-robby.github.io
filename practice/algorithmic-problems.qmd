@@ -73,8 +73,8 @@ qaq <- function(string) {
   count <- 0
   for (i in 1:nchar(string)) {
     if (substr(string, i, i) == "A") {
-      q_before = q_count[i]
-      q_after = tail(q_count, 1) - q_count[i]
+      q_before <- q_count[i]
+      q_after <- tail(q_count, 1) - q_count[i]
       count <- count + q_before * q_after
     }
   }
