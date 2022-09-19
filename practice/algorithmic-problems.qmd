@@ -63,7 +63,7 @@ vectorization and functional programming.
 qaq <- function(string) {
   # Form a prefix vector for the number of "Q"s at each index.
   q_count <- numeric(nchar(string))
-  for (i in 1:nchar(string)) {
+  for (i in seq_along(q_count)) {
     is_q <- as.integer(substr(string, i, i) == "Q")
     q_count[i] <- ifelse(i > 1, q_count[i - 1] + is_q, is_q)
   }
@@ -71,7 +71,7 @@ qaq <- function(string) {
   # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
   # obtain this value for each "A" and sum them.  
   count <- 0
-  for (i in 1:nchar(string)) {
+  for (i in seq_along(q_count)) {
     if (substr(string, i, i) == "A") {
       q_before <- q_count[i]
       q_after <- tail(q_count, 1) - q_count[i]
