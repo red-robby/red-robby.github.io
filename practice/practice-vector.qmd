@@ -136,40 +136,8 @@ is_palindrome <- function(v) {
   sum(rev(v) == v) == length(v)
 }
 
-# Alternate Solution
-is_palindrome <- function(v) {
-  mid_index <- length(v) / 2
-  all(v[1:mid_index] == v[length(v):(mid_index + 1)])
-}
-
-# Did you spot the implicit cast? It may be better to be explicit.
-is_palindrome <- function(v) {
-  mid_index <- as.integer(length(v) / 2)
-  all(v[1:mid_index] == v[length(v):(mid_index + 1)])
-}
-
-# I've made an explicit cast now, but this isn't where the implicit cast occurred.
-# Q: Where did it occur?
-```
-
-Now write a function that checks if a vector is a palindrome, 
-_or could be turned into a palindrome with at most_ ``n`` _modifications_. The only 
-valid modification is changing an existing value to a different value.
-
-```{r}
-is_palindrome_or_close <- function(v, n) {
-  # Your code here
-}
-```
-
-```{r}
-#| code-fold: true
-#| code-summary: Show Solution
-is_palindrome_or_close <- function(v, n) {
-  mid_index <- length(v) / 2
-  invalid_count <- sum(v[1:mid_index] != v[length(v):(mid_index + 1)])
-  invalid_count <= n
-}
+# Follow up: Try doing it by only comparing the two halves of the vector to each
+# other.
 ```
 
 ## 4. Roman Numerals
