@@ -87,7 +87,7 @@ qaq <- function(string) {
 #| code-summary: Show _R'ified_ Solution
 qaq <- function(string) {
   # We'll be using these packages.
-  require(magrittr, purrr)
+  require(magrittr); require(purrr)
   
   # Obtain the individual characters in `string`.
   characters <- strsplit(string, "")[[1]]
