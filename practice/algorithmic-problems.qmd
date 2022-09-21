@@ -86,25 +86,24 @@ qaq <- function(string) {
 #| code-fold: true
 #| code-summary: Show _R'ified_ Solution
 qaq <- function(string) {
-  # We'll be using these three packages.
-  require(magrittr, stringr, purrr)
+  # We'll be using these packages.
+  require(magrittr, purrr)
   
   # Obtain the individual characters in `string`.
-  characters <- 1:nchar(string) %>%
-    str_sub(string, ., .)
+  characters <- strsplit(string, "")[[1]]
   
   # Form a prefix vector for the number of "Q"s at each index.
-  q_count <- characters %>% 
-    equals("Q") %>%
-    as.numeric() %>%
+  q_count <- characters |>
+    equals("Q") |>
+    as.numeric() |>
     accumulate(`+`)
   
   # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
   # obtain this value for each "A" and sum them.
-  characters %>%
-    equals("A") %>%
-    multiply_by(q_count) %>%
-    multiply_by(tail(q_count, 1) - q_count) %>%
+  characters |>
+    equals("A") |>
+    multiply_by(q_count) |>
+    multiply_by(tail(q_count, 1) - q_count) |>
     sum()
 }
 ```
