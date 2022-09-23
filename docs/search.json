@@ -511,6 +511,76 @@
     "text": "Missing Values\nAs our vectors have to be the same size, how do we simulate empty cells in a table?\nWe use a special data type, NA (“Not Available”).\n\n\ndata.frame(\n  names = c(\"Bob the Builder\", \"Spongebob\", \"Darth Vader\"),\n  major = c(\"Civil Engineering\", \"Culinary Studies\", NA),\n  age   = c(32, NA, 44)\n)\n\n            names             major age\n1 Bob the Builder Civil Engineering  32\n2       Spongebob  Culinary Studies  NA\n3     Darth Vader              <NA>  44\n\n\n\nNote that we can freely combine this special type with any other type in a vector.\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab05.html#files",
+    "href": "lab05.html#files",
+    "title": "Lab 05: Handling Files",
+    "section": "Files?",
+    "text": "Files?\nWe can use R in isolation…\n\n\n\nBut it’s much more convenient if we can save our results (data) and share them with other applications.\n\n\n\n\nOr use our results (data) from other applications, and manipulate them in R.\n\n\n\n\nFor this, we need files."
+  },
+  {
+    "objectID": "lab05.html#file-formats",
+    "href": "lab05.html#file-formats",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats",
+    "text": "File Formats\nWhat is a file?\n\nFor our purposes, just think of a file as a blob of saved text.\n\n\n\nSuppose we wanted to represent a complex structure in a file.\n\n\n\nAn Agreed on Format\nTo do this, we need to agree on some convention (format) of representing the structure in plain text."
+  },
+  {
+    "objectID": "lab05.html#file-formats-table-representation",
+    "href": "lab05.html#file-formats-table-representation",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats: Table Representation",
+    "text": "File Formats: Table Representation\nWhat if we wanted to represent a table?\n\nIn markdown:\n| Some Column | Another Column | Yet Another |\n|-------------|----------------|-------------|\n|     3       |    \"hello\"     |    TRUE     |\n|     17      |   \"goodbye\"    |   FALSE     |\n\n\nAny issues with this?"
+  },
+  {
+    "objectID": "lab05.html#file-formats-a-popular-choice-csv",
+    "href": "lab05.html#file-formats-a-popular-choice-csv",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats: A Popular Choice, CSV",
+    "text": "File Formats: A Popular Choice, CSV\nOne common format for representing tables is .csv – “comma separated values”.\n\nname,position,student\nGaston,Professor,FALSE\nJakob,uGSI,TRUE\nJoy,Tutor,TRUE\n\n\nEach row is represented by a line, with the values in each column separated by commas.\nThe first row optionally includes the column names."
+  },
+  {
+    "objectID": "lab05.html#reading-tables-general",
+    "href": "lab05.html#reading-tables-general",
+    "title": "Lab 05: Handling Files",
+    "section": "Reading Tables (General)",
+    "text": "Reading Tables (General)\nThe general function for importing tables from files is read.table().\n\nread.table(file, header = FALSE, sep = \"\", quote = \"\\\"'\",\n           dec = \".\", numerals = c(\"allow.loss\", \"warn.loss\", \"no.loss\"),\n           row.names, col.names, as.is = !stringsAsFactors,\n           na.strings = \"NA\", colClasses = NA, nrows = -1,\n           skip = 0, check.names = TRUE, fill = !blank.lines.skip,\n           strip.white = FALSE, blank.lines.skip = TRUE,\n           comment.char = \"#\",\n           allowEscapes = FALSE, flush = FALSE,\n           stringsAsFactors = FALSE,\n           fileEncoding = \"\", encoding = \"unknown\", text, skipNul = FALSE)\n\n\n\nfile: The file to read from\nheader: Does the file have a header for the column names?\nsep: What separates the data (e.g., ',' for .csv files)?"
+  },
+  {
+    "objectID": "lab05.html#reading-csv-files",
+    "href": "lab05.html#reading-csv-files",
+    "title": "Lab 05: Handling Files",
+    "section": "Reading CSV Files",
+    "text": "Reading CSV Files\nTo avoid writing passing read.table() arguments to correctly parse .csv files, we have a convenience function:\nread.csv(file, header = TRUE, sep = \",\", quote = \"\\\"\",\n         dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nAnd for other common formats:\nread.csv2(file, header = TRUE, sep = \";\", quote = \"\\\"\",\n          dec = \",\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n           dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim2(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n            dec = \",\", fill = TRUE, comment.char = \"\", ...)"
+  },
+  {
+    "objectID": "lab05.html#making-sense-of-read.table",
+    "href": "lab05.html#making-sense-of-read.table",
+    "title": "Lab 05: Handling Files",
+    "section": "Making Sense of read.table()",
+    "text": "Making Sense of read.table()\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  # What arguments do we pass?\n)"
+  },
+  {
+    "objectID": "lab05.html#read.table-solution",
+    "href": "lab05.html#read.table-solution",
+    "title": "Lab 05: Handling Files",
+    "section": "read.table() Solution",
+    "text": "read.table() Solution\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  file = \"starwars.csv\",\n  header = TRUE,\n  sep = \",\",\n  colClasses = c(\"character\", \"double\", \"double\")\n)\n\n\n\nWhat if our values were separated with ';' instead?"
+  },
+  {
+    "objectID": "lab05.html#writing-to-files",
+    "href": "lab05.html#writing-to-files",
+    "title": "Lab 05: Handling Files",
+    "section": "Writing to Files",
+    "text": "Writing to Files\nWe have write.table() for writing tables to files.\nwrite.table(x, file = \"\", append = FALSE, quote = TRUE, sep = \" \",\n            eol = \"\\n\", na = \"NA\", dec = \".\", row.names = TRUE,\n            col.names = TRUE, qmethod = c(\"escape\", \"double\"),\n            fileEncoding = \"\")\n\nAnd for convenience,\nwrite.csv(...)\nwrite.csv2(...)"
+  },
+  {
+    "objectID": "lab05.html#saving-r-output",
+    "href": "lab05.html#saving-r-output",
+    "title": "Lab 05: Handling Files",
+    "section": "Saving R Output",
+    "text": "Saving R Output\nIf we want to save the output of our program to a file, we use sink().\n\nsink(\"my-output.txt\")  # We specify the file to redirect our output to\nprint(\"Hello World!\")  \n3 + 2\nsink()                 # After this call, our output will be printed as usual\n\n\nThe output of our program was not printed to the console, but redirected to the file my-output.txt, which now contains:\n\n[1] \"Hello World!\"\n[1] 5\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "practice/algorithmic-problems.html",
     "href": "practice/algorithmic-problems.html",
     "title": "Algorithmic Problems",
