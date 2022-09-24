@@ -562,15 +562,16 @@
 <p>We include code in what we call <em>code chunks</em>. A basic example in this document:</p>
 <div class="fragment fade-right" data-fragment-index="1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">print</span>(<span class="st">"Hello, World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">print</span>(<span class="st">"Hello, World!"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"x + y ="</span>, x <span class="sc">+</span> y))</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Hello, World!"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"x + y ="</span>, x <span class="sc">+</span> y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "x + y = 8"</code></pre>
+<pre><code>[1] "Hello, World!"
+[1] "x + y = 8"</code></pre>
 </div>
 </div>
 </div>
@@ -584,8 +585,10 @@
 <h2>Code Chunk: Plot Example</h2>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">10</span>), <span class="at">type =</span> <span class="st">"l"</span>, </span>
-<span id="cb13-2"><a href="#cb13-2"></a>     <span class="at">xlab =</span> <span class="st">"Time Spent Studying (Hours)"</span>, <span class="at">ylab =</span> <span class="st">"Quiz Grade (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">10</span>), <span class="at">type =</span> <span class="st">"l"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3"></a>     <span class="at">xlab =</span> <span class="st">"Time Spent Studying (Hours)"</span>, <span class="at">ylab =</span> <span class="st">"Quiz Grade (%)"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="lab01_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
 </div>

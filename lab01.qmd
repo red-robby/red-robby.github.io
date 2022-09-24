@@ -16,10 +16,11 @@ Welcome to STAT 33B! I'll be your uGSI, **Jakob Sorensen**.
 -   Contact: jakobsorensen\@berkeley.edu
 
 -   Sections:
+
     -   9 AM - 10 AM and 10 AM - 11 AM in *Evans 342*
 
     -   2 PM - 3 PM and 3 PM - 4 PM in *Cory 289*
-    
+
 -   Office Hours: TBD in *Evans 434*
 :::
 
@@ -202,7 +203,8 @@ We can also embed lists, tables, images, and many other components!
 We include code in what we call *code chunks*. A basic example in this document:
 
 ::: {.fragment .fade-right fragment-index="1"}
-```{r, echo=TRUE}
+```{r}
+#| echo: fenced
 print("Hello, World!")
 
 x <- 3
@@ -220,7 +222,8 @@ print(paste("x + y =", x + y))
 ## Code Chunk: Plot Example
 
 ::: {.fragment .fade-up}
-```{r, echo=TRUE}
+```{r}
+#| echo: fenced
 plot(1:10, seq(10, 100, 10), type = "l", 
      xlab = "Time Spent Studying (Hours)", ylab = "Quiz Grade (%)")
 ```
@@ -228,8 +231,7 @@ plot(1:10, seq(10, 100, 10), type = "l",
 
 ## Knitting
 
-Going from the plain text format (`.rmd`) to a presentation format (`.pdf`, `.html`) 
-is called *knitting* the document.
+Going from the plain text format (`.rmd`) to a presentation format (`.pdf`, `.html`) is called *knitting* the document.
 
 ## RMarkdown Demo
 

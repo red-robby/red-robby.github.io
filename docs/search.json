@@ -144,14 +144,14 @@
     "href": "lab01.html#code-chunks",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Code Chunks",
-    "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\nprint(\"Hello, World!\")\n\n[1] \"Hello, World!\"\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
+    "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\n```{r}\nprint(\"Hello, World!\")\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n```\n\n[1] \"Hello, World!\"\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
   },
   {
     "objectID": "lab01.html#code-chunk-plot-example",
     "href": "lab01.html#code-chunk-plot-example",
     "title": "Lab 01: Setup, RMarkdown",
     "section": "Code Chunk: Plot Example",
-    "text": "Code Chunk: Plot Example\n\n\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")"
+    "text": "Code Chunk: Plot Example\n\n\n```{r}\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")\n```"
   },
   {
     "objectID": "lab01.html#knitting",
