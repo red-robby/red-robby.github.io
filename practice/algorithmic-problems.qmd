@@ -108,4 +108,7 @@ qaq <- function(string) {
 }
 ```
 
+_Follow up:_ Can you do it without the prefix array while still iterating
+through `string` at most twice?
+
 _This page is in progress. Contributions are welcome._
