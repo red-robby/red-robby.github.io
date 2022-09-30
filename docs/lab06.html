@@ -10,7 +10,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.36">
 
-  <title>stat33b - Lab 03: Matrices, Lists</title>
+  <title>stat33b - Lab 06: Intro to dplyr</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -385,384 +385,342 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Lab 03: Matrices, Lists</h1>
+  <h1 class="title">Lab 06: Intro to <code>dplyr</code></h1>
 </section>
 
-<section id="higher-dimensions-by-hand" class="slide level2">
-<h2>Higher Dimensions by Hand!</h2>
-<p>Vectors gave us the ability to form 1 dimensional data.</p>
-<p>If we desired data in, say, 2 dimensions, we could still use a vector.</p>
+<section id="the-inconvenience-of-subsetting" class="slide level2">
+<h2>The Inconvenience of Subsetting</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>rows <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>cols <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Get the item at row i, column j</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>i <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>j <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>x[(i <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> cols <span class="sc">+</span> j] <span class="co"># Don't try this at home!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 65</code></pre>
+
 </div>
+<p>Up until now, we’ve used base R to create and subset data. An example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>sw_males <span class="ot">&lt;-</span> starwars[</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    starwars<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="sc">!</span>(<span class="fu">names</span>(starwars) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"gender"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment fade-right">
 <div style="color: red;">
-<p>Who wants to do that?</p>
+<p>What does this do?</p>
 </div>
 </div>
-</section>
-<section id="higher-dimensions-passed-to-r" class="slide level2">
-<h2>Higher Dimensions, Passed to R</h2>
-<p>Thankfully, R has a set of functions that make this easy for us.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">nrow =</span> <span class="dv">10</span>, <span class="at">ncol =</span> <span class="dv">10</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
- [1,]    1   11   21   31   41   51   61   71   81    91
- [2,]    2   12   22   32   42   52   62   72   82    92
- [3,]    3   13   23   33   43   53   63   73   83    93
- [4,]    4   14   24   34   44   54   64   74   84    94
- [5,]    5   15   25   35   45   55   65   75   85    95
- [6,]    6   16   26   36   46   56   66   76   86    96
- [7,]    7   17   27   37   47   57   67   77   87    97
- [8,]    8   18   28   38   48   58   68   78   88    98
- [9,]    9   19   29   39   49   59   69   79   89    99
-[10,]   10   20   30   40   50   60   70   80   90   100</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>x[<span class="dv">7</span>, <span class="dv">9</span>] <span class="co"># we can specify the row and column, sep. by a comma</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 87</code></pre>
-</div>
-</div>
-</section>
-<section id="row-major-column-major" class="slide level2">
-<h2>Row-Major, Column-Major</h2>
-<p>The matrix function stores the given vector in <em>column-major</em> order by default. Our previous code assumed <em>row-major</em> order.</p>
 <div class="fragment">
-<p>To see what this means, let’s turn <code>m</code> into two matrices, one for each.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It’s reasonable to find this difficult to read.</p>
 </div>
-<p>::: columns</p>
-<div class="column" style="width:50%;">
-<h3 id="row-major">Row-Major</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    4    5    6
-[3,]    7    8    9</code></pre>
-</div>
-</div>
-</div>
-<div class="column" style="width:50%;">
-<h3 id="column-major">Column-Major</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    4    7
-[2,]    2    5    8
-[3,]    3    6    9</code></pre>
-</div>
-</div>
-</div>
-<p>:::</p>
+<div class="fragment">
 <div class="fragment fade-up">
 <div style="color: blue;">
-<p>So <em>row-major</em> fills in the matrix <em>by row</em>, and <em>column-major</em> does so by <em>column</em>.</p>
+<p>In general, we prefer to be more <em>expressive</em> with our programming.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="specifying-row-major-column-major" class="slide level2">
-<h2>Specifying Row-Major, Column-Major</h2>
-<p>As said, the default is <em>column-major</em>.</p>
-<p>If you’d prefer <em>row-major</em>, call <code>matrix</code> with <code>byrow = TRUE</code>.</p>
+<section id="a-lack-of-expression" class="slide level2">
+<h2>A Lack of Expression…</h2>
+<p>Suppose we wanted to evaluate whether some condition is true for <em>any</em> of the elements in a vector.</p>
 <div class="fragment">
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="row-major-1">Row-Major</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">matrix</span>(</span>
-<span id="cb10-2"><a href="#cb10-2"></a>  m, </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="at">nrow =</span> <span class="dv">3</span>, </span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="at">ncol =</span> <span class="dv">3</span>, </span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    4    5    6
-[3,]    7    8    9</code></pre>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<h3 id="column-major-1">Column-Major</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">matrix</span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  m, </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="at">nrow =</span> <span class="dv">3</span>, </span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    4    7
-[2,]    2    5    8
-[3,]    3    6    9</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="matrix-functions-rbind" class="slide level2">
-<h2>Matrix Functions: <code>rbind</code></h2>
-<p><code>rbind</code> combines the <em>rows</em> of the inputs into a new matrix.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">rbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    3    2    1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">rbind</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>), <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    4
-[2,]    2    5
-[3,]    3    6
-[4,] -100  100</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">rbind</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">3</span>), <span class="fu">matrix</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">11</span>, <span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    9   10   11</code></pre>
-</div>
-</div>
-</section>
-<section id="matrix-functions-cbind" class="slide level2">
-<h2>Matrix Functions: <code>cbind</code></h2>
-<p><code>cbind</code> combines the <em>columns</em> of the inputs into a new matrix.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2]
-[1,]    1    3
-[2,]    2    2
-[3,]    3    1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">cbind</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    4    0
-[2,]    2    5   50
-[3,]    3    6  100</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">cbind</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>), <span class="fu">matrix</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]    1    4    6    3
-[2,]    2    5    5    2
-[3,]    3    6    4    1</code></pre>
-</div>
-</div>
-</section>
-<section id="matrix-functions-nrow-ncol" class="slide level2">
-<h2>Matrix Functions: <code>nrow</code>, <code>ncol</code></h2>
-<p>With vectors, we use <code>length</code> to obtain the number of objects. Similarly, for matrices:</p>
-<div class="fragment">
-<p>To obtain the number of rows, use <code>nrow</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">nrow</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>To obtain the number of columns, use <code>ncol</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ncol</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="accessing-elements" class="slide level2">
-<h2>Accessing Elements</h2>
-<p>Use <code>&lt;matrix&gt;[i, j]</code> to get the value at the <code>i</code>th row and <code>j</code>th column.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>x[<span class="dv">2</span>, <span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 32</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>If you want the <code>i</code>th row, use <code>&lt;matrix&gt;[i,]</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>x[<span class="dv">2</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  2 12 22 32 42 52 62 72 82 92</code></pre>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Similarly, if you want the <code>j</code>th column, use <code>&lt;matrix&gt;[,j]</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>x[,<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 31 32 33 34 35 36 37 38 39 40</code></pre>
-</div>
-</div>
-<div class="fragment fade-right">
-<div style="color: blue;">
-<p>Note that a vector is returned in each case.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="lists" class="slide level2">
-<h2>Lists</h2>
-<p>Lists allow us to store collection of objects, as with vectors, except <em>every object</em> <em>need not be the same type</em>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="st">"Go Bears!"</span>, <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 1 2 3 4 5 6 7
-
-[[2]]
-[1] "Go Bears!"
-
-[[3]]
-[1] TRUE</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Also, the objects of a list <em>need not be atomic types</em>. As you can see, the first object above is a vector. We can even have lists of lists.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">list</span>(<span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="st">"Go Bears!"</span>, <span class="cn">TRUE</span>), <span class="fu">list</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">1</span>, <span class="st">"!sraeB oG"</span>, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-<section id="lists-names" class="slide level2">
-<h2>Lists: Names</h2>
-<p>We can assign names to the objects.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>my_list <span class="ot">=</span> <span class="fu">list</span>(<span class="at">nums =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">str =</span> <span class="st">"Go Bears!"</span>, <span class="at">bool =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb39-2"><a href="#cb39-2"></a>my_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$nums
-[1] 1 2 3 4 5 6 7
-
-$str
-[1] "Go Bears!"
-
-$bool
-[1] TRUE</code></pre>
-</div>
-</div>
-</section>
-<section id="lists-access-by-name" class="slide level2">
-<h2>Lists: Access by Name</h2>
-<p>Then access the objects by name with the <code>$</code> operator.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>my_list<span class="sc">$</span>nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>my_list<span class="sc">$</span>str</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Go Bears!"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>my_list<span class="sc">$</span>bool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>heights <span class="ot">&lt;-</span> starwars<span class="sc">$</span>height</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">length</span>(heights[heights <span class="sc">&gt;</span> <span class="dv">150</span>]) <span class="sc">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<p>What about this instead?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">sum</span>(<span class="fu">as.numeric</span>(heights <span class="sc">&gt;</span> <span class="dv">150</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="fragment fade-right">
+<div style="color: red;">
+<p>These are <em>both</em> <strong>awful</strong>. Our burden reading and writing this is too great for a task so trivial.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Importantly, the code doesn’t <em>convey</em> what it does. Instead, it’s the reader’s responsibility to make sense of the computations.</p>
+</div>
 </section>
-<section id="lists-access-with-square-brackets" class="slide level2">
-<h2>Lists: Access with Square Brackets</h2>
-<p>As with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.</p>
+<section id="expressiveness" class="slide level2">
+<h2>Expressiveness</h2>
+<p>Ideally, we’d prefer for our code to <strong><em>say what it does</em></strong> directly. This makes it easier to read and write.</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">any</span>(heights <span class="sc">&gt;</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">all</span>(heights <span class="sc">&gt;</span> <span class="dv">20</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 <div class="fragment fade-right">
 <div style="color: blue;">
-<p>Be careful! There are two types of access with lists.</p>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>person <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"Franz Liszt"</span>, <span class="at">profession =</span> <span class="st">"Pianist"</span>, <span class="at">alive =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>What is the difference between these two?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>person[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$name
-[1] "Franz Liszt"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>person[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Franz Liszt"</code></pre>
+<p>In both cases, <em>you know what it does immediately.</em></p>
+<p>There’s no need to make sense of confusing computations.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="list-square-brackets-two-methods" class="slide level2">
-<h2>List: Square Brackets, Two Methods?</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>person[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$name
-[1] "Franz Liszt"</code></pre>
-</div>
-</div>
-<p>The first (one set of square brackets) returns a <em>list</em> with only the first object.</p>
+<section id="expressiveness-with-data-frames" class="slide level2">
+<h2>Expressiveness with Data Frames</h2>
+<p>The package <code>dplyr</code> provides us with functions (<a href="https://dplyr.tidyverse.org"><em>“a grammar”</em></a>) that make our data frame manipulations <em>more expressive</em>.</p>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>person[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Franz Liszt"</code></pre>
-</div>
-</div>
-<p>The second (two sets of square brackets) returns the underlying object (a string).</p>
+<p>Let’s consider some common data frame tasks and what <em>verbs</em> <code>dplyr</code> provides to solve them.</p>
 </div>
 </section>
-<section id="lists-only-one" class="slide level2">
-<h2>Lists: Only One!</h2>
-<p>Note that when using double square brackets <code>[[]]</code>, you can only access one object at a time.</p>
-<div class="fragment">
+<section id="slice" class="slide level2">
+<h2><code>slice</code></h2>
+<p>Suppose we want some subset of the rows. In base R,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>person[[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in person[[c(1, 2)]]: subscript out of bounds</code></pre>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>starwars[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(starwars), <span class="dv">2</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p>This isn’t an issue with single square brackets.</p>
+<p><code>dplyr</code> provides us with the <code>slice</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>person[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$name
-[1] "Franz Liszt"
-
-$profession
-[1] "Pianist"</code></pre>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">slice</span>(starwars, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(starwars), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<div class="fragment">
+<p>We can provide multiple vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">slice</span>(starwars, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
 <div class="fragment fade-up">
-<div style="color: red">
-<p>Can you guess why?</p>
+<div style="color: red;">
+<p>Note that slice works only with <strong><em>indices</em></strong>. Unlike base R subsetting, you can’t use strings or logical values.</p>
 </div>
+</div>
+</div>
+</section>
+<section id="select" class="slide level2">
+<h2><code>select</code></h2>
+<p>Suppose we want to <em>select</em> some of the columns. In base R,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>starwars[,<span class="fu">c</span>(<span class="st">"height"</span>, <span class="st">"mass"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><code>dplyr</code> provides us with the <code>select</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">select</span>(starwars, <span class="fu">c</span>(<span class="st">"height"</span>, <span class="st">"mass"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Alternatively,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">select</span>(starwars, <span class="st">"height"</span>, <span class="st">"mass"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>There’s no need to provide the columns as strings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">select</span>(starwars, height, mass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="filter" class="slide level2">
+<h2><code>filter</code></h2>
+<p>Suppose we want to <em>filter</em> the rows by some condition. In base R,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>starwars[starwars<span class="sc">$</span>height <span class="sc">&gt;</span> <span class="dv">100</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><code>dplyr</code> provides us with the <code>filter</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">filter</span>(starwars, height <span class="sc">&gt;</span> <span class="dv">100</span>)  <span class="co"># no need to specify starwars$height</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>We can easily combine conditions with the logical operators.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">filter</span>(starwars, height <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> mass <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> sex <span class="sc">==</span> <span class="st">"male"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">filter</span>(starwars, <span class="fu">is.na</span>(hair_color) <span class="sc">|</span> species <span class="sc">==</span> <span class="st">"Droid"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">filter</span>(starwars, <span class="sc">!</span>(eye_color <span class="sc">==</span> <span class="st">"brown"</span> <span class="sc">&amp;</span> skin_color <span class="sc">==</span> <span class="st">"blue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="mutate" class="slide level2">
+<h2><code>mutate</code></h2>
+<p>Suppose we want to add new columns. In base R,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>starwars<span class="sc">$</span>is_chosen_one <span class="ot">&lt;-</span> starwars<span class="sc">$</span>name <span class="sc">==</span> <span class="st">"Darth Vader"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><code>dplyr</code> provides us with the function <code>mutate</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">mutate</span>(starwars, <span class="at">is_chosen_one =</span> name <span class="sc">==</span> <span class="st">"Darth Vader"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment fade-right">
+<div style="color: red;">
+<p>Wait, did that change <code>starwars</code>?</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>No, it returned a new, <em>mutated</em> data frame. To modify, we must reassign.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>starwars <span class="ot">&lt;-</span> <span class="fu">mutate</span>(starwars, <span class="at">is_chosen_one =</span> name <span class="sc">==</span> <span class="st">"Darth Vader"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>If you use an existing column, it will <em>be replaced</em>. Replace an existing column with <code>NULL</code> to delete it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>starwars <span class="ot">&lt;-</span> <span class="fu">mutate</span>(starwars, <span class="at">hair_color =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="summarisesummarize" class="slide level2">
+<h2><code>summarise</code>/<code>summarize</code></h2>
+<p>We can use <code>summarise</code> to obtain summary statistics on the data frame (in the form of a new data frame).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">summarise</span>(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    starwars,  <span class="co"># what we are summarising</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="at">avg_mass =</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="at">avg_birth_year =</span> <span class="fu">mean</span>(birth_year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 3
+  avg_height avg_mass avg_birth_year
+       &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;
+1       174.     97.3           87.6</code></pre>
+</div>
+</div>
+<p>But what if we wanted to get these values for each group (say, each species)?</p>
+<div class="fragment">
+<p>Would we have to <code>filter</code> the data frame three times, then call summarise for each?</p>
+</div>
+</section>
+<section id="group_by" class="slide level2">
+<h2><code>group_by</code></h2>
+<p>We can use <code>group_by</code> to form a new table which is <strong><em>grouped by the values in</em></strong> <strong><em>particular columns.</em></strong> The functions you use will be applied to the groups separately, after which <code>dplyr</code> groups the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">summarise</span>(</span>
+<span id="cb26-2"><a href="#cb26-2"></a>    <span class="fu">group_by</span>(starwars, sex),</span>
+<span id="cb26-3"><a href="#cb26-3"></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="at">avg_mass =</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-5"><a href="#cb26-5"></a>    <span class="at">avg_birth_year =</span> <span class="fu">mean</span>(birth_year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-6"><a href="#cb26-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 4
+  sex            avg_height avg_mass avg_birth_year
+  &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;
+1 female               169.     54.7           47.2
+2 hermaphroditic       175    1358            600  
+3 male                 179.     81.0           85.5
+4 none                 131.     69.8           53.3
+5 &lt;NA&gt;                 181.     48             62  </code></pre>
+</div>
+</div>
+</section>
+<section id="much-more" class="slide level2">
+<h2>Much More</h2>
+<p>I’ve only introduced the most basic functionality of these functions. Enter <code>?&lt;function&gt;</code> to explore additional functionality.</p>
+<div class="fragment">
+<p>One neat example, the function <code>ends_with</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">head</span>(<span class="fu">select</span>(starwars, <span class="fu">ends_with</span>(<span class="st">"color"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 x 2
+  skin_color  eye_color
+  &lt;chr&gt;       &lt;chr&gt;    
+1 fair        blue     
+2 gold        yellow   
+3 white, blue red      
+4 white       yellow   
+5 light       brown    
+6 light       blue     </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="an-aside-piping" class="slide level2">
+<h2>An Aside: Piping</h2>
+<p>Piping will be explored in greater detail later.</p>
+<p>Suppose we have this code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">f</span>(<span class="fu">g</span>(<span class="fu">h</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In what order are the functions <code>f()</code>, <code>g()</code>, and <code>h()</code> called?</p>
+<div class="fragment">
+<div class="fragment fade-right">
+<div style="color: blue;">
+<p><code>h()</code>, then <code>g()</code>, then <code>f()</code>! We’ve written it backwards?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="an-aside-piping-1" class="slide level2">
+<h2>An Aside: Piping</h2>
+<p>To make nested functions easier to read and write, we use the pipe operator.</p>
+<p><code>a() %&gt;% b()</code> becomes <code>a(b())</code>.</p>
+<p>That is, the left operand is passed as the first argument to the second operand.</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>This allows us to rewrite <code>f(g(h()))</code> as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">h</span>() <span class="sc">%&gt;%</span> <span class="fu">g</span>() <span class="sc">%&gt;%</span> <span class="fu">f</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That is, in the logical order of the function calls.</p>
+</div>
+</section>
+<section id="an-aside-piping-2" class="slide level2">
+<h2>An Aside: Piping</h2>
+<p>The <code>%&gt;%</code> symbol comes from the package <code>magrittr</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># To use...</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="fu">install.packages</span>(<span class="st">"magrittr"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>If you’re using a new version of R (&gt;4.1.0), I’d recommend using the new pipe operator built into R, <code>|&gt;</code>.</p>
+</div>
+</section>
+<section id="piping-in-action" class="slide level2">
+<h2>Piping in Action</h2>
+<p>A more elaborate example from the <strong>Algorithm Problems</strong> page:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>qaq <span class="ot">&lt;-</span> <span class="cf">function</span>(string) {</span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="co"># Obtain the individual characters in `string`.</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  characters <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(string, <span class="st">""</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb37-4"><a href="#cb37-4"></a>  </span>
+<span id="cb37-5"><a href="#cb37-5"></a>  <span class="co"># Form a prefix vector for the number of "Q"s at each index.</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  q_count <span class="ot">&lt;-</span> characters <span class="sc">|&gt;</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a>    <span class="fu">equals</span>(<span class="st">"Q"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>    <span class="fu">as.numeric</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a>    <span class="fu">accumulate</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>)</span>
+<span id="cb37-10"><a href="#cb37-10"></a>  </span>
+<span id="cb37-11"><a href="#cb37-11"></a>  <span class="co"># For each "A" we can form &lt;"Q"s before "A"&gt; * &lt;"Q"s after "A"&gt; "QAQ"s. We </span></span>
+<span id="cb37-12"><a href="#cb37-12"></a>  <span class="co"># obtain this value for each "A" and sum them.</span></span>
+<span id="cb37-13"><a href="#cb37-13"></a>  characters <span class="sc">|&gt;</span></span>
+<span id="cb37-14"><a href="#cb37-14"></a>    <span class="fu">equals</span>(<span class="st">"A"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-15"><a href="#cb37-15"></a>    <span class="fu">multiply_by</span>(q_count) <span class="sc">|&gt;</span></span>
+<span id="cb37-16"><a href="#cb37-16"></a>    <span class="fu">multiply_by</span>(<span class="fu">tail</span>(q_count, <span class="dv">1</span>) <span class="sc">-</span> q_count) <span class="sc">|&gt;</span></span>
+<span id="cb37-17"><a href="#cb37-17"></a>    <span class="fu">sum</span>()</span>
+<span id="cb37-18"><a href="#cb37-18"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">
 <p><a href="https://red-robby.github.io/">Return to Home Page</a></p>
-</div>
 </div>
 </section>
     </div>

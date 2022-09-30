@@ -347,7 +347,7 @@
     "href": "lab03.html#row-major-column-major",
     "title": "Lab 03: Matrices, Lists",
     "section": "Row-Major, Column-Major",
-    "text": "Row-Major, Column-Major\nThe matrix function stores the given vector in column-major order by default. Our previous code assumed row-major order.\n\nTo see what this means, let’s turn m into two matrices, one for each.\n\nm <- 1:9\n\n\n\nRow-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\nColumn-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\n\n\n\n\nSo row-major fills in the matrix by row, and column-major does so by column."
+    "text": "Row-Major, Column-Major\nThe matrix function stores the given vector in column-major order by default. Our previous code assumed row-major order.\n\nTo see what this means, let’s turn m into two matrices, one for each.\n\nm <- 1:9\n\n::: columns\n\nRow-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\n\nColumn-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\n\n:::\n\n\nSo row-major fills in the matrix by row, and column-major does so by column."
   },
   {
     "objectID": "lab03.html#specifying-row-major-column-major",
@@ -579,6 +579,146 @@
     "title": "Lab 05: Handling Files",
     "section": "Saving R Output",
     "text": "Saving R Output\nIf we want to save the output of our program to a file, we use sink().\n\nsink(\"my-output.txt\")  # We specify the file to redirect our output to\nprint(\"Hello World!\")  \n3 + 2\nsink()                 # After this call, our output will be printed as usual\n\n\nThe output of our program was not printed to the console, but redirected to the file my-output.txt, which now contains:\n\n[1] \"Hello World!\"\n[1] 5\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "lab06.html#the-inconvenience-of-subsetting",
+    "href": "lab06.html#the-inconvenience-of-subsetting",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "The Inconvenience of Subsetting",
+    "text": "The Inconvenience of Subsetting\n\n\n\nUp until now, we’ve used base R to create and subset data. An example:\n\nsw_males <- starwars[\n    starwars$sex == \"male\",\n    !(names(starwars) %in% c(\"sex\", \"gender\"))\n]\n\n\n\nWhat does this do?\n\n\n\nIt’s reasonable to find this difficult to read.\n\n\n\n\nIn general, we prefer to be more expressive with our programming."
+  },
+  {
+    "objectID": "lab06.html#a-lack-of-expression",
+    "href": "lab06.html#a-lack-of-expression",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "A Lack of Expression…",
+    "text": "A Lack of Expression…\nSuppose we wanted to evaluate whether some condition is true for any of the elements in a vector.\n\n\nheights <- starwars$height\nlength(heights[heights > 150]) > 0\n\n[1] TRUE\n\n\nWhat about this instead?\n\nsum(as.numeric(heights > 150), na.rm = TRUE) > 0\n\n[1] TRUE\n\n\n\n\nThese are both awful. Our burden reading and writing this is too great for a task so trivial.\n\n\n\n\nImportantly, the code doesn’t convey what it does. Instead, it’s the reader’s responsibility to make sense of the computations."
+  },
+  {
+    "objectID": "lab06.html#expressiveness",
+    "href": "lab06.html#expressiveness",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Expressiveness",
+    "text": "Expressiveness\nIdeally, we’d prefer for our code to say what it does directly. This makes it easier to read and write.\n\n\nany(heights > 100)\n\n[1] TRUE\n\n\n\nall(heights > 20, na.rm = TRUE)\n\n[1] TRUE\n\n\n\n\nIn both cases, you know what it does immediately.\nThere’s no need to make sense of confusing computations."
+  },
+  {
+    "objectID": "lab06.html#expressiveness-with-data-frames",
+    "href": "lab06.html#expressiveness-with-data-frames",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Expressiveness with Data Frames",
+    "text": "Expressiveness with Data Frames\nThe package dplyr provides us with functions (“a grammar”) that make our data frame manipulations more expressive.\n\nLet’s consider some common data frame tasks and what verbs dplyr provides to solve them."
+  },
+  {
+    "objectID": "lab06.html#slice",
+    "href": "lab06.html#slice",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "slice",
+    "text": "slice\nSuppose we want some subset of the rows. In base R,\n\nstarwars[seq(1, nrow(starwars), 2),]\n\n\ndplyr provides us with the slice function.\n\nslice(starwars, seq(1, nrow(starwars), 2))\n\n\n\nWe can provide multiple vectors.\n\nslice(starwars, 1:5, 10:15, 17, 18)\n\n\n\n\n\nNote that slice works only with indices. Unlike base R subsetting, you can’t use strings or logical values."
+  },
+  {
+    "objectID": "lab06.html#select",
+    "href": "lab06.html#select",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "select",
+    "text": "select\nSuppose we want to select some of the columns. In base R,\n\nstarwars[,c(\"height\", \"mass\")]\n\n\ndplyr provides us with the select function.\n\nselect(starwars, c(\"height\", \"mass\"))\n\n\n\nAlternatively,\n\nselect(starwars, \"height\", \"mass\")\n\n\n\nThere’s no need to provide the columns as strings.\n\nselect(starwars, height, mass)"
+  },
+  {
+    "objectID": "lab06.html#filter",
+    "href": "lab06.html#filter",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "filter",
+    "text": "filter\nSuppose we want to filter the rows by some condition. In base R,\n\nstarwars[starwars$height > 100,]\n\n\ndplyr provides us with the filter function.\n\nfilter(starwars, height > 100)  # no need to specify starwars$height\n\n\n\nWe can easily combine conditions with the logical operators.\n\nfilter(starwars, height > 100 & mass > 100 & sex == \"male\")\nfilter(starwars, is.na(hair_color) | species == \"Droid\")\nfilter(starwars, !(eye_color == \"brown\" & skin_color == \"blue\"))"
+  },
+  {
+    "objectID": "lab06.html#mutate",
+    "href": "lab06.html#mutate",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "mutate",
+    "text": "mutate\nSuppose we want to add new columns. In base R,\n\nstarwars$is_chosen_one <- starwars$name == \"Darth Vader\"\n\n\ndplyr provides us with the function mutate.\n\nmutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nWait, did that change starwars?\n\n\n\n\nNo, it returned a new, mutated data frame. To modify, we must reassign.\n\nstarwars <- mutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nIf you use an existing column, it will be replaced. Replace an existing column with NULL to delete it.\n\nstarwars <- mutate(starwars, hair_color = NULL)"
+  },
+  {
+    "objectID": "lab06.html#summarisesummarize",
+    "href": "lab06.html#summarisesummarize",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "summarise/summarize",
+    "text": "summarise/summarize\nWe can use summarise to obtain summary statistics on the data frame (in the form of a new data frame).\n\nsummarise(\n    starwars,  # what we are summarising\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 1 x 3\n  avg_height avg_mass avg_birth_year\n       <dbl>    <dbl>          <dbl>\n1       174.     97.3           87.6\n\n\nBut what if we wanted to get these values for each group (say, each species)?\n\nWould we have to filter the data frame three times, then call summarise for each?"
+  },
+  {
+    "objectID": "lab06.html#group_by",
+    "href": "lab06.html#group_by",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "group_by",
+    "text": "group_by\nWe can use group_by to form a new table which is grouped by the values in particular columns. The functions you use will be applied to the groups separately, after which dplyr groups the results.\n\nsummarise(\n    group_by(starwars, sex),\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 5 x 4\n  sex            avg_height avg_mass avg_birth_year\n  <chr>               <dbl>    <dbl>          <dbl>\n1 female               169.     54.7           47.2\n2 hermaphroditic       175    1358            600  \n3 male                 179.     81.0           85.5\n4 none                 131.     69.8           53.3\n5 <NA>                 181.     48             62"
+  },
+  {
+    "objectID": "lab06.html#much-more",
+    "href": "lab06.html#much-more",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Much More",
+    "text": "Much More\nI’ve only introduced the most basic functionality of these functions. Enter ?<function> to explore additional functionality.\n\nOne neat example, the function ends_with:\n\nhead(select(starwars, ends_with(\"color\")))\n\n# A tibble: 6 x 2\n  skin_color  eye_color\n  <chr>       <chr>    \n1 fair        blue     \n2 gold        yellow   \n3 white, blue red      \n4 white       yellow   \n5 light       brown    \n6 light       blue"
+  },
+  {
+    "objectID": "lab06.html#an-aside-piping",
+    "href": "lab06.html#an-aside-piping",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nPiping will be explored in greater detail later.\nSuppose we have this code:\n\nf(g(h()))\n\nIn what order are the functions f(), g(), and h() called?\n\n\n\nh(), then g(), then f()! We’ve written it backwards?"
+  },
+  {
+    "objectID": "lab06.html#an-aside-piping-1",
+    "href": "lab06.html#an-aside-piping-1",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nTo make nested functions easier to read and write, we use the pipe operator.\na() %>% b() becomes a(b()).\nThat is, the left operand is passed as the first argument to the second operand.\n\n\n3 %>% sum(2)\n\n[1] 5\n\n3 %>% sum(2) %>% sum(5)\n\n[1] 10\n\n\n\n\nThis allows us to rewrite f(g(h())) as\n\nh() %>% g() %>% f()\n\nThat is, in the logical order of the function calls."
+  },
+  {
+    "objectID": "lab06.html#an-aside-piping-2",
+    "href": "lab06.html#an-aside-piping-2",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nThe %>% symbol comes from the package magrittr.\n\n# To use...\ninstall.packages(\"magrittr\")\nlibrary(magrittr)\n\n\nIf you’re using a new version of R (>4.1.0), I’d recommend using the new pipe operator built into R, |>."
+  },
+  {
+    "objectID": "lab06.html#piping-in-action",
+    "href": "lab06.html#piping-in-action",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Piping in Action",
+    "text": "Piping in Action\nA more elaborate example from the Algorithm Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "notes/input-output.html",
+    "href": "notes/input-output.html",
+    "title": "Handling Input/Output in CP",
+    "section": "",
+    "text": "If you end up using CodeChef, you’ll be expected to read from a file (standard input) and write to a file (standard output). Though the latter is just printing as you’ve done previously.\nUnfortunately, this process is not very intuitive in R (and, in my opinion, is easier in languages such as C++, which has a reputation for being headache inducing), so I provide a brief explanation here. Note that this is intended to be a practical guide, so I will not explore the “how” behind some of these functions.\nAs we’re only concerned with input and output, we’ll use the trivial problem “Flip The Cards” as an example. You can read the problem and try it yourself here."
+  },
+  {
+    "objectID": "notes/input-output.html#opening-the-file-connection",
+    "href": "notes/input-output.html#opening-the-file-connection",
+    "title": "Handling Input/Output in CP",
+    "section": "Opening the File (Connection)",
+    "text": "Opening the File (Connection)\nThe first step is to form a “connection” to standard input1. For this, we use the file() function, specifying the file name \"stdin\" and the mode. In this case we’ll be only reading from the file, so specify \"r\". Once done, we close the connection with close().\n\ncon <- file(\"stdin\", open = \"r\")\n# ... \nclose(con)\n\nNow the input to your program will typically be provided as values on separate lines. In this case, the first line contains the number of test cases, with each line after being a test case including two numbers – the number of cards and the number of cards flipped up (in that order)."
+  },
+  {
+    "objectID": "notes/input-output.html#reading-from-the-file",
+    "href": "notes/input-output.html#reading-from-the-file",
+    "title": "Handling Input/Output in CP",
+    "section": "Reading from the File",
+    "text": "Reading from the File\nWe have a few options for reading these lines, including readLines() and readChars(). I tried these but found scan() to be the most practical. I’d recommend reading the function’s documentation, but as a brief synopsis,\nTo get the number of test cases,\n\nn_tests <- scan(con, what = \"integer\", n = 1) # do we need to cast here?\n\nFor each test case, we’ll read in two integers. Annoyingly, despite specifying the type \"integer\", we still need to cast the return type with as.integer().\n\ninput <- as.integer(scan(con, what = \"integer\", n = 2))"
+  },
+  {
+    "objectID": "notes/input-output.html#writing-to-standard-output",
+    "href": "notes/input-output.html#writing-to-standard-output",
+    "title": "Handling Input/Output in CP",
+    "section": "Writing to Standard Output",
+    "text": "Writing to Standard Output\nThankfully, our regular printing is automatically written to standard output, so this section is less trouble. But there’s one important note. CodeChef and similar websites expect your output to be in an exact format. You may notice R provides some additional information when printing. As an example,\n\n3 + 2\n\n[1] 5\n\n\nR printed [1] before the actual value, which in our case is undesirable. To avoid this, use the cat() (short for concatenate) function.\n\ncat(3 + 2)\n\n5\n\n\nOne last note is that you may be asked to provide your outputs on separate lines. For this, pass cat() the newline control character, \"\\n\".\n\ncat(\"Hello from above!\")  # Printed on first line.\ncat(\"\\n\")                 # Goes to the next line.\ncat(\"Hello from below!\")  # Printed on the second line.\n\n\n\nHello from above!\nHello from below!"
+  },
+  {
+    "objectID": "notes/input-output.html#putting-it-together",
+    "href": "notes/input-output.html#putting-it-together",
+    "title": "Handling Input/Output in CP",
+    "section": "Putting it Together",
+    "text": "Putting it Together\nNow the last thing\n\ncon <- file(\"stdin\", open = \"r\")\n\nn_tests <- scan(con, what = \"integer\", n = 1)\n\nfor (_ in seq_len(n_tests)) {\n    input <- as.integer(scan(con, what = \"integer\", n = 2))\n    cards <- input[1]\n    faced_up <- input[2]\n    cat(min(cards - faced_up, faced_up), \"\\n\") \n}\n\nclose(con)\n\nIf you’d prefer to not have an unused variable _, we could use replicate, though this produces output for each call, which we’ll need to suppress with invisible2.\n\ncon <- file(\"stdin\", open = \"r\")\n\ninvisible(\n    replicate(\n        n = scan(con, what = \"integer\", n = 1), \n        expr = {\n            input <- as.integer(scan(con, what = \"integer\", n = 2))\n            cards <- input[1]\n            faced_up <- input[2]\n            cat(min(cards - faced_up, faced_up), \"\\n\")\n        }\n    )\n)\n\nclose(con)\n\n\n# This function alone solves the problem. The rest is for handling input/output.\nmin_flips <- function(cards, faced_up) {\n  min(cards - faced_up, faced_up)\n}\n\ninvisible(\n  replicate(\n    n = scan(con, what = \"integer\", n = 1),\n    expr = {\n      input <- as.integer(scan(con, what = \"integer\", n = 2))\n      cat(min_flips(input[1], input[2]), \"\\n\")\n    }\n  )\n)\n\n\n# This function alone solves the problem. The rest is for handling input/output.\nmin_flips <- function(cards, faced_up) {\n  min(cards - faced_up, faced_up)\n}\n\nfor (_ in seq_len(n_tests)) {\n    input <- as.integer(scan(con, what = \"integer\", n = 2))\n    cat(min_flips(input[1], input[2]), \"\\n\")\n}"
   },
   {
     "objectID": "practice/algorithmic-problems.html",

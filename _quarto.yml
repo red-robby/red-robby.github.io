@@ -22,6 +22,7 @@ website:
           - lab03.qmd
           - lab04.qmd
           - lab05.qmd
+          - lab06.qmd
       - section: "Notes"
       - section: "Practice Problems"
         contents:

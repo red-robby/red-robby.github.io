@@ -1,0 +1,403 @@
+---
+title: "Lab 06: Intro to `dplyr`"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+editor: visual
+---
+
+## The Inconvenience of Subsetting
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(dplyr)
+
+```
+
+Up until now, we've used base R to create and subset data. An example:
+
+```{r}
+#| echo: true
+sw_males <- starwars[
+    starwars$sex == "male",
+    !(names(starwars) %in% c("sex", "gender"))
+]
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+What does this do?
+:::
+:::
+
+. . .
+
+It's reasonable to find this difficult to read.
+
+. . .
+
+::: {.fragment .fade-up}
+::: {style="color: blue;"}
+In general, we prefer to be more *expressive* with our programming.
+:::
+:::
+
+## A Lack of Expression...
+
+Suppose we wanted to evaluate whether some condition is true for *any* of the elements in a vector.
+
+. . .
+
+```{r}
+#| echo: true
+
+heights <- starwars$height
+length(heights[heights > 150]) > 0
+```
+
+What about this instead?
+
+```{r}
+#| echo: true
+sum(as.numeric(heights > 150), na.rm = TRUE) > 0
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+These are *both* **awful**. Our burden reading and writing this is too great for a task so trivial.
+:::
+:::
+
+. . .
+
+Importantly, the code doesn't *convey* what it does. Instead, it's the reader's responsibility to make sense of the computations.
+
+## Expressiveness
+
+Ideally, we'd prefer for our code to ***say what it does*** directly. This makes it easier to read and write.
+
+. . .
+
+```{r}
+#| echo: true
+any(heights > 100)
+```
+
+```{r}
+#| echo: true
+all(heights > 20, na.rm = TRUE)
+```
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+In both cases, *you know what it does immediately.*
+
+There's no need to make sense of confusing computations.
+:::
+:::
+
+. . .
+
+## Expressiveness with Data Frames
+
+The package `dplyr` provides us with functions ([*"a grammar"*](https://dplyr.tidyverse.org)) that make our data frame manipulations *more expressive*.
+
+. . .
+
+Let's consider some common data frame tasks and what *verbs* `dplyr` provides to solve them.
+
+## `slice`
+
+Suppose we want some subset of the rows. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[seq(1, nrow(starwars), 2),]
+```
+
+. . .
+
+`dplyr` provides us with the `slice` function.
+
+```{r}
+#| echo: true
+#| eval: false
+slice(starwars, seq(1, nrow(starwars), 2))
+```
+
+. . .
+
+We can provide multiple vectors.
+
+```{r}
+#| echo: true
+#| eval: false
+slice(starwars, 1:5, 10:15, 17, 18)
+```
+
+. . .
+
+::: {.fragment .fade-up}
+::: {style="color: red;"}
+Note that slice works only with ***indices***. Unlike base R subsetting, you can't use strings or logical values.
+:::
+:::
+
+## `select`
+
+Suppose we want to *select* some of the columns. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[,c("height", "mass")]
+```
+
+. . .
+
+`dplyr` provides us with the `select` function.
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, c("height", "mass"))
+```
+
+. . .
+
+Alternatively,
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, "height", "mass")
+```
+
+. . .
+
+There's no need to provide the columns as strings.
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, height, mass)
+```
+
+## `filter`
+
+Suppose we want to *filter* the rows by some condition. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[starwars$height > 100,]
+```
+
+. . .
+
+`dplyr` provides us with the `filter` function.
+
+```{r}
+#| echo: true
+#| eval: false
+filter(starwars, height > 100)  # no need to specify starwars$height
+```
+
+. . .
+
+We can easily combine conditions with the logical operators.
+
+```{r}
+#| echo: true
+#| eval: false
+filter(starwars, height > 100 & mass > 100 & sex == "male")
+filter(starwars, is.na(hair_color) | species == "Droid")
+filter(starwars, !(eye_color == "brown" & skin_color == "blue"))
+```
+
+## `mutate`
+
+Suppose we want to add new columns. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars$is_chosen_one <- starwars$name == "Darth Vader"
+```
+
+. . .
+
+`dplyr` provides us with the function `mutate`.
+
+```{r}
+#| echo: true
+#| eval: false
+mutate(starwars, is_chosen_one = name == "Darth Vader")
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+Wait, did that change `starwars`?
+:::
+:::
+
+. . .
+
+No, it returned a new, *mutated* data frame. To modify, we must reassign.
+
+```{r}
+#| echo: true
+starwars <- mutate(starwars, is_chosen_one = name == "Darth Vader")
+```
+
+. . .
+
+If you use an existing column, it will *be replaced*. Replace an existing column with `NULL` to delete it.
+
+```{r}
+#| echo: true
+starwars <- mutate(starwars, hair_color = NULL)
+```
+
+## `summarise`/`summarize`
+
+We can use `summarise` to obtain summary statistics on the data frame (in the form of a new data frame).
+
+```{r}
+#| echo: true
+summarise(
+    starwars,  # what we are summarising
+    avg_height = mean(height, na.rm = TRUE),
+    avg_mass = mean(mass, na.rm = TRUE),
+    avg_birth_year = mean(birth_year, na.rm = TRUE)
+)
+```
+
+But what if we wanted to get these values for each group (say, each species)?
+
+. . .
+
+Would we have to `filter` the data frame three times, then call summarise for each?
+
+## `group_by`
+
+We can use `group_by` to form a new table which is ***grouped by the values in*** ***particular columns.*** The functions you use will be applied to the groups separately, after which `dplyr` groups the results.
+
+```{r}
+#| echo: true
+summarise(
+    group_by(starwars, sex),
+    avg_height = mean(height, na.rm = TRUE),
+    avg_mass = mean(mass, na.rm = TRUE),
+    avg_birth_year = mean(birth_year, na.rm = TRUE)
+)
+```
+
+## Much More
+
+I've only introduced the most basic functionality of these functions. Enter `?<function>` to explore additional functionality.
+
+. . .
+
+One neat example, the function `ends_with`:
+
+```{r}
+#| echo: true
+head(select(starwars, ends_with("color")))
+```
+
+## An Aside: Piping
+
+Piping will be explored in greater detail later.
+
+Suppose we have this code:
+
+```{r}
+#| echo: true
+#| eval: false
+f(g(h()))
+```
+
+In what order are the functions `f()`, `g()`, and `h()` called?
+
+. . .
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+`h()`, then `g()`, then `f()`! We've written it backwards?
+:::
+:::
+
+## An Aside: Piping
+
+To make nested functions easier to read and write, we use the pipe operator.
+
+`a() %>% b()` becomes `a(b())`.
+
+That is, the left operand is passed as the first argument to the second operand.
+
+. . .
+
+```{r}
+#| echo: true
+3 %>% sum(2)
+3 %>% sum(2) %>% sum(5)
+```
+
+. . .
+
+This allows us to rewrite `f(g(h()))` as
+
+```{r}
+#| echo: true
+#| eval: false
+h() %>% g() %>% f()
+```
+
+That is, in the logical order of the function calls.
+
+## An Aside: Piping
+
+The `%>%` symbol comes from the package `magrittr`.
+
+```{r}
+#| echo: true
+#| eval: false
+# To use...
+install.packages("magrittr")
+library(magrittr)
+```
+
+. . .
+
+If you're using a new version of R (\>4.1.0), I'd recommend using the new pipe operator built into R, `|>`.
+
+## Piping in Action
+
+A more elaborate example from the **Algorithm Problems** page:
+
+```{r}
+#| echo: true
+qaq <- function(string) {
+  # Obtain the individual characters in `string`.
+  characters <- strsplit(string, "")[[1]]
+  
+  # Form a prefix vector for the number of "Q"s at each index.
+  q_count <- characters |>
+    equals("Q") |>
+    as.numeric() |>
+    accumulate(`+`)
+  
+  # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
+  # obtain this value for each "A" and sum them.
+  characters |>
+    equals("A") |>
+    multiply_by(q_count) |>
+    multiply_by(tail(q_count, 1) - q_count) |>
+    sum()
+}
+```
