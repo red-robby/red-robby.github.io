@@ -336,7 +336,7 @@ In what order are the functions `f()`, `g()`, and `h()` called?
 
 To make nested functions easier to read and write, we use the pipe operator.
 
-`a() %>% b()` becomes `a(b())`.
+`a() %>% b()` becomes `b(a())`.
 
 That is, the left operand is passed as the first argument to the second operand.
 

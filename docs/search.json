@@ -669,7 +669,7 @@
     "href": "lab06.html#an-aside-piping-1",
     "title": "Lab 06: Intro to dplyr",
     "section": "An Aside: Piping",
-    "text": "An Aside: Piping\nTo make nested functions easier to read and write, we use the pipe operator.\na() %>% b() becomes a(b()).\nThat is, the left operand is passed as the first argument to the second operand.\n\n\n3 %>% sum(2)\n\n[1] 5\n\n3 %>% sum(2) %>% sum(5)\n\n[1] 10\n\n\n\n\nThis allows us to rewrite f(g(h())) as\n\nh() %>% g() %>% f()\n\nThat is, in the logical order of the function calls."
+    "text": "An Aside: Piping\nTo make nested functions easier to read and write, we use the pipe operator.\na() %>% b() becomes b(a()).\nThat is, the left operand is passed as the first argument to the second operand.\n\n\n3 %>% sum(2)\n\n[1] 5\n\n3 %>% sum(2) %>% sum(5)\n\n[1] 10\n\n\n\n\nThis allows us to rewrite f(g(h())) as\n\nh() %>% g() %>% f()\n\nThat is, in the logical order of the function calls."
   },
   {
     "objectID": "lab06.html#an-aside-piping-2",
