@@ -378,7 +378,7 @@ If you're using a new version of R (\>4.1.0), I'd recommend using the new pipe o
 
 ## Piping in Action
 
-A more elaborate example from the **Algorithm Problems** page:
+A more elaborate example from the [**Algorithm Problems**](https://red-robby.github.io/practice/algorithmic-problems.html) page:
 
 ```{r}
 #| echo: true
