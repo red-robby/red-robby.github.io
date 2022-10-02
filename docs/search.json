@@ -683,7 +683,7 @@
     "href": "lab06.html#piping-in-action",
     "title": "Lab 06: Intro to dplyr",
     "section": "Piping in Action",
-    "text": "Piping in Action\nA more elaborate example from the Algorithm Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
+    "text": "Piping in Action\nA more elaborate example from the Algorithmic Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
   },
   {
     "objectID": "notes/input-output.html",
