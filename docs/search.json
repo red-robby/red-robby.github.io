@@ -686,6 +686,125 @@
     "text": "Piping in Action\nA more elaborate example from the Algorithmic Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab07.html#graphics-with-base-r",
+    "href": "lab07.html#graphics-with-base-r",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Graphics with Base R?",
+    "text": "Graphics with Base R?\n\n\n\nSo far we’ve produced graphics with base R, which you likely felt unintuitive and inflexible.\n\nThe package dplyr made data manipulation easier and more flexible.\n\n\nNow we introduce the package ggplot2, which will provide these benefits for data visualization."
+  },
+  {
+    "objectID": "lab07.html#introducing-ggplot2",
+    "href": "lab07.html#introducing-ggplot2",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Introducing ggplot2",
+    "text": "Introducing ggplot2\nggplot2 provides us with a set of functions to intuitively and quickly produce attractive plots.\n\nThe package ggplot2…\n\n\nprovides us with a grammar of data visualization.\nis based on the idea of decomposing plots into various distinct components – and later layers.\nis the most widely used graphics library for R.\nhas countless extensions (e.g., for animations, rare plot types)."
+  },
+  {
+    "objectID": "lab07.html#introducing-ggplot2-1",
+    "href": "lab07.html#introducing-ggplot2-1",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Introducing ggplot2",
+    "text": "Introducing ggplot2\n\nis designed on the idea of decomposing plots into various distinct components – and later layers.\n\n\nA good grammar will allow us to gain insight into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics.1 – Hadley Wickham\n\nFrom A Layered Grammar of Graphics. Note that this presentation is partially based on ideas from this paper. I’d recommend reading it if you’d like to understand the reasoning behind ggplot2’s design."
+  },
+  {
+    "objectID": "lab07.html#components",
+    "href": "lab07.html#components",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Components?",
+    "text": "Components?\n\nAsk yourself, what makes up a plot?\n\n\nData and Aesthetic Mapping\nWhat data is the plot using and communicating? How is it mapped (e.g., what data is used for each axis)?\nGeometric Objects\nHow are we representing the data geometrically? Lines, points, colored area?\nScales, Coordinate Systems\nHow large/small are the objects? What coordinate systems do we use? Units?"
+  },
+  {
+    "objectID": "lab07.html#components-in-ggplot2",
+    "href": "lab07.html#components-in-ggplot2",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Components in ggplot2",
+    "text": "Components in ggplot2\n… And more. But we’ll get started with these.\n\nAt a high level, we create components with function calls, and connect them to form a cohesive whole.\n\n\nWe use + to connect them.\nImage we had functions to create the “components” of a human. To create a whole human, we’d write something like,\n\nperson(name = \"Jakob\") +\n  body() +\n  personality(type = \"strange\") + \n  education(major = c(\"computer science\", \"math\")) + \n  job(title = \"uGSI\")"
+  },
+  {
+    "objectID": "lab07.html#the-data-and-aesthetic-mapping-component",
+    "href": "lab07.html#the-data-and-aesthetic-mapping-component",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Data and Aesthetic Mapping Component",
+    "text": "The Data and Aesthetic Mapping Component\nThe first component you’ll need is one that defines…\n\nwhat data you’ll be using – data.\nhow the data is mapped aesthetically – mapping.\n\n\nWe create this component using the ggplot function call; data and mapping are the corresponding arguments.\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
+  },
+  {
+    "objectID": "lab07.html#the-data-and-aesthetic-mapping-component-1",
+    "href": "lab07.html#the-data-and-aesthetic-mapping-component-1",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Data and Aesthetic Mapping Component",
+    "text": "The Data and Aesthetic Mapping Component\nWhat we have so far…\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
+  },
+  {
+    "objectID": "lab07.html#the-geom-component",
+    "href": "lab07.html#the-geom-component",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Geom Component",
+    "text": "The Geom Component\nOur plot is empty! We need to define the geom, i.e., what geometrical objects will be used to represent the data.\nThese components are created with geom_* functions.\n\n\n\n\nggplot(filter(starwars, mass < 200), \n  aes(x = height, y = mass)) +\n  geom_point()\n\n\n\n\n\n\nggplot(filter(starwars, mass < 200), \n       aes(x = height, y = mass)) +\n  geom_line()"
+  },
+  {
+    "objectID": "lab07.html#customizing-geoms",
+    "href": "lab07.html#customizing-geoms",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Customizing Geoms",
+    "text": "Customizing Geoms\nEach geom has many options for customization. Enter ?<function> to learn more about your geom of interest.\n\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"red\",  # define line color\n      alpha = 0.5,    # define line opacity \n      linetype = 6,   # define line type (dashed, solid, etc.)\n      size = 1.15     # define line thickness\n    )"
+  },
+  {
+    "objectID": "lab07.html#layering-geoms",
+    "href": "lab07.html#layering-geoms",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Layering Geoms",
+    "text": "Layering Geoms\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,            # define shape size (how big?)\n    )"
+  },
+  {
+    "objectID": "lab07.html#geoms-coloring-by-group",
+    "href": "lab07.html#geoms-coloring-by-group",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Geoms, Coloring by Group",
+    "text": "Geoms, Coloring by Group\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"grey\",     # define line color\n      alpha = 0.5,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      aes(fill = sex, color = sex),  # define what determines fill, color\n      alpha = 0.75,       # define shape opacity\n      shape = 21,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    )"
+  },
+  {
+    "objectID": "lab07.html#geoms-endless-customization",
+    "href": "lab07.html#geoms-endless-customization",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Geoms, Endless Customization!",
+    "text": "Geoms, Endless Customization!\nThere are many more geoms, and many, many more customization options. Don’t expect to memorize them.\n\n\nBecome comfortable reading the documentation.\nUse ?<function>."
+  },
+  {
+    "objectID": "lab07.html#dont-you-dare-label-me",
+    "href": "lab07.html#dont-you-dare-label-me",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Don’t You Dare Label Me!",
+    "text": "Don’t You Dare Label Me!\nOur plots look unprofessional now because we’ve not added proper labels.\n\nTo add labels, simply add a label component with the labs() function. Here’s its signature:\n\nlabs(\n  ...,\n  title = waiver(),\n  subtitle = waiver(),\n  caption = waiver(),\n  tag = waiver(),\n  alt = waiver(),\n  alt_insight = waiver()\n)"
+  },
+  {
+    "objectID": "lab07.html#label-example",
+    "href": "lab07.html#label-example",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Label Example",
+    "text": "Label Example\nHere we add a title and proper axis titles.\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    )"
+  },
+  {
+    "objectID": "lab07.html#still-unsatisfied-use-themes",
+    "href": "lab07.html#still-unsatisfied-use-themes",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Still Unsatisfied? Use Themes!",
+    "text": "Still Unsatisfied? Use Themes!\nIf the visuals of these plots don’t satisfy you, we can go further and customize every detail by creating a custom theme component.\n\nWell That’s Out of Scope…\nThis is out of scope for this class, but I’ll share an example to peek your interest. Feel free to ask me during lab/OH if you’d like to learn more."
+  },
+  {
+    "objectID": "lab07.html#theme-example-creation",
+    "href": "lab07.html#theme-example-creation",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Theme Example, Creation",
+    "text": "Theme Example, Creation\nAn example theme (from one of my STAT 133 projects).\n\noff_white <- \"#F7F0EB\"\nexample_theme <- theme(\n  plot.title = element_text(size = 24),\n  plot.subtitle = element_text(size = 14, face = \"italic\"),\n  axis.title = element_text(size = 14), \n  axis.text = element_text(size = 10, face = \"bold\"),\n  panel.background = element_rect(fill = off_white, color = \"black\"),\n  panel.grid = element_line(linetype = 2, size = 0.05, color = \"black\")\n)"
+  },
+  {
+    "objectID": "lab07.html#theme-example-plot",
+    "href": "lab07.html#theme-example-plot",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Theme Example, Plot",
+    "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "notes/input-output.html",
     "href": "notes/input-output.html",
     "title": "Handling Input/Output in CP",
