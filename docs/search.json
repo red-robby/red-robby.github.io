@@ -805,6 +805,167 @@
     "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab08.html#case-by-case",
+    "href": "lab08.html#case-by-case",
+    "title": "Lab 08: Conditionals",
+    "section": "Case by Case",
+    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\nwhich_season <- function(month) {\n  # What should we write here?\n}"
+  },
+  {
+    "objectID": "lab08.html#case-by-case-1",
+    "href": "lab08.html#case-by-case-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Case by Case",
+    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}\n\nWe could use a vector.\n\n\nThis is a neat work around, but in more complex cases this won’t be possible (or practical)."
+  },
+  {
+    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing",
+    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nLet’s consider another case: the famous FizzBuzz problem.\n\nGiven a number n, return:\n\n\"Fizz\" if it is divisible by 3.\n\"Buzz\" if it is divisible by 5.\n\"FizzBuzz\" if it is divisible by 3 and 5.\nThe number n as a string otherwise.\n\n\nfizzbuzz <- function(n) {\n  # What should we write here? \n}"
+  },
+  {
+    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
+    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nHere’s an idea:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}\n\n\n\nOh my, can you make sense of this?"
+  },
+  {
+    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
+    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nMaybe this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE)\n    ][1]\n}\n\n\n\nUmm… Are your eyes hurting yet?"
+  },
+  {
+    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
+    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nWhat about this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE) |> \n        which() |> \n        min()\n      ]\n}\n\n\n\n… Isn’t that terrible? Can you explain how it works?\n\n\n\n\nClearly we need some better tools for handling cases."
+  },
+  {
+    "objectID": "lab08.html#oh-if-only",
+    "href": "lab08.html#oh-if-only",
+    "title": "Lab 08: Conditionals",
+    "section": "Oh, if Only!",
+    "text": "Oh, if Only!\nRecall that we prefer for our code to be expressive.\n\nOur description of fizzbuzz included “IF”. Wouldn’t it be nice to write this directly in our code?\n\n\n\nWe can!\n\nx <- 10\nif (x >= 10)\n  x <- 5\nx\n\n[1] 5"
+  },
+  {
+    "objectID": "lab08.html#the-if-statement",
+    "href": "lab08.html#the-if-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The if Statement",
+    "text": "The if Statement\nThe if statement follows the intuitive structure:\n\n\nif (<logical>) <body>\n\n\n\nwhere <body> is executed if <logical> is true.\n\n\nNote that the parenthesis are required1.\n\n\n\nAs a comparison to other popular languages, this is unlike Python, but like C, C++ and Java."
+  },
+  {
+    "objectID": "lab08.html#the-if-statement-multiline-body",
+    "href": "lab08.html#the-if-statement-multiline-body",
+    "title": "Lab 08: Conditionals",
+    "section": "The if statement – multiline body?",
+    "text": "The if statement – multiline body?\nWhat if we want to execute multiple lines of code if a condition is true?\n\n\ndo_some_math <- function(ok, a, b) {\n  if (ok)\n    print(\"a * 10 is: \", a * 10)\n  if (ok)\n    print(\"b * 10 is: \", b * 10)\n  if (ok)\n    print(\"a * b is: \", a * b)\n}\n\n\n\nWell this seems silly…\n\n\n\n\nTo include multiple lines into <body>, we must place them inside curly brackets: { ... }."
+  },
+  {
+    "objectID": "lab08.html#the-if-statement-multiline-body-1",
+    "href": "lab08.html#the-if-statement-multiline-body-1",
+    "title": "Lab 08: Conditionals",
+    "section": "The if statement – multiline body?",
+    "text": "The if statement – multiline body?\nWe rewrite do_some_math:\n\ndo_some_math <- function(ok, a, b) {\n  if (ok) {\n    print(\"a * 10 is: \", a * 10)\n    print(\"b * 10 is: \", b * 10)    \n    print(\"a * b is: \", a * b)    \n  }\n}"
+  },
+  {
+    "objectID": "lab08.html#on-curly-brackets",
+    "href": "lab08.html#on-curly-brackets",
+    "title": "Lab 08: Conditionals",
+    "section": "On Curly Brackets",
+    "text": "On Curly Brackets\nNote that when using curly brackets, the last expression evaluated will be the value of the curly bracket block.\n\nfood <- \"boba\"\nlover <- {  # Variables are typically not set like this in R. \n  if (food == \"banana\")\n    \"Monkey\"\n  if (food == \"boba\")\n    \"Cal Student\"\n}\n\nWhat is lover?\n\n\nlover\n\n[1] \"Cal Student\""
+  },
+  {
+    "objectID": "lab08.html#not-this-that",
+    "href": "lab08.html#not-this-that",
+    "title": "Lab 08: Conditionals",
+    "section": "Not This, That!",
+    "text": "Not This, That!\nMaybe we’d like to execute some code if a condition is true, and execute some other code otherwise. We could write,\n\nif (conditional) {\n  # body A\n}\nif (!conditional) {\n  # body B\n}\n\n\nBut this:\n\nwastefully evaluates conditional twice. If the first if failed, we know conditional is FALSE.\nis not very expressive.\nwon’t work as intended if body A modifies conditional."
+  },
+  {
+    "objectID": "lab08.html#the-if-else-statement",
+    "href": "lab08.html#the-if-else-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The if else Statement",
+    "text": "The if else Statement\nInstead, we use the if else statement:\n\n\nif (<logical>) <body A> else <body B>\n\n\n\nwhere,\n\n<body A> is executed if <logical> is true.\n<body B> is executed if <logical> is false.\n\n\n\n\ncan_i_drive <- function(age) {\n  if (age < 16) \n    \"No, you're too young.\"\n  else\n    \"If you have a license.\"\n}\ncan_i_drive(21)\n\n[1] \"If you have a license.\""
+  },
+  {
+    "objectID": "lab08.html#the-else-if-statement",
+    "href": "lab08.html#the-else-if-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The else if Statement",
+    "text": "The else if Statement\nWhen we need to account for more cases than just two (true or false), we can use an else if statement:\n\n\nif (<logical 1>) <body 1>\nelse if (<logical 2>) <body 2>\nelse if (<logical 3>) <body 3> ...\nelse <body N>\n\n\n\n\nOnly one body will be evaluated.\nThe initial if statement is required, but the final else is not.\nYou may include as many else ifs as you’d like."
+  },
+  {
+    "objectID": "lab08.html#a-note-on-style",
+    "href": "lab08.html#a-note-on-style",
+    "title": "Lab 08: Conditionals",
+    "section": "A Note on Style",
+    "text": "A Note on Style\nThe curly brackets are optional if the body is one line.\n\nSome prefer you always use curly brackets.\nRegardless, it is recommended you use curly brackets for all bodies if at least one uses curly brackets.\n\n\n\n\n\nDon’t do this.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else\n  is_sophomore <- FALSE\n\n\n\nDo this instead.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
+  },
+  {
+    "objectID": "lab08.html#a-note-on-style-1",
+    "href": "lab08.html#a-note-on-style-1",
+    "title": "Lab 08: Conditionals",
+    "section": "A Note on Style",
+    "text": "A Note on Style\nNote that R requires else/else if be placed after the closing curly bracket (}).\n\n\n\nThis is not allowed.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} \nelse {\n  is_sophomore <- FALSE\n}\n\n\n\nThis format is required.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
+  },
+  {
+    "objectID": "lab08.html#control-flow-branching",
+    "href": "lab08.html#control-flow-branching",
+    "title": "Lab 08: Conditionals",
+    "section": "Control Flow, Branching",
+    "text": "Control Flow, Branching\nYou may see these statement referred to as,\n\nControl Flow Statements. They control which lines of code are evaluated, which are ignored, and the order in which they’re evaluated.\nBranching Statements. They may cause the program to “branch” to another line of code (instead of the one immediately after it)."
+  },
+  {
+    "objectID": "lab08.html#back-to-which_season",
+    "href": "lab08.html#back-to-which_season",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to which_season",
+    "text": "Back to which_season\nLet’s rewrite our which_season function:\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}"
+  },
+  {
+    "objectID": "lab08.html#back-to-which_season-1",
+    "href": "lab08.html#back-to-which_season-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to which_season",
+    "text": "Back to which_season\n\nNow with control flow statements.\n\n\nwhich_season <- function(month) {\n  if (month < 1 || month > 12)\n    NA\n  else if (month == 12 || month %in% 1:2)\n    \"Winter\"\n  else if (month %in% 3:5)\n    \"Spring\"\n  else if (month %in% 6:8)\n    \"Summer\"\n  else\n    \"Fall\"\n}"
+  },
+  {
+    "objectID": "lab08.html#back-to-fizzbuzz",
+    "href": "lab08.html#back-to-fizzbuzz",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to fizzbuzz",
+    "text": "Back to fizzbuzz\nLet’s rewrite our fizzbuzz function:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}"
+  },
+  {
+    "objectID": "lab08.html#back-to-fizzbuzz-1",
+    "href": "lab08.html#back-to-fizzbuzz-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to fizzbuzz",
+    "text": "Back to fizzbuzz\n\nNow with control flow statements. Pick your poison!\n\n\n\n\nfizzbuzz <- function(n) {\n  # This one is what I prefer. \n  s <- character()\n  if (n %% 3 == 0) {\n    s <- \"Fizz\"\n  }\n  if (n %% 5 == 0) {\n    s <- paste0(s, \"Buzz\")\n  }\n  if (!length(s)) {\n    s <- as.character(n)\n  }\n  s\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0 && n %% 5 == 0) {\n    \"FizzBuzz\"\n  }\n  else if (n %% 3 == 0) {\n    \"Fizz\"\n  }\n  else if (n %% 5 == 0) {\n    \"Buzz\"\n  }\n  else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0) {\n    # To avoid redundant computation. \n    if (n %% 5 == 0)\n      \"FizzBuzz\"\n    else\n      \"Fizz\"\n  } else if (n %% 5 == 0) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  # To avoid redundant computation. \n  div_3 <- n %% 3 == 0\n  div_5 <- n %% 5 == 0\n  if (div_3 && div_5) {\n    \"FizzBuzz\"\n  } else if (div_3) {\n    \"Fizz\"\n  } else if (div_5) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}"
+  },
+  {
+    "objectID": "lab08.html#the-vectorized-if-else-ifelse",
+    "href": "lab08.html#the-vectorized-if-else-ifelse",
+    "title": "Lab 08: Conditionals",
+    "section": "The Vectorized if else, ifelse()",
+    "text": "The Vectorized if else, ifelse()\nWe can use the function ifelse to apply the if else operation to a vector. Its function signature is\n\nifelse(test, yes, no)\n\nwhere,\n\ntest is a vector of logical values.\nyes is the value to be placed in the result vector if the corresponding logical value is true.\nno is the value to be placed in the result vector if the corresponding logical values is false."
+  },
+  {
+    "objectID": "lab08.html#simple-ifelse-example",
+    "href": "lab08.html#simple-ifelse-example",
+    "title": "Lab 08: Conditionals",
+    "section": "Simple ifelse() Example",
+    "text": "Simple ifelse() Example\n\nx <- 1:10\nifelse(x %% 2 == 0, \"Divisible by 2\", \"Not divisible by 2\")\n\n [1] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n [4] \"Divisible by 2\"     \"Not divisible by 2\" \"Divisible by 2\"    \n [7] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n[10] \"Divisible by 2\"    \n\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "notes/input-output.html",
     "href": "notes/input-output.html",
     "title": "Handling Input/Output in CP",
