@@ -966,6 +966,139 @@
     "text": "Simple ifelse() Example\n\nx <- 1:10\nifelse(x %% 2 == 0, \"Divisible by 2\", \"Not divisible by 2\")\n\n [1] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n [4] \"Divisible by 2\"     \"Not divisible by 2\" \"Divisible by 2\"    \n [7] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n[10] \"Divisible by 2\"    \n\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "lab09.html#repeating-code",
+    "href": "lab09.html#repeating-code",
+    "title": "Lab 09: Loops",
+    "section": "Repeating Code",
+    "text": "Repeating Code\n\n\n\nWe’ve seen how to control which lines of code are ran with conditionals.\n\nToday, we’ll review how to control repetition of lines of code."
+  },
+  {
+    "objectID": "lab09.html#a-simple-problem",
+    "href": "lab09.html#a-simple-problem",
+    "title": "Lab 09: Loops",
+    "section": "A Simple Problem",
+    "text": "A Simple Problem\nSuppose you have a vector with thousands of integers.\n\n\nYou’d like to find the indices of your favorite number, but you can’t use vectorization or loops.\n\n\n\nIf you’re familiar with functions, you could use recursion.\n\n\n\nnum_indices <- function(vec, num) {\n  if (!length(vec)) {\n    NULL\n  } else if (head(vec, 1) == num) {\n    c(1, 1 + num_indices(tail(vec, -1), num))\n  } else {\n    c(1 + num_indices(tail(vec, -1), num))\n  }\n}"
+  },
+  {
+    "objectID": "lab09.html#iterative-instead-of-recusrsive",
+    "href": "lab09.html#iterative-instead-of-recusrsive",
+    "title": "Lab 09: Loops",
+    "section": "Iterative Instead of Recusrsive",
+    "text": "Iterative Instead of Recusrsive\nRecursive solutions are often elegant but also difficult to write.1\n\nFor this reason, we introduce an alternate approach: iterative solutions.\n\n\nIterative solutions contain a block of code that is directly repeated.\nWe call the repeated code the loop.\n\nYou can name <variable> whatever you’d like."
+  },
+  {
+    "objectID": "lab09.html#beyond-conditional-statements",
+    "href": "lab09.html#beyond-conditional-statements",
+    "title": "Lab 09: Loops",
+    "section": "Beyond Conditional Statements",
+    "text": "Beyond Conditional Statements\nWe’ve seen a series of statements (if, else, else if) for conditionally executing bodies of code.\n\nWe’ll now introduce another series of statements for repeatedly executing bodies of code (looping).\n\n\n\nwhile: execute its body while a condition holds true.\nfor: execute its body for each object in a specified vector.\nrepeat: execute its body repeatedly and unconditionally."
+  },
+  {
+    "objectID": "lab09.html#the-while-statement",
+    "href": "lab09.html#the-while-statement",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement",
+    "text": "The while Statement\nThe while statement is similar in form and behavior to if:\n\nwhile(LOGICAL) <body>\n\n\nwhere <body> is executed while LOGICAL returns TRUE,\n\n\nas if an if statement that repeats until LOGICAL == FALSE,\n\nif(LOGICAL) <body> if(LOGICAL) <body> ..."
+  },
+  {
+    "objectID": "lab09.html#the-while-statement-example-1",
+    "href": "lab09.html#the-while-statement-example-1",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement: Example 1",
+    "text": "The while Statement: Example 1\nHere we count up from from to to, printing the numbers along the way.\n\n\n\ncount_up <- function(from, to) {\n  while (from <= to) {\n    cat(\"...\", from, sep = '')\n    from <- from + 1\n  }\n}\ncount_up(1, 5)\n\n...1...2...3...4...5"
+  },
+  {
+    "objectID": "lab09.html#the-while-statement-example-2",
+    "href": "lab09.html#the-while-statement-example-2",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement: Example 2",
+    "text": "The while Statement: Example 2\nUsing a similar idea, we can recreate a (simplified) version of seq.\n\n\n\nwhile_seq <- function(from, to, by) {\n  s <- vector(typeof(from))\n  while (from <= to) {\n    s <- append(s, from)\n    from <- from + by\n  }\n  s\n}\nwhile_seq(3, 12, 2)\n\n[1]  3  5  7  9 11\n\n\n\n\n\nFor which input will this function not work?"
+  },
+  {
+    "objectID": "lab09.html#favorite-number-with-while",
+    "href": "lab09.html#favorite-number-with-while",
+    "title": "Lab 09: Loops",
+    "section": "Favorite Number with while",
+    "text": "Favorite Number with while\nLet’s rewrite num_indices with a while loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  while (i <= length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "lab09.html#the-for-statement",
+    "href": "lab09.html#the-for-statement",
+    "title": "Lab 09: Loops",
+    "section": "The for Statement",
+    "text": "The for Statement\n\nfor (<variable> in <vector>) <body>\n\n\nwhere <body> is executed once for each object in <vector>.\n\n\nInside <body>, we refer to the currently used object by <variable>1.\n\n\n\nfor (i in 1:7) {\n  cat(\"i:\", i, '\\t')\n}\n\ni: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    \n\n\n\n\n\nYou can name <variable> whatever you’d like."
+  },
+  {
+    "objectID": "lab09.html#for-makes-copies",
+    "href": "lab09.html#for-makes-copies",
+    "title": "Lab 09: Loops",
+    "section": "for Makes Copies",
+    "text": "for Makes Copies\nWe cannot modify <vector> by reassigning <variable>.\n\nx <- 1:7\nfor (num in x) {\n  num <- 0\n}\nx\n\n[1] 1 2 3 4 5 6 7\n\n\n\nThis is because <variable> is a copy of the value in the vector. Refer to the original object instead:\n\nx <- 1:7\nfor (i in 1:length(x)) {\n  x[i] <- 0\n}\nx\n\n[1] 0 0 0 0 0 0 0"
+  },
+  {
+    "objectID": "lab09.html#for-statement-variables",
+    "href": "lab09.html#for-statement-variables",
+    "title": "Lab 09: Loops",
+    "section": "for Statement Variables",
+    "text": "for Statement Variables\nYou are free to name <variable> anything.\n\nIn some cases, a trivial name (e.g., i for index or n for number) may be sufficient.\nOther times, you you may want descriptive names for clarity.\n\n\nSome students always use i - please don’t do this!\n\n\n\nfor (i in starwars$eye_color) {\n  # ... BAD! Doesn't express the meaning of the object.\n}\n\n\n\n\nfor (color in starwars$eye_color) {\n  # ... GOOD! The meaning of the object is obvious to the reader. \n}"
+  },
+  {
+    "objectID": "lab09.html#favorite-number-with-for",
+    "href": "lab09.html#favorite-number-with-for",
+    "title": "Lab 09: Loops",
+    "section": "Favorite Number with for",
+    "text": "Favorite Number with for\nLet’s rewrite num_indices with a for loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in 1:length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "lab09.html#seq_along",
+    "href": "lab09.html#seq_along",
+    "title": "Lab 09: Loops",
+    "section": "seq_along()",
+    "text": "seq_along()\nNotice that to get a vector of the indices, we wrote 1:length(vec).\nThe idiomatic way of doing this is with the seq_along() function:\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in seq_along(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "lab09.html#the-repeat-statement",
+    "href": "lab09.html#the-repeat-statement",
+    "title": "Lab 09: Loops",
+    "section": "The repeat Statement",
+    "text": "The repeat Statement\n\nrepeat <body>\n\n\nwhere <body> is executed repeatedly and unconditionally until a break statement is encountered1.\n\nThe repeat statement is not found in other commonly used programming languages."
+  },
+  {
+    "objectID": "lab09.html#break-statement",
+    "href": "lab09.html#break-statement",
+    "title": "Lab 09: Loops",
+    "section": "break statement?",
+    "text": "break statement?\nThe break statement can be used in any loop (for, while, repeat) to immediately stop its execution.\n\nThe last iteration of the loop’s body is not completed. The body of the loop is immediately exited on encountering break.\n\n\n\nall_until <- function(vec, stop_value) {\n  v <- vector(typeof(vec)) \n  for (obj in vec) {\n    if (obj == stop_value) {\n      break\n    }\n    v <- append(v, obj)\n  }\n  v\n}\nall_until(c(1:5, 50:45), 48) # all values until 48 is reached\n\n[1]  1  2  3  4  5 50 49"
+  },
+  {
+    "objectID": "lab09.html#the-repeat-statement-example",
+    "href": "lab09.html#the-repeat-statement-example",
+    "title": "Lab 09: Loops",
+    "section": "The repeat Statement: Example",
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
+  },
+  {
+    "objectID": "lab09.html#repeat-loops",
+    "href": "lab09.html#repeat-loops",
+    "title": "Lab 09: Loops",
+    "section": "repeat loops",
+    "text": "repeat loops\nrepeat loops are not found in most languages (including C/C++, Python, Java) as they can always be replaced with while loops or other constructs.\nThere seems to be a preference to have the break statement at the end of the loop.\nI’d recommend avoiding repeat loops altogether as the need to write if and break statements often leads to errors."
+  },
+  {
+    "objectID": "lab09.html#repeat-loops-1",
+    "href": "lab09.html#repeat-loops-1",
+    "title": "Lab 09: Loops",
+    "section": "repeat loops",
+    "text": "repeat loops\nThe favorite number problem. Notice the similarity to the while solution.\n\n\n[1] 1 3 5 8"
+  },
+  {
+    "objectID": "lab09.html#shortcuts",
+    "href": "lab09.html#shortcuts",
+    "title": "Lab 09: Loops",
+    "section": "Shortcuts?",
+    "text": "Shortcuts?\nR does not have the shortcuts for modifying values found in other popular languages.\nIn Python, C/C++, Java:\nx += y is equivalent to x = x + y (and similarly for -, *, /, etc.).\nIn C/C++, Java:\nx++ or ++x is equivalent to x = x + 1 (and similarly for -). This is where C++ got its name.\nIn R:\nWe must write x <- x + y or x <- x + 1.\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "notes/input-output.html",
     "href": "notes/input-output.html",
     "title": "Handling Input/Output in CP",
