@@ -1075,28 +1075,14 @@
     "href": "lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
   },
   {
-    "objectID": "lab09.html#repeat-loops",
-    "href": "lab09.html#repeat-loops",
+    "objectID": "lab09.html#favorite-number-with-repeat",
+    "href": "lab09.html#favorite-number-with-repeat",
     "title": "Lab 09: Loops",
-    "section": "repeat loops",
-    "text": "repeat loops\nrepeat loops are not found in most languages (including C/C++, Python, Java) as they can always be replaced with while loops or other constructs.\nThere seems to be a preference to have the break statement at the end of the loop.\nI’d recommend avoiding repeat loops altogether as the need to write if and break statements often leads to errors."
-  },
-  {
-    "objectID": "lab09.html#repeat-loops-1",
-    "href": "lab09.html#repeat-loops-1",
-    "title": "Lab 09: Loops",
-    "section": "repeat loops",
-    "text": "repeat loops\nThe favorite number problem. Notice the similarity to the while solution.\n\n\n[1] 1 3 5 8"
-  },
-  {
-    "objectID": "lab09.html#shortcuts",
-    "href": "lab09.html#shortcuts",
-    "title": "Lab 09: Loops",
-    "section": "Shortcuts?",
-    "text": "Shortcuts?\nR does not have the shortcuts for modifying values found in other popular languages.\nIn Python, C/C++, Java:\nx += y is equivalent to x = x + y (and similarly for -, *, /, etc.).\nIn C/C++, Java:\nx++ or ++x is equivalent to x = x + 1 (and similarly for -). This is where C++ got its name.\nIn R:\nWe must write x <- x + y or x <- x + 1.\n\n\nReturn to Home Page"
+    "section": "Favorite Number with repeat",
+    "text": "Favorite Number with repeat\nThe favorite number problem. Notice the similarity to the while solution.\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  repeat {\n    if (i > length(vec)) { # the opposite of the while condition\n      break\n    }\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}\n\n\n\nReturn to Home Page"
   },
   {
     "objectID": "notes/input-output.html",

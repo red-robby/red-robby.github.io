@@ -364,49 +364,23 @@ print_hesitantly <- function(sentence, times) {
 print_hesitantly("I like you", 5)
 ```
 
-## ``repeat`` loops
-
-``repeat`` loops are not found in most languages (including C/C++, Python, Java) 
-as they can always be replaced with ``while`` loops or other constructs. 
-
-There seems to be a preference to have the ``break`` statement at 
-the end of the loop. 
-
-I'd recommend avoiding ``repeat`` loops altogether as the need to write ``if`` 
-and ``break`` statements often leads to errors. 
-
-
-## ``repeat`` loops
+## Favorite Number with ``repeat``
 
 The favorite number problem. Notice the similarity to the ``while`` solution.
 
 ```{r}
-fav_num_indices <- function(numbers, fav_num) {
-  indices <- c(); i <- 1
+#| echo: true
+num_indices <- function(vec, num) {
+  indices <- integer(); i <- 1
   repeat {
-    if (i > length(numbers)) # the opposite of the while condition
+    if (i > length(vec)) { # the opposite of the while condition
       break
-    if (numbers[i] == fav_num)
+    }
+    if (vec[i] == num) {
       indices <- append(indices, i)
+    }
     i <- i + 1
   }
-  return(indices)
+  indices
 }
-fav_num_indices(c(7, 2, 7, 3, 7, 5, 3, 7), 7)
 ```
-
-## Shortcuts?
-
-R **_does not_** have the shortcuts for modifying values found in other popular languages. 
-
-In **Python, C/C++, Java**:
-
-``x += y`` is equivalent to ``x = x + y`` (and similarly for ``-``, ``*``, ``/``, etc.).
-
-In **C/C++, Java**:
-
-``x++`` or ``++x`` is equivalent to ``x = x + 1`` (and similarly for ``-``). This is where ``C++`` got its name.
-
-In **R**:
-
-We must write ``x <- x + y`` or ``x <- x + 1``. 
