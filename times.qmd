@@ -4,6 +4,10 @@ title: "Office Hours/Lab Sections"
 
 All meetings will follow [*Berkeley Time*](https://www.dailycal.org/2020/09/04/not-all-uc-berkeley-professors-use-berkeley-time-for-online-classes-students-say/).
 
+::: {.callout-caution}
+The hours listed below are outdated. These will be updated for Spring 2023 once scheduled. 
+:::
+
 ### My Office Hours
 
 -   Thursdays, 10 a.m. to 11 a.m. via [Zoom](https://berkeley.zoom.us/j/94387793073)[^1]

@@ -60,7 +60,7 @@
     "href": "stat133/lab01.html#rmarkdown",
     "title": "Lab 01: Intro, Setup",
     "section": "RMarkdown",
-    "text": "RMarkdown\nRMarkdown (.rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
+    "text": "RMarkdown\nRMarkdown (.Rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
   },
   {
     "objectID": "stat133/lab01.html#this-is-rmarkdown",
@@ -144,7 +144,7 @@
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
     "section": "",
-    "text": "All meetings will follow Berkeley Time.\n\nMy Office Hours\n\nThursdays, 10 a.m. to 11 a.m. via Zoom1\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\nFridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in Evans 342\nFridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in Cory 289\n\n\n\nJoy’s Office Hours (Tutor)\n\nMondays, 2 p.m. to 5 p.m. in Evans 434\nWednesdays, 8 a.m. to 10 a.m. in Evans 432\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
+    "text": "All meetings will follow Berkeley Time.\n\n\n\n\n\n\nDanger\n\n\n\nThe hours listed below are outdated. These will be updated for Spring 2023 once scheduled.\n\n\n\nMy Office Hours\n\nThursdays, 10 a.m. to 11 a.m. via Zoom1\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\nFridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in Evans 342\nFridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in Cory 289\n\n\n\nJoy’s Office Hours (Tutor)\n\nMondays, 2 p.m. to 5 p.m. in Evans 434\nWednesdays, 8 a.m. to 10 a.m. in Evans 432\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
   },
   {
     "objectID": "practice/algorithmic-problems.html",
@@ -215,13 +215,6 @@
     "title": "Vector Introduction",
     "section": "6. Ranges",
     "text": "6. Ranges\nWrite a function that removes all values outside of the given range (inclusive).\n\nin_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nin_range <- function(v, min, max) {\n  v[v >= min & v <= max]\n}\n\n\nNow write a function that turns all values strictly outside the range into replacement.\n\nreplace_outside_range <- function(v, min, max, replacement) {\n  # Your code here\n}\n\n\n\nShow Solution\nreplace_outside_range <- function(v, min, max, replacement) {\n  v[v < min | v > max] <- replacement\n  v\n}\n\n\nNow write a function that instead brings all values into the range. If a value is less than min, it should be set to min. If a value is greater than max, it should be set to max.\n\nrestrict_to_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nrestrict_to_range <- function(v, min, max) {\n  v[v < min] <- min\n  v[v > max] <- max\n  v\n}"
-  },
-  {
-    "objectID": "stat33b/lab-use.html",
-    "href": "stat33b/lab-use.html",
-    "title": "Using the Slides",
-    "section": "",
-    "text": "The lab slides are provided in the form of interactive websites as used by me during labs.\nThe keyboard shortcuts available while viewing the slides are provided below. These can also be seen by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view"
   },
   {
     "objectID": "stat33b/lab09.html#repeating-code",
@@ -333,7 +326,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI l ...I l ...I l ...I l ...I l ...ike you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like ...I like ...I like ...I like ...I like ... you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
