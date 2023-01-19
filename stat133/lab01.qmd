@@ -71,7 +71,7 @@ Demo in separate window.
 
 ## RMarkdown
 
-RMarkdown (`.rmd`) is file type that allows us to merge,
+RMarkdown (`.Rmd`) is file type that allows us to merge,
 
 -   Formatted written material,
 -   and **R** code
