@@ -1,1123 +1,150 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About This Site",
-    "section": "",
-    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
-  },
-  {
-    "objectID": "autograder.html",
-    "href": "autograder.html",
-    "title": "About the Auto Grader",
-    "section": "",
-    "text": "I’ve implemented an auto grader for the class. This is the first semester it’s been used, and the first time in a statistics class as far as I know, so it is still in beta. The format of providing your answers is different than before, so I’ve provided some examples below."
-  },
-  {
-    "objectID": "autograder.html#simple-example-question",
-    "href": "autograder.html#simple-example-question",
-    "title": "About the Auto Grader",
-    "section": "1. Simple Example Question",
-    "text": "1. Simple Example Question\nIn the case of a question with a direct answer, you’ll assign your answer to a variable named after the question number (in this case, answer1).\nObtain the Star Wars characters whose height is greater than 100 cm using the data frame starwars.\n\nanswer1 <- NULL # replace with your answer\nanswer1 <- dplyr::filter(dplyr::starwars, height > 100) # what you'd write"
-  },
-  {
-    "objectID": "autograder.html#example-question-with-subparts",
-    "href": "autograder.html#example-question-with-subparts",
-    "title": "About the Auto Grader",
-    "section": "1.1. Example Question with Subparts",
-    "text": "1.1. Example Question with Subparts\nIn cases of questions with subparts, you may be asked to assign your answer to items in a list. Use the $ operator to access and set the answers.\n\nanswer1.1 <- list(\n  a = NULL,\n  b = NULL,\n  c = NULL\n)\n\n\n1.1A: Numeric Persona\nWhat is your favorite number?\n\nanswer1.1$a <- 7\n\n\n\n1.1B: A Lovely Sentence\nWhat is your favorite sentence?\n\nanswer1.1$b <- \"GO BEARS!\"\n\n\n\n1.2C: Animalistic\nWhat is your favorite animal?\n\nanswer1.1$c <- \"bear\""
-  },
-  {
-    "objectID": "autograder.html#example-question-with-a-function",
-    "href": "autograder.html#example-question-with-a-function",
-    "title": "About the Auto Grader",
-    "section": "1.3: Example Question with a Function",
-    "text": "1.3: Example Question with a Function\nIn other cases, you’ll be asked to write a function. In that case, just fill in the body of the function.\nWrite a function every_nth that obtains every \\(nth\\) element from a vector for \\(n \\geq 1\\).\n\nevery_nth <- function(v, n) {\n  # Your code here\n  v[c(TRUE, rep(FALSE, n - 1))] # error checking excluded\n}\n\nUh-oh, LeetCode in R?\n\n\nCode\ntwo_sum <- function(nums, target) {\n  num_indices <- new.env() # we use an environment as a hash map\n  for (i in seq_along(nums)) {\n    dif <- as.character(target - nums[i])\n    dif_index <- num_indices[[dif]]\n    if (!is.null(dif_index))\n      return(c(i, dif_index))\n    num_indices[[as.character(nums[i])]] <- i\n  }\n  -1\n}"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome!",
-    "section": "",
-    "text": "Well that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
-  },
-  {
     "objectID": "lab-use.html",
     "href": "lab-use.html",
     "title": "Using the Slides",
     "section": "",
-    "text": "The keyboard shortcuts available while viewing the slides are provided below. These can also be seen by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view"
+    "text": "The lab slides are provided in the form of interactive websites as used by me during labs.\nThe keyboard shortcuts available while viewing the slides are provided below. These can also be seen by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view"
   },
   {
-    "objectID": "lab01.html#welcome",
-    "href": "lab01.html#welcome",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About This Site",
+    "section": "",
+    "text": "This website is a collection of my (Jakob’s) notes and presentation materials for STAT 33B and STAT 133. It will be updated as the semester progresses.\n\nWell that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
+  },
+  {
+    "objectID": "stat133/lab01.html#welcome",
+    "href": "stat133/lab01.html#welcome",
+    "title": "Lab 01: Intro, Setup",
     "section": "Welcome!",
-    "text": "Welcome!\nWelcome to STAT 33B! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nSections:\n\n9 AM - 10 AM and 10 AM - 11 AM in Evans 342\n2 PM - 3 PM and 3 PM - 4 PM in Cory 289\n\nOffice Hours: TBD in Evans 434"
+    "text": "Welcome!\nWelcome to STAT 133! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nMy Sections:\n\n11 AM to 1 PM in Evans 340\n3 PM to 5 PM in Evans 340\n\nOffice Hours: TBD"
   },
   {
-    "objectID": "lab01.html#expectations",
-    "href": "lab01.html#expectations",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#expectations",
+    "href": "stat133/lab01.html#expectations",
+    "title": "Lab 01: Intro, Setup",
     "section": "Expectations",
-    "text": "Expectations\nThis is a 1 unit class.\n\n\nWeekly Lab (13 total)\nMonthly Quiz (3 total)\nBiweekly – every 2 weeks – Homework (6 total)\nFinal Exam"
+    "text": "Expectations\n\nWeekly Lab (13 total)\nTimed Quizzes (2 total – via bCourses)\nBiweekly1 – every 2 weeks – Homework (6 total)\nFinal Exam\n\nIsn’t it unfortunate biweekly can mean twice a week and every 2 weeks?"
   },
   {
-    "objectID": "lab01.html#our-lab",
-    "href": "lab01.html#our-lab",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#our-lab",
+    "href": "stat133/lab01.html#our-lab",
+    "title": "Lab 01: Intro, Setup",
     "section": "Our Lab",
-    "text": "Our Lab\nHere’s the tentative structure for our labs.\n\n\nFor the first 15-20 minutes, I’ll lecture briefly on select topics from the week’s material.\nAfterwards, you are free to work on the lab, and I’m available to help."
+    "text": "Our Lab\n\nFor the first 15-40 minutes, I’ll lecture briefly on select topics from the week’s material and/or we’ll solve a few challenges together.\nAfterwards, you are free to work on the lab, and I’m available to help."
   },
   {
-    "objectID": "lab01.html#installing-r-and-rstudio",
-    "href": "lab01.html#installing-r-and-rstudio",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#my-notes",
+    "href": "stat133/lab01.html#my-notes",
+    "title": "Lab 01: Intro, Setup",
+    "section": "My Notes",
+    "text": "My Notes\nI’ll be hosting the materials I create for the course at the following website:\n\nhttps://red-robby.github.io/1\n\n\nYou can also find my materials from STAT 33B, if you’re interested.\n\nSorry for the ugly name! It’ll be linked on bCourses."
+  },
+  {
+    "objectID": "stat133/lab01.html#installing-r-and-rstudio",
+    "href": "stat133/lab01.html#installing-r-and-rstudio",
+    "title": "Lab 01: Intro, Setup",
     "section": "Installing R and RStudio",
-    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/"
+    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/"
   },
   {
-    "objectID": "lab01.html#rstudio-demo",
-    "href": "lab01.html#rstudio-demo",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#rstudio-demo",
+    "href": "stat133/lab01.html#rstudio-demo",
+    "title": "Lab 01: Intro, Setup",
     "section": "RStudio Demo",
-    "text": "RStudio Demo\nSeparate window."
+    "text": "RStudio Demo\nSeparate window.\nDemo in separate window."
   },
   {
-    "objectID": "lab01.html#rmarkdown",
-    "href": "lab01.html#rmarkdown",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#rmarkdown",
+    "href": "stat133/lab01.html#rmarkdown",
+    "title": "Lab 01: Intro, Setup",
     "section": "RMarkdown",
     "text": "RMarkdown\nRMarkdown (.rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
   },
   {
-    "objectID": "lab01.html#this-is-rmarkdown",
-    "href": "lab01.html#this-is-rmarkdown",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#this-is-rmarkdown",
+    "href": "stat133/lab01.html#this-is-rmarkdown",
+    "title": "Lab 01: Intro, Setup",
     "section": "This is RMarkdown?",
-    "text": "This is RMarkdown?\n\n\n## RMarkdown\n\nRMarkdown (``.rmd``) is file type that allows us to merge,\n\n-   Formatted written material,\n-   and **R** code\n\ninto a single document."
+    "text": "This is RMarkdown?\n\n\n## RMarkdown\n\nRMarkdown (``.Rmd``) is file type that allows us to merge,\n\n-   Formatted written material,\n-   and **R** code\n\ninto a single document."
   },
   {
-    "objectID": "lab01.html#rmarkdown---basic-formatting",
-    "href": "lab01.html#rmarkdown---basic-formatting",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#rmarkdown---basic-formatting",
+    "href": "stat133/lab01.html#rmarkdown---basic-formatting",
+    "title": "Lab 01: Intro, Setup",
     "section": "RMarkdown - Basic Formatting",
     "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized!_"
   },
   {
-    "objectID": "lab01.html#headers",
-    "href": "lab01.html#headers",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#headers",
+    "href": "stat133/lab01.html#headers",
+    "title": "Lab 01: Intro, Setup",
     "section": "Headers",
     "text": "Headers\nAren’t headers…\n… just lovely?\n\n\n## Headers\n\n### Aren't headers...\n\n#### ... just lovely?\n\n\n\n\\(N\\) # characters denotes an \\(Nth\\) level header."
   },
   {
-    "objectID": "lab01.html#font-face-bold",
-    "href": "lab01.html#font-face-bold",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#font-face-bold",
+    "href": "stat133/lab01.html#font-face-bold",
+    "title": "Lab 01: Intro, Setup",
     "section": "Font Face: Bold",
     "text": "Font Face: Bold\nI’m bold and uncontrolled!\n\n\n## Font Face: **Bold**\n\nI'm **bold** and **uncontrolled!**\n\n\n\nSurrounding text with ** at each end makes it bold."
   },
   {
-    "objectID": "lab01.html#font-face-italics",
-    "href": "lab01.html#font-face-italics",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#font-face-italics",
+    "href": "stat133/lab01.html#font-face-italics",
+    "title": "Lab 01: Intro, Setup",
     "section": "Font Face: Italics",
     "text": "Font Face: Italics\nDon’t eat that burger! Don’t eat that burger!\n\n\n## Font Face: _Italics_\n\nDon't eat _that_ burger! Don't _eat_ that burger!\n\n\n\nSurrounding text with _ at each end italicizes it."
   },
   {
-    "objectID": "lab01.html#font-face-plain-text-or-code",
-    "href": "lab01.html#font-face-plain-text-or-code",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#font-face-plain-text-or-code",
+    "href": "stat133/lab01.html#font-face-plain-text-or-code",
+    "title": "Lab 01: Intro, Setup",
     "section": "Font Face: Plain Text or Code",
     "text": "Font Face: Plain Text or Code\nThe variable x passed into function main.\n\n\n## Font Face: ``Plain Text or Code``\n\nThe variable ``x`` passed into function ``main``.\n\n\n\nSurrounding text with `` at each end makes it plain text (like code)."
   },
   {
-    "objectID": "lab01.html#and-more",
-    "href": "lab01.html#and-more",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#and-more",
+    "href": "stat133/lab01.html#and-more",
+    "title": "Lab 01: Intro, Setup",
     "section": "And more…",
     "text": "And more…\nWe can also embed lists, tables, images, and many other components!"
   },
   {
-    "objectID": "lab01.html#code-chunks",
-    "href": "lab01.html#code-chunks",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#code-chunks",
+    "href": "stat133/lab01.html#code-chunks",
+    "title": "Lab 01: Intro, Setup",
     "section": "Code Chunks",
     "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\n```{r}\nprint(\"Hello, World!\")\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n```\n\n[1] \"Hello, World!\"\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
   },
   {
-    "objectID": "lab01.html#code-chunk-plot-example",
-    "href": "lab01.html#code-chunk-plot-example",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#code-chunk-plot-example",
+    "href": "stat133/lab01.html#code-chunk-plot-example",
+    "title": "Lab 01: Intro, Setup",
     "section": "Code Chunk: Plot Example",
     "text": "Code Chunk: Plot Example\n\n\n```{r}\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")\n```"
   },
   {
-    "objectID": "lab01.html#knitting",
-    "href": "lab01.html#knitting",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#knitting",
+    "href": "stat133/lab01.html#knitting",
+    "title": "Lab 01: Intro, Setup",
     "section": "Knitting",
     "text": "Knitting\nGoing from the plain text format (.rmd) to a presentation format (.pdf, .html) is called knitting the document."
   },
   {
-    "objectID": "lab01.html#rmarkdown-demo",
-    "href": "lab01.html#rmarkdown-demo",
-    "title": "Lab 01: Setup, RMarkdown",
+    "objectID": "stat133/lab01.html#rmarkdown-demo",
+    "href": "stat133/lab01.html#rmarkdown-demo",
+    "title": "Lab 01: Intro, Setup",
     "section": "RMarkdown Demo",
-    "text": "RMarkdown Demo\nSeparate window.\n\n\n\n\n\nReturn to Home Page"
+    "text": "RMarkdown Demo\nSeparate window.\n\n\nReturn to Home Page"
   },
   {
-    "objectID": "lab02.html#the-crux-of-r",
-    "href": "lab02.html#the-crux-of-r",
-    "title": "Lab 02: Vectors, Types",
-    "section": "The Crux of R",
-    "text": "The Crux of R\nMost R code relies heavily on\n\n\nVectors"
-  },
-  {
-    "objectID": "lab02.html#oh-my-taxes",
-    "href": "lab02.html#oh-my-taxes",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Oh my taxes!",
-    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases."
-  },
-  {
-    "objectID": "lab02.html#oh-my-taxes-1",
-    "href": "lab02.html#oh-my-taxes-1",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Oh my taxes!",
-    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75"
-  },
-  {
-    "objectID": "lab02.html#oh-my-taxes-2",
-    "href": "lab02.html#oh-my-taxes-2",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Oh my taxes!",
-    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax"
-  },
-  {
-    "objectID": "lab02.html#oh-my-taxes-3",
-    "href": "lab02.html#oh-my-taxes-3",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Oh my taxes!",
-    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625\n\n\n\n\nVery cumbersome…"
-  },
-  {
-    "objectID": "lab02.html#tedius-and-error-prone",
-    "href": "lab02.html#tedius-and-error-prone",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Tedius and Error Prone",
-    "text": "Tedius and Error Prone\nWe computed the tax purchase by purchase…\n\n\nBoba Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nBook Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nFood Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes"
-  },
-  {
-    "objectID": "lab02.html#an-easier-way",
-    "href": "lab02.html#an-easier-way",
-    "title": "Lab 02: Vectors, Types",
-    "section": "An Easier Way?",
-    "text": "An Easier Way?\nWe’d like to do it all at once.\n\n\n\nCosts\n\n\n\n\n*\n\n\n\n\nTax Rate\n\n\n\n\n=\n\n\n\n\nTaxes\n\n\n\n\n… where Costs contains all individual purchase costs, and Taxes contains all individual taxes.\n\nFor this, R provides vectors."
-  },
-  {
-    "objectID": "lab02.html#vector",
-    "href": "lab02.html#vector",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Vector",
-    "text": "Vector\nA contiguous array of 1 or more objects, where all objects are the same type."
-  },
-  {
-    "objectID": "lab02.html#aside-type",
-    "href": "lab02.html#aside-type",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Aside: Type?",
-    "text": "Aside: Type?\nOur values are ultimately bits in our computer. How does our program know how to interpret these bits?\n\n\nBy assigning a type to the value!\n\n\n\nWe may wants the bits to be interpreted as\n\nintegers\nreal numbers\ntext (strings)\nlogical values (true or false?)\n\n… or something else."
-  },
-  {
-    "objectID": "lab02.html#types-rs-responsibility",
-    "href": "lab02.html#types-rs-responsibility",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Types: R’s Responsibility",
-    "text": "Types: R’s Responsibility\nTo make sense of the bits…\n\n\nProgramming languages are responsible for keeping track of the types assigned to each variable.\n\n\n\nSome languages1 are statically typed, which means types are explicit and unchanging (usually).\nAn Example: C++\n\nint x = 3;\nint y = 7;\ndouble z = 0.4;\nstd::string school = \"UC Berkeley\";\nx = \"Berkeley High School\" # ERROR, type changed!\n\n\nC and Java are two other commonly used statically typed languages."
-  },
-  {
-    "objectID": "lab02.html#r-dynamically-typed",
-    "href": "lab02.html#r-dynamically-typed",
-    "title": "Lab 02: Vectors, Types",
-    "section": "R: Dynamically Typed",
-    "text": "R: Dynamically Typed\nR is dynamically typed, which means we’re free to modify the type of a variable.\n\nx <- \"Is\"\nx <- 7 \nx <- \"my favorite number?\" \nx <- TRUE\n\n\nNote that R infers the variable’s type for us (in C and Java we’d need to write int x = 71).\n\nModern C++ supports type inference when the auto keyword is used."
-  },
-  {
-    "objectID": "lab02.html#rs-not-so-many-types",
-    "href": "lab02.html#rs-not-so-many-types",
-    "title": "Lab 02: Vectors, Types",
-    "section": "R’s Not-So-Many Types",
-    "text": "R’s Not-So-Many Types\nR only has a few types you should be aware of for this class.\n\n\nLogical: TRUE/T or FALSE/F\nInteger: Whole numbers (e.g., 7L, -5L, 0L)1\nDouble: Fractional numbers (e.g., 5.4, -8.3211, 8.0)\nCharacter: Strings (e.g., \"Hello, World!\", \"X\")\n\n\nR will interpret numbers as doubles by default. Append L to the end of a number if you want R to interpret it as an integer."
-  },
-  {
-    "objectID": "lab02.html#querying-type",
-    "href": "lab02.html#querying-type",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Querying Type",
-    "text": "Querying Type\nUse the function typeof to get the type of a variable or literal1.\n\n\ntypeof(\"It was you who killed him!\")\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3L)\n\n[1] \"integer\"\n\n\n\n\n\nnoooo <- \"No. I am your father.\"\ntypeof(noooo)\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3.5 + 7L)\n\n[1] \"double\"\n\n\n\nWe call a value we’ve written explicitly in our code a literal."
-  },
-  {
-    "objectID": "lab02.html#modifying-type-casting",
-    "href": "lab02.html#modifying-type-casting",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Modifying Type (Casting)",
-    "text": "Modifying Type (Casting)\nCasting is the act of modifying the type of a value.\n\nImplicit\nIn certain contexts, R will cast a value to a different type automatically. We call this an implicit cast.\n\nx <- 3L\ny <- x + 0.5 # 3L cast to a double to complete the operation"
-  },
-  {
-    "objectID": "lab02.html#modifying-type-casting-yourself",
-    "href": "lab02.html#modifying-type-casting-yourself",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Modifying Type (Casting) Yourself",
-    "text": "Modifying Type (Casting) Yourself\nCasting is the act of modifying the type of a value.\nExplicit\nCasts you ask R to make explicitly are called explicit casts. Use the as.<type> functions for this.\n\nx <- 1\nas.logical(x)\n\n[1] TRUE\n\nx <- 37.39303\nas.character(x)\n\n[1] \"37.39303\"\n\nas.numeric(x >= 30)\n\n[1] 1"
-  },
-  {
-    "objectID": "lab02.html#did-we-modify-x",
-    "href": "lab02.html#did-we-modify-x",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Did we modify x?",
-    "text": "Did we modify x?\nas.<type>(x) returns a new value with the specified type.\n\nx <- 1\ntypeof(x)\n\n[1] \"double\"\n\ntypeof(as.logical(x))\n\n[1] \"logical\"\n\ntypeof(x)  # unchanged!\n\n[1] \"double\"\n\n\n\nTo modify x, reassign x.\n\nx <- as.logical(x)\ntypeof(x)\n\n[1] \"logical\""
-  },
-  {
-    "objectID": "lab02.html#vector-creation",
-    "href": "lab02.html#vector-creation",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Vector: Creation",
-    "text": "Vector: Creation\nA contiguous array of 1 or more objects, where all objects are the same type.\n\nCreating Vectors\nUse c (short for combine or concatenate) to create a vector.\n\nx <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)  # type: double\ny <- c(\"Cory\", \"Dwinelle\", \"Evans\")  # type: character\nz <- c(TRUE, FALSE, FALSE, FALSE)    # type: logical\nshort_cut <- 10:100                  # a short cut for 10, 11, ..., 100"
-  },
-  {
-    "objectID": "lab02.html#vector-access",
-    "href": "lab02.html#vector-access",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Vector: Access",
-    "text": "Vector: Access\nA contiguous array of 1 or more objects, where all objects are the same type.\nAccessing Elements\nUse <vector>[N] to access the \\(Nth\\) element of a vector.\n\nx[1]  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)\n\n[1] 1\n\ny[2]  # reference: y <- c(\"Cory\", \"Dwinelle\", \"Evans\") \n\n[1] \"Dwinelle\"\n\nz[c(1, 3, 4)]  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)\n\n[1]  TRUE FALSE FALSE\n\n\n\n\nR is not 0-indexed like most programming languages."
-  },
-  {
-    "objectID": "lab02.html#vector-operations",
-    "href": "lab02.html#vector-operations",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Vector: Operations",
-    "text": "Vector: Operations\nWe can apply operations to vectors directly, causing the operation to be done to all its elements (vectorization).\n\n\nx <- c(1, 2, 4, 8)\nx * 10  # multiply all elements in x by 10, forming a new vector\n\n[1] 10 20 40 80\n\nx + c(1, 2, 3, 4)  # add two vectors together, component wise \n\n[1]  2  4  7 12\n\n\n\n\nR will recycle values (loop to the start) if the vectors used in the operation aren’t of the same size.\n\nc(0, 1, 2, 3) + c(1, 100)\n\n[1]   1 101   3 103"
-  },
-  {
-    "objectID": "lab02.html#taxes-are-due",
-    "href": "lab02.html#taxes-are-due",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Taxes are Due…",
-    "text": "Taxes are Due…\nRecall our taxes code.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625"
-  },
-  {
-    "objectID": "lab02.html#taxes-are-due-now-with-vectors",
-    "href": "lab02.html#taxes-are-due-now-with-vectors",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Taxes are Due… Now with Vectors!",
-    "text": "Taxes are Due… Now with Vectors!\n\nsales_tax <- 0.1025\npurchases <- c(7.0, 54.50, 24.75)\ntaxes <- purchases * sales_tax\nsum(taxes)\n\n[1] 8.840625\n\n\n\nGreat! But we’ve lost information. What do the values in purchases represent?\n\n\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\n\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75"
-  },
-  {
-    "objectID": "lab02.html#access-with-names",
-    "href": "lab02.html#access-with-names",
-    "title": "Lab 02: Vectors, Types",
-    "section": "Access with Names",
-    "text": "Access with Names\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75 \n\n\nAccess is possible with names, <vector>[<element-name>].\n\npurchases[\"boba\"]\n\nboba \n   7 \n\npurchases[c(\"books\", \"food\")]\n\nbooks  food \n54.50 24.75"
-  },
-  {
-    "objectID": "lab02.html#on-forming-vectors",
-    "href": "lab02.html#on-forming-vectors",
-    "title": "Lab 02: Vectors, Types",
-    "section": "On Forming Vectors",
-    "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nc(c(1, 2, 3), 4, c(5, 6))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nrep(\"->\", 10)\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nrep(c(\"->\", \"<-\"), 5)  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nseq(0, 12, 3)   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab03.html#higher-dimensions-by-hand",
-    "href": "lab03.html#higher-dimensions-by-hand",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Higher Dimensions by Hand!",
-    "text": "Higher Dimensions by Hand!\nVectors gave us the ability to form 1 dimensional data.\nIf we desired data in, say, 2 dimensions, we could still use a vector.\n\nx <- 1:100\nrows <- 10\ncols <- 10\n\n# Get the item at row i, column j\ni <- 7\nj <- 5\nx[(i - 1) * cols + j] # Don't try this at home!\n\n[1] 65\n\n\n\n\nWho wants to do that?"
-  },
-  {
-    "objectID": "lab03.html#higher-dimensions-passed-to-r",
-    "href": "lab03.html#higher-dimensions-passed-to-r",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Higher Dimensions, Passed to R",
-    "text": "Higher Dimensions, Passed to R\nThankfully, R has a set of functions that make this easy for us.\n\nx <- matrix(1:100, nrow = 10, ncol = 10)\nx\n\n      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]\n [1,]    1   11   21   31   41   51   61   71   81    91\n [2,]    2   12   22   32   42   52   62   72   82    92\n [3,]    3   13   23   33   43   53   63   73   83    93\n [4,]    4   14   24   34   44   54   64   74   84    94\n [5,]    5   15   25   35   45   55   65   75   85    95\n [6,]    6   16   26   36   46   56   66   76   86    96\n [7,]    7   17   27   37   47   57   67   77   87    97\n [8,]    8   18   28   38   48   58   68   78   88    98\n [9,]    9   19   29   39   49   59   69   79   89    99\n[10,]   10   20   30   40   50   60   70   80   90   100\n\nx[7, 9] # we can specify the row and column, sep. by a comma\n\n[1] 87"
-  },
-  {
-    "objectID": "lab03.html#row-major-column-major",
-    "href": "lab03.html#row-major-column-major",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Row-Major, Column-Major",
-    "text": "Row-Major, Column-Major\nThe matrix function stores the given vector in column-major order by default. Our previous code assumed row-major order.\n\nTo see what this means, let’s turn m into two matrices, one for each.\n\nm <- 1:9\n\n::: columns\n\nRow-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\n\nColumn-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\n\n:::\n\n\nSo row-major fills in the matrix by row, and column-major does so by column."
-  },
-  {
-    "objectID": "lab03.html#specifying-row-major-column-major",
-    "href": "lab03.html#specifying-row-major-column-major",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Specifying Row-Major, Column-Major",
-    "text": "Specifying Row-Major, Column-Major\nAs said, the default is column-major.\nIf you’d prefer row-major, call matrix with byrow = TRUE.\n\n\n\nRow-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3, \n  byrow = TRUE\n)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\nColumn-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3\n)\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9"
-  },
-  {
-    "objectID": "lab03.html#matrix-functions-rbind",
-    "href": "lab03.html#matrix-functions-rbind",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Matrix Functions: rbind",
-    "text": "Matrix Functions: rbind\nrbind combines the rows of the inputs into a new matrix.\n\nrbind(1:3, 3:1)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    3    2    1\n\nrbind(matrix(1:6, nrow = 3, ncol = 2), c(-100, 100))\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n[4,] -100  100\n\nrbind(matrix(1:3, nrow = 1, ncol = 3), matrix(9:11, nrow = 1, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    9   10   11"
-  },
-  {
-    "objectID": "lab03.html#matrix-functions-cbind",
-    "href": "lab03.html#matrix-functions-cbind",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Matrix Functions: cbind",
-    "text": "Matrix Functions: cbind\ncbind combines the columns of the inputs into a new matrix.\n\ncbind(1:3, 3:1)\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    2\n[3,]    3    1\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), c(0, 50, 100))\n\n     [,1] [,2] [,3]\n[1,]    1    4    0\n[2,]    2    5   50\n[3,]    3    6  100\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), matrix(6:1, nrow = 3, ncol = 2))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    6    3\n[2,]    2    5    5    2\n[3,]    3    6    4    1"
-  },
-  {
-    "objectID": "lab03.html#matrix-functions-nrow-ncol",
-    "href": "lab03.html#matrix-functions-nrow-ncol",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Matrix Functions: nrow, ncol",
-    "text": "Matrix Functions: nrow, ncol\nWith vectors, we use length to obtain the number of objects. Similarly, for matrices:\n\nTo obtain the number of rows, use nrow:\n\nnrow(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 5\n\n\n\n\nTo obtain the number of columns, use ncol:\n\nncol(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 4"
-  },
-  {
-    "objectID": "lab03.html#accessing-elements",
-    "href": "lab03.html#accessing-elements",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Accessing Elements",
-    "text": "Accessing Elements\nUse <matrix>[i, j] to get the value at the ith row and jth column.\n\nx[2, 4]\n\n[1] 32\n\n\n\nIf you want the ith row, use <matrix>[i,].\n\nx[2,]\n\n [1]  2 12 22 32 42 52 62 72 82 92\n\n\n\n\nSimilarly, if you want the jth column, use <matrix>[,j].\n\nx[,4]\n\n [1] 31 32 33 34 35 36 37 38 39 40\n\n\n\n\nNote that a vector is returned in each case."
-  },
-  {
-    "objectID": "lab03.html#lists",
-    "href": "lab03.html#lists",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Lists",
-    "text": "Lists\nLists allow us to store collection of objects, as with vectors, except every object need not be the same type.\n\nlist(1:7, \"Go Bears!\", TRUE)\n\n[[1]]\n[1] 1 2 3 4 5 6 7\n\n[[2]]\n[1] \"Go Bears!\"\n\n[[3]]\n[1] TRUE\n\n\n\nAlso, the objects of a list need not be atomic types. As you can see, the first object above is a vector. We can even have lists of lists.\n\nlist(list(1:7, \"Go Bears!\", TRUE), list(7:1, \"!sraeB oG\", FALSE))"
-  },
-  {
-    "objectID": "lab03.html#lists-names",
-    "href": "lab03.html#lists-names",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Lists: Names",
-    "text": "Lists: Names\nWe can assign names to the objects.\n\nmy_list = list(nums = 1:7, str = \"Go Bears!\", bool = TRUE)\nmy_list\n\n$nums\n[1] 1 2 3 4 5 6 7\n\n$str\n[1] \"Go Bears!\"\n\n$bool\n[1] TRUE"
-  },
-  {
-    "objectID": "lab03.html#lists-access-by-name",
-    "href": "lab03.html#lists-access-by-name",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Lists: Access by Name",
-    "text": "Lists: Access by Name\nThen access the objects by name with the $ operator.\n\nmy_list$nums\n\n[1] 1 2 3 4 5 6 7\n\nmy_list$str\n\n[1] \"Go Bears!\"\n\nmy_list$bool\n\n[1] TRUE"
-  },
-  {
-    "objectID": "lab03.html#lists-access-with-square-brackets",
-    "href": "lab03.html#lists-access-with-square-brackets",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Lists: Access with Square Brackets",
-    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- list(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\nperson[[1]]\n\n[1] \"Franz Liszt\""
-  },
-  {
-    "objectID": "lab03.html#list-square-brackets-two-methods",
-    "href": "lab03.html#list-square-brackets-two-methods",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "List: Square Brackets, Two Methods?",
-    "text": "List: Square Brackets, Two Methods?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\nThe second (two sets of square brackets) returns the underlying object (a string)."
-  },
-  {
-    "objectID": "lab03.html#lists-only-one",
-    "href": "lab03.html#lists-only-one",
-    "title": "Lab 03: Matrices, Lists",
-    "section": "Lists: Only One!",
-    "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: subscript out of bounds\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n$name\n[1] \"Franz Liszt\"\n\n$profession\n[1] \"Pianist\"\n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab04.html#tables",
-    "href": "lab04.html#tables",
-    "title": "Lab 04: Data Frames",
-    "section": "Tables",
-    "text": "Tables\nYou likely use spreadsheet software (Excel, Google Sheets, LibreOffice) to deal with tables.\n\nYou define some named columns, and include data on each row.\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n5\n6\n\n\n7\n8\n9\n\n\n\n\n\nFor this, R provides data frames."
-  },
-  {
-    "objectID": "lab04.html#data-frames-lists-of-vectors",
-    "href": "lab04.html#data-frames-lists-of-vectors",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Lists of Vectors",
-    "text": "Data Frames: Lists of Vectors\nTo start, a data frame is a list of vectors.\n\n\nlist(\n  1:10,\n  c(\"apple\", \"orange\", \"banana\"),\n  rep(c(TRUE, FALSE, FALSE), 4)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n[1] \"apple\"  \"orange\" \"banana\"\n\n[[3]]\n [1]  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE\n\n\n\n\nIs this a data frame?"
-  },
-  {
-    "objectID": "lab04.html#data-frames-additional-constraints",
-    "href": "lab04.html#data-frames-additional-constraints",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Additional Constraints",
-    "text": "Data Frames: Additional Constraints\nAdditionally, the vectors must all be the same size.\n\n\nlist(\n  1:10,\n  rep(\"apple\", 10),\n  rep(c(TRUE, FALSE), 5)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n [1] \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\"\n[10] \"apple\"\n\n[[3]]\n [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE"
-  },
-  {
-    "objectID": "lab04.html#data-frames-attributes",
-    "href": "lab04.html#data-frames-attributes",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Attributes",
-    "text": "Data Frames: Attributes\nData frames also have some important attributes:\n\ncolumn names, queried with names() or colnames()\nrow names, queried with row.names()\n\n\nUse nrow and ncol to get the number of rows and columns, respectively, as with matrices."
-  },
-  {
-    "objectID": "lab04.html#data-frames-creation",
-    "href": "lab04.html#data-frames-creation",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Creation",
-    "text": "Data Frames: Creation\nUse data.frame() to create a data frame.\n\nfood <- data.frame(\n  name = c(\"orange\", \"bok choy\", \"strawberry\"),\n  category = c(\"fruit\", \"vegetable\", \"fruit\"),\n  num_available = c(35, 20, 12)\n)\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12"
-  },
-  {
-    "objectID": "lab04.html#data-frames-access",
-    "href": "lab04.html#data-frames-access",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Access",
-    "text": "Data Frames: Access\n\nAccess is similar to matrices. Pass in vectors of indices, logical values, or names (strings)."
-  },
-  {
-    "objectID": "lab04.html#data-frames-access---single-elements",
-    "href": "lab04.html#data-frames-access---single-elements",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Access - Single Elements",
-    "text": "Data Frames: Access - Single Elements\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the object at the 1st row, 2nd column?\n\n\nfood[1, 2]\n\n[1] \"fruit\""
-  },
-  {
-    "objectID": "lab04.html#data-frames-access---rows-columns",
-    "href": "lab04.html#data-frames-access---rows-columns",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: Access - Rows, Columns",
-    "text": "Data Frames: Access - Rows, Columns\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the first and second rows?\n\n\nfood[1:2,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\n\n\n\nHow do we access the third column?\n\n\n\nfood[,3]\n\n[1] 35 20 12"
-  },
-  {
-    "objectID": "lab04.html#data-frames-more-access-examples",
-    "href": "lab04.html#data-frames-more-access-examples",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: More Access Examples",
-    "text": "Data Frames: More Access Examples\nMore examples:\n\nfood[,c(\"name\", \"category\")]\n\n        name  category\n1     orange     fruit\n2   bok choy vegetable\n3 strawberry     fruit\n\nfood[food$num_available >= 20,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\nfood[, \"category\"]\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\n\n\n\nDid you notice something?\n\n\n\nIf we access a single column, we get a vector. Otherwise, we get a data frame."
-  },
-  {
-    "objectID": "lab04.html#data-frames-operator",
-    "href": "lab04.html#data-frames-operator",
-    "title": "Lab 04: Data Frames",
-    "section": "Data Frames: $ Operator",
-    "text": "Data Frames: $ Operator\nAs data frames are lists, you can access its vectors with the $ operator.\n\n\nfood$name\n\n[1] \"orange\"     \"bok choy\"   \"strawberry\"\n\nfood$category\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\nfood$num_available\n\n[1] 35 20 12\n\n\n\n\nWe can add new columns using the $ operator.\n\nfood$for_sale <- c(TRUE, FALSE, FALSE)\nfood\n\n        name  category num_available for_sale\n1     orange     fruit            35     TRUE\n2   bok choy vegetable            20    FALSE\n3 strawberry     fruit            12    FALSE"
-  },
-  {
-    "objectID": "lab04.html#helpful-functions-head-tail",
-    "href": "lab04.html#helpful-functions-head-tail",
-    "title": "Lab 04: Data Frames",
-    "section": "Helpful Functions: head, tail",
-    "text": "Helpful Functions: head, tail\nTo see the first or last n rows, use head() or tail(), respectively. n defaults to 6.\n\n\n\n\n\n\n\n\n\n\nhead(df)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n4 4 4\n5 5 5\n6 6 6\n\nhead(df, n = 3)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n\n\n\n\ntail(df)\n\n      x   y\n95   95  95\n96   96  96\n97   97  97\n98   98  98\n99   99  99\n100 100 100\n\ntail(df, n = 3)\n\n      x   y\n98   98  98\n99   99  99\n100 100 100"
-  },
-  {
-    "objectID": "lab04.html#missing-values",
-    "href": "lab04.html#missing-values",
-    "title": "Lab 04: Data Frames",
-    "section": "Missing Values",
-    "text": "Missing Values\nAs our vectors have to be the same size, how do we simulate empty cells in a table?\nWe use a special data type, NA (“Not Available”).\n\n\ndata.frame(\n  names = c(\"Bob the Builder\", \"Spongebob\", \"Darth Vader\"),\n  major = c(\"Civil Engineering\", \"Culinary Studies\", NA),\n  age   = c(32, NA, 44)\n)\n\n            names             major age\n1 Bob the Builder Civil Engineering  32\n2       Spongebob  Culinary Studies  NA\n3     Darth Vader              <NA>  44\n\n\n\nNote that we can freely combine this special type with any other type in a vector.\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab05.html#files",
-    "href": "lab05.html#files",
-    "title": "Lab 05: Handling Files",
-    "section": "Files?",
-    "text": "Files?\nWe can use R in isolation…\n\n\n\nBut it’s much more convenient if we can save our results (data) and share them with other applications.\n\n\n\n\nOr use our results (data) from other applications, and manipulate them in R.\n\n\n\n\nFor this, we need files."
-  },
-  {
-    "objectID": "lab05.html#file-formats",
-    "href": "lab05.html#file-formats",
-    "title": "Lab 05: Handling Files",
-    "section": "File Formats",
-    "text": "File Formats\nWhat is a file?\n\nFor our purposes, just think of a file as a blob of saved text.\n\n\n\nSuppose we wanted to represent a complex structure in a file.\n\n\n\nAn Agreed on Format\nTo do this, we need to agree on some convention (format) of representing the structure in plain text."
-  },
-  {
-    "objectID": "lab05.html#file-formats-table-representation",
-    "href": "lab05.html#file-formats-table-representation",
-    "title": "Lab 05: Handling Files",
-    "section": "File Formats: Table Representation",
-    "text": "File Formats: Table Representation\nWhat if we wanted to represent a table?\n\nIn markdown:\n| Some Column | Another Column | Yet Another |\n|-------------|----------------|-------------|\n|     3       |    \"hello\"     |    TRUE     |\n|     17      |   \"goodbye\"    |   FALSE     |\n\n\nAny issues with this?"
-  },
-  {
-    "objectID": "lab05.html#file-formats-a-popular-choice-csv",
-    "href": "lab05.html#file-formats-a-popular-choice-csv",
-    "title": "Lab 05: Handling Files",
-    "section": "File Formats: A Popular Choice, CSV",
-    "text": "File Formats: A Popular Choice, CSV\nOne common format for representing tables is .csv – “comma separated values”.\n\nname,position,student\nGaston,Professor,FALSE\nJakob,uGSI,TRUE\nJoy,Tutor,TRUE\n\n\nEach row is represented by a line, with the values in each column separated by commas.\nThe first row optionally includes the column names."
-  },
-  {
-    "objectID": "lab05.html#reading-tables-general",
-    "href": "lab05.html#reading-tables-general",
-    "title": "Lab 05: Handling Files",
-    "section": "Reading Tables (General)",
-    "text": "Reading Tables (General)\nThe general function for importing tables from files is read.table().\n\nread.table(file, header = FALSE, sep = \"\", quote = \"\\\"'\",\n           dec = \".\", numerals = c(\"allow.loss\", \"warn.loss\", \"no.loss\"),\n           row.names, col.names, as.is = !stringsAsFactors,\n           na.strings = \"NA\", colClasses = NA, nrows = -1,\n           skip = 0, check.names = TRUE, fill = !blank.lines.skip,\n           strip.white = FALSE, blank.lines.skip = TRUE,\n           comment.char = \"#\",\n           allowEscapes = FALSE, flush = FALSE,\n           stringsAsFactors = FALSE,\n           fileEncoding = \"\", encoding = \"unknown\", text, skipNul = FALSE)\n\n\n\nfile: The file to read from\nheader: Does the file have a header for the column names?\nsep: What separates the data (e.g., ',' for .csv files)?"
-  },
-  {
-    "objectID": "lab05.html#reading-csv-files",
-    "href": "lab05.html#reading-csv-files",
-    "title": "Lab 05: Handling Files",
-    "section": "Reading CSV Files",
-    "text": "Reading CSV Files\nTo avoid writing passing read.table() arguments to correctly parse .csv files, we have a convenience function:\nread.csv(file, header = TRUE, sep = \",\", quote = \"\\\"\",\n         dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nAnd for other common formats:\nread.csv2(file, header = TRUE, sep = \";\", quote = \"\\\"\",\n          dec = \",\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n           dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim2(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n            dec = \",\", fill = TRUE, comment.char = \"\", ...)"
-  },
-  {
-    "objectID": "lab05.html#making-sense-of-read.table",
-    "href": "lab05.html#making-sense-of-read.table",
-    "title": "Lab 05: Handling Files",
-    "section": "Making Sense of read.table()",
-    "text": "Making Sense of read.table()\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  # What arguments do we pass?\n)"
-  },
-  {
-    "objectID": "lab05.html#read.table-solution",
-    "href": "lab05.html#read.table-solution",
-    "title": "Lab 05: Handling Files",
-    "section": "read.table() Solution",
-    "text": "read.table() Solution\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  file = \"starwars.csv\",\n  header = TRUE,\n  sep = \",\",\n  colClasses = c(\"character\", \"double\", \"double\")\n)\n\n\n\nWhat if our values were separated with ';' instead?"
-  },
-  {
-    "objectID": "lab05.html#writing-to-files",
-    "href": "lab05.html#writing-to-files",
-    "title": "Lab 05: Handling Files",
-    "section": "Writing to Files",
-    "text": "Writing to Files\nWe have write.table() for writing tables to files.\nwrite.table(x, file = \"\", append = FALSE, quote = TRUE, sep = \" \",\n            eol = \"\\n\", na = \"NA\", dec = \".\", row.names = TRUE,\n            col.names = TRUE, qmethod = c(\"escape\", \"double\"),\n            fileEncoding = \"\")\n\nAnd for convenience,\nwrite.csv(...)\nwrite.csv2(...)"
-  },
-  {
-    "objectID": "lab05.html#saving-r-output",
-    "href": "lab05.html#saving-r-output",
-    "title": "Lab 05: Handling Files",
-    "section": "Saving R Output",
-    "text": "Saving R Output\nIf we want to save the output of our program to a file, we use sink().\n\nsink(\"my-output.txt\")  # We specify the file to redirect our output to\nprint(\"Hello World!\")  \n3 + 2\nsink()                 # After this call, our output will be printed as usual\n\n\nThe output of our program was not printed to the console, but redirected to the file my-output.txt, which now contains:\n\n[1] \"Hello World!\"\n[1] 5\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab06.html#the-inconvenience-of-subsetting",
-    "href": "lab06.html#the-inconvenience-of-subsetting",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "The Inconvenience of Subsetting",
-    "text": "The Inconvenience of Subsetting\n\n\n\nUp until now, we’ve used base R to create and subset data. An example:\n\nsw_males <- starwars[\n    starwars$sex == \"male\",\n    !(names(starwars) %in% c(\"sex\", \"gender\"))\n]\n\n\n\nWhat does this do?\n\n\n\nIt’s reasonable to find this difficult to read.\n\n\n\n\nIn general, we prefer to be more expressive with our programming."
-  },
-  {
-    "objectID": "lab06.html#a-lack-of-expression",
-    "href": "lab06.html#a-lack-of-expression",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "A Lack of Expression…",
-    "text": "A Lack of Expression…\nSuppose we wanted to evaluate whether some condition is true for any of the elements in a vector.\n\n\nheights <- starwars$height\nlength(heights[heights > 150]) > 0\n\n[1] TRUE\n\n\nWhat about this instead?\n\nsum(as.numeric(heights > 150), na.rm = TRUE) > 0\n\n[1] TRUE\n\n\n\n\nThese are both awful. Our burden reading and writing this is too great for a task so trivial.\n\n\n\n\nImportantly, the code doesn’t convey what it does. Instead, it’s the reader’s responsibility to make sense of the computations."
-  },
-  {
-    "objectID": "lab06.html#expressiveness",
-    "href": "lab06.html#expressiveness",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "Expressiveness",
-    "text": "Expressiveness\nIdeally, we’d prefer for our code to say what it does directly. This makes it easier to read and write.\n\n\nany(heights > 100)\n\n[1] TRUE\n\n\n\nall(heights > 20, na.rm = TRUE)\n\n[1] TRUE\n\n\n\n\nIn both cases, you know what it does immediately.\nThere’s no need to make sense of confusing computations."
-  },
-  {
-    "objectID": "lab06.html#expressiveness-with-data-frames",
-    "href": "lab06.html#expressiveness-with-data-frames",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "Expressiveness with Data Frames",
-    "text": "Expressiveness with Data Frames\nThe package dplyr provides us with functions (“a grammar”) that make our data frame manipulations more expressive.\n\nLet’s consider some common data frame tasks and what verbs dplyr provides to solve them."
-  },
-  {
-    "objectID": "lab06.html#slice",
-    "href": "lab06.html#slice",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "slice",
-    "text": "slice\nSuppose we want some subset of the rows. In base R,\n\nstarwars[seq(1, nrow(starwars), 2),]\n\n\ndplyr provides us with the slice function.\n\nslice(starwars, seq(1, nrow(starwars), 2))\n\n\n\nWe can provide multiple vectors.\n\nslice(starwars, 1:5, 10:15, 17, 18)\n\n\n\n\n\nNote that slice works only with indices. Unlike base R subsetting, you can’t use strings or logical values."
-  },
-  {
-    "objectID": "lab06.html#select",
-    "href": "lab06.html#select",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "select",
-    "text": "select\nSuppose we want to select some of the columns. In base R,\n\nstarwars[,c(\"height\", \"mass\")]\n\n\ndplyr provides us with the select function.\n\nselect(starwars, c(\"height\", \"mass\"))\n\n\n\nAlternatively,\n\nselect(starwars, \"height\", \"mass\")\n\n\n\nThere’s no need to provide the columns as strings.\n\nselect(starwars, height, mass)"
-  },
-  {
-    "objectID": "lab06.html#filter",
-    "href": "lab06.html#filter",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "filter",
-    "text": "filter\nSuppose we want to filter the rows by some condition. In base R,\n\nstarwars[starwars$height > 100,]\n\n\ndplyr provides us with the filter function.\n\nfilter(starwars, height > 100)  # no need to specify starwars$height\n\n\n\nWe can easily combine conditions with the logical operators.\n\nfilter(starwars, height > 100 & mass > 100 & sex == \"male\")\nfilter(starwars, is.na(hair_color) | species == \"Droid\")\nfilter(starwars, !(eye_color == \"brown\" & skin_color == \"blue\"))"
-  },
-  {
-    "objectID": "lab06.html#mutate",
-    "href": "lab06.html#mutate",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "mutate",
-    "text": "mutate\nSuppose we want to add new columns. In base R,\n\nstarwars$is_chosen_one <- starwars$name == \"Darth Vader\"\n\n\ndplyr provides us with the function mutate.\n\nmutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nWait, did that change starwars?\n\n\n\n\nNo, it returned a new, mutated data frame. To modify, we must reassign.\n\nstarwars <- mutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nIf you use an existing column, it will be replaced. Replace an existing column with NULL to delete it.\n\nstarwars <- mutate(starwars, hair_color = NULL)"
-  },
-  {
-    "objectID": "lab06.html#summarisesummarize",
-    "href": "lab06.html#summarisesummarize",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "summarise/summarize",
-    "text": "summarise/summarize\nWe can use summarise to obtain summary statistics on the data frame (in the form of a new data frame).\n\nsummarise(\n    starwars,  # what we are summarising\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 1 x 3\n  avg_height avg_mass avg_birth_year\n       <dbl>    <dbl>          <dbl>\n1       174.     97.3           87.6\n\n\nBut what if we wanted to get these values for each group (say, each species)?\n\nWould we have to filter the data frame three times, then call summarise for each?"
-  },
-  {
-    "objectID": "lab06.html#group_by",
-    "href": "lab06.html#group_by",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "group_by",
-    "text": "group_by\nWe can use group_by to form a new table which is grouped by the values in particular columns. The functions you use will be applied to the groups separately, after which dplyr groups the results.\n\nsummarise(\n    group_by(starwars, sex),\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 5 x 4\n  sex            avg_height avg_mass avg_birth_year\n  <chr>               <dbl>    <dbl>          <dbl>\n1 female               169.     54.7           47.2\n2 hermaphroditic       175    1358            600  \n3 male                 179.     81.0           85.5\n4 none                 131.     69.8           53.3\n5 <NA>                 181.     48             62"
-  },
-  {
-    "objectID": "lab06.html#much-more",
-    "href": "lab06.html#much-more",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "Much More",
-    "text": "Much More\nI’ve only introduced the most basic functionality of these functions. Enter ?<function> to explore additional functionality.\n\nOne neat example, the function ends_with:\n\nhead(select(starwars, ends_with(\"color\")))\n\n# A tibble: 6 x 2\n  skin_color  eye_color\n  <chr>       <chr>    \n1 fair        blue     \n2 gold        yellow   \n3 white, blue red      \n4 white       yellow   \n5 light       brown    \n6 light       blue"
-  },
-  {
-    "objectID": "lab06.html#an-aside-piping",
-    "href": "lab06.html#an-aside-piping",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "An Aside: Piping",
-    "text": "An Aside: Piping\nPiping will be explored in greater detail later.\nSuppose we have this code:\n\nf(g(h()))\n\nIn what order are the functions f(), g(), and h() called?\n\n\n\nh(), then g(), then f()! We’ve written it backwards?"
-  },
-  {
-    "objectID": "lab06.html#an-aside-piping-1",
-    "href": "lab06.html#an-aside-piping-1",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "An Aside: Piping",
-    "text": "An Aside: Piping\nTo make nested functions easier to read and write, we use the pipe operator.\na() %>% b() becomes b(a()).\nThat is, the left operand is passed as the first argument to the second operand.\n\n\n3 %>% sum(2)\n\n[1] 5\n\n3 %>% sum(2) %>% sum(5)\n\n[1] 10\n\n\n\n\nThis allows us to rewrite f(g(h())) as\n\nh() %>% g() %>% f()\n\nThat is, in the logical order of the function calls."
-  },
-  {
-    "objectID": "lab06.html#an-aside-piping-2",
-    "href": "lab06.html#an-aside-piping-2",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "An Aside: Piping",
-    "text": "An Aside: Piping\nThe %>% symbol comes from the package magrittr.\n\n# To use...\ninstall.packages(\"magrittr\")\nlibrary(magrittr)\n\n\nIf you’re using a new version of R (>4.1.0), I’d recommend using the new pipe operator built into R, |>."
-  },
-  {
-    "objectID": "lab06.html#piping-in-action",
-    "href": "lab06.html#piping-in-action",
-    "title": "Lab 06: Intro to dplyr",
-    "section": "Piping in Action",
-    "text": "Piping in Action\nA more elaborate example from the Algorithmic Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab07.html#graphics-with-base-r",
-    "href": "lab07.html#graphics-with-base-r",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Graphics with Base R?",
-    "text": "Graphics with Base R?\n\n\n\nSo far we’ve produced graphics with base R, which you likely felt unintuitive and inflexible.\n\nThe package dplyr made data manipulation easier and more flexible.\n\n\nNow we introduce the package ggplot2, which will provide these benefits for data visualization."
-  },
-  {
-    "objectID": "lab07.html#introducing-ggplot2",
-    "href": "lab07.html#introducing-ggplot2",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Introducing ggplot2",
-    "text": "Introducing ggplot2\nggplot2 provides us with a set of functions to intuitively and quickly produce attractive plots.\n\nThe package ggplot2…\n\n\nprovides us with a grammar of data visualization.\nis based on the idea of decomposing plots into various distinct components – and later layers.\nis the most widely used graphics library for R.\nhas countless extensions (e.g., for animations, rare plot types)."
-  },
-  {
-    "objectID": "lab07.html#introducing-ggplot2-1",
-    "href": "lab07.html#introducing-ggplot2-1",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Introducing ggplot2",
-    "text": "Introducing ggplot2\n\nis designed on the idea of decomposing plots into various distinct components – and later layers.\n\n\nA good grammar will allow us to gain insight into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics.1 – Hadley Wickham\n\nFrom A Layered Grammar of Graphics. Note that this presentation is partially based on ideas from this paper. I’d recommend reading it if you’d like to understand the reasoning behind ggplot2’s design."
-  },
-  {
-    "objectID": "lab07.html#components",
-    "href": "lab07.html#components",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Components?",
-    "text": "Components?\n\nAsk yourself, what makes up a plot?\n\n\nData and Aesthetic Mapping\nWhat data is the plot using and communicating? How is it mapped (e.g., what data is used for each axis)?\nGeometric Objects\nHow are we representing the data geometrically? Lines, points, colored area?\nScales, Coordinate Systems\nHow large/small are the objects? What coordinate systems do we use? Units?"
-  },
-  {
-    "objectID": "lab07.html#components-in-ggplot2",
-    "href": "lab07.html#components-in-ggplot2",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Components in ggplot2",
-    "text": "Components in ggplot2\n… And more. But we’ll get started with these.\n\nAt a high level, we create components with function calls, and connect them to form a cohesive whole.\n\n\nWe use + to connect them.\nImage we had functions to create the “components” of a human. To create a whole human, we’d write something like,\n\nperson(name = \"Jakob\") +\n  body() +\n  personality(type = \"strange\") + \n  education(major = c(\"computer science\", \"math\")) + \n  job(title = \"uGSI\")"
-  },
-  {
-    "objectID": "lab07.html#the-data-and-aesthetic-mapping-component",
-    "href": "lab07.html#the-data-and-aesthetic-mapping-component",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "The Data and Aesthetic Mapping Component",
-    "text": "The Data and Aesthetic Mapping Component\nThe first component you’ll need is one that defines…\n\nwhat data you’ll be using – data.\nhow the data is mapped aesthetically – mapping.\n\n\nWe create this component using the ggplot function call; data and mapping are the corresponding arguments.\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
-  },
-  {
-    "objectID": "lab07.html#the-data-and-aesthetic-mapping-component-1",
-    "href": "lab07.html#the-data-and-aesthetic-mapping-component-1",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "The Data and Aesthetic Mapping Component",
-    "text": "The Data and Aesthetic Mapping Component\nWhat we have so far…\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
-  },
-  {
-    "objectID": "lab07.html#the-geom-component",
-    "href": "lab07.html#the-geom-component",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "The Geom Component",
-    "text": "The Geom Component\nOur plot is empty! We need to define the geom, i.e., what geometrical objects will be used to represent the data.\nThese components are created with geom_* functions.\n\n\n\n\nggplot(filter(starwars, mass < 200), \n  aes(x = height, y = mass)) +\n  geom_point()\n\n\n\n\n\n\nggplot(filter(starwars, mass < 200), \n       aes(x = height, y = mass)) +\n  geom_line()"
-  },
-  {
-    "objectID": "lab07.html#customizing-geoms",
-    "href": "lab07.html#customizing-geoms",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Customizing Geoms",
-    "text": "Customizing Geoms\nEach geom has many options for customization. Enter ?<function> to learn more about your geom of interest.\n\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"red\",  # define line color\n      alpha = 0.5,    # define line opacity \n      linetype = 6,   # define line type (dashed, solid, etc.)\n      size = 1.15     # define line thickness\n    )"
-  },
-  {
-    "objectID": "lab07.html#layering-geoms",
-    "href": "lab07.html#layering-geoms",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Layering Geoms",
-    "text": "Layering Geoms\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,            # define shape size (how big?)\n    )"
-  },
-  {
-    "objectID": "lab07.html#geoms-coloring-by-group",
-    "href": "lab07.html#geoms-coloring-by-group",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Geoms, Coloring by Group",
-    "text": "Geoms, Coloring by Group\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"grey\",     # define line color\n      alpha = 0.5,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      aes(fill = sex, color = sex),  # define what determines fill, color\n      alpha = 0.75,       # define shape opacity\n      shape = 21,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    )"
-  },
-  {
-    "objectID": "lab07.html#geoms-endless-customization",
-    "href": "lab07.html#geoms-endless-customization",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Geoms, Endless Customization!",
-    "text": "Geoms, Endless Customization!\nThere are many more geoms, and many, many more customization options. Don’t expect to memorize them.\n\n\nBecome comfortable reading the documentation.\nUse ?<function>."
-  },
-  {
-    "objectID": "lab07.html#dont-you-dare-label-me",
-    "href": "lab07.html#dont-you-dare-label-me",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Don’t You Dare Label Me!",
-    "text": "Don’t You Dare Label Me!\nOur plots look unprofessional now because we’ve not added proper labels.\n\nTo add labels, simply add a label component with the labs() function. Here’s its signature:\n\nlabs(\n  ...,\n  title = waiver(),\n  subtitle = waiver(),\n  caption = waiver(),\n  tag = waiver(),\n  alt = waiver(),\n  alt_insight = waiver()\n)"
-  },
-  {
-    "objectID": "lab07.html#label-example",
-    "href": "lab07.html#label-example",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Label Example",
-    "text": "Label Example\nHere we add a title and proper axis titles.\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    )"
-  },
-  {
-    "objectID": "lab07.html#still-unsatisfied-use-themes",
-    "href": "lab07.html#still-unsatisfied-use-themes",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Still Unsatisfied? Use Themes!",
-    "text": "Still Unsatisfied? Use Themes!\nIf the visuals of these plots don’t satisfy you, we can go further and customize every detail by creating a custom theme component.\n\nWell That’s Out of Scope…\nThis is out of scope for this class, but I’ll share an example to peek your interest. Feel free to ask me during lab/OH if you’d like to learn more."
-  },
-  {
-    "objectID": "lab07.html#theme-example-creation",
-    "href": "lab07.html#theme-example-creation",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Theme Example, Creation",
-    "text": "Theme Example, Creation\nAn example theme (from one of my STAT 133 projects).\n\noff_white <- \"#F7F0EB\"\nexample_theme <- theme(\n  plot.title = element_text(size = 24),\n  plot.subtitle = element_text(size = 14, face = \"italic\"),\n  axis.title = element_text(size = 14), \n  axis.text = element_text(size = 10, face = \"bold\"),\n  panel.background = element_rect(fill = off_white, color = \"black\"),\n  panel.grid = element_line(linetype = 2, size = 0.05, color = \"black\")\n)"
-  },
-  {
-    "objectID": "lab07.html#theme-example-plot",
-    "href": "lab07.html#theme-example-plot",
-    "title": "Lab 07: Intro to ggplot2",
-    "section": "Theme Example, Plot",
-    "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab08.html#case-by-case",
-    "href": "lab08.html#case-by-case",
-    "title": "Lab 08: Conditionals",
-    "section": "Case by Case",
-    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\nwhich_season <- function(month) {\n  # What should we write here?\n}"
-  },
-  {
-    "objectID": "lab08.html#case-by-case-1",
-    "href": "lab08.html#case-by-case-1",
-    "title": "Lab 08: Conditionals",
-    "section": "Case by Case",
-    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}\n\nWe could use a vector.\n\n\nThis is a neat work around, but in more complex cases this won’t be possible (or practical)."
-  },
-  {
-    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing",
-    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing",
-    "title": "Lab 08: Conditionals",
-    "section": "Fizzing, Buzzing, and FizzBuzzing",
-    "text": "Fizzing, Buzzing, and FizzBuzzing\nLet’s consider another case: the famous FizzBuzz problem.\n\nGiven a number n, return:\n\n\"Fizz\" if it is divisible by 3.\n\"Buzz\" if it is divisible by 5.\n\"FizzBuzz\" if it is divisible by 3 and 5.\nThe number n as a string otherwise.\n\n\nfizzbuzz <- function(n) {\n  # What should we write here? \n}"
-  },
-  {
-    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
-    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
-    "title": "Lab 08: Conditionals",
-    "section": "Fizzing, Buzzing, and FizzBuzzing",
-    "text": "Fizzing, Buzzing, and FizzBuzzing\nHere’s an idea:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}\n\n\n\nOh my, can you make sense of this?"
-  },
-  {
-    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
-    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
-    "title": "Lab 08: Conditionals",
-    "section": "Fizzing, Buzzing, and FizzBuzzing",
-    "text": "Fizzing, Buzzing, and FizzBuzzing\nMaybe this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE)\n    ][1]\n}\n\n\n\nUmm… Are your eyes hurting yet?"
-  },
-  {
-    "objectID": "lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
-    "href": "lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
-    "title": "Lab 08: Conditionals",
-    "section": "Fizzing, Buzzing, and FizzBuzzing",
-    "text": "Fizzing, Buzzing, and FizzBuzzing\nWhat about this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE) |> \n        which() |> \n        min()\n      ]\n}\n\n\n\n… Isn’t that terrible? Can you explain how it works?\n\n\n\n\nClearly we need some better tools for handling cases."
-  },
-  {
-    "objectID": "lab08.html#oh-if-only",
-    "href": "lab08.html#oh-if-only",
-    "title": "Lab 08: Conditionals",
-    "section": "Oh, if Only!",
-    "text": "Oh, if Only!\nRecall that we prefer for our code to be expressive.\n\nOur description of fizzbuzz included “IF”. Wouldn’t it be nice to write this directly in our code?\n\n\n\nWe can!\n\nx <- 10\nif (x >= 10)\n  x <- 5\nx\n\n[1] 5"
-  },
-  {
-    "objectID": "lab08.html#the-if-statement",
-    "href": "lab08.html#the-if-statement",
-    "title": "Lab 08: Conditionals",
-    "section": "The if Statement",
-    "text": "The if Statement\nThe if statement follows the intuitive structure:\n\n\nif (<logical>) <body>\n\n\n\nwhere <body> is executed if <logical> is true.\n\n\nNote that the parenthesis are required1.\n\n\n\nAs a comparison to other popular languages, this is unlike Python, but like C, C++ and Java."
-  },
-  {
-    "objectID": "lab08.html#the-if-statement-multiline-body",
-    "href": "lab08.html#the-if-statement-multiline-body",
-    "title": "Lab 08: Conditionals",
-    "section": "The if statement – multiline body?",
-    "text": "The if statement – multiline body?\nWhat if we want to execute multiple lines of code if a condition is true?\n\n\ndo_some_math <- function(ok, a, b) {\n  if (ok)\n    print(\"a * 10 is: \", a * 10)\n  if (ok)\n    print(\"b * 10 is: \", b * 10)\n  if (ok)\n    print(\"a * b is: \", a * b)\n}\n\n\n\nWell this seems silly…\n\n\n\n\nTo include multiple lines into <body>, we must place them inside curly brackets: { ... }."
-  },
-  {
-    "objectID": "lab08.html#the-if-statement-multiline-body-1",
-    "href": "lab08.html#the-if-statement-multiline-body-1",
-    "title": "Lab 08: Conditionals",
-    "section": "The if statement – multiline body?",
-    "text": "The if statement – multiline body?\nWe rewrite do_some_math:\n\ndo_some_math <- function(ok, a, b) {\n  if (ok) {\n    print(\"a * 10 is: \", a * 10)\n    print(\"b * 10 is: \", b * 10)    \n    print(\"a * b is: \", a * b)    \n  }\n}"
-  },
-  {
-    "objectID": "lab08.html#on-curly-brackets",
-    "href": "lab08.html#on-curly-brackets",
-    "title": "Lab 08: Conditionals",
-    "section": "On Curly Brackets",
-    "text": "On Curly Brackets\nNote that when using curly brackets, the last expression evaluated will be the value of the curly bracket block.\n\nfood <- \"boba\"\nlover <- {  # Variables are typically not set like this in R. \n  if (food == \"banana\")\n    \"Monkey\"\n  if (food == \"boba\")\n    \"Cal Student\"\n}\n\nWhat is lover?\n\n\nlover\n\n[1] \"Cal Student\""
-  },
-  {
-    "objectID": "lab08.html#not-this-that",
-    "href": "lab08.html#not-this-that",
-    "title": "Lab 08: Conditionals",
-    "section": "Not This, That!",
-    "text": "Not This, That!\nMaybe we’d like to execute some code if a condition is true, and execute some other code otherwise. We could write,\n\nif (conditional) {\n  # body A\n}\nif (!conditional) {\n  # body B\n}\n\n\nBut this:\n\nwastefully evaluates conditional twice. If the first if failed, we know conditional is FALSE.\nis not very expressive.\nwon’t work as intended if body A modifies conditional."
-  },
-  {
-    "objectID": "lab08.html#the-if-else-statement",
-    "href": "lab08.html#the-if-else-statement",
-    "title": "Lab 08: Conditionals",
-    "section": "The if else Statement",
-    "text": "The if else Statement\nInstead, we use the if else statement:\n\n\nif (<logical>) <body A> else <body B>\n\n\n\nwhere,\n\n<body A> is executed if <logical> is true.\n<body B> is executed if <logical> is false.\n\n\n\n\ncan_i_drive <- function(age) {\n  if (age < 16) \n    \"No, you're too young.\"\n  else\n    \"If you have a license.\"\n}\ncan_i_drive(21)\n\n[1] \"If you have a license.\""
-  },
-  {
-    "objectID": "lab08.html#the-else-if-statement",
-    "href": "lab08.html#the-else-if-statement",
-    "title": "Lab 08: Conditionals",
-    "section": "The else if Statement",
-    "text": "The else if Statement\nWhen we need to account for more cases than just two (true or false), we can use an else if statement:\n\n\nif (<logical 1>) <body 1>\nelse if (<logical 2>) <body 2>\nelse if (<logical 3>) <body 3> ...\nelse <body N>\n\n\n\n\nOnly one body will be evaluated.\nThe initial if statement is required, but the final else is not.\nYou may include as many else ifs as you’d like."
-  },
-  {
-    "objectID": "lab08.html#a-note-on-style",
-    "href": "lab08.html#a-note-on-style",
-    "title": "Lab 08: Conditionals",
-    "section": "A Note on Style",
-    "text": "A Note on Style\nThe curly brackets are optional if the body is one line.\n\nSome prefer you always use curly brackets.\nRegardless, it is recommended you use curly brackets for all bodies if at least one uses curly brackets.\n\n\n\n\n\nDon’t do this.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else\n  is_sophomore <- FALSE\n\n\n\nDo this instead.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
-  },
-  {
-    "objectID": "lab08.html#a-note-on-style-1",
-    "href": "lab08.html#a-note-on-style-1",
-    "title": "Lab 08: Conditionals",
-    "section": "A Note on Style",
-    "text": "A Note on Style\nNote that R requires else/else if be placed after the closing curly bracket (}).\n\n\n\nThis is not allowed.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} \nelse {\n  is_sophomore <- FALSE\n}\n\n\n\nThis format is required.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
-  },
-  {
-    "objectID": "lab08.html#control-flow-branching",
-    "href": "lab08.html#control-flow-branching",
-    "title": "Lab 08: Conditionals",
-    "section": "Control Flow, Branching",
-    "text": "Control Flow, Branching\nYou may see these statement referred to as,\n\nControl Flow Statements. They control which lines of code are evaluated, which are ignored, and the order in which they’re evaluated.\nBranching Statements. They may cause the program to “branch” to another line of code (instead of the one immediately after it)."
-  },
-  {
-    "objectID": "lab08.html#back-to-which_season",
-    "href": "lab08.html#back-to-which_season",
-    "title": "Lab 08: Conditionals",
-    "section": "Back to which_season",
-    "text": "Back to which_season\nLet’s rewrite our which_season function:\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}"
-  },
-  {
-    "objectID": "lab08.html#back-to-which_season-1",
-    "href": "lab08.html#back-to-which_season-1",
-    "title": "Lab 08: Conditionals",
-    "section": "Back to which_season",
-    "text": "Back to which_season\n\nNow with control flow statements.\n\n\nwhich_season <- function(month) {\n  if (month < 1 || month > 12)\n    NA\n  else if (month == 12 || month %in% 1:2)\n    \"Winter\"\n  else if (month %in% 3:5)\n    \"Spring\"\n  else if (month %in% 6:8)\n    \"Summer\"\n  else\n    \"Fall\"\n}"
-  },
-  {
-    "objectID": "lab08.html#back-to-fizzbuzz",
-    "href": "lab08.html#back-to-fizzbuzz",
-    "title": "Lab 08: Conditionals",
-    "section": "Back to fizzbuzz",
-    "text": "Back to fizzbuzz\nLet’s rewrite our fizzbuzz function:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}"
-  },
-  {
-    "objectID": "lab08.html#back-to-fizzbuzz-1",
-    "href": "lab08.html#back-to-fizzbuzz-1",
-    "title": "Lab 08: Conditionals",
-    "section": "Back to fizzbuzz",
-    "text": "Back to fizzbuzz\n\nNow with control flow statements. Pick your poison!\n\n\n\n\nfizzbuzz <- function(n) {\n  # This one is what I prefer. \n  s <- character()\n  if (n %% 3 == 0) {\n    s <- \"Fizz\"\n  }\n  if (n %% 5 == 0) {\n    s <- paste0(s, \"Buzz\")\n  }\n  if (!length(s)) {\n    s <- as.character(n)\n  }\n  s\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0 && n %% 5 == 0) {\n    \"FizzBuzz\"\n  }\n  else if (n %% 3 == 0) {\n    \"Fizz\"\n  }\n  else if (n %% 5 == 0) {\n    \"Buzz\"\n  }\n  else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0) {\n    # To avoid redundant computation. \n    if (n %% 5 == 0)\n      \"FizzBuzz\"\n    else\n      \"Fizz\"\n  } else if (n %% 5 == 0) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  # To avoid redundant computation. \n  div_3 <- n %% 3 == 0\n  div_5 <- n %% 5 == 0\n  if (div_3 && div_5) {\n    \"FizzBuzz\"\n  } else if (div_3) {\n    \"Fizz\"\n  } else if (div_5) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}"
-  },
-  {
-    "objectID": "lab08.html#the-vectorized-if-else-ifelse",
-    "href": "lab08.html#the-vectorized-if-else-ifelse",
-    "title": "Lab 08: Conditionals",
-    "section": "The Vectorized if else, ifelse()",
-    "text": "The Vectorized if else, ifelse()\nWe can use the function ifelse to apply the if else operation to a vector. Its function signature is\n\nifelse(test, yes, no)\n\nwhere,\n\ntest is a vector of logical values.\nyes is the value to be placed in the result vector if the corresponding logical value is true.\nno is the value to be placed in the result vector if the corresponding logical values is false."
-  },
-  {
-    "objectID": "lab08.html#simple-ifelse-example",
-    "href": "lab08.html#simple-ifelse-example",
-    "title": "Lab 08: Conditionals",
-    "section": "Simple ifelse() Example",
-    "text": "Simple ifelse() Example\n\nx <- 1:10\nifelse(x %% 2 == 0, \"Divisible by 2\", \"Not divisible by 2\")\n\n [1] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n [4] \"Divisible by 2\"     \"Not divisible by 2\" \"Divisible by 2\"    \n [7] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n[10] \"Divisible by 2\"    \n\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "lab09.html#repeating-code",
-    "href": "lab09.html#repeating-code",
-    "title": "Lab 09: Loops",
-    "section": "Repeating Code",
-    "text": "Repeating Code\n\n\n\nWe’ve seen how to control which lines of code are ran with conditionals.\n\nToday, we’ll review how to control repetition of lines of code."
-  },
-  {
-    "objectID": "lab09.html#a-simple-problem",
-    "href": "lab09.html#a-simple-problem",
-    "title": "Lab 09: Loops",
-    "section": "A Simple Problem",
-    "text": "A Simple Problem\nSuppose you have a vector with thousands of integers.\n\n\nYou’d like to find the indices of your favorite number, but you can’t use vectorization or loops.\n\n\n\nIf you’re familiar with functions, you could use recursion.\n\n\n\nnum_indices <- function(vec, num) {\n  if (!length(vec)) {\n    NULL\n  } else if (head(vec, 1) == num) {\n    c(1, 1 + num_indices(tail(vec, -1), num))\n  } else {\n    c(1 + num_indices(tail(vec, -1), num))\n  }\n}"
-  },
-  {
-    "objectID": "lab09.html#iterative-instead-of-recusrsive",
-    "href": "lab09.html#iterative-instead-of-recusrsive",
-    "title": "Lab 09: Loops",
-    "section": "Iterative Instead of Recusrsive",
-    "text": "Iterative Instead of Recusrsive\nRecursive solutions are often elegant but also difficult to write.1\n\nFor this reason, we introduce an alternate approach: iterative solutions.\n\n\nIterative solutions contain a block of code that is directly repeated.\nWe call the repeated code the loop.\n\nYou can name <variable> whatever you’d like."
-  },
-  {
-    "objectID": "lab09.html#beyond-conditional-statements",
-    "href": "lab09.html#beyond-conditional-statements",
-    "title": "Lab 09: Loops",
-    "section": "Beyond Conditional Statements",
-    "text": "Beyond Conditional Statements\nWe’ve seen a series of statements (if, else, else if) for conditionally executing bodies of code.\n\nWe’ll now introduce another series of statements for repeatedly executing bodies of code (looping).\n\n\n\nwhile: execute its body while a condition holds true.\nfor: execute its body for each object in a specified vector.\nrepeat: execute its body repeatedly and unconditionally."
-  },
-  {
-    "objectID": "lab09.html#the-while-statement",
-    "href": "lab09.html#the-while-statement",
-    "title": "Lab 09: Loops",
-    "section": "The while Statement",
-    "text": "The while Statement\nThe while statement is similar in form and behavior to if:\n\nwhile(LOGICAL) <body>\n\n\nwhere <body> is executed while LOGICAL returns TRUE,\n\n\nas if an if statement that repeats until LOGICAL == FALSE,\n\nif(LOGICAL) <body> if(LOGICAL) <body> ..."
-  },
-  {
-    "objectID": "lab09.html#the-while-statement-example-1",
-    "href": "lab09.html#the-while-statement-example-1",
-    "title": "Lab 09: Loops",
-    "section": "The while Statement: Example 1",
-    "text": "The while Statement: Example 1\nHere we count up from from to to, printing the numbers along the way.\n\n\n\ncount_up <- function(from, to) {\n  while (from <= to) {\n    cat(\"...\", from, sep = '')\n    from <- from + 1\n  }\n}\ncount_up(1, 5)\n\n...1...2...3...4...5"
-  },
-  {
-    "objectID": "lab09.html#the-while-statement-example-2",
-    "href": "lab09.html#the-while-statement-example-2",
-    "title": "Lab 09: Loops",
-    "section": "The while Statement: Example 2",
-    "text": "The while Statement: Example 2\nUsing a similar idea, we can recreate a (simplified) version of seq.\n\n\n\nwhile_seq <- function(from, to, by) {\n  s <- vector(typeof(from))\n  while (from <= to) {\n    s <- append(s, from)\n    from <- from + by\n  }\n  s\n}\nwhile_seq(3, 12, 2)\n\n[1]  3  5  7  9 11\n\n\n\n\n\nFor which input will this function not work?"
-  },
-  {
-    "objectID": "lab09.html#favorite-number-with-while",
-    "href": "lab09.html#favorite-number-with-while",
-    "title": "Lab 09: Loops",
-    "section": "Favorite Number with while",
-    "text": "Favorite Number with while\nLet’s rewrite num_indices with a while loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  while (i <= length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}"
-  },
-  {
-    "objectID": "lab09.html#the-for-statement",
-    "href": "lab09.html#the-for-statement",
-    "title": "Lab 09: Loops",
-    "section": "The for Statement",
-    "text": "The for Statement\n\nfor (<variable> in <vector>) <body>\n\n\nwhere <body> is executed once for each object in <vector>.\n\n\nInside <body>, we refer to the currently used object by <variable>1.\n\n\n\nfor (i in 1:7) {\n  cat(\"i:\", i, '\\t')\n}\n\ni: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    \n\n\n\n\n\nYou can name <variable> whatever you’d like."
-  },
-  {
-    "objectID": "lab09.html#for-makes-copies",
-    "href": "lab09.html#for-makes-copies",
-    "title": "Lab 09: Loops",
-    "section": "for Makes Copies",
-    "text": "for Makes Copies\nWe cannot modify <vector> by reassigning <variable>.\n\nx <- 1:7\nfor (num in x) {\n  num <- 0\n}\nx\n\n[1] 1 2 3 4 5 6 7\n\n\n\nThis is because <variable> is a copy of the value in the vector. Refer to the original object instead:\n\nx <- 1:7\nfor (i in 1:length(x)) {\n  x[i] <- 0\n}\nx\n\n[1] 0 0 0 0 0 0 0"
-  },
-  {
-    "objectID": "lab09.html#for-statement-variables",
-    "href": "lab09.html#for-statement-variables",
-    "title": "Lab 09: Loops",
-    "section": "for Statement Variables",
-    "text": "for Statement Variables\nYou are free to name <variable> anything.\n\nIn some cases, a trivial name (e.g., i for index or n for number) may be sufficient.\nOther times, you you may want descriptive names for clarity.\n\n\nSome students always use i - please don’t do this!\n\n\n\nfor (i in starwars$eye_color) {\n  # ... BAD! Doesn't express the meaning of the object.\n}\n\n\n\n\nfor (color in starwars$eye_color) {\n  # ... GOOD! The meaning of the object is obvious to the reader. \n}"
-  },
-  {
-    "objectID": "lab09.html#favorite-number-with-for",
-    "href": "lab09.html#favorite-number-with-for",
-    "title": "Lab 09: Loops",
-    "section": "Favorite Number with for",
-    "text": "Favorite Number with for\nLet’s rewrite num_indices with a for loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in 1:length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
-  },
-  {
-    "objectID": "lab09.html#seq_along",
-    "href": "lab09.html#seq_along",
-    "title": "Lab 09: Loops",
-    "section": "seq_along()",
-    "text": "seq_along()\nNotice that to get a vector of the indices, we wrote 1:length(vec).\nThe idiomatic way of doing this is with the seq_along() function:\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in seq_along(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
-  },
-  {
-    "objectID": "lab09.html#the-repeat-statement",
-    "href": "lab09.html#the-repeat-statement",
-    "title": "Lab 09: Loops",
-    "section": "The repeat Statement",
-    "text": "The repeat Statement\n\nrepeat <body>\n\n\nwhere <body> is executed repeatedly and unconditionally until a break statement is encountered1.\n\nThe repeat statement is not found in other commonly used programming languages."
-  },
-  {
-    "objectID": "lab09.html#break-statement",
-    "href": "lab09.html#break-statement",
-    "title": "Lab 09: Loops",
-    "section": "break statement?",
-    "text": "break statement?\nThe break statement can be used in any loop (for, while, repeat) to immediately stop its execution.\n\nThe last iteration of the loop’s body is not completed. The body of the loop is immediately exited on encountering break.\n\n\n\nall_until <- function(vec, stop_value) {\n  v <- vector(typeof(vec)) \n  for (obj in vec) {\n    if (obj == stop_value) {\n      break\n    }\n    v <- append(v, obj)\n  }\n  v\n}\nall_until(c(1:5, 50:45), 48) # all values until 48 is reached\n\n[1]  1  2  3  4  5 50 49"
-  },
-  {
-    "objectID": "lab09.html#the-repeat-statement-example",
-    "href": "lab09.html#the-repeat-statement-example",
-    "title": "Lab 09: Loops",
-    "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
-  },
-  {
-    "objectID": "lab09.html#favorite-number-with-repeat",
-    "href": "lab09.html#favorite-number-with-repeat",
-    "title": "Lab 09: Loops",
-    "section": "Favorite Number with repeat",
-    "text": "Favorite Number with repeat\nThe favorite number problem. Notice the similarity to the while solution.\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  repeat {\n    if (i > length(vec)) { # the opposite of the while condition\n      break\n    }\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}\n\n\n\nReturn to Home Page"
-  },
-  {
-    "objectID": "notes/input-output.html",
-    "href": "notes/input-output.html",
-    "title": "Handling Input/Output in CP",
+    "objectID": "times.html",
+    "href": "times.html",
+    "title": "Office Hours/Lab Sections",
     "section": "",
-    "text": "If you end up using CodeChef, you’ll be expected to read from a file (standard input) and write to a file (standard output). Though the latter is just printing as you’ve done previously.\nUnfortunately, this process is not very intuitive in R (and, in my opinion, is easier in languages such as C++, which has a reputation for being headache inducing), so I provide a brief explanation here. Note that this is intended to be a practical guide, so I will not explore the “how” behind some of these functions.\nAs we’re only concerned with input and output, we’ll use the trivial problem “Flip The Cards” as an example. You can read the problem and try it yourself here."
-  },
-  {
-    "objectID": "notes/input-output.html#opening-the-file-connection",
-    "href": "notes/input-output.html#opening-the-file-connection",
-    "title": "Handling Input/Output in CP",
-    "section": "Opening the File (Connection)",
-    "text": "Opening the File (Connection)\nThe first step is to form a “connection” to standard input1. For this, we use the file() function, specifying the file name \"stdin\" and the mode. In this case we’ll be only reading from the file, so specify \"r\". Once done, we close the connection with close().\n\ncon <- file(\"stdin\", open = \"r\")\n# ... \nclose(con)\n\nNow the input to your program will typically be provided as values on separate lines. In this case, the first line contains the number of test cases, with each line after being a test case including two numbers – the number of cards and the number of cards flipped up (in that order)."
-  },
-  {
-    "objectID": "notes/input-output.html#reading-from-the-file",
-    "href": "notes/input-output.html#reading-from-the-file",
-    "title": "Handling Input/Output in CP",
-    "section": "Reading from the File",
-    "text": "Reading from the File\nWe have a few options for reading these lines, including readLines() and readChars(). I tried these but found scan() to be the most practical. I’d recommend reading the function’s documentation, but as a brief synopsis,\nTo get the number of test cases,\n\nn_tests <- scan(con, what = \"integer\", n = 1) # do we need to cast here?\n\nFor each test case, we’ll read in two integers. Annoyingly, despite specifying the type \"integer\", we still need to cast the return type with as.integer().\n\ninput <- as.integer(scan(con, what = \"integer\", n = 2))"
-  },
-  {
-    "objectID": "notes/input-output.html#writing-to-standard-output",
-    "href": "notes/input-output.html#writing-to-standard-output",
-    "title": "Handling Input/Output in CP",
-    "section": "Writing to Standard Output",
-    "text": "Writing to Standard Output\nThankfully, our regular printing is automatically written to standard output, so this section is less trouble. But there’s one important note. CodeChef and similar websites expect your output to be in an exact format. You may notice R provides some additional information when printing. As an example,\n\n3 + 2\n\n[1] 5\n\n\nR printed [1] before the actual value, which in our case is undesirable. To avoid this, use the cat() (short for concatenate) function.\n\ncat(3 + 2)\n\n5\n\n\nOne last note is that you may be asked to provide your outputs on separate lines. For this, pass cat() the newline control character, \"\\n\".\n\ncat(\"Hello from above!\")  # Printed on first line.\ncat(\"\\n\")                 # Goes to the next line.\ncat(\"Hello from below!\")  # Printed on the second line.\n\n\n\nHello from above!\nHello from below!"
-  },
-  {
-    "objectID": "notes/input-output.html#putting-it-together",
-    "href": "notes/input-output.html#putting-it-together",
-    "title": "Handling Input/Output in CP",
-    "section": "Putting it Together",
-    "text": "Putting it Together\nNow the last thing\n\ncon <- file(\"stdin\", open = \"r\")\n\nn_tests <- scan(con, what = \"integer\", n = 1)\n\nfor (_ in seq_len(n_tests)) {\n    input <- as.integer(scan(con, what = \"integer\", n = 2))\n    cards <- input[1]\n    faced_up <- input[2]\n    cat(min(cards - faced_up, faced_up), \"\\n\") \n}\n\nclose(con)\n\nIf you’d prefer to not have an unused variable _, we could use replicate, though this produces output for each call, which we’ll need to suppress with invisible2.\n\ncon <- file(\"stdin\", open = \"r\")\n\ninvisible(\n    replicate(\n        n = scan(con, what = \"integer\", n = 1), \n        expr = {\n            input <- as.integer(scan(con, what = \"integer\", n = 2))\n            cards <- input[1]\n            faced_up <- input[2]\n            cat(min(cards - faced_up, faced_up), \"\\n\")\n        }\n    )\n)\n\nclose(con)\n\n\n# This function alone solves the problem. The rest is for handling input/output.\nmin_flips <- function(cards, faced_up) {\n  min(cards - faced_up, faced_up)\n}\n\ninvisible(\n  replicate(\n    n = scan(con, what = \"integer\", n = 1),\n    expr = {\n      input <- as.integer(scan(con, what = \"integer\", n = 2))\n      cat(min_flips(input[1], input[2]), \"\\n\")\n    }\n  )\n)\n\n\n# This function alone solves the problem. The rest is for handling input/output.\nmin_flips <- function(cards, faced_up) {\n  min(cards - faced_up, faced_up)\n}\n\nfor (_ in seq_len(n_tests)) {\n    input <- as.integer(scan(con, what = \"integer\", n = 2))\n    cat(min_flips(input[1], input[2]), \"\\n\")\n}"
+    "text": "All meetings will follow Berkeley Time.\n\nMy Office Hours\n\nThursdays, 10 a.m. to 11 a.m. via Zoom1\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\nFridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in Evans 342\nFridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in Cory 289\n\n\n\nJoy’s Office Hours (Tutor)\n\nMondays, 2 p.m. to 5 p.m. in Evans 434\nWednesdays, 8 a.m. to 10 a.m. in Evans 432\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
   },
   {
     "objectID": "practice/algorithmic-problems.html",
@@ -1190,10 +217,1053 @@
     "text": "6. Ranges\nWrite a function that removes all values outside of the given range (inclusive).\n\nin_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nin_range <- function(v, min, max) {\n  v[v >= min & v <= max]\n}\n\n\nNow write a function that turns all values strictly outside the range into replacement.\n\nreplace_outside_range <- function(v, min, max, replacement) {\n  # Your code here\n}\n\n\n\nShow Solution\nreplace_outside_range <- function(v, min, max, replacement) {\n  v[v < min | v > max] <- replacement\n  v\n}\n\n\nNow write a function that instead brings all values into the range. If a value is less than min, it should be set to min. If a value is greater than max, it should be set to max.\n\nrestrict_to_range <- function(v, min, max) {\n  # Your code here\n}\n\n\n\nShow Solution\nrestrict_to_range <- function(v, min, max) {\n  v[v < min] <- min\n  v[v > max] <- max\n  v\n}"
   },
   {
-    "objectID": "times.html",
-    "href": "times.html",
-    "title": "Office Hours/Lab Sections",
+    "objectID": "stat33b/lab-use.html",
+    "href": "stat33b/lab-use.html",
+    "title": "Using the Slides",
     "section": "",
-    "text": "My Office Hours\n\nThursdays, 10 a.m. to 11 a.m. via Zoom1\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\nFridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in Evans 342\nFridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in Cory 289\n\n\n\nJoy’s Office Hours (Tutor)\n\nMondays, 2 p.m. to 5 p.m. in Evans 434\nWednesdays, 8 a.m. to 10 a.m. in Evans 432\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
+    "text": "The lab slides are provided in the form of interactive websites as used by me during labs.\nThe keyboard shortcuts available while viewing the slides are provided below. These can also be seen by pressing ?.\n\n\n\nKey\nAction\n\n\n\n\nCTRL + SHIFT + F\nSearch\n\n\n→, ↓, SPACE, N, L, J\nNext slide\n\n\n← , ↑ , P , H , K\nPrevious Slide\n\n\nAlt + ←/↑/→/↓\nNavigate without transitions\n\n\nShift + ←/↑/→/↓\nJump to first/last slide\n\n\nB, ,, .\nPause\n\n\nF\nFullscreen\n\n\nESC, O\nSlide overview\n\n\nE\nPDF export mode\n\n\nM\nToggle menu\n\n\nS\nSpeaker notes view"
+  },
+  {
+    "objectID": "stat33b/lab09.html#repeating-code",
+    "href": "stat33b/lab09.html#repeating-code",
+    "title": "Lab 09: Loops",
+    "section": "Repeating Code",
+    "text": "Repeating Code\n\n\n\nWe’ve seen how to control which lines of code are ran with conditionals.\n\nToday, we’ll review how to control repetition of lines of code."
+  },
+  {
+    "objectID": "stat33b/lab09.html#a-simple-problem",
+    "href": "stat33b/lab09.html#a-simple-problem",
+    "title": "Lab 09: Loops",
+    "section": "A Simple Problem",
+    "text": "A Simple Problem\nSuppose you have a vector with thousands of integers.\n\n\nYou’d like to find the indices of your favorite number, but you can’t use vectorization or loops.\n\n\n\nIf you’re familiar with functions, you could use recursion.\n\n\n\nnum_indices <- function(vec, num) {\n  if (!length(vec)) {\n    NULL\n  } else if (head(vec, 1) == num) {\n    c(1, 1 + num_indices(tail(vec, -1), num))\n  } else {\n    c(1 + num_indices(tail(vec, -1), num))\n  }\n}"
+  },
+  {
+    "objectID": "stat33b/lab09.html#iterative-instead-of-recusrsive",
+    "href": "stat33b/lab09.html#iterative-instead-of-recusrsive",
+    "title": "Lab 09: Loops",
+    "section": "Iterative Instead of Recusrsive",
+    "text": "Iterative Instead of Recusrsive\nRecursive solutions are often elegant but also difficult to write.1\n\nFor this reason, we introduce an alternate approach: iterative solutions.\n\n\nIterative solutions contain a block of code that is directly repeated.\nWe call the repeated code the loop.\n\nYou can name <variable> whatever you’d like."
+  },
+  {
+    "objectID": "stat33b/lab09.html#beyond-conditional-statements",
+    "href": "stat33b/lab09.html#beyond-conditional-statements",
+    "title": "Lab 09: Loops",
+    "section": "Beyond Conditional Statements",
+    "text": "Beyond Conditional Statements\nWe’ve seen a series of statements (if, else, else if) for conditionally executing bodies of code.\n\nWe’ll now introduce another series of statements for repeatedly executing bodies of code (looping).\n\n\n\nwhile: execute its body while a condition holds true.\nfor: execute its body for each object in a specified vector.\nrepeat: execute its body repeatedly and unconditionally."
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-while-statement",
+    "href": "stat33b/lab09.html#the-while-statement",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement",
+    "text": "The while Statement\nThe while statement is similar in form and behavior to if:\n\nwhile(LOGICAL) <body>\n\n\nwhere <body> is executed while LOGICAL returns TRUE,\n\n\nas if an if statement that repeats until LOGICAL == FALSE,\n\nif(LOGICAL) <body> if(LOGICAL) <body> ..."
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-while-statement-example-1",
+    "href": "stat33b/lab09.html#the-while-statement-example-1",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement: Example 1",
+    "text": "The while Statement: Example 1\nHere we count up from from to to, printing the numbers along the way.\n\n\n\ncount_up <- function(from, to) {\n  while (from <= to) {\n    cat(\"...\", from, sep = '')\n    from <- from + 1\n  }\n}\ncount_up(1, 5)\n\n...1...2...3...4...5"
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-while-statement-example-2",
+    "href": "stat33b/lab09.html#the-while-statement-example-2",
+    "title": "Lab 09: Loops",
+    "section": "The while Statement: Example 2",
+    "text": "The while Statement: Example 2\nUsing a similar idea, we can recreate a (simplified) version of seq.\n\n\n\nwhile_seq <- function(from, to, by) {\n  s <- vector(typeof(from))\n  while (from <= to) {\n    s <- append(s, from)\n    from <- from + by\n  }\n  s\n}\nwhile_seq(3, 12, 2)\n\n[1]  3  5  7  9 11\n\n\n\n\n\nFor which input will this function not work?"
+  },
+  {
+    "objectID": "stat33b/lab09.html#favorite-number-with-while",
+    "href": "stat33b/lab09.html#favorite-number-with-while",
+    "title": "Lab 09: Loops",
+    "section": "Favorite Number with while",
+    "text": "Favorite Number with while\nLet’s rewrite num_indices with a while loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  while (i <= length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-for-statement",
+    "href": "stat33b/lab09.html#the-for-statement",
+    "title": "Lab 09: Loops",
+    "section": "The for Statement",
+    "text": "The for Statement\n\nfor (<variable> in <vector>) <body>\n\n\nwhere <body> is executed once for each object in <vector>.\n\n\nInside <body>, we refer to the currently used object by <variable>1.\n\n\n\nfor (i in 1:7) {\n  cat(\"i:\", i, '\\t')\n}\n\ni: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    \n\n\n\n\n\nYou can name <variable> whatever you’d like."
+  },
+  {
+    "objectID": "stat33b/lab09.html#for-makes-copies",
+    "href": "stat33b/lab09.html#for-makes-copies",
+    "title": "Lab 09: Loops",
+    "section": "for Makes Copies",
+    "text": "for Makes Copies\nWe cannot modify <vector> by reassigning <variable>.\n\nx <- 1:7\nfor (num in x) {\n  num <- 0\n}\nx\n\n[1] 1 2 3 4 5 6 7\n\n\n\nThis is because <variable> is a copy of the value in the vector. Refer to the original object instead:\n\nx <- 1:7\nfor (i in 1:length(x)) {\n  x[i] <- 0\n}\nx\n\n[1] 0 0 0 0 0 0 0"
+  },
+  {
+    "objectID": "stat33b/lab09.html#for-statement-variables",
+    "href": "stat33b/lab09.html#for-statement-variables",
+    "title": "Lab 09: Loops",
+    "section": "for Statement Variables",
+    "text": "for Statement Variables\nYou are free to name <variable> anything.\n\nIn some cases, a trivial name (e.g., i for index or n for number) may be sufficient.\nOther times, you you may want descriptive names for clarity.\n\n\nSome students always use i - please don’t do this!\n\n\n\nfor (i in starwars$eye_color) {\n  # ... BAD! Doesn't express the meaning of the object.\n}\n\n\n\n\nfor (color in starwars$eye_color) {\n  # ... GOOD! The meaning of the object is obvious to the reader. \n}"
+  },
+  {
+    "objectID": "stat33b/lab09.html#favorite-number-with-for",
+    "href": "stat33b/lab09.html#favorite-number-with-for",
+    "title": "Lab 09: Loops",
+    "section": "Favorite Number with for",
+    "text": "Favorite Number with for\nLet’s rewrite num_indices with a for loop.\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in 1:length(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "stat33b/lab09.html#seq_along",
+    "href": "stat33b/lab09.html#seq_along",
+    "title": "Lab 09: Loops",
+    "section": "seq_along()",
+    "text": "seq_along()\nNotice that to get a vector of the indices, we wrote 1:length(vec).\nThe idiomatic way of doing this is with the seq_along() function:\n\n\n\nnum_indices <- function(vec, num) {\n  indices <- integer()\n  for (i in seq_along(vec)) {\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n  }\n  indices\n}"
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-repeat-statement",
+    "href": "stat33b/lab09.html#the-repeat-statement",
+    "title": "Lab 09: Loops",
+    "section": "The repeat Statement",
+    "text": "The repeat Statement\n\nrepeat <body>\n\n\nwhere <body> is executed repeatedly and unconditionally until a break statement is encountered1.\n\nThe repeat statement is not found in other commonly used programming languages."
+  },
+  {
+    "objectID": "stat33b/lab09.html#break-statement",
+    "href": "stat33b/lab09.html#break-statement",
+    "title": "Lab 09: Loops",
+    "section": "break statement?",
+    "text": "break statement?\nThe break statement can be used in any loop (for, while, repeat) to immediately stop its execution.\n\nThe last iteration of the loop’s body is not completed. The body of the loop is immediately exited on encountering break.\n\n\n\nall_until <- function(vec, stop_value) {\n  v <- vector(typeof(vec)) \n  for (obj in vec) {\n    if (obj == stop_value) {\n      break\n    }\n    v <- append(v, obj)\n  }\n  v\n}\nall_until(c(1:5, 50:45), 48) # all values until 48 is reached\n\n[1]  1  2  3  4  5 50 49"
+  },
+  {
+    "objectID": "stat33b/lab09.html#the-repeat-statement-example",
+    "href": "stat33b/lab09.html#the-repeat-statement-example",
+    "title": "Lab 09: Loops",
+    "section": "The repeat Statement: Example",
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI l ...I l ...I l ...I l ...I l ...ike you"
+  },
+  {
+    "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
+    "href": "stat33b/lab09.html#favorite-number-with-repeat",
+    "title": "Lab 09: Loops",
+    "section": "Favorite Number with repeat",
+    "text": "Favorite Number with repeat\nThe favorite number problem. Notice the similarity to the while solution.\n\nnum_indices <- function(vec, num) {\n  indices <- integer(); i <- 1\n  repeat {\n    if (i > length(vec)) { # the opposite of the while condition\n      break\n    }\n    if (vec[i] == num) {\n      indices <- append(indices, i)\n    }\n    i <- i + 1\n  }\n  indices\n}\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab05.html#files",
+    "href": "stat33b/lab05.html#files",
+    "title": "Lab 05: Handling Files",
+    "section": "Files?",
+    "text": "Files?\nWe can use R in isolation…\n\n\n\nBut it’s much more convenient if we can save our results (data) and share them with other applications.\n\n\n\n\nOr use our results (data) from other applications, and manipulate them in R.\n\n\n\n\nFor this, we need files."
+  },
+  {
+    "objectID": "stat33b/lab05.html#file-formats",
+    "href": "stat33b/lab05.html#file-formats",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats",
+    "text": "File Formats\nWhat is a file?\n\nFor our purposes, just think of a file as a blob of saved text.\n\n\n\nSuppose we wanted to represent a complex structure in a file.\n\n\n\nAn Agreed on Format\nTo do this, we need to agree on some convention (format) of representing the structure in plain text."
+  },
+  {
+    "objectID": "stat33b/lab05.html#file-formats-table-representation",
+    "href": "stat33b/lab05.html#file-formats-table-representation",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats: Table Representation",
+    "text": "File Formats: Table Representation\nWhat if we wanted to represent a table?\n\nIn markdown:\n| Some Column | Another Column | Yet Another |\n|-------------|----------------|-------------|\n|     3       |    \"hello\"     |    TRUE     |\n|     17      |   \"goodbye\"    |   FALSE     |\n\n\nAny issues with this?"
+  },
+  {
+    "objectID": "stat33b/lab05.html#file-formats-a-popular-choice-csv",
+    "href": "stat33b/lab05.html#file-formats-a-popular-choice-csv",
+    "title": "Lab 05: Handling Files",
+    "section": "File Formats: A Popular Choice, CSV",
+    "text": "File Formats: A Popular Choice, CSV\nOne common format for representing tables is .csv – “comma separated values”.\n\nname,position,student\nGaston,Professor,FALSE\nJakob,uGSI,TRUE\nJoy,Tutor,TRUE\n\n\nEach row is represented by a line, with the values in each column separated by commas.\nThe first row optionally includes the column names."
+  },
+  {
+    "objectID": "stat33b/lab05.html#reading-tables-general",
+    "href": "stat33b/lab05.html#reading-tables-general",
+    "title": "Lab 05: Handling Files",
+    "section": "Reading Tables (General)",
+    "text": "Reading Tables (General)\nThe general function for importing tables from files is read.table().\n\nread.table(file, header = FALSE, sep = \"\", quote = \"\\\"'\",\n           dec = \".\", numerals = c(\"allow.loss\", \"warn.loss\", \"no.loss\"),\n           row.names, col.names, as.is = !stringsAsFactors,\n           na.strings = \"NA\", colClasses = NA, nrows = -1,\n           skip = 0, check.names = TRUE, fill = !blank.lines.skip,\n           strip.white = FALSE, blank.lines.skip = TRUE,\n           comment.char = \"#\",\n           allowEscapes = FALSE, flush = FALSE,\n           stringsAsFactors = FALSE,\n           fileEncoding = \"\", encoding = \"unknown\", text, skipNul = FALSE)\n\n\n\nfile: The file to read from\nheader: Does the file have a header for the column names?\nsep: What separates the data (e.g., ',' for .csv files)?"
+  },
+  {
+    "objectID": "stat33b/lab05.html#reading-csv-files",
+    "href": "stat33b/lab05.html#reading-csv-files",
+    "title": "Lab 05: Handling Files",
+    "section": "Reading CSV Files",
+    "text": "Reading CSV Files\nTo avoid writing passing read.table() arguments to correctly parse .csv files, we have a convenience function:\nread.csv(file, header = TRUE, sep = \",\", quote = \"\\\"\",\n         dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nAnd for other common formats:\nread.csv2(file, header = TRUE, sep = \";\", quote = \"\\\"\",\n          dec = \",\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n           dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim2(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n            dec = \",\", fill = TRUE, comment.char = \"\", ...)"
+  },
+  {
+    "objectID": "stat33b/lab05.html#making-sense-of-read.table",
+    "href": "stat33b/lab05.html#making-sense-of-read.table",
+    "title": "Lab 05: Handling Files",
+    "section": "Making Sense of read.table()",
+    "text": "Making Sense of read.table()\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  # What arguments do we pass?\n)"
+  },
+  {
+    "objectID": "stat33b/lab05.html#read.table-solution",
+    "href": "stat33b/lab05.html#read.table-solution",
+    "title": "Lab 05: Handling Files",
+    "section": "read.table() Solution",
+    "text": "read.table() Solution\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  file = \"starwars.csv\",\n  header = TRUE,\n  sep = \",\",\n  colClasses = c(\"character\", \"double\", \"double\")\n)\n\n\n\nWhat if our values were separated with ';' instead?"
+  },
+  {
+    "objectID": "stat33b/lab05.html#writing-to-files",
+    "href": "stat33b/lab05.html#writing-to-files",
+    "title": "Lab 05: Handling Files",
+    "section": "Writing to Files",
+    "text": "Writing to Files\nWe have write.table() for writing tables to files.\nwrite.table(x, file = \"\", append = FALSE, quote = TRUE, sep = \" \",\n            eol = \"\\n\", na = \"NA\", dec = \".\", row.names = TRUE,\n            col.names = TRUE, qmethod = c(\"escape\", \"double\"),\n            fileEncoding = \"\")\n\nAnd for convenience,\nwrite.csv(...)\nwrite.csv2(...)"
+  },
+  {
+    "objectID": "stat33b/lab05.html#saving-r-output",
+    "href": "stat33b/lab05.html#saving-r-output",
+    "title": "Lab 05: Handling Files",
+    "section": "Saving R Output",
+    "text": "Saving R Output\nIf we want to save the output of our program to a file, we use sink().\n\nsink(\"my-output.txt\")  # We specify the file to redirect our output to\nprint(\"Hello World!\")  \n3 + 2\nsink()                 # After this call, our output will be printed as usual\n\n\nThe output of our program was not printed to the console, but redirected to the file my-output.txt, which now contains:\n\n[1] \"Hello World!\"\n[1] 5\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab01.html#welcome",
+    "href": "stat33b/lab01.html#welcome",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Welcome!",
+    "text": "Welcome!\nWelcome to STAT 33B! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nSections:\n\n9 AM - 10 AM and 10 AM - 11 AM in Evans 342\n2 PM - 3 PM and 3 PM - 4 PM in Cory 289\n\nOffice Hours: TBD in Evans 434"
+  },
+  {
+    "objectID": "stat33b/lab01.html#expectations",
+    "href": "stat33b/lab01.html#expectations",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Expectations",
+    "text": "Expectations\nThis is a 1 unit class.\n\n\nWeekly Lab (13 total)\nMonthly Quiz (3 total)\nBiweekly – every 2 weeks – Homework (6 total)\nFinal Exam"
+  },
+  {
+    "objectID": "stat33b/lab01.html#our-lab",
+    "href": "stat33b/lab01.html#our-lab",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Our Lab",
+    "text": "Our Lab\nHere’s the tentative structure for our labs.\n\n\nFor the first 15-20 minutes, I’ll lecture briefly on select topics from the week’s material.\nAfterwards, you are free to work on the lab, and I’m available to help."
+  },
+  {
+    "objectID": "stat33b/lab01.html#installing-r-and-rstudio",
+    "href": "stat33b/lab01.html#installing-r-and-rstudio",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Installing R and RStudio",
+    "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/"
+  },
+  {
+    "objectID": "stat33b/lab01.html#rstudio-demo",
+    "href": "stat33b/lab01.html#rstudio-demo",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RStudio Demo",
+    "text": "RStudio Demo\nSeparate window."
+  },
+  {
+    "objectID": "stat33b/lab01.html#rmarkdown",
+    "href": "stat33b/lab01.html#rmarkdown",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown",
+    "text": "RMarkdown\nRMarkdown (.rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
+  },
+  {
+    "objectID": "stat33b/lab01.html#this-is-rmarkdown",
+    "href": "stat33b/lab01.html#this-is-rmarkdown",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "This is RMarkdown?",
+    "text": "This is RMarkdown?\n\n\n## RMarkdown\n\nRMarkdown (``.rmd``) is file type that allows us to merge,\n\n-   Formatted written material,\n-   and **R** code\n\ninto a single document."
+  },
+  {
+    "objectID": "stat33b/lab01.html#rmarkdown---basic-formatting",
+    "href": "stat33b/lab01.html#rmarkdown---basic-formatting",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown - Basic Formatting",
+    "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized!_"
+  },
+  {
+    "objectID": "stat33b/lab01.html#headers",
+    "href": "stat33b/lab01.html#headers",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Headers",
+    "text": "Headers\nAren’t headers…\n… just lovely?\n\n\n## Headers\n\n### Aren't headers...\n\n#### ... just lovely?\n\n\n\n\\(N\\) # characters denotes an \\(Nth\\) level header."
+  },
+  {
+    "objectID": "stat33b/lab01.html#font-face-bold",
+    "href": "stat33b/lab01.html#font-face-bold",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Bold",
+    "text": "Font Face: Bold\nI’m bold and uncontrolled!\n\n\n## Font Face: **Bold**\n\nI'm **bold** and **uncontrolled!**\n\n\n\nSurrounding text with ** at each end makes it bold."
+  },
+  {
+    "objectID": "stat33b/lab01.html#font-face-italics",
+    "href": "stat33b/lab01.html#font-face-italics",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Italics",
+    "text": "Font Face: Italics\nDon’t eat that burger! Don’t eat that burger!\n\n\n## Font Face: _Italics_\n\nDon't eat _that_ burger! Don't _eat_ that burger!\n\n\n\nSurrounding text with _ at each end italicizes it."
+  },
+  {
+    "objectID": "stat33b/lab01.html#font-face-plain-text-or-code",
+    "href": "stat33b/lab01.html#font-face-plain-text-or-code",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Font Face: Plain Text or Code",
+    "text": "Font Face: Plain Text or Code\nThe variable x passed into function main.\n\n\n## Font Face: ``Plain Text or Code``\n\nThe variable ``x`` passed into function ``main``.\n\n\n\nSurrounding text with `` at each end makes it plain text (like code)."
+  },
+  {
+    "objectID": "stat33b/lab01.html#and-more",
+    "href": "stat33b/lab01.html#and-more",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "And more…",
+    "text": "And more…\nWe can also embed lists, tables, images, and many other components!"
+  },
+  {
+    "objectID": "stat33b/lab01.html#code-chunks",
+    "href": "stat33b/lab01.html#code-chunks",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Code Chunks",
+    "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\n```{r}\nprint(\"Hello, World!\")\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n```\n\n[1] \"Hello, World!\"\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
+  },
+  {
+    "objectID": "stat33b/lab01.html#code-chunk-plot-example",
+    "href": "stat33b/lab01.html#code-chunk-plot-example",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Code Chunk: Plot Example",
+    "text": "Code Chunk: Plot Example\n\n\n```{r}\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")\n```"
+  },
+  {
+    "objectID": "stat33b/lab01.html#knitting",
+    "href": "stat33b/lab01.html#knitting",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "Knitting",
+    "text": "Knitting\nGoing from the plain text format (.rmd) to a presentation format (.pdf, .html) is called knitting the document."
+  },
+  {
+    "objectID": "stat33b/lab01.html#rmarkdown-demo",
+    "href": "stat33b/lab01.html#rmarkdown-demo",
+    "title": "Lab 01: Setup, RMarkdown",
+    "section": "RMarkdown Demo",
+    "text": "RMarkdown Demo\nSeparate window.\n\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab04.html#tables",
+    "href": "stat33b/lab04.html#tables",
+    "title": "Lab 04: Data Frames",
+    "section": "Tables",
+    "text": "Tables\nYou likely use spreadsheet software (Excel, Google Sheets, LibreOffice) to deal with tables.\n\nYou define some named columns, and include data on each row.\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n5\n6\n\n\n7\n8\n9\n\n\n\n\n\nFor this, R provides data frames."
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-lists-of-vectors",
+    "href": "stat33b/lab04.html#data-frames-lists-of-vectors",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Lists of Vectors",
+    "text": "Data Frames: Lists of Vectors\nTo start, a data frame is a list of vectors.\n\n\nlist(\n  1:10,\n  c(\"apple\", \"orange\", \"banana\"),\n  rep(c(TRUE, FALSE, FALSE), 4)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n[1] \"apple\"  \"orange\" \"banana\"\n\n[[3]]\n [1]  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE\n\n\n\n\nIs this a data frame?"
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-additional-constraints",
+    "href": "stat33b/lab04.html#data-frames-additional-constraints",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Additional Constraints",
+    "text": "Data Frames: Additional Constraints\nAdditionally, the vectors must all be the same size.\n\n\nlist(\n  1:10,\n  rep(\"apple\", 10),\n  rep(c(TRUE, FALSE), 5)\n)\n\n[[1]]\n [1]  1  2  3  4  5  6  7  8  9 10\n\n[[2]]\n [1] \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\" \"apple\"\n[10] \"apple\"\n\n[[3]]\n [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE"
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-attributes",
+    "href": "stat33b/lab04.html#data-frames-attributes",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Attributes",
+    "text": "Data Frames: Attributes\nData frames also have some important attributes:\n\ncolumn names, queried with names() or colnames()\nrow names, queried with row.names()\n\n\nUse nrow and ncol to get the number of rows and columns, respectively, as with matrices."
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-creation",
+    "href": "stat33b/lab04.html#data-frames-creation",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Creation",
+    "text": "Data Frames: Creation\nUse data.frame() to create a data frame.\n\nfood <- data.frame(\n  name = c(\"orange\", \"bok choy\", \"strawberry\"),\n  category = c(\"fruit\", \"vegetable\", \"fruit\"),\n  num_available = c(35, 20, 12)\n)\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12"
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-access",
+    "href": "stat33b/lab04.html#data-frames-access",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access",
+    "text": "Data Frames: Access\n\nAccess is similar to matrices. Pass in vectors of indices, logical values, or names (strings)."
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-access---single-elements",
+    "href": "stat33b/lab04.html#data-frames-access---single-elements",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access - Single Elements",
+    "text": "Data Frames: Access - Single Elements\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the object at the 1st row, 2nd column?\n\n\nfood[1, 2]\n\n[1] \"fruit\""
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-access---rows-columns",
+    "href": "stat33b/lab04.html#data-frames-access---rows-columns",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: Access - Rows, Columns",
+    "text": "Data Frames: Access - Rows, Columns\nUsing the data frame…\n\nfood\n\n        name  category num_available\n1     orange     fruit            35\n2   bok choy vegetable            20\n3 strawberry     fruit            12\n\n\nHow do we access the first and second rows?\n\n\nfood[1:2,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\n\n\n\nHow do we access the third column?\n\n\n\nfood[,3]\n\n[1] 35 20 12"
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-more-access-examples",
+    "href": "stat33b/lab04.html#data-frames-more-access-examples",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: More Access Examples",
+    "text": "Data Frames: More Access Examples\nMore examples:\n\nfood[,c(\"name\", \"category\")]\n\n        name  category\n1     orange     fruit\n2   bok choy vegetable\n3 strawberry     fruit\n\nfood[food$num_available >= 20,]\n\n      name  category num_available\n1   orange     fruit            35\n2 bok choy vegetable            20\n\nfood[, \"category\"]\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\n\n\n\nDid you notice something?\n\n\n\nIf we access a single column, we get a vector. Otherwise, we get a data frame."
+  },
+  {
+    "objectID": "stat33b/lab04.html#data-frames-operator",
+    "href": "stat33b/lab04.html#data-frames-operator",
+    "title": "Lab 04: Data Frames",
+    "section": "Data Frames: $ Operator",
+    "text": "Data Frames: $ Operator\nAs data frames are lists, you can access its vectors with the $ operator.\n\n\nfood$name\n\n[1] \"orange\"     \"bok choy\"   \"strawberry\"\n\nfood$category\n\n[1] \"fruit\"     \"vegetable\" \"fruit\"    \n\nfood$num_available\n\n[1] 35 20 12\n\n\n\n\nWe can add new columns using the $ operator.\n\nfood$for_sale <- c(TRUE, FALSE, FALSE)\nfood\n\n        name  category num_available for_sale\n1     orange     fruit            35     TRUE\n2   bok choy vegetable            20    FALSE\n3 strawberry     fruit            12    FALSE"
+  },
+  {
+    "objectID": "stat33b/lab04.html#helpful-functions-head-tail",
+    "href": "stat33b/lab04.html#helpful-functions-head-tail",
+    "title": "Lab 04: Data Frames",
+    "section": "Helpful Functions: head, tail",
+    "text": "Helpful Functions: head, tail\nTo see the first or last n rows, use head() or tail(), respectively. n defaults to 6.\n\n\n\n\n\n\n\n\n\n\nhead(df)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n4 4 4\n5 5 5\n6 6 6\n\nhead(df, n = 3)\n\n  x y\n1 1 1\n2 2 2\n3 3 3\n\n\n\n\ntail(df)\n\n      x   y\n95   95  95\n96   96  96\n97   97  97\n98   98  98\n99   99  99\n100 100 100\n\ntail(df, n = 3)\n\n      x   y\n98   98  98\n99   99  99\n100 100 100"
+  },
+  {
+    "objectID": "stat33b/lab04.html#missing-values",
+    "href": "stat33b/lab04.html#missing-values",
+    "title": "Lab 04: Data Frames",
+    "section": "Missing Values",
+    "text": "Missing Values\nAs our vectors have to be the same size, how do we simulate empty cells in a table?\nWe use a special data type, NA (“Not Available”).\n\n\ndata.frame(\n  names = c(\"Bob the Builder\", \"Spongebob\", \"Darth Vader\"),\n  major = c(\"Civil Engineering\", \"Culinary Studies\", NA),\n  age   = c(32, NA, 44)\n)\n\n            names             major age\n1 Bob the Builder Civil Engineering  32\n2       Spongebob  Culinary Studies  NA\n3     Darth Vader              <NA>  44\n\n\n\nNote that we can freely combine this special type with any other type in a vector.\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab03.html#higher-dimensions-by-hand",
+    "href": "stat33b/lab03.html#higher-dimensions-by-hand",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Higher Dimensions by Hand!",
+    "text": "Higher Dimensions by Hand!\nVectors gave us the ability to form 1 dimensional data.\nIf we desired data in, say, 2 dimensions, we could still use a vector.\n\nx <- 1:100\nrows <- 10\ncols <- 10\n\n# Get the item at row i, column j\ni <- 7\nj <- 5\nx[(i - 1) * cols + j] # Don't try this at home!\n\n[1] 65\n\n\n\n\nWho wants to do that?"
+  },
+  {
+    "objectID": "stat33b/lab03.html#higher-dimensions-passed-to-r",
+    "href": "stat33b/lab03.html#higher-dimensions-passed-to-r",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Higher Dimensions, Passed to R",
+    "text": "Higher Dimensions, Passed to R\nThankfully, R has a set of functions that make this easy for us.\n\nx <- matrix(1:100, nrow = 10, ncol = 10)\nx\n\n      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]\n [1,]    1   11   21   31   41   51   61   71   81    91\n [2,]    2   12   22   32   42   52   62   72   82    92\n [3,]    3   13   23   33   43   53   63   73   83    93\n [4,]    4   14   24   34   44   54   64   74   84    94\n [5,]    5   15   25   35   45   55   65   75   85    95\n [6,]    6   16   26   36   46   56   66   76   86    96\n [7,]    7   17   27   37   47   57   67   77   87    97\n [8,]    8   18   28   38   48   58   68   78   88    98\n [9,]    9   19   29   39   49   59   69   79   89    99\n[10,]   10   20   30   40   50   60   70   80   90   100\n\nx[7, 9] # we can specify the row and column, sep. by a comma\n\n[1] 87"
+  },
+  {
+    "objectID": "stat33b/lab03.html#row-major-column-major",
+    "href": "stat33b/lab03.html#row-major-column-major",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Row-Major, Column-Major",
+    "text": "Row-Major, Column-Major\nThe matrix function stores the given vector in column-major order by default. Our previous code assumed row-major order.\n\nTo see what this means, let’s turn m into two matrices, one for each.\n\nm <- 1:9\n\n::: columns\n\nRow-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\n\nColumn-Major\n\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9\n\n\n\n:::\n\n\nSo row-major fills in the matrix by row, and column-major does so by column."
+  },
+  {
+    "objectID": "stat33b/lab03.html#specifying-row-major-column-major",
+    "href": "stat33b/lab03.html#specifying-row-major-column-major",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Specifying Row-Major, Column-Major",
+    "text": "Specifying Row-Major, Column-Major\nAs said, the default is column-major.\nIf you’d prefer row-major, call matrix with byrow = TRUE.\n\n\n\nRow-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3, \n  byrow = TRUE\n)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    4    5    6\n[3,]    7    8    9\n\n\n\nColumn-Major\n\nmatrix(\n  m, \n  nrow = 3, \n  ncol = 3\n)\n\n     [,1] [,2] [,3]\n[1,]    1    4    7\n[2,]    2    5    8\n[3,]    3    6    9"
+  },
+  {
+    "objectID": "stat33b/lab03.html#matrix-functions-rbind",
+    "href": "stat33b/lab03.html#matrix-functions-rbind",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: rbind",
+    "text": "Matrix Functions: rbind\nrbind combines the rows of the inputs into a new matrix.\n\nrbind(1:3, 3:1)\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    3    2    1\n\nrbind(matrix(1:6, nrow = 3, ncol = 2), c(-100, 100))\n\n     [,1] [,2]\n[1,]    1    4\n[2,]    2    5\n[3,]    3    6\n[4,] -100  100\n\nrbind(matrix(1:3, nrow = 1, ncol = 3), matrix(9:11, nrow = 1, ncol = 3))\n\n     [,1] [,2] [,3]\n[1,]    1    2    3\n[2,]    9   10   11"
+  },
+  {
+    "objectID": "stat33b/lab03.html#matrix-functions-cbind",
+    "href": "stat33b/lab03.html#matrix-functions-cbind",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: cbind",
+    "text": "Matrix Functions: cbind\ncbind combines the columns of the inputs into a new matrix.\n\ncbind(1:3, 3:1)\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    2\n[3,]    3    1\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), c(0, 50, 100))\n\n     [,1] [,2] [,3]\n[1,]    1    4    0\n[2,]    2    5   50\n[3,]    3    6  100\n\ncbind(matrix(1:6, nrow = 3, ncol = 2), matrix(6:1, nrow = 3, ncol = 2))\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    6    3\n[2,]    2    5    5    2\n[3,]    3    6    4    1"
+  },
+  {
+    "objectID": "stat33b/lab03.html#matrix-functions-nrow-ncol",
+    "href": "stat33b/lab03.html#matrix-functions-nrow-ncol",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Matrix Functions: nrow, ncol",
+    "text": "Matrix Functions: nrow, ncol\nWith vectors, we use length to obtain the number of objects. Similarly, for matrices:\n\nTo obtain the number of rows, use nrow:\n\nnrow(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 5\n\n\n\n\nTo obtain the number of columns, use ncol:\n\nncol(matrix(1:20, nrow = 5, ncol = 4))\n\n[1] 4"
+  },
+  {
+    "objectID": "stat33b/lab03.html#accessing-elements",
+    "href": "stat33b/lab03.html#accessing-elements",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Accessing Elements",
+    "text": "Accessing Elements\nUse <matrix>[i, j] to get the value at the ith row and jth column.\n\nx[2, 4]\n\n[1] 32\n\n\n\nIf you want the ith row, use <matrix>[i,].\n\nx[2,]\n\n [1]  2 12 22 32 42 52 62 72 82 92\n\n\n\n\nSimilarly, if you want the jth column, use <matrix>[,j].\n\nx[,4]\n\n [1] 31 32 33 34 35 36 37 38 39 40\n\n\n\n\nNote that a vector is returned in each case."
+  },
+  {
+    "objectID": "stat33b/lab03.html#lists",
+    "href": "stat33b/lab03.html#lists",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists",
+    "text": "Lists\nLists allow us to store collection of objects, as with vectors, except every object need not be the same type.\n\nlist(1:7, \"Go Bears!\", TRUE)\n\n[[1]]\n[1] 1 2 3 4 5 6 7\n\n[[2]]\n[1] \"Go Bears!\"\n\n[[3]]\n[1] TRUE\n\n\n\nAlso, the objects of a list need not be atomic types. As you can see, the first object above is a vector. We can even have lists of lists.\n\nlist(list(1:7, \"Go Bears!\", TRUE), list(7:1, \"!sraeB oG\", FALSE))"
+  },
+  {
+    "objectID": "stat33b/lab03.html#lists-names",
+    "href": "stat33b/lab03.html#lists-names",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Names",
+    "text": "Lists: Names\nWe can assign names to the objects.\n\nmy_list = list(nums = 1:7, str = \"Go Bears!\", bool = TRUE)\nmy_list\n\n$nums\n[1] 1 2 3 4 5 6 7\n\n$str\n[1] \"Go Bears!\"\n\n$bool\n[1] TRUE"
+  },
+  {
+    "objectID": "stat33b/lab03.html#lists-access-by-name",
+    "href": "stat33b/lab03.html#lists-access-by-name",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Access by Name",
+    "text": "Lists: Access by Name\nThen access the objects by name with the $ operator.\n\nmy_list$nums\n\n[1] 1 2 3 4 5 6 7\n\nmy_list$str\n\n[1] \"Go Bears!\"\n\nmy_list$bool\n\n[1] TRUE"
+  },
+  {
+    "objectID": "stat33b/lab03.html#lists-access-with-square-brackets",
+    "href": "stat33b/lab03.html#lists-access-with-square-brackets",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Access with Square Brackets",
+    "text": "Lists: Access with Square Brackets\nAs with vectors, we can access a list’s objects with indices, logical values, or names using square brackets.\n\n\nBe careful! There are two types of access with lists.\n\n\n\n\nperson <- list(name = \"Franz Liszt\", profession = \"Pianist\", alive = FALSE)\n\n\n\nWhat is the difference between these two?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\nperson[[1]]\n\n[1] \"Franz Liszt\""
+  },
+  {
+    "objectID": "stat33b/lab03.html#list-square-brackets-two-methods",
+    "href": "stat33b/lab03.html#list-square-brackets-two-methods",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "List: Square Brackets, Two Methods?",
+    "text": "List: Square Brackets, Two Methods?\n\nperson[1]\n\n$name\n[1] \"Franz Liszt\"\n\n\nThe first (one set of square brackets) returns a list with only the first object.\n\n\nperson[[1]]\n\n[1] \"Franz Liszt\"\n\n\nThe second (two sets of square brackets) returns the underlying object (a string)."
+  },
+  {
+    "objectID": "stat33b/lab03.html#lists-only-one",
+    "href": "stat33b/lab03.html#lists-only-one",
+    "title": "Lab 03: Matrices, Lists",
+    "section": "Lists: Only One!",
+    "text": "Lists: Only One!\nNote that when using double square brackets [[]], you can only access one object at a time.\n\n\nperson[[c(1, 2)]]\n\nError in person[[c(1, 2)]]: subscript out of bounds\n\n\n\n\nThis isn’t an issue with single square brackets.\n\nperson[c(1, 2)]\n\n$name\n[1] \"Franz Liszt\"\n\n$profession\n[1] \"Pianist\"\n\n\n\n\nCan you guess why?\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab06.html#the-inconvenience-of-subsetting",
+    "href": "stat33b/lab06.html#the-inconvenience-of-subsetting",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "The Inconvenience of Subsetting",
+    "text": "The Inconvenience of Subsetting\n\n\n\nUp until now, we’ve used base R to create and subset data. An example:\n\nsw_males <- starwars[\n    starwars$sex == \"male\",\n    !(names(starwars) %in% c(\"sex\", \"gender\"))\n]\n\n\n\nWhat does this do?\n\n\n\nIt’s reasonable to find this difficult to read.\n\n\n\n\nIn general, we prefer to be more expressive with our programming."
+  },
+  {
+    "objectID": "stat33b/lab06.html#a-lack-of-expression",
+    "href": "stat33b/lab06.html#a-lack-of-expression",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "A Lack of Expression…",
+    "text": "A Lack of Expression…\nSuppose we wanted to evaluate whether some condition is true for any of the elements in a vector.\n\n\nheights <- starwars$height\nlength(heights[heights > 150]) > 0\n\n[1] TRUE\n\n\nWhat about this instead?\n\nsum(as.numeric(heights > 150), na.rm = TRUE) > 0\n\n[1] TRUE\n\n\n\n\nThese are both awful. Our burden reading and writing this is too great for a task so trivial.\n\n\n\n\nImportantly, the code doesn’t convey what it does. Instead, it’s the reader’s responsibility to make sense of the computations."
+  },
+  {
+    "objectID": "stat33b/lab06.html#expressiveness",
+    "href": "stat33b/lab06.html#expressiveness",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Expressiveness",
+    "text": "Expressiveness\nIdeally, we’d prefer for our code to say what it does directly. This makes it easier to read and write.\n\n\nany(heights > 100)\n\n[1] TRUE\n\n\n\nall(heights > 20, na.rm = TRUE)\n\n[1] TRUE\n\n\n\n\nIn both cases, you know what it does immediately.\nThere’s no need to make sense of confusing computations."
+  },
+  {
+    "objectID": "stat33b/lab06.html#expressiveness-with-data-frames",
+    "href": "stat33b/lab06.html#expressiveness-with-data-frames",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Expressiveness with Data Frames",
+    "text": "Expressiveness with Data Frames\nThe package dplyr provides us with functions (“a grammar”) that make our data frame manipulations more expressive.\n\nLet’s consider some common data frame tasks and what verbs dplyr provides to solve them."
+  },
+  {
+    "objectID": "stat33b/lab06.html#slice",
+    "href": "stat33b/lab06.html#slice",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "slice",
+    "text": "slice\nSuppose we want some subset of the rows. In base R,\n\nstarwars[seq(1, nrow(starwars), 2),]\n\n\ndplyr provides us with the slice function.\n\nslice(starwars, seq(1, nrow(starwars), 2))\n\n\n\nWe can provide multiple vectors.\n\nslice(starwars, 1:5, 10:15, 17, 18)\n\n\n\n\n\nNote that slice works only with indices. Unlike base R subsetting, you can’t use strings or logical values."
+  },
+  {
+    "objectID": "stat33b/lab06.html#select",
+    "href": "stat33b/lab06.html#select",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "select",
+    "text": "select\nSuppose we want to select some of the columns. In base R,\n\nstarwars[,c(\"height\", \"mass\")]\n\n\ndplyr provides us with the select function.\n\nselect(starwars, c(\"height\", \"mass\"))\n\n\n\nAlternatively,\n\nselect(starwars, \"height\", \"mass\")\n\n\n\nThere’s no need to provide the columns as strings.\n\nselect(starwars, height, mass)"
+  },
+  {
+    "objectID": "stat33b/lab06.html#filter",
+    "href": "stat33b/lab06.html#filter",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "filter",
+    "text": "filter\nSuppose we want to filter the rows by some condition. In base R,\n\nstarwars[starwars$height > 100,]\n\n\ndplyr provides us with the filter function.\n\nfilter(starwars, height > 100)  # no need to specify starwars$height\n\n\n\nWe can easily combine conditions with the logical operators.\n\nfilter(starwars, height > 100 & mass > 100 & sex == \"male\")\nfilter(starwars, is.na(hair_color) | species == \"Droid\")\nfilter(starwars, !(eye_color == \"brown\" & skin_color == \"blue\"))"
+  },
+  {
+    "objectID": "stat33b/lab06.html#mutate",
+    "href": "stat33b/lab06.html#mutate",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "mutate",
+    "text": "mutate\nSuppose we want to add new columns. In base R,\n\nstarwars$is_chosen_one <- starwars$name == \"Darth Vader\"\n\n\ndplyr provides us with the function mutate.\n\nmutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nWait, did that change starwars?\n\n\n\n\nNo, it returned a new, mutated data frame. To modify, we must reassign.\n\nstarwars <- mutate(starwars, is_chosen_one = name == \"Darth Vader\")\n\n\n\nIf you use an existing column, it will be replaced. Replace an existing column with NULL to delete it.\n\nstarwars <- mutate(starwars, hair_color = NULL)"
+  },
+  {
+    "objectID": "stat33b/lab06.html#summarisesummarize",
+    "href": "stat33b/lab06.html#summarisesummarize",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "summarise/summarize",
+    "text": "summarise/summarize\nWe can use summarise to obtain summary statistics on the data frame (in the form of a new data frame).\n\nsummarise(\n    starwars,  # what we are summarising\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 1 × 3\n  avg_height avg_mass avg_birth_year\n       <dbl>    <dbl>          <dbl>\n1       174.     97.3           87.6\n\n\nBut what if we wanted to get these values for each group (say, each species)?\n\nWould we have to filter the data frame three times, then call summarise for each?"
+  },
+  {
+    "objectID": "stat33b/lab06.html#group_by",
+    "href": "stat33b/lab06.html#group_by",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "group_by",
+    "text": "group_by\nWe can use group_by to form a new table which is grouped by the values in particular columns. The functions you use will be applied to the groups separately, after which dplyr groups the results.\n\nsummarise(\n    group_by(starwars, sex),\n    avg_height = mean(height, na.rm = TRUE),\n    avg_mass = mean(mass, na.rm = TRUE),\n    avg_birth_year = mean(birth_year, na.rm = TRUE)\n)\n\n# A tibble: 5 × 4\n  sex            avg_height avg_mass avg_birth_year\n  <chr>               <dbl>    <dbl>          <dbl>\n1 female               169.     54.7           47.2\n2 hermaphroditic       175    1358            600  \n3 male                 179.     81.0           85.5\n4 none                 131.     69.8           53.3\n5 <NA>                 181.     48             62"
+  },
+  {
+    "objectID": "stat33b/lab06.html#much-more",
+    "href": "stat33b/lab06.html#much-more",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Much More",
+    "text": "Much More\nI’ve only introduced the most basic functionality of these functions. Enter ?<function> to explore additional functionality.\n\nOne neat example, the function ends_with:\n\nhead(select(starwars, ends_with(\"color\")))\n\n# A tibble: 6 × 2\n  skin_color  eye_color\n  <chr>       <chr>    \n1 fair        blue     \n2 gold        yellow   \n3 white, blue red      \n4 white       yellow   \n5 light       brown    \n6 light       blue"
+  },
+  {
+    "objectID": "stat33b/lab06.html#an-aside-piping",
+    "href": "stat33b/lab06.html#an-aside-piping",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nPiping will be explored in greater detail later.\nSuppose we have this code:\n\nf(g(h()))\n\nIn what order are the functions f(), g(), and h() called?\n\n\n\nh(), then g(), then f()! We’ve written it backwards?"
+  },
+  {
+    "objectID": "stat33b/lab06.html#an-aside-piping-1",
+    "href": "stat33b/lab06.html#an-aside-piping-1",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nTo make nested functions easier to read and write, we use the pipe operator.\na() %>% b() becomes b(a()).\nThat is, the left operand is passed as the first argument to the second operand.\n\n\n3 %>% sum(2)\n\n[1] 5\n\n3 %>% sum(2) %>% sum(5)\n\n[1] 10\n\n\n\n\nThis allows us to rewrite f(g(h())) as\n\nh() %>% g() %>% f()\n\nThat is, in the logical order of the function calls."
+  },
+  {
+    "objectID": "stat33b/lab06.html#an-aside-piping-2",
+    "href": "stat33b/lab06.html#an-aside-piping-2",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "An Aside: Piping",
+    "text": "An Aside: Piping\nThe %>% symbol comes from the package magrittr.\n\n# To use...\ninstall.packages(\"magrittr\")\nlibrary(magrittr)\n\n\nIf you’re using a new version of R (>4.1.0), I’d recommend using the new pipe operator built into R, |>."
+  },
+  {
+    "objectID": "stat33b/lab06.html#piping-in-action",
+    "href": "stat33b/lab06.html#piping-in-action",
+    "title": "Lab 06: Intro to dplyr",
+    "section": "Piping in Action",
+    "text": "Piping in Action\nA more elaborate example from the Algorithmic Problems page:\n\nqaq <- function(string) {\n  # Obtain the individual characters in `string`.\n  characters <- strsplit(string, \"\")[[1]]\n  \n  # Form a prefix vector for the number of \"Q\"s at each index.\n  q_count <- characters |>\n    equals(\"Q\") |>\n    as.numeric() |>\n    accumulate(`+`)\n  \n  # For each \"A\" we can form <\"Q\"s before \"A\"> * <\"Q\"s after \"A\"> \"QAQ\"s. We \n  # obtain this value for each \"A\" and sum them.\n  characters |>\n    equals(\"A\") |>\n    multiply_by(q_count) |>\n    multiply_by(tail(q_count, 1) - q_count) |>\n    sum()\n}\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab08.html#case-by-case",
+    "href": "stat33b/lab08.html#case-by-case",
+    "title": "Lab 08: Conditionals",
+    "section": "Case by Case",
+    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\nwhich_season <- function(month) {\n  # What should we write here?\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#case-by-case-1",
+    "href": "stat33b/lab08.html#case-by-case-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Case by Case",
+    "text": "Case by Case\nLet’s ask a simple question. What can we currently do if we want our code to handle different cases?\n\nFor example, suppose we would like to get the season (as a string) given a month.\n\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}\n\nWe could use a vector.\n\n\nThis is a neat work around, but in more complex cases this won’t be possible (or practical)."
+  },
+  {
+    "objectID": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing",
+    "href": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nLet’s consider another case: the famous FizzBuzz problem.\n\nGiven a number n, return:\n\n\"Fizz\" if it is divisible by 3.\n\"Buzz\" if it is divisible by 5.\n\"FizzBuzz\" if it is divisible by 3 and 5.\nThe number n as a string otherwise.\n\n\nfizzbuzz <- function(n) {\n  # What should we write here? \n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
+    "href": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nHere’s an idea:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}\n\n\n\nOh my, can you make sense of this?"
+  },
+  {
+    "objectID": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
+    "href": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nMaybe this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE)\n    ][1]\n}\n\n\n\nUmm… Are your eyes hurting yet?"
+  },
+  {
+    "objectID": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
+    "href": "stat33b/lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
+    "title": "Lab 08: Conditionals",
+    "section": "Fizzing, Buzzing, and FizzBuzzing",
+    "text": "Fizzing, Buzzing, and FizzBuzzing\nWhat about this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE) |> \n        which() |> \n        min()\n      ]\n}\n\n\n\n… Isn’t that terrible? Can you explain how it works?\n\n\n\n\nClearly we need some better tools for handling cases."
+  },
+  {
+    "objectID": "stat33b/lab08.html#oh-if-only",
+    "href": "stat33b/lab08.html#oh-if-only",
+    "title": "Lab 08: Conditionals",
+    "section": "Oh, if Only!",
+    "text": "Oh, if Only!\nRecall that we prefer for our code to be expressive.\n\nOur description of fizzbuzz included “IF”. Wouldn’t it be nice to write this directly in our code?\n\n\n\nWe can!\n\nx <- 10\nif (x >= 10)\n  x <- 5\nx\n\n[1] 5"
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-if-statement",
+    "href": "stat33b/lab08.html#the-if-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The if Statement",
+    "text": "The if Statement\nThe if statement follows the intuitive structure:\n\n\nif (<logical>) <body>\n\n\n\nwhere <body> is executed if <logical> is true.\n\n\nNote that the parenthesis are required1.\n\n\n\nAs a comparison to other popular languages, this is unlike Python, but like C, C++ and Java."
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-if-statement-multiline-body",
+    "href": "stat33b/lab08.html#the-if-statement-multiline-body",
+    "title": "Lab 08: Conditionals",
+    "section": "The if statement – multiline body?",
+    "text": "The if statement – multiline body?\nWhat if we want to execute multiple lines of code if a condition is true?\n\n\ndo_some_math <- function(ok, a, b) {\n  if (ok)\n    print(\"a * 10 is: \", a * 10)\n  if (ok)\n    print(\"b * 10 is: \", b * 10)\n  if (ok)\n    print(\"a * b is: \", a * b)\n}\n\n\n\nWell this seems silly…\n\n\n\n\nTo include multiple lines into <body>, we must place them inside curly brackets: { ... }."
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-if-statement-multiline-body-1",
+    "href": "stat33b/lab08.html#the-if-statement-multiline-body-1",
+    "title": "Lab 08: Conditionals",
+    "section": "The if statement – multiline body?",
+    "text": "The if statement – multiline body?\nWe rewrite do_some_math:\n\ndo_some_math <- function(ok, a, b) {\n  if (ok) {\n    print(\"a * 10 is: \", a * 10)\n    print(\"b * 10 is: \", b * 10)    \n    print(\"a * b is: \", a * b)    \n  }\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#on-curly-brackets",
+    "href": "stat33b/lab08.html#on-curly-brackets",
+    "title": "Lab 08: Conditionals",
+    "section": "On Curly Brackets",
+    "text": "On Curly Brackets\nNote that when using curly brackets, the last expression evaluated will be the value of the curly bracket block.\n\nfood <- \"boba\"\nlover <- {  # Variables are typically not set like this in R. \n  if (food == \"banana\")\n    \"Monkey\"\n  if (food == \"boba\")\n    \"Cal Student\"\n}\n\nWhat is lover?\n\n\nlover\n\n[1] \"Cal Student\""
+  },
+  {
+    "objectID": "stat33b/lab08.html#not-this-that",
+    "href": "stat33b/lab08.html#not-this-that",
+    "title": "Lab 08: Conditionals",
+    "section": "Not This, That!",
+    "text": "Not This, That!\nMaybe we’d like to execute some code if a condition is true, and execute some other code otherwise. We could write,\n\nif (conditional) {\n  # body A\n}\nif (!conditional) {\n  # body B\n}\n\n\nBut this:\n\nwastefully evaluates conditional twice. If the first if failed, we know conditional is FALSE.\nis not very expressive.\nwon’t work as intended if body A modifies conditional."
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-if-else-statement",
+    "href": "stat33b/lab08.html#the-if-else-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The if else Statement",
+    "text": "The if else Statement\nInstead, we use the if else statement:\n\n\nif (<logical>) <body A> else <body B>\n\n\n\nwhere,\n\n<body A> is executed if <logical> is true.\n<body B> is executed if <logical> is false.\n\n\n\n\ncan_i_drive <- function(age) {\n  if (age < 16) \n    \"No, you're too young.\"\n  else\n    \"If you have a license.\"\n}\ncan_i_drive(21)\n\n[1] \"If you have a license.\""
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-else-if-statement",
+    "href": "stat33b/lab08.html#the-else-if-statement",
+    "title": "Lab 08: Conditionals",
+    "section": "The else if Statement",
+    "text": "The else if Statement\nWhen we need to account for more cases than just two (true or false), we can use an else if statement:\n\n\nif (<logical 1>) <body 1>\nelse if (<logical 2>) <body 2>\nelse if (<logical 3>) <body 3> ...\nelse <body N>\n\n\n\n\nOnly one body will be evaluated.\nThe initial if statement is required, but the final else is not.\nYou may include as many else ifs as you’d like."
+  },
+  {
+    "objectID": "stat33b/lab08.html#a-note-on-style",
+    "href": "stat33b/lab08.html#a-note-on-style",
+    "title": "Lab 08: Conditionals",
+    "section": "A Note on Style",
+    "text": "A Note on Style\nThe curly brackets are optional if the body is one line.\n\nSome prefer you always use curly brackets.\nRegardless, it is recommended you use curly brackets for all bodies if at least one uses curly brackets.\n\n\n\n\n\nDon’t do this.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else\n  is_sophomore <- FALSE\n\n\n\nDo this instead.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#a-note-on-style-1",
+    "href": "stat33b/lab08.html#a-note-on-style-1",
+    "title": "Lab 08: Conditionals",
+    "section": "A Note on Style",
+    "text": "A Note on Style\nNote that R requires else/else if be placed after the closing curly bracket (}).\n\n\n\nThis is not allowed.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} \nelse {\n  is_sophomore <- FALSE\n}\n\n\n\nThis format is required.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#control-flow-branching",
+    "href": "stat33b/lab08.html#control-flow-branching",
+    "title": "Lab 08: Conditionals",
+    "section": "Control Flow, Branching",
+    "text": "Control Flow, Branching\nYou may see these statement referred to as,\n\nControl Flow Statements. They control which lines of code are evaluated, which are ignored, and the order in which they’re evaluated.\nBranching Statements. They may cause the program to “branch” to another line of code (instead of the one immediately after it)."
+  },
+  {
+    "objectID": "stat33b/lab08.html#back-to-which_season",
+    "href": "stat33b/lab08.html#back-to-which_season",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to which_season",
+    "text": "Back to which_season\nLet’s rewrite our which_season function:\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#back-to-which_season-1",
+    "href": "stat33b/lab08.html#back-to-which_season-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to which_season",
+    "text": "Back to which_season\n\nNow with control flow statements.\n\n\nwhich_season <- function(month) {\n  if (month < 1 || month > 12)\n    NA\n  else if (month == 12 || month %in% 1:2)\n    \"Winter\"\n  else if (month %in% 3:5)\n    \"Spring\"\n  else if (month %in% 6:8)\n    \"Summer\"\n  else\n    \"Fall\"\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#back-to-fizzbuzz",
+    "href": "stat33b/lab08.html#back-to-fizzbuzz",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to fizzbuzz",
+    "text": "Back to fizzbuzz\nLet’s rewrite our fizzbuzz function:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#back-to-fizzbuzz-1",
+    "href": "stat33b/lab08.html#back-to-fizzbuzz-1",
+    "title": "Lab 08: Conditionals",
+    "section": "Back to fizzbuzz",
+    "text": "Back to fizzbuzz\n\nNow with control flow statements. Pick your poison!\n\n\n\n\nfizzbuzz <- function(n) {\n  # This one is what I prefer. \n  s <- character()\n  if (n %% 3 == 0) {\n    s <- \"Fizz\"\n  }\n  if (n %% 5 == 0) {\n    s <- paste0(s, \"Buzz\")\n  }\n  if (!length(s)) {\n    s <- as.character(n)\n  }\n  s\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0 && n %% 5 == 0) {\n    \"FizzBuzz\"\n  }\n  else if (n %% 3 == 0) {\n    \"Fizz\"\n  }\n  else if (n %% 5 == 0) {\n    \"Buzz\"\n  }\n  else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0) {\n    # To avoid redundant computation. \n    if (n %% 5 == 0)\n      \"FizzBuzz\"\n    else\n      \"Fizz\"\n  } else if (n %% 5 == 0) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  # To avoid redundant computation. \n  div_3 <- n %% 3 == 0\n  div_5 <- n %% 5 == 0\n  if (div_3 && div_5) {\n    \"FizzBuzz\"\n  } else if (div_3) {\n    \"Fizz\"\n  } else if (div_5) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}"
+  },
+  {
+    "objectID": "stat33b/lab08.html#the-vectorized-if-else-ifelse",
+    "href": "stat33b/lab08.html#the-vectorized-if-else-ifelse",
+    "title": "Lab 08: Conditionals",
+    "section": "The Vectorized if else, ifelse()",
+    "text": "The Vectorized if else, ifelse()\nWe can use the function ifelse to apply the if else operation to a vector. Its function signature is\n\nifelse(test, yes, no)\n\nwhere,\n\ntest is a vector of logical values.\nyes is the value to be placed in the result vector if the corresponding logical value is true.\nno is the value to be placed in the result vector if the corresponding logical values is false."
+  },
+  {
+    "objectID": "stat33b/lab08.html#simple-ifelse-example",
+    "href": "stat33b/lab08.html#simple-ifelse-example",
+    "title": "Lab 08: Conditionals",
+    "section": "Simple ifelse() Example",
+    "text": "Simple ifelse() Example\n\nx <- 1:10\nifelse(x %% 2 == 0, \"Divisible by 2\", \"Not divisible by 2\")\n\n [1] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n [4] \"Divisible by 2\"     \"Not divisible by 2\" \"Divisible by 2\"    \n [7] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n[10] \"Divisible by 2\"    \n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab07.html#graphics-with-base-r",
+    "href": "stat33b/lab07.html#graphics-with-base-r",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Graphics with Base R?",
+    "text": "Graphics with Base R?\n\n\n\nSo far we’ve produced graphics with base R, which you likely felt unintuitive and inflexible.\n\nThe package dplyr made data manipulation easier and more flexible.\n\n\nNow we introduce the package ggplot2, which will provide these benefits for data visualization."
+  },
+  {
+    "objectID": "stat33b/lab07.html#introducing-ggplot2",
+    "href": "stat33b/lab07.html#introducing-ggplot2",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Introducing ggplot2",
+    "text": "Introducing ggplot2\nggplot2 provides us with a set of functions to intuitively and quickly produce attractive plots.\n\nThe package ggplot2…\n\n\nprovides us with a grammar of data visualization.\nis based on the idea of decomposing plots into various distinct components – and later layers.\nis the most widely used graphics library for R.\nhas countless extensions (e.g., for animations, rare plot types)."
+  },
+  {
+    "objectID": "stat33b/lab07.html#introducing-ggplot2-1",
+    "href": "stat33b/lab07.html#introducing-ggplot2-1",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Introducing ggplot2",
+    "text": "Introducing ggplot2\n\nis designed on the idea of decomposing plots into various distinct components – and later layers.\n\n\nA good grammar will allow us to gain insight into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics.1 – Hadley Wickham\n\nFrom A Layered Grammar of Graphics. Note that this presentation is partially based on ideas from this paper. I’d recommend reading it if you’d like to understand the reasoning behind ggplot2’s design."
+  },
+  {
+    "objectID": "stat33b/lab07.html#components",
+    "href": "stat33b/lab07.html#components",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Components?",
+    "text": "Components?\n\nAsk yourself, what makes up a plot?\n\n\nData and Aesthetic Mapping\nWhat data is the plot using and communicating? How is it mapped (e.g., what data is used for each axis)?\nGeometric Objects\nHow are we representing the data geometrically? Lines, points, colored area?\nScales, Coordinate Systems\nHow large/small are the objects? What coordinate systems do we use? Units?"
+  },
+  {
+    "objectID": "stat33b/lab07.html#components-in-ggplot2",
+    "href": "stat33b/lab07.html#components-in-ggplot2",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Components in ggplot2",
+    "text": "Components in ggplot2\n… And more. But we’ll get started with these.\n\nAt a high level, we create components with function calls, and connect them to form a cohesive whole.\n\n\nWe use + to connect them.\nImage we had functions to create the “components” of a human. To create a whole human, we’d write something like,\n\nperson(name = \"Jakob\") +\n  body() +\n  personality(type = \"strange\") + \n  education(major = c(\"computer science\", \"math\")) + \n  job(title = \"uGSI\")"
+  },
+  {
+    "objectID": "stat33b/lab07.html#the-data-and-aesthetic-mapping-component",
+    "href": "stat33b/lab07.html#the-data-and-aesthetic-mapping-component",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Data and Aesthetic Mapping Component",
+    "text": "The Data and Aesthetic Mapping Component\nThe first component you’ll need is one that defines…\n\nwhat data you’ll be using – data.\nhow the data is mapped aesthetically – mapping.\n\n\nWe create this component using the ggplot function call; data and mapping are the corresponding arguments.\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
+  },
+  {
+    "objectID": "stat33b/lab07.html#the-data-and-aesthetic-mapping-component-1",
+    "href": "stat33b/lab07.html#the-data-and-aesthetic-mapping-component-1",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Data and Aesthetic Mapping Component",
+    "text": "The Data and Aesthetic Mapping Component\nWhat we have so far…\n\nggplot(data = starwars, mapping = aes(x = height, y = mass))"
+  },
+  {
+    "objectID": "stat33b/lab07.html#the-geom-component",
+    "href": "stat33b/lab07.html#the-geom-component",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "The Geom Component",
+    "text": "The Geom Component\nOur plot is empty! We need to define the geom, i.e., what geometrical objects will be used to represent the data.\nThese components are created with geom_* functions.\n\n\n\n\nggplot(filter(starwars, mass < 200), \n  aes(x = height, y = mass)) +\n  geom_point()\n\n\n\n\n\n\nggplot(filter(starwars, mass < 200), \n       aes(x = height, y = mass)) +\n  geom_line()"
+  },
+  {
+    "objectID": "stat33b/lab07.html#customizing-geoms",
+    "href": "stat33b/lab07.html#customizing-geoms",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Customizing Geoms",
+    "text": "Customizing Geoms\nEach geom has many options for customization. Enter ?<function> to learn more about your geom of interest.\n\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"red\",  # define line color\n      alpha = 0.5,    # define line opacity \n      linetype = 6,   # define line type (dashed, solid, etc.)\n      size = 1.15     # define line thickness\n    )"
+  },
+  {
+    "objectID": "stat33b/lab07.html#layering-geoms",
+    "href": "stat33b/lab07.html#layering-geoms",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Layering Geoms",
+    "text": "Layering Geoms\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,            # define shape size (how big?)\n    )"
+  },
+  {
+    "objectID": "stat33b/lab07.html#geoms-coloring-by-group",
+    "href": "stat33b/lab07.html#geoms-coloring-by-group",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Geoms, Coloring by Group",
+    "text": "Geoms, Coloring by Group\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"grey\",     # define line color\n      alpha = 0.5,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      aes(fill = sex, color = sex),  # define what determines fill, color\n      alpha = 0.75,       # define shape opacity\n      shape = 21,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    )"
+  },
+  {
+    "objectID": "stat33b/lab07.html#geoms-endless-customization",
+    "href": "stat33b/lab07.html#geoms-endless-customization",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Geoms, Endless Customization!",
+    "text": "Geoms, Endless Customization!\nThere are many more geoms, and many, many more customization options. Don’t expect to memorize them.\n\n\nBecome comfortable reading the documentation.\nUse ?<function>."
+  },
+  {
+    "objectID": "stat33b/lab07.html#dont-you-dare-label-me",
+    "href": "stat33b/lab07.html#dont-you-dare-label-me",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Don’t You Dare Label Me!",
+    "text": "Don’t You Dare Label Me!\nOur plots look unprofessional now because we’ve not added proper labels.\n\nTo add labels, simply add a label component with the labs() function. Here’s its signature:\n\nlabs(\n  ...,\n  title = waiver(),\n  subtitle = waiver(),\n  caption = waiver(),\n  tag = waiver(),\n  alt = waiver(),\n  alt_insight = waiver()\n)"
+  },
+  {
+    "objectID": "stat33b/lab07.html#label-example",
+    "href": "stat33b/lab07.html#label-example",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Label Example",
+    "text": "Label Example\nHere we add a title and proper axis titles.\n\n\nView Plot Code\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = \"blue\",     # define line color\n      alpha = 0.4,        # define line opacity\n      size = 1.15,        # define line thickness\n      lineend = \"round\",  # define how lines end\n      linejoin = \"round\"  # define how lines connect\n    ) +\n    geom_point(\n      color = \"black\",    # define shape border color\n      fill = \"white\",     # define shape fill color \n      alpha = 0.75,       # define shape opacity\n      shape = 23,         # define shape type (square, circle, etc.)\n      size = 3,           # define shape size (how big?)\n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    )"
+  },
+  {
+    "objectID": "stat33b/lab07.html#still-unsatisfied-use-themes",
+    "href": "stat33b/lab07.html#still-unsatisfied-use-themes",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Still Unsatisfied? Use Themes!",
+    "text": "Still Unsatisfied? Use Themes!\nIf the visuals of these plots don’t satisfy you, we can go further and customize every detail by creating a custom theme component.\n\nWell That’s Out of Scope…\nThis is out of scope for this class, but I’ll share an example to peek your interest. Feel free to ask me during lab/OH if you’d like to learn more."
+  },
+  {
+    "objectID": "stat33b/lab07.html#theme-example-creation",
+    "href": "stat33b/lab07.html#theme-example-creation",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Theme Example, Creation",
+    "text": "Theme Example, Creation\nAn example theme (from one of my STAT 133 projects).\n\noff_white <- \"#F7F0EB\"\nexample_theme <- theme(\n  plot.title = element_text(size = 24),\n  plot.subtitle = element_text(size = 14, face = \"italic\"),\n  axis.title = element_text(size = 14), \n  axis.text = element_text(size = 10, face = \"bold\"),\n  panel.background = element_rect(fill = off_white, color = \"black\"),\n  panel.grid = element_line(linetype = 2, size = 0.05, color = \"black\")\n)"
+  },
+  {
+    "objectID": "stat33b/lab07.html#theme-example-plot",
+    "href": "stat33b/lab07.html#theme-example-plot",
+    "title": "Lab 07: Intro to ggplot2",
+    "section": "Theme Example, Plot",
+    "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat33b/lab02.html#the-crux-of-r",
+    "href": "stat33b/lab02.html#the-crux-of-r",
+    "title": "Lab 02: Vectors, Types",
+    "section": "The Crux of R",
+    "text": "The Crux of R\nMost R code relies heavily on\n\n\nVectors"
+  },
+  {
+    "objectID": "stat33b/lab02.html#oh-my-taxes",
+    "href": "stat33b/lab02.html#oh-my-taxes",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases."
+  },
+  {
+    "objectID": "stat33b/lab02.html#oh-my-taxes-1",
+    "href": "stat33b/lab02.html#oh-my-taxes-1",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75"
+  },
+  {
+    "objectID": "stat33b/lab02.html#oh-my-taxes-2",
+    "href": "stat33b/lab02.html#oh-my-taxes-2",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax"
+  },
+  {
+    "objectID": "stat33b/lab02.html#oh-my-taxes-3",
+    "href": "stat33b/lab02.html#oh-my-taxes-3",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Oh my taxes!",
+    "text": "Oh my taxes!\nSuppose we’d like to compute how much sales tax we’re paying for some of our purchases.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625\n\n\n\n\nVery cumbersome…"
+  },
+  {
+    "objectID": "stat33b/lab02.html#tedius-and-error-prone",
+    "href": "stat33b/lab02.html#tedius-and-error-prone",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Tedius and Error Prone",
+    "text": "Tedius and Error Prone\nWe computed the tax purchase by purchase…\n\n\nBoba Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nBook Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes\n\n\n\n\nFood Cost\n\n\n*\n\n\nTax Rate\n\n\n=\n\n\nTaxes"
+  },
+  {
+    "objectID": "stat33b/lab02.html#an-easier-way",
+    "href": "stat33b/lab02.html#an-easier-way",
+    "title": "Lab 02: Vectors, Types",
+    "section": "An Easier Way?",
+    "text": "An Easier Way?\nWe’d like to do it all at once.\n\n\n\nCosts\n\n\n\n\n*\n\n\n\n\nTax Rate\n\n\n\n\n=\n\n\n\n\nTaxes\n\n\n\n\n… where Costs contains all individual purchase costs, and Taxes contains all individual taxes.\n\nFor this, R provides vectors."
+  },
+  {
+    "objectID": "stat33b/lab02.html#vector",
+    "href": "stat33b/lab02.html#vector",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector",
+    "text": "Vector\nA contiguous array of 1 or more objects, where all objects are the same type."
+  },
+  {
+    "objectID": "stat33b/lab02.html#aside-type",
+    "href": "stat33b/lab02.html#aside-type",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Aside: Type?",
+    "text": "Aside: Type?\nOur values are ultimately bits in our computer. How does our program know how to interpret these bits?\n\n\nBy assigning a type to the value!\n\n\n\nWe may wants the bits to be interpreted as\n\nintegers\nreal numbers\ntext (strings)\nlogical values (true or false?)\n\n… or something else."
+  },
+  {
+    "objectID": "stat33b/lab02.html#types-rs-responsibility",
+    "href": "stat33b/lab02.html#types-rs-responsibility",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Types: R’s Responsibility",
+    "text": "Types: R’s Responsibility\nTo make sense of the bits…\n\n\nProgramming languages are responsible for keeping track of the types assigned to each variable.\n\n\n\nSome languages1 are statically typed, which means types are explicit and unchanging (usually).\nAn Example: C++\n\nint x = 3;\nint y = 7;\ndouble z = 0.4;\nstd::string school = \"UC Berkeley\";\nx = \"Berkeley High School\" # ERROR, type changed!\n\n\nC and Java are two other commonly used statically typed languages."
+  },
+  {
+    "objectID": "stat33b/lab02.html#r-dynamically-typed",
+    "href": "stat33b/lab02.html#r-dynamically-typed",
+    "title": "Lab 02: Vectors, Types",
+    "section": "R: Dynamically Typed",
+    "text": "R: Dynamically Typed\nR is dynamically typed, which means we’re free to modify the type of a variable.\n\nx <- \"Is\"\nx <- 7 \nx <- \"my favorite number?\" \nx <- TRUE\n\n\nNote that R infers the variable’s type for us (in C and Java we’d need to write int x = 71).\n\nModern C++ supports type inference when the auto keyword is used."
+  },
+  {
+    "objectID": "stat33b/lab02.html#rs-not-so-many-types",
+    "href": "stat33b/lab02.html#rs-not-so-many-types",
+    "title": "Lab 02: Vectors, Types",
+    "section": "R’s Not-So-Many Types",
+    "text": "R’s Not-So-Many Types\nR only has a few types you should be aware of for this class.\n\n\nLogical: TRUE/T or FALSE/F\nInteger: Whole numbers (e.g., 7L, -5L, 0L)1\nDouble: Fractional numbers (e.g., 5.4, -8.3211, 8.0)\nCharacter: Strings (e.g., \"Hello, World!\", \"X\")\n\n\nR will interpret numbers as doubles by default. Append L to the end of a number if you want R to interpret it as an integer."
+  },
+  {
+    "objectID": "stat33b/lab02.html#querying-type",
+    "href": "stat33b/lab02.html#querying-type",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Querying Type",
+    "text": "Querying Type\nUse the function typeof to get the type of a variable or literal1.\n\n\ntypeof(\"It was you who killed him!\")\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3L)\n\n[1] \"integer\"\n\n\n\n\n\nnoooo <- \"No. I am your father.\"\ntypeof(noooo)\n\n[1] \"character\"\n\n\n\n\n\ntypeof(3.5 + 7L)\n\n[1] \"double\"\n\n\n\nWe call a value we’ve written explicitly in our code a literal."
+  },
+  {
+    "objectID": "stat33b/lab02.html#modifying-type-casting",
+    "href": "stat33b/lab02.html#modifying-type-casting",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Modifying Type (Casting)",
+    "text": "Modifying Type (Casting)\nCasting is the act of modifying the type of a value.\n\nImplicit\nIn certain contexts, R will cast a value to a different type automatically. We call this an implicit cast.\n\nx <- 3L\ny <- x + 0.5 # 3L cast to a double to complete the operation"
+  },
+  {
+    "objectID": "stat33b/lab02.html#modifying-type-casting-yourself",
+    "href": "stat33b/lab02.html#modifying-type-casting-yourself",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Modifying Type (Casting) Yourself",
+    "text": "Modifying Type (Casting) Yourself\nCasting is the act of modifying the type of a value.\nExplicit\nCasts you ask R to make explicitly are called explicit casts. Use the as.<type> functions for this.\n\nx <- 1\nas.logical(x)\n\n[1] TRUE\n\nx <- 37.39303\nas.character(x)\n\n[1] \"37.39303\"\n\nas.numeric(x >= 30)\n\n[1] 1"
+  },
+  {
+    "objectID": "stat33b/lab02.html#did-we-modify-x",
+    "href": "stat33b/lab02.html#did-we-modify-x",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Did we modify x?",
+    "text": "Did we modify x?\nas.<type>(x) returns a new value with the specified type.\n\nx <- 1\ntypeof(x)\n\n[1] \"double\"\n\ntypeof(as.logical(x))\n\n[1] \"logical\"\n\ntypeof(x)  # unchanged!\n\n[1] \"double\"\n\n\n\nTo modify x, reassign x.\n\nx <- as.logical(x)\ntypeof(x)\n\n[1] \"logical\""
+  },
+  {
+    "objectID": "stat33b/lab02.html#vector-creation",
+    "href": "stat33b/lab02.html#vector-creation",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Creation",
+    "text": "Vector: Creation\nA contiguous array of 1 or more objects, where all objects are the same type.\n\nCreating Vectors\nUse c (short for combine or concatenate) to create a vector.\n\nx <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)  # type: double\ny <- c(\"Cory\", \"Dwinelle\", \"Evans\")  # type: character\nz <- c(TRUE, FALSE, FALSE, FALSE)    # type: logical\nshort_cut <- 10:100                  # a short cut for 10, 11, ..., 100"
+  },
+  {
+    "objectID": "stat33b/lab02.html#vector-access",
+    "href": "stat33b/lab02.html#vector-access",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Access",
+    "text": "Vector: Access\nA contiguous array of 1 or more objects, where all objects are the same type.\nAccessing Elements\nUse <vector>[N] to access the \\(Nth\\) element of a vector.\n\nx[1]  # reference: x <- c(1, 3, 4, 8, 0, 9, 28, 30, 3)\n\n[1] 1\n\ny[2]  # reference: y <- c(\"Cory\", \"Dwinelle\", \"Evans\") \n\n[1] \"Dwinelle\"\n\nz[c(1, 3, 4)]  # reference: z <- c(TRUE, FALSE, FALSE, FALSE)\n\n[1]  TRUE FALSE FALSE\n\n\n\n\nR is not 0-indexed like most programming languages."
+  },
+  {
+    "objectID": "stat33b/lab02.html#vector-operations",
+    "href": "stat33b/lab02.html#vector-operations",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Vector: Operations",
+    "text": "Vector: Operations\nWe can apply operations to vectors directly, causing the operation to be done to all its elements (vectorization).\n\n\nx <- c(1, 2, 4, 8)\nx * 10  # multiply all elements in x by 10, forming a new vector\n\n[1] 10 20 40 80\n\nx + c(1, 2, 3, 4)  # add two vectors together, component wise \n\n[1]  2  4  7 12\n\n\n\n\nR will recycle values (loop to the start) if the vectors used in the operation aren’t of the same size.\n\nc(0, 1, 2, 3) + c(1, 100)\n\n[1]   1 101   3 103"
+  },
+  {
+    "objectID": "stat33b/lab02.html#taxes-are-due",
+    "href": "stat33b/lab02.html#taxes-are-due",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Taxes are Due…",
+    "text": "Taxes are Due…\nRecall our taxes code.\n\nsales_tax <- 0.1025  # in Berkeley today\nboba <- 7.0\nbooks <- 54.50\nfood <- 24.75\n\nboba_tax <- boba * sales_tax\nbooks_tax <- books * sales_tax\nfood_tax <- food * sales_tax\n\nsum(boba_tax, books_tax, food_tax)\n\n[1] 8.840625"
+  },
+  {
+    "objectID": "stat33b/lab02.html#taxes-are-due-now-with-vectors",
+    "href": "stat33b/lab02.html#taxes-are-due-now-with-vectors",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Taxes are Due… Now with Vectors!",
+    "text": "Taxes are Due… Now with Vectors!\n\nsales_tax <- 0.1025\npurchases <- c(7.0, 54.50, 24.75)\ntaxes <- purchases * sales_tax\nsum(taxes)\n\n[1] 8.840625\n\n\n\nGreat! But we’ve lost information. What do the values in purchases represent?\n\n\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\n\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75"
+  },
+  {
+    "objectID": "stat33b/lab02.html#access-with-names",
+    "href": "stat33b/lab02.html#access-with-names",
+    "title": "Lab 02: Vectors, Types",
+    "section": "Access with Names",
+    "text": "Access with Names\n\npurchases <- c(boba = 7.0, books = 54.50, food = 24.75)\n\nWe can associate a name with each value in a vector.\n\npurchases\n\n boba books  food \n 7.00 54.50 24.75 \n\n\nAccess is possible with names, <vector>[<element-name>].\n\npurchases[\"boba\"]\n\nboba \n   7 \n\npurchases[c(\"books\", \"food\")]\n\nbooks  food \n54.50 24.75"
+  },
+  {
+    "objectID": "stat33b/lab02.html#on-forming-vectors",
+    "href": "stat33b/lab02.html#on-forming-vectors",
+    "title": "Lab 02: Vectors, Types",
+    "section": "On Forming Vectors",
+    "text": "On Forming Vectors\nThe c function can concatenate vectors (flatten them).\n\nc(c(1, 2, 3), 4, c(5, 6))\n\n[1] 1 2 3 4 5 6\n\n\n\nWant a vector of \\(N\\) identical values? Use rep!\n\nrep(\"->\", 10)\n\n [1] \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\" \"->\"\n\n\n\nrep(c(\"->\", \"<-\"), 5)  # also flattens\n\n [1] \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\" \"->\" \"<-\"\n\n\n\n\nWant a sequence of values from \\(A\\) to \\(B\\) by increments of \\(I\\)? Use seq!\n\nseq(0, 12, 3)   # from 0 (A) to 12 (B) by increments of 2 (I)\n\n[1]  0  3  6  9 12\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome!",
+    "section": "",
+    "text": "This website is a collection of my (Jakob’s) notes and presentation materials for STAT 33B and STAT 133. It will be updated as the semester progresses.\n\nWell that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   }
 ]

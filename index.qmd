@@ -2,7 +2,7 @@
 title: "Welcome!"
 ---
 
-This website is a collection of my (Jakob's) notes and presentation materials for STAT 33B. It will be updated as the semester progresses.
+This website is a collection of my (Jakob's) notes and presentation materials for STAT 33B and STAT 133. It will be updated as the semester progresses.
 
 ### Well that's not right...
 

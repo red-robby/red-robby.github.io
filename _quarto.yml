@@ -17,15 +17,20 @@ website:
       - section: "Lab Slides"
         contents: 
           - lab-use.qmd
-          - lab01.qmd
-          - lab02.qmd
-          - lab03.qmd
-          - lab04.qmd
-          - lab05.qmd
-          - lab06.qmd
-          - lab07.qmd
-          - lab08.qmd
-          - lab09.qmd
+          - section: "STAT 33B (Fall 2022)"
+            contents:
+            - stat33b/lab01.qmd
+            - stat33b/lab02.qmd
+            - stat33b/lab03.qmd
+            - stat33b/lab04.qmd
+            - stat33b/lab05.qmd
+            - stat33b/lab06.qmd
+            - stat33b/lab07.qmd
+            - stat33b/lab08.qmd
+            - stat33b/lab09.qmd
+          - section: "STAT 133 (Spring 2023)"
+            contents:
+            - stat133/lab01.qmd
       - section: "Notes"
       - section: "Practice Problems"
         contents:

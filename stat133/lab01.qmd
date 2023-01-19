@@ -1,0 +1,250 @@
+---
+title: "Lab 01: Intro, Setup"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Welcome!
+
+Welcome to STAT 133! I'll be your uGSI, **Jakob Sorensen**.
+
+::: incremental
+-   Contact: jakobsorensen\@berkeley.edu
+
+-   My Sections:
+
+    -   11 AM to 1 PM  in *Evans 340*
+
+    -   3 PM to 5  PM in *Evans 340*
+
+-   Office Hours: TBD
+:::  
+
+## Expectations
+
+- Weekly Lab (13 total)
+- Timed Quizzes (2 total -- via bCourses)
+- Biweekly[^1] -- every 2 weeks -- Homework (6 total)
+- Final Exam
+
+[^1]: Isn't it unfortunate _biweekly_ can mean twice a week _and_ every 2 weeks?
+
+## Our Lab
+
+- For the **first 15-40 minutes**, I'll lecture briefly on select topics from the week's 
+material and/or we'll solve a few challenges together. 
+
+- Afterwards, you are free to work on the lab, and I'm available to help. 
+
+
+## My Notes
+
+I'll be hosting the materials I create for the course at the following website:
+
+::: {.r-fit-text}
+[https://red-robby.github.io/]()[^2]
+:::
+
+. . .
+
+_You can also find my materials from STAT 33B, if you're interested._
+
+[^2]: Sorry for the ugly name! It'll be linked on bCourses. 
+
+## Installing R and RStudio
+
+Please install R and RStudio now if you haven't already.
+
+::: {.r-fit-text}
+-   **R**: [https://www.r-project.org/]()
+
+-   **RStudio:** [https://www.rstudio.com/products/rstudio/]()
+:::
+
+## RStudio Demo
+
+Separate window. 
+
+Demo in separate window. 
+
+## RMarkdown
+
+RMarkdown (`.rmd`) is file type that allows us to merge,
+
+-   Formatted written material,
+-   and **R** code
+
+into a single document.
+
+::: {.fragment .fade-right fragment-index="1"}
+::: {.fragment .highlight-blue fragment-index="1"}
+*This presentation is using a variant of RMarkdown!*
+:::
+:::
+
+## *This* is RMarkdown?
+
+::: {.fragment .grow}
+```{rmd, echo=TRUE}
+## RMarkdown
+
+RMarkdown (``.Rmd``) is file type that allows us to merge,
+
+-   Formatted written material,
+-   and **R** code
+
+into a single document.
+```
+:::
+
+. . .
+
+## RMarkdown - Basic Formatting
+
+Software like Microsoft Word and Google Docs **hides** the underlying format representation.
+
+::: {.fragment .fade-right fragment-index="1"}
+::: {.fragment .highlight-blue fragment-index="1"}
+In a markup language, we *embed the formatting alongside the text.*
+:::
+:::
+
+::: {.fragment .fade-right}
+**An Example: HTML (HyperText Markup Language)**
+
+```{html, echo=TRUE}
+This is <b>bold!</b> But this is merely <i>emphasized!</i>
+```
+:::
+
+::: {.fragment .fade-left}
+**Another Example: LaTeX**
+
+```{LaTeX, echo=TRUE}
+This is \textbf{bold!} But this is merely \textit{emphasized!}
+```
+:::
+
+::: {.fragment .fade-up}
+**RMarkdown**
+
+```{rmd, echo=TRUE}
+This is **bold!** But this is merely _emphasized!_
+```
+:::
+
+## Headers
+
+### Aren't headers...
+
+#### ... just lovely?
+
+::: {.fragment .fade-right}
+```{rmd, echo=TRUE}
+## Headers
+
+### Aren't headers...
+
+#### ... just lovely?
+```
+:::
+
+::: {.fragment .fade-up}
+$N$ `#` characters denotes an $Nth$ level header.
+:::
+
+## Font Face: **Bold**
+
+I'm **bold** and **uncontrolled!**
+
+::: {.fragment .fade-right}
+```{rmd, echo=TRUE}
+## Font Face: **Bold**
+
+I'm **bold** and **uncontrolled!**
+```
+:::
+
+::: {.fragment .fade-up}
+Surrounding text with `**` at each end makes it **bold**.
+:::
+
+## Font Face: *Italics*
+
+Don't eat *that* burger! Don't *eat* that burger!
+
+::: {.fragment .fade-right}
+```{rmd, echo=TRUE}
+## Font Face: _Italics_
+
+Don't eat _that_ burger! Don't _eat_ that burger!
+```
+:::
+
+::: {.fragment .fade-up}
+Surrounding text with `_` at each end *italicizes* it.
+:::
+
+## Font Face: `Plain Text or Code`
+
+The variable `x` passed into function `main`.
+
+::: {.fragment .fade-right}
+```{rmd, echo=TRUE}
+## Font Face: ``Plain Text or Code``
+
+The variable ``x`` passed into function ``main``.
+```
+:::
+
+::: {.fragment .fade-up}
+Surrounding text with ``` `` ``` at each end makes it plain text (like `code`).
+:::
+
+## And more...
+
+We can also embed lists, tables, images, and many other components!
+
+## Code Chunks
+
+We include code in what we call *code chunks*. A basic example in this document:
+
+::: {.fragment .fade-right fragment-index="1"}
+```{r}
+#| echo: fenced
+print("Hello, World!")
+
+x <- 3
+y <- 5
+print(paste("x + y =", x + y))
+```
+:::
+
+::: {.fragment .fade-right fragment-index="2"}
+::: {.fragment .highlight-blue fragment-index="2"}
+*Note that we've included the output of our code directly in the document.*
+:::
+:::
+
+## Code Chunk: Plot Example
+
+::: {.fragment .fade-up}
+```{r}
+#| echo: fenced
+plot(1:10, seq(10, 100, 10), type = "l", 
+     xlab = "Time Spent Studying (Hours)", ylab = "Quiz Grade (%)")
+```
+:::
+
+## Knitting
+
+Going from the plain text format (`.rmd`) to a presentation format (`.pdf`, `.html`) is called *knitting* the document.
+
+## RMarkdown Demo
+
+Separate window.
+
+
+
