@@ -14,5 +14,3 @@ _Note that in the case of a discrepancy, the official course material takes prec
 ### Source Code
 
 If you're interested, the source code for this website is available [here](https://github.com/red-robby/red-robby.github.io).
-
-

@@ -16,126 +16,126 @@
   {
     "objectID": "stat133/lab01.html#welcome",
     "href": "stat133/lab01.html#welcome",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Welcome!",
     "text": "Welcome!\nWelcome to STAT 133! I’ll be your uGSI, Jakob Sorensen.\n\n\nContact: jakobsorensen@berkeley.edu\nMy Sections:\n\n11 AM to 1 PM in Evans 340\n3 PM to 5 PM in Evans 340\n\nOffice Hours: TBD"
   },
   {
     "objectID": "stat133/lab01.html#expectations",
     "href": "stat133/lab01.html#expectations",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Expectations",
     "text": "Expectations\n\nWeekly Lab (13 total)\nTimed Quizzes (2 total – via bCourses)\nBiweekly1 – every 2 weeks – Homework (6 total)\nFinal Exam\n\nIsn’t it unfortunate biweekly can mean twice a week and every 2 weeks?"
   },
   {
     "objectID": "stat133/lab01.html#our-lab",
     "href": "stat133/lab01.html#our-lab",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Our Lab",
     "text": "Our Lab\n\nFor the first 15-40 minutes, I’ll lecture briefly on select topics from the week’s material and/or we’ll solve a few challenges together.\nAfterwards, you are free to work on the lab, and I’m available to help."
   },
   {
     "objectID": "stat133/lab01.html#my-notes",
     "href": "stat133/lab01.html#my-notes",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "My Notes",
     "text": "My Notes\nI’ll be hosting the materials I create for the course at the following website:\n\nhttps://red-robby.github.io/1\n\n\nYou can also find my materials from STAT 33B, if you’re interested.\n\nSorry for the ugly name! It’ll be linked on bCourses."
   },
   {
     "objectID": "stat133/lab01.html#installing-r-and-rstudio",
     "href": "stat133/lab01.html#installing-r-and-rstudio",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Installing R and RStudio",
     "text": "Installing R and RStudio\nPlease install R and RStudio now if you haven’t already.\n\n\nR: https://www.r-project.org/\nRStudio: https://www.rstudio.com/products/rstudio/"
   },
   {
     "objectID": "stat133/lab01.html#rstudio-demo",
     "href": "stat133/lab01.html#rstudio-demo",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "RStudio Demo",
     "text": "RStudio Demo\nSeparate window.\nDemo in separate window."
   },
   {
     "objectID": "stat133/lab01.html#rmarkdown",
     "href": "stat133/lab01.html#rmarkdown",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "RMarkdown",
     "text": "RMarkdown\nRMarkdown (.Rmd) is file type that allows us to merge,\n\nFormatted written material,\nand R code\n\ninto a single document.\n\n\nThis presentation is using a variant of RMarkdown!"
   },
   {
     "objectID": "stat133/lab01.html#this-is-rmarkdown",
     "href": "stat133/lab01.html#this-is-rmarkdown",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "This is RMarkdown?",
     "text": "This is RMarkdown?\n\n\n## RMarkdown\n\nRMarkdown (``.Rmd``) is file type that allows us to merge,\n\n-   Formatted written material,\n-   and **R** code\n\ninto a single document."
   },
   {
     "objectID": "stat133/lab01.html#rmarkdown---basic-formatting",
     "href": "stat133/lab01.html#rmarkdown---basic-formatting",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "RMarkdown - Basic Formatting",
     "text": "RMarkdown - Basic Formatting\nSoftware like Microsoft Word and Google Docs hides the underlying format representation.\n\n\nIn a markup language, we embed the formatting alongside the text.\n\n\n\nAn Example: HTML (HyperText Markup Language)\n\nThis is <b>bold!</b> But this is merely <i>emphasized!</i>\n\n\n\nAnother Example: LaTeX\n\nThis is \\textbf{bold!} But this is merely \\textit{emphasized!}\n\n\n\nRMarkdown\n\nThis is **bold!** But this is merely _emphasized!_"
   },
   {
     "objectID": "stat133/lab01.html#headers",
     "href": "stat133/lab01.html#headers",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Headers",
     "text": "Headers\nAren’t headers…\n… just lovely?\n\n\n## Headers\n\n### Aren't headers...\n\n#### ... just lovely?\n\n\n\n\\(N\\) # characters denotes an \\(Nth\\) level header."
   },
   {
     "objectID": "stat133/lab01.html#font-face-bold",
     "href": "stat133/lab01.html#font-face-bold",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Font Face: Bold",
     "text": "Font Face: Bold\nI’m bold and uncontrolled!\n\n\n## Font Face: **Bold**\n\nI'm **bold** and **uncontrolled!**\n\n\n\nSurrounding text with ** at each end makes it bold."
   },
   {
     "objectID": "stat133/lab01.html#font-face-italics",
     "href": "stat133/lab01.html#font-face-italics",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Font Face: Italics",
     "text": "Font Face: Italics\nDon’t eat that burger! Don’t eat that burger!\n\n\n## Font Face: _Italics_\n\nDon't eat _that_ burger! Don't _eat_ that burger!\n\n\n\nSurrounding text with _ at each end italicizes it."
   },
   {
     "objectID": "stat133/lab01.html#font-face-plain-text-or-code",
     "href": "stat133/lab01.html#font-face-plain-text-or-code",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Font Face: Plain Text or Code",
     "text": "Font Face: Plain Text or Code\nThe variable x passed into function main.\n\n\n## Font Face: ``Plain Text or Code``\n\nThe variable ``x`` passed into function ``main``.\n\n\n\nSurrounding text with `` at each end makes it plain text (like code)."
   },
   {
     "objectID": "stat133/lab01.html#and-more",
     "href": "stat133/lab01.html#and-more",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "And more…",
     "text": "And more…\nWe can also embed lists, tables, images, and many other components!"
   },
   {
     "objectID": "stat133/lab01.html#code-chunks",
     "href": "stat133/lab01.html#code-chunks",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Code Chunks",
     "text": "Code Chunks\nWe include code in what we call code chunks. A basic example in this document:\n\n\n```{r}\nprint(\"Hello, World!\")\n\nx <- 3\ny <- 5\nprint(paste(\"x + y =\", x + y))\n```\n\n[1] \"Hello, World!\"\n[1] \"x + y = 8\"\n\n\n\n\n\nNote that we’ve included the output of our code directly in the document."
   },
   {
     "objectID": "stat133/lab01.html#code-chunk-plot-example",
     "href": "stat133/lab01.html#code-chunk-plot-example",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Code Chunk: Plot Example",
     "text": "Code Chunk: Plot Example\n\n\n```{r}\nplot(1:10, seq(10, 100, 10), type = \"l\", \n     xlab = \"Time Spent Studying (Hours)\", ylab = \"Quiz Grade (%)\")\n```"
   },
   {
     "objectID": "stat133/lab01.html#knitting",
     "href": "stat133/lab01.html#knitting",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "Knitting",
     "text": "Knitting\nGoing from the plain text format (.rmd) to a presentation format (.pdf, .html) is called knitting the document."
   },
   {
     "objectID": "stat133/lab01.html#rmarkdown-demo",
     "href": "stat133/lab01.html#rmarkdown-demo",
-    "title": "Lab 01: Intro, Setup",
+    "title": "Lab 01: Setup, RMarkdown",
     "section": "RMarkdown Demo",
     "text": "RMarkdown Demo\nSeparate window.\n\n\nReturn to Home Page"
   },
@@ -144,7 +144,7 @@
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
     "section": "",
-    "text": "All meetings will follow Berkeley Time.\n\n\n\n\n\n\nDanger\n\n\n\nThe hours listed below are outdated. These will be updated for Spring 2023 once scheduled.\n\n\n\nMy Office Hours\n\nThursdays, 10 a.m. to 11 a.m. via Zoom1\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\nFridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in Evans 342\nFridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in Cory 289\n\n\n\nJoy’s Office Hours (Tutor)\n\nMondays, 2 p.m. to 5 p.m. in Evans 434\nWednesdays, 8 a.m. to 10 a.m. in Evans 432\nFridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in Evans 434\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
+    "text": "All meetings will follow Berkeley Time.\n\n\n\n\n\n\nDanger\n\n\n\nThe hours listed below were recently updated for Spring 2023.\n\n\n\nMy Office Hours\n\nMondays, 8 a.m. to 10 a.m. via Zoom1\nThursdays, 1 p.m. to 3 p.m. in Evans 434\n\n\n\nMy Lab Sections\n\n103: Thursdays, 11 a.m. to 1 p.m. in Evans 340\n106: Thursdays, 3 p.m. to 5 p.m. in Evans 340\n\n\n\n\n\n\nFootnotes\n\n\nYou must be logged into your UC Berkeley associated Zoom account to access the meeting.↩︎"
   },
   {
     "objectID": "practice/algorithmic-problems.html",
@@ -326,7 +326,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like ...I like ...I like ...I like ...I like ... you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI  ...I  ...I  ...I  ...I  ...like you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

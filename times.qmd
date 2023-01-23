@@ -5,23 +5,17 @@ title: "Office Hours/Lab Sections"
 All meetings will follow [*Berkeley Time*](https://www.dailycal.org/2020/09/04/not-all-uc-berkeley-professors-use-berkeley-time-for-online-classes-students-say/).
 
 ::: {.callout-caution}
-The hours listed below are outdated. These will be updated for Spring 2023 once scheduled. 
+The hours listed below were recently updated for Spring 2023. 
 :::
 
 ### My Office Hours
 
--   Thursdays, 10 a.m. to 11 a.m. via [Zoom](https://berkeley.zoom.us/j/94387793073)[^1]
--   Fridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in *Evans 434*
+-   Mondays, 8 a.m. to 10 a.m. via [Zoom](https://berkeley.zoom.us/j/94387793073)[^1]
+-   Thursdays, 1 p.m. to 3 p.m. in *Evans 434*
 
 [^1]: You must be logged into your UC Berkeley associated Zoom account to access the meeting.
 
 ### My Lab Sections
 
--   Fridays, 9 a.m. to 10 a.m. and 10 a.m. to 11 a.m. in *Evans 342*
--   Fridays, 2 p.m. to 3 p.m. and 3 p.m. to 4 p.m. in *Cory 289*
-
-### Joy's Office Hours (Tutor)
-
--   Mondays, 2 p.m. to 5 p.m. in *Evans 434*
--   Wednesdays, 8 a.m. to 10 a.m. in *Evans 432*
--   Fridays, 11 a.m. to 12 p.m. and 4 p.m. to 6 p.m. in *Evans 434*
+-   **103**: Thursdays, 11 a.m. to 1 p.m. in *Evans 340*
+-   **106**: Thursdays, 3 p.m. to 5 p.m. in *Evans 340*

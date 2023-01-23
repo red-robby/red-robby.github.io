@@ -1,5 +1,5 @@
 ---
-title: "Lab 01: Intro, Setup"
+title: "Lab 01: Setup, RMarkdown"
 format: 
   revealjs:
     footer: "[Return to Home Page](https://red-robby.github.io/)"
