@@ -1,0 +1,131 @@
+---
+title: "Lab 02: More RMarkdown"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## From...
+
+### Last... 
+
+#### Time!
+
+I've got it **_all_** -- I'm **bold**, _italicised_, and `monospaced`!
+
+```{rmd, echo=TRUE}
+## From... 
+
+### Last... 
+
+#### Time!
+
+I've got it **_all_** -- I'm **bold**, _italicised_, and `monospaced`!
+```
+
+## From Last Time!
+
+### Code Chunks
+
+```{r}
+#| echo: fenced
+x <- 3
+y <- 5
+x + y
+```
+
+### New Today: Inline Code
+
+The best class ever is STAT `r 3743 %% 190`!
+
+```{rmd, echo=TRUE}
+The best class ever is STAT `r 3743 %% 190`!
+```
+
+## Links and Images
+
+### Links
+
+To add a link, use ``[<description>](<link>)``.
+
+. . .
+
+### Images
+
+To add an image, use ``![<description>](<link>)``.
+
+. . .
+
+#### Some Notes
+
+- The _link_ can be a local file path or a URL. 
+- The _description_ is optional for images. 
+- Surround _links_ with angled brackets (``<...>``) to make the link itself visible. 
+
+## Link Example
+
+I know everybody uses [_that_](https://www.google.com/) website... 
+
+But have you tried <https://duckduckgo.com/>?
+
+. . .
+
+```{rmd, echo=TRUE}
+I know everybody uses [_that_](https://www.google.com/) website... 
+
+But have you tried <https://duckduckgo.com/>?
+```
+
+## Image Example
+
+```{rmd, echo=TRUE}
+![An image of Franz Liszt playing the piano!](https://upload.wikimedia.org/wikipedia/commons/8/86/Boesendorfer_Liszt_Franz_Joseph.jpg)
+```
+
+![An image of Franz Liszt playing the piano!](https://upload.wikimedia.org/wikipedia/commons/8/86/Boesendorfer_Liszt_Franz_Joseph.jpg)
+
+
+## $\LaTeX$
+
+You can also include $\LaTeX$ in the file.
+
+. . .
+
+### Inline Math
+
+If you'd like math _directly alongside your text_, surround $\LaTeX$ with single dollar signs (`$`). 
+
+. . .
+
+Isn't this math, $\sum_{i = 1}^n x^2$, so... _pulchritudinous_[^1]?
+
+```{rmd, echo=TRUE}
+Isn't this math, $\sum_{i = 1}^n x^2$, so... _pulchritudinous_?
+```
+
+[^1]: Beautiful, apparently. 
+
+## $\LaTeX$
+
+You can also include $\LaTeX$ in the file.
+
+### Math "Blocks"
+
+If you'd prefer it be given its own _centered_ line, surround $\LaTeX$ with double dollar signs (`$$`).
+
+$$
+\sum_i^n x^2
+$$
+
+```{rmd, echo=TRUE}
+$$
+\sum_i^n x^2
+$$
+```
+
+## Cheatsheets and Helpful Links
+
+- <https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet>
+- <https://rmarkdown.rstudio.com/lesson-1.html>
+- <https://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf>

@@ -140,6 +140,62 @@
     "text": "RMarkdown Demo\nSeparate window.\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "stat133/lab02.html#from",
+    "href": "stat133/lab02.html#from",
+    "title": "Lab 02: More RMarkdown",
+    "section": "From…",
+    "text": "From…\nLast…\nTime!\nI’ve got it all – I’m bold, italicised, and monospaced!\n\n## From... \n\n### Last... \n\n#### Time!\n\nI've got it **_all_** -- I'm **bold**, _italicised_, and `monospaced`!"
+  },
+  {
+    "objectID": "stat133/lab02.html#from-last-time",
+    "href": "stat133/lab02.html#from-last-time",
+    "title": "Lab 02: More RMarkdown",
+    "section": "From Last Time!",
+    "text": "From Last Time!\nCode Chunks\n\n```{r}\nx <- 3\ny <- 5\nx + y\n```\n\n[1] 8\n\n\nNew Today: Inline Code\nThe best class ever is STAT 133!\n\nThe best class ever is STAT `r 3743 %% 190`!"
+  },
+  {
+    "objectID": "stat133/lab02.html#links-and-images",
+    "href": "stat133/lab02.html#links-and-images",
+    "title": "Lab 02: More RMarkdown",
+    "section": "Links and Images",
+    "text": "Links and Images\nLinks\nTo add a link, use [<description>](<link>).\nImages\nTo add an image, use ![<description>](<link>).\n\nSome Notes\n\nThe link can be a local file path or a URL.\nThe description is optional for images.\nSurround links with angled brackets (<...>) to make the link itself visible."
+  },
+  {
+    "objectID": "stat133/lab02.html#link-example",
+    "href": "stat133/lab02.html#link-example",
+    "title": "Lab 02: More RMarkdown",
+    "section": "Link Example",
+    "text": "Link Example\nI know everybody uses that website…\nBut have you tried https://duckduckgo.com/?\n\n\nI know everybody uses [_that_](https://www.google.com/) website... \n\nBut have you tried <https://duckduckgo.com/>?"
+  },
+  {
+    "objectID": "stat133/lab02.html#image-example",
+    "href": "stat133/lab02.html#image-example",
+    "title": "Lab 02: More RMarkdown",
+    "section": "Image Example",
+    "text": "Image Example\n\n![An image of Franz Liszt playing the piano!](https://upload.wikimedia.org/wikipedia/commons/8/86/Boesendorfer_Liszt_Franz_Joseph.jpg)\n\n\nAn image of Franz Liszt playing the piano!"
+  },
+  {
+    "objectID": "stat133/lab02.html#latex",
+    "href": "stat133/lab02.html#latex",
+    "title": "Lab 02: More RMarkdown",
+    "section": "\\(\\LaTeX\\)",
+    "text": "\\(\\LaTeX\\)\nYou can also include \\(\\LaTeX\\) in the file.\n\nInline Math\nIf you’d like math directly alongside your text, surround \\(\\LaTeX\\) with single dollar signs ($).\n\nIsn’t this math, \\(\\sum_{i = 1}^n x^2\\), so… pulchritudinous1?\n\nIsn't this math, $\\sum_{i = 1}^n x^2$, so... _pulchritudinous_?\n\n\n\nBeautiful, apparently."
+  },
+  {
+    "objectID": "stat133/lab02.html#latex-1",
+    "href": "stat133/lab02.html#latex-1",
+    "title": "Lab 02: More RMarkdown",
+    "section": "\\(\\LaTeX\\)",
+    "text": "\\(\\LaTeX\\)\nYou can also include \\(\\LaTeX\\) in the file.\nMath “Blocks”\nIf you’d prefer it be given its own centered line, surround \\(\\LaTeX\\) with double dollar signs ($$).\n\\[\n\\sum_i^n x^2\n\\]\n\n$$\n\\sum_i^n x^2\n$$"
+  },
+  {
+    "objectID": "stat133/lab02.html#cheatsheets-and-helpful-links",
+    "href": "stat133/lab02.html#cheatsheets-and-helpful-links",
+    "title": "Lab 02: More RMarkdown",
+    "section": "Cheatsheets and Helpful Links",
+    "text": "Cheatsheets and Helpful Links\n\nhttps://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\nhttps://rmarkdown.rstudio.com/lesson-1.html\nhttps://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "times.html",
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
@@ -326,7 +382,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI  ...I  ...I  ...I  ...I  ...like you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like  ...I like  ...I like  ...I like  ...I like  ...you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
