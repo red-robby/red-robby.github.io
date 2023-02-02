@@ -32,6 +32,7 @@ website:
             contents:
             - stat133/lab01.qmd
             - stat133/lab02.qmd
+            - stat133/lab03.qmd
       - section: "Notes"
       - section: "Practice Problems"
         contents:
