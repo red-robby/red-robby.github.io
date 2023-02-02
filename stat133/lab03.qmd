@@ -1,0 +1,742 @@
+---
+title: "Lab 03: Intro to ``dplyr`` and ``ggplot2``"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Packages
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(dplyr)
+library(ggplot2)
+
+```
+
+To get you productive quickly, we'll start at a high level with two popular 
+_packages_:
+
+. . .
+
+- ``dplyr``: Allows us to easily manipulate _data frames_.
+- ``ggplot2``: Allows us to easily create attractive plots.
+
+. . .
+
+At a glance, a _package_ is simply a collection of code somebody has written for us. 
+
+## Note: Downloading Packages
+
+To download a package ``<package>``, run,
+
+```
+install.packages("<package>")
+```
+
+. . .
+
+To load and attach (i.e., to _use_) a package, run, 
+
+```
+library(<package>)
+```
+
+Note that the former line _requires a string_, while the second _requires a 
+variable_. 
+
+## Data Frames
+
+Data frames are an important data structure in R. For now[^1], simply 
+consider a data frame to be, 
+
+- a _two-dimensional_ data structure (similar to a table).
+
+| A | B | C |
+|---|---|---|
+| 1 | 2 | 3 |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
+
+Importantly, we have _columns_ (data types) and _rows_ (entries).
+
+[^1]: We'll go over data frames in greater detail later. See [here](https://red-robby.github.io/stat33b/lab04.html#/title-slide) if you'd prefer not waiting.
+
+## Operations on Data Frames
+
+Consider some of operations you'd ordinarily make on _tables_: 
+
+- **Filtering**: Give me the entries _for which something is true_.
+- **Slicing**: Give me a _subset of the entries_ (e.g., the first 10).
+- **Selecting**: Give me a _subset of the columns_. 
+
+. . .
+
+Each of these correspond to a similarly named ``dplyr`` function. 
+
+## ``dplyr``'s Verbs
+
+We say that ``dplyr`` provides us with a set of _verbs_ to manipulate data 
+frames. We'll go over a few of them today:
+
+- ``slice``
+- ``select``
+- ``filter``
+- ``mutate``
+- ``summarise``
+
+## `slice`
+
+Suppose we want some subset of the rows. In base R[^2],
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[seq(1, nrow(starwars), 2),]
+```
+
+[^2]: For those already familiar with base R subsetting, I've provided a comparison for each ``dplyr`` function. If you're not yet familiar, ignore this for now. 
+
+. . .
+
+`dplyr` provides us with the `slice` function.
+
+```{r}
+#| echo: true
+#| eval: false
+slice(starwars, seq(1, nrow(starwars), 2))
+```
+
+. . .
+
+We can provide multiple vectors.
+
+```{r}
+#| echo: true
+#| eval: false
+slice(starwars, 1:5, 10:15, 17, 18)
+```
+
+. . .
+
+::: {.fragment .fade-up}
+::: {style="color: red;"}
+Note that slice works only with ***indices***. Unlike base R subsetting, you can't use strings or logical values.
+:::
+:::
+
+## `select`
+
+Suppose we want to *select* some of the columns. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[,c("height", "mass")]
+```
+
+. . .
+
+`dplyr` provides us with the `select` function.
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, c("height", "mass"))
+```
+
+. . .
+
+Alternatively,
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, "height", "mass")
+```
+
+. . .
+
+There's no need to provide the columns as strings.
+
+```{r}
+#| echo: true
+#| eval: false
+select(starwars, height, mass)
+```
+
+## `filter`
+
+Suppose we want to *filter* the rows by some condition. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars[starwars$height > 100,]
+```
+
+. . .
+
+`dplyr` provides us with the `filter` function.
+
+```{r}
+#| echo: true
+#| eval: false
+filter(starwars, height > 100)  # no need to specify starwars$height
+```
+
+. . .
+
+We can easily combine conditions with the logical operators.
+
+```{r}
+#| echo: true
+#| eval: false
+filter(starwars, height > 100 & mass > 100 & sex == "male")
+filter(starwars, is.na(hair_color) | species == "Droid")
+filter(starwars, !(eye_color == "brown" & skin_color == "blue"))
+```
+
+## `mutate`
+
+Suppose we want to add new columns. In base R,
+
+```{r}
+#| echo: true
+#| eval: false
+starwars$is_chosen_one <- starwars$name == "Darth Vader"
+```
+
+. . .
+
+`dplyr` provides us with the function `mutate`.
+
+```{r}
+#| echo: true
+#| eval: false
+mutate(starwars, is_chosen_one = name == "Darth Vader")
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+Wait, did that change `starwars`?
+:::
+:::
+
+. . .
+
+No, it returned a new, *mutated* data frame. To modify, we must reassign.
+
+```{r}
+#| echo: true
+starwars <- mutate(starwars, is_chosen_one = name == "Darth Vader")
+```
+
+. . .
+
+If you use an existing column, it will *be replaced*. Replace an existing column with `NULL` to delete it.
+
+```{r}
+#| echo: true
+starwars <- mutate(starwars, hair_color = NULL)
+```
+
+## `summarise`/`summarize`
+
+We can use `summarise` to obtain summary statistics on the data frame (in the form of a new data frame).
+
+```{r}
+#| echo: true
+summarise(
+    starwars,  # what we are summarising
+    avg_height = mean(height, na.rm = TRUE),
+    avg_mass = mean(mass, na.rm = TRUE),
+    avg_birth_year = mean(birth_year, na.rm = TRUE)
+)
+```
+
+But what if we wanted to get these values for each group (say, each species)?
+
+. . .
+
+Would we have to `filter` the data frame three times, then call summarise for each?
+
+## `group_by`
+
+We can use `group_by` to form a new table which is ***grouped by the values in*** ***particular columns.*** The functions you use will be applied to the groups separately, after which `dplyr` groups the results.
+
+```{r}
+#| echo: true
+summarise(
+    group_by(starwars, sex),
+    avg_height = mean(height, na.rm = TRUE),
+    avg_mass = mean(mass, na.rm = TRUE),
+    avg_birth_year = mean(birth_year, na.rm = TRUE)
+)
+```
+
+## Much More
+
+I've only introduced the most basic functionality of these functions. 
+
+Enter `?<function>` to explore additional functionality.
+
+. . .
+
+One neat example, the function `ends_with`:
+
+```{r}
+#| echo: true
+head(select(starwars, ends_with("color")))
+```
+
+## An Aside: Piping
+
+Piping will be explored in greater detail later.
+
+Suppose we have this code:
+
+```{r}
+#| echo: true
+#| eval: false
+f(g(h()))
+```
+
+In what order are the functions `f()`, `g()`, and `h()` called?
+
+. . .
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+`h()`, then `g()`, then `f()`! We've written it backwards?
+:::
+:::
+
+## An Aside: Piping
+
+To make nested functions easier to read and write, we use the pipe operator.
+
+`a() %>% b()` becomes `b(a())`.
+
+That is, the left operand is passed as the first argument to the second operand.
+
+. . .
+
+```{r}
+#| echo: true
+3 %>% sum(2)
+3 %>% sum(2) %>% sum(5)
+```
+
+. . .
+
+This allows us to rewrite `f(g(h()))` as
+
+```{r}
+#| echo: true
+#| eval: false
+h() %>% g() %>% f()
+```
+
+That is, in the logical order of the function calls.
+
+## An Aside: Piping
+
+The `%>%` symbol comes from the package `magrittr`.
+
+```{r}
+#| echo: true
+#| eval: false
+# To use...
+install.packages("magrittr")
+library(magrittr)
+```
+
+. . .
+
+If you're using a new version of R (\>4.1.0), I'd recommend using the new pipe operator built into R, `|>`.
+
+## Piping in Action
+
+A more elaborate example from the [**Algorithmic Problems**](https://red-robby.github.io/practice/algorithmic-problems.html) page:
+
+```{r}
+#| echo: true
+qaq <- function(string) {
+  # Obtain the individual characters in `string`.
+  characters <- strsplit(string, "")[[1]]
+  
+  # Form a prefix vector for the number of "Q"s at each index.
+  q_count <- characters |>
+    equals("Q") |>
+    as.numeric() |>
+    accumulate(`+`)
+  
+  # For each "A" we can form <"Q"s before "A"> * <"Q"s after "A"> "QAQ"s. We 
+  # obtain this value for each "A" and sum them.
+  characters |>
+    equals("A") |>
+    multiply_by(q_count) |>
+    multiply_by(tail(q_count, 1) - q_count) |>
+    sum()
+}
+```
+
+## Graphics with Base R?
+
+So far we've produced graphics with base R, which you likely felt unintuitive
+and inflexible.
+
+::: {.fragment .fade-left}
+The package ``dplyr`` made **_data manipulation_** easier and more flexible. 
+:::
+
+::: {.fragment .fade-right}
+Now we introduce the package ``ggplot2``, which will provide these benefits for **_data visualization_**.
+:::
+
+## Introducing ``ggplot2`` {auto-animate=true}
+
+``ggplot2`` provides us with a set of functions to intuitively and 
+quickly produce attractive plots. 
+
+. . .
+
+The package ``ggplot2``...
+
+::: {.fragment .incremental}
+- provides us with a _grammar_ of data visualization.
+- is based on the idea of _decomposing_ plots into various 
+distinct components -- and later _layers_.
+- is the most widely used graphics library for R.
+- has countless [extensions](https://exts.ggplot2.tidyverse.org/gallery/) (e.g., for animations, rare plot types).
+:::
+
+## Introducing ``ggplot2`` {auto-animate=true}
+
+- is designed on the idea of _decomposing_ plots into various 
+distinct components -- and later _layers_.
+
+>  A good grammar will allow us to gain
+insight into the composition of complicated graphics, and reveal unexpected connections
+between seemingly different graphics.[^3] -- Hadley Wickham
+
+[^3]: From [_A Layered Grammar of Graphics_](http://vita.had.co.nz/papers/layered-grammar.pdf). Note that this 
+presentation is partially based on ideas from this paper. I'd recommend reading it if you'd
+like to understand the reasoning behind ``ggplot2``'s design.
+
+## Components?
+
+::: {style="color: blue;"}
+Ask yourself, what makes up a plot?
+:::
+
+. . .
+
+### Data and Aesthetic Mapping
+
+What data is the plot using and communicating? How is it mapped (e.g., what data is used for each axis)?
+
+. . .
+
+### Geometric Objects
+
+How are we representing the data geometrically? Lines, points, colored area?
+
+. . .
+
+### Scales, Coordinate Systems
+
+How large/small are the objects? What coordinate systems do we use? Units?
+
+## Components in ``ggplot2``
+
+... And more. But we'll get started with these.
+
+::: {.fragment .fade-right}
+**_At a high level, we create components with function calls, and connect them to_**
+**_form a cohesive whole._**
+:::
+
+. . .
+
+**We use ``+`` to connect them.**
+
+Image we had functions to create the "components" of a human. To create a whole human, we'd write something like,
+
+```{r}
+#| eval: false
+#| echo: true
+person(name = "Jakob") +
+  body() +
+  personality(type = "strange") + 
+  education(major = c("computer science", "math")) + 
+  job(title = "uGSI")
+```
+
+## The Data and Aesthetic Mapping Component
+
+The first component you'll need is one that defines... 
+
+- _what data you'll be using_ -- ``data``.
+- _how the data is mapped aesthetically_ -- ``mapping``.
+
+. . .
+
+We create this component using the ``ggplot`` function call; ``data`` and 
+``mapping`` are the corresponding arguments.
+
+```{r}
+#| eval: false
+#| echo: true
+ggplot(data = starwars, mapping = aes(x = height, y = mass))
+```
+
+## The Data and Aesthetic Mapping Component
+
+What we have so far...
+
+```{r}
+#| echo: true
+ggplot(data = starwars, mapping = aes(x = height, y = mass))
+```
+
+## The Geom Component
+
+**Our plot is empty!** We need to define the _geom_, i.e., what geometrical objects
+will be used to represent the data. 
+
+These components are created with ``geom_*`` functions.
+
+. . .
+
+::: columns 
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+ggplot(filter(starwars, mass < 200), 
+  aes(x = height, y = mass)) +
+  geom_point()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+ggplot(filter(starwars, mass < 200), 
+       aes(x = height, y = mass)) +
+  geom_line()
+```
+:::
+
+:::
+
+## Customizing Geoms {.scrollable}
+
+Each geom has many options for customization. Enter 
+``?<function>`` to learn more about your geom of interest.
+
+::: {.smaller}
+
+```{r}
+#| code-fold: true
+#| code-summary: View Plot Code
+#| echo: true
+starwars |>
+  filter(mass < 200) |>
+  ggplot(aes(x = height, y = mass)) +
+    geom_line(
+      color = "red",  # define line color
+      alpha = 0.5,    # define line opacity 
+      linetype = 6,   # define line type (dashed, solid, etc.)
+      size = 1.15     # define line thickness
+    )
+```
+
+::: 
+
+## Layering Geoms {.scrollable}
+
+```{r}
+#| code-fold: true
+#| code-summary: View Plot Code
+#| echo: true
+starwars |>
+  filter(mass < 200) |>
+  ggplot(aes(x = height, y = mass)) +
+    geom_line(
+      color = "blue",     # define line color
+      alpha = 0.4,        # define line opacity
+      size = 1.15,        # define line thickness
+      lineend = "round",  # define how lines end
+      linejoin = "round"  # define how lines connect
+    ) +
+    geom_point(
+      color = "black",    # define shape border color
+      fill = "white",     # define shape fill color 
+      alpha = 0.75,       # define shape opacity
+      shape = 23,         # define shape type (square, circle, etc.)
+      size = 3,            # define shape size (how big?)
+    )
+```
+
+## Geoms, Coloring by Group {.scrollable}
+
+```{r}
+#| code-fold: true
+#| code-summary: View Plot Code
+#| echo: true
+starwars |>
+  filter(mass < 200) |>
+  ggplot(aes(x = height, y = mass)) +
+    geom_line(
+      color = "grey",     # define line color
+      alpha = 0.5,        # define line opacity
+      size = 1.15,        # define line thickness
+      lineend = "round",  # define how lines end
+      linejoin = "round"  # define how lines connect
+    ) +
+    geom_point(
+      aes(fill = sex, color = sex),  # define what determines fill, color
+      alpha = 0.75,       # define shape opacity
+      shape = 21,         # define shape type (square, circle, etc.)
+      size = 3,           # define shape size (how big?)
+    )
+```
+
+## Geoms, Endless Customization!
+
+There are many more geoms, and many, many more customization options. Don't 
+expect to memorize them.  
+
+:::{.fragment .fade-right}
+:::{style="color: blue;"}
+Become comfortable reading the documentation.
+
+Use ``?<function>``.
+:::
+:::
+
+## Don't You Dare Label Me!
+
+Our plots look unprofessional now because we've not added proper labels. 
+
+. . .
+
+To add labels, simply add a label component with the ``labs()``
+function. Here's its signature:
+
+```{r}
+#| echo: true
+#| eval: false
+labs(
+  ...,
+  title = waiver(),
+  subtitle = waiver(),
+  caption = waiver(),
+  tag = waiver(),
+  alt = waiver(),
+  alt_insight = waiver()
+)
+```
+
+## Label Example {.scrollable}
+
+Here we add a title and proper axis titles.
+
+```{r}
+#| code-fold: true
+#| code-summary: View Plot Code
+#| echo: true
+starwars |>
+  filter(mass < 200) |>
+  ggplot(aes(x = height, y = mass)) +
+    geom_line(
+      color = "blue",     # define line color
+      alpha = 0.4,        # define line opacity
+      size = 1.15,        # define line thickness
+      lineend = "round",  # define how lines end
+      linejoin = "round"  # define how lines connect
+    ) +
+    geom_point(
+      color = "black",    # define shape border color
+      fill = "white",     # define shape fill color 
+      alpha = 0.75,       # define shape opacity
+      shape = 23,         # define shape type (square, circle, etc.)
+      size = 3,           # define shape size (how big?)
+    ) + 
+    labs(
+      title = "Height and Weight of Star Wars Characters",
+      x = "Height (cm)",
+      y = "Weight (kg)"
+    )
+```
+
+## Still Unsatisfied? Use Themes!
+
+If the visuals of these plots don't satisfy you, we can go further and customize every detail by creating a custom ``theme`` component.
+
+. . .
+
+### Well That's Out of Scope... 
+
+_This is out of scope for this class_, but I'll share 
+an example to peek your interest. Feel free to ask me during lab/OH if you'd 
+like to learn more.
+
+## Theme Example, Creation
+
+An example theme (from one of my STAT 133 projects).
+
+```{r}
+#| echo: true
+off_white <- "#F7F0EB"
+example_theme <- theme(
+  plot.title = element_text(size = 24),
+  plot.subtitle = element_text(size = 14, face = "italic"),
+  axis.title = element_text(size = 14), 
+  axis.text = element_text(size = 10, face = "bold"),
+  panel.background = element_rect(fill = off_white, color = "black"),
+  panel.grid = element_line(linetype = 2, size = 0.05, color = "black")
+)
+```
+
+## Theme Example, Plot {.scrollable}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: Show Plot Code
+
+# We label these colors for clarity.
+red <- "#C24A40"
+dark_red <- "#732C26"
+
+starwars |>
+  filter(mass < 200) |>
+  ggplot(aes(x = height, y = mass)) +
+    geom_line(
+      color = red,   
+      alpha = 0.8,        
+      size = 1.15,      
+      lineend = "round",
+      linejoin = "round"
+    ) +
+    geom_point(
+      color = dark_red,  
+      alpha = 1,     
+      shape = 18,       
+      size = 2.5,         
+    ) + 
+    labs(
+      title = "Height and Weight of Star Wars Characters",
+      x = "Height (cm)",
+      y = "Weight (kg)"
+    ) + 
+    example_theme  # We add the theme here
+```
+
