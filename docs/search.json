@@ -140,6 +140,90 @@
     "text": "RMarkdown Demo\nSeparate window.\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "stat133/lab04.html#files",
+    "href": "stat133/lab04.html#files",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Files?",
+    "text": "Files?\nWe can use R in isolation…\n\n\n\nBut it’s much more convenient if we can save our results (data) and share them with other applications.\n\n\n\n\nOr use our results (data) from other applications, and manipulate them in R.\n\n\n\n\nFor this, we need files."
+  },
+  {
+    "objectID": "stat133/lab04.html#file-formats",
+    "href": "stat133/lab04.html#file-formats",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "File Formats",
+    "text": "File Formats\nWhat is a file?\n\nFor our purposes, just think of a file as a blob of saved text.\n\n\n\nSuppose we wanted to represent a complex structure in a file.\n\n\n\nAn Agreed on Format\nTo do this, we need to agree on some convention (format) of representing the structure in plain text."
+  },
+  {
+    "objectID": "stat133/lab04.html#file-formats-table-representation",
+    "href": "stat133/lab04.html#file-formats-table-representation",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "File Formats: Table Representation",
+    "text": "File Formats: Table Representation\nWhat if we wanted to represent a table?\n\nIn markdown:\n| Some Column | Another Column | Yet Another |\n|-------------|----------------|-------------|\n|     3       |    \"hello\"     |    TRUE     |\n|     17      |   \"goodbye\"    |   FALSE     |\n\n\nAny issues with this?"
+  },
+  {
+    "objectID": "stat133/lab04.html#file-formats-a-popular-choice-csv",
+    "href": "stat133/lab04.html#file-formats-a-popular-choice-csv",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "File Formats: A Popular Choice, CSV",
+    "text": "File Formats: A Popular Choice, CSV\nOne common format for representing tables is .csv – “comma separated values”.\n\nname,position,student\nGaston,Professor,FALSE\nJakob,uGSI,TRUE\nJoy,Tutor,TRUE\n\n\nEach row is represented by a line, with the values in each column separated by commas.\nThe first row optionally includes the column names."
+  },
+  {
+    "objectID": "stat133/lab04.html#reading-tables-general",
+    "href": "stat133/lab04.html#reading-tables-general",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Reading Tables (General)",
+    "text": "Reading Tables (General)\nThe general function for importing tables from files is read.table().\n\nread.table(file, header = FALSE, sep = \"\", quote = \"\\\"'\",\n           dec = \".\", numerals = c(\"allow.loss\", \"warn.loss\", \"no.loss\"),\n           row.names, col.names, as.is = !stringsAsFactors,\n           na.strings = \"NA\", colClasses = NA, nrows = -1,\n           skip = 0, check.names = TRUE, fill = !blank.lines.skip,\n           strip.white = FALSE, blank.lines.skip = TRUE,\n           comment.char = \"#\",\n           allowEscapes = FALSE, flush = FALSE,\n           stringsAsFactors = FALSE,\n           fileEncoding = \"\", encoding = \"unknown\", text, skipNul = FALSE)\n\n\n\nfile: The file to read from\nheader: Does the file have a header for the column names?\nsep: What separates the data (e.g., ',' for .csv files)?"
+  },
+  {
+    "objectID": "stat133/lab04.html#reading-csv-files",
+    "href": "stat133/lab04.html#reading-csv-files",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Reading CSV Files",
+    "text": "Reading CSV Files\nTo avoid writing passing read.table() arguments to correctly parse .csv files, we have a convenience function:\nread.csv(file, header = TRUE, sep = \",\", quote = \"\\\"\",\n         dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nAnd for other common formats:\nread.csv2(file, header = TRUE, sep = \";\", quote = \"\\\"\",\n          dec = \",\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n           dec = \".\", fill = TRUE, comment.char = \"\", ...)\n\nread.delim2(file, header = TRUE, sep = \"\\t\", quote = \"\\\"\",\n            dec = \",\", fill = TRUE, comment.char = \"\", ...)"
+  },
+  {
+    "objectID": "stat133/lab04.html#making-sense-of-read.table",
+    "href": "stat133/lab04.html#making-sense-of-read.table",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Making Sense of read.table()",
+    "text": "Making Sense of read.table()\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  # What arguments do we pass?\n)"
+  },
+  {
+    "objectID": "stat133/lab04.html#read.table-solution",
+    "href": "stat133/lab04.html#read.table-solution",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "read.table() Solution",
+    "text": "read.table() Solution\nSuppose we have a file starwars.csv including the following contents.\n\"name\",\"height\",\"mass\"\n\"Luke Skywalker\",172,77\n\"C-3PO\",167,75\n\"R2-D2\",96,32\n\"Darth Vader\",202,136\n...\n\nread.table(\n  file = \"starwars.csv\",\n  header = TRUE,\n  sep = \",\",\n  colClasses = c(\"character\", \"double\", \"double\")\n)\n\n\n\nWhat if our values were separated with ';' instead?"
+  },
+  {
+    "objectID": "stat133/lab04.html#writing-to-files",
+    "href": "stat133/lab04.html#writing-to-files",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Writing to Files",
+    "text": "Writing to Files\nWe have write.table() for writing tables to files.\nwrite.table(x, file = \"\", append = FALSE, quote = TRUE, sep = \" \",\n            eol = \"\\n\", na = \"NA\", dec = \".\", row.names = TRUE,\n            col.names = TRUE, qmethod = c(\"escape\", \"double\"),\n            fileEncoding = \"\")\n\nAnd for convenience,\nwrite.csv(...)\nwrite.csv2(...)"
+  },
+  {
+    "objectID": "stat133/lab04.html#readr",
+    "href": "stat133/lab04.html#readr",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "readr",
+    "text": "readr\nAlternatively, there is a package readr which provides similar functionality, but, among other benefits,\n\nis 10x-100x faster1.\nhas more consistent naming conventions.\n\n\nProvides read_csv(), read_tsv(), read_delim(), read_fwf(), read_table(), and read_log().\n\nThis is claimed on the documentation here."
+  },
+  {
+    "objectID": "stat133/lab04.html#saving-r-output",
+    "href": "stat133/lab04.html#saving-r-output",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Saving R Output",
+    "text": "Saving R Output\nIf we want to save the output of our program to a file, we use sink().\n\nsink(\"my-output.txt\")  # We specify the file to redirect our output to\nprint(\"Hello, World!\")  \n3 + 2\nsink() # After this call, our output will be printed as usual\n\n\nThe output of our program was not printed to the console, but redirected to the file my-output.txt, which now contains:\n\n[1] \"Hello World!\"\n[1] 5"
+  },
+  {
+    "objectID": "stat133/lab04.html#global-state-is-bad-try-withr",
+    "href": "stat133/lab04.html#global-state-is-bad-try-withr",
+    "title": "Lab 04: Tabular Data Files",
+    "section": "Global State is Bad… Try withr",
+    "text": "Global State is Bad… Try withr\nAvoid manually chaging global state with the library withr.\n\nlibrary(withr) # Make sure to install first\n\n# Calls sink(\"my-output.txt\"), executes the code block, then sink()\nwithr::with_output_sink(\"my-output.txt\", {\n    print(\"Hello, World!\")\n    print(3 + 2)  # We now need to specify print explicitly \n})\n\nNote that it seems withr requires we explicitly call print on our desired output, unlike regular sink().\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "stat133/lab03.html#packages",
     "href": "stat133/lab03.html#packages",
     "title": "Lab 03: Intro to dplyr and ggplot2",
@@ -613,7 +697,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like yo ...I like yo ...I like yo ...I like yo ...I like yo ...u"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

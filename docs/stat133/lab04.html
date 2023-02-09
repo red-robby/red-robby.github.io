@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.313">
 
-  <title>Stat Stuff - Lab 09: Loops</title>
+  <title>Stat Stuff - Lab 04: Tabular Data Files</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,346 +390,214 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lab 09: Loops</h1>
+  <h1 class="title">Lab 04: Tabular Data Files</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="repeating-code" class="slide level2">
-<h2>Repeating Code</h2>
+<section id="files" class="slide level2">
+<h2>Files?</h2>
+<p>We can use R in isolation…</p>
+<div class="fragment">
+<div class="fragment fade-right">
+<ul>
+<li>But it’s much more convenient if we can <strong>save</strong> our results (data) and <strong>share</strong> them with other applications.</li>
+</ul>
+</div>
+<div class="fragment fade-right">
+<ul>
+<li>Or use our results (data) from other applications, and manipulate them in R.</li>
+</ul>
+</div>
+<div class="fragment fade-right">
+<div style="color: blue;">
+<p>For this, we need <em>files</em>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="file-formats" class="slide level2">
+<h2>File Formats</h2>
+<p><em>What is a file?</em></p>
+<div class="fragment">
+<p>For our purposes, just think of a file as a <em>blob of saved text</em>.</p>
+</div>
+<div class="fragment">
+<div style="color: blue;">
+<p>Suppose we wanted to represent a complex structure in a file.</p>
+</div>
+</div>
+<div class="fragment">
+<h3 id="an-agreed-on-format">An Agreed on <em>Format</em></h3>
+<p>To do this, we need to agree on some convention (format) of representing the structure in plain text.</p>
+</div>
+</section>
+<section id="file-formats-table-representation" class="slide level2">
+<h2>File Formats: Table Representation</h2>
+<p>What if we wanted to represent a table?</p>
+<div class="fragment">
+<p>In markdown:</p>
+<pre><code>| Some Column | Another Column | Yet Another |
+|-------------|----------------|-------------|
+|     3       |    "hello"     |    TRUE     |
+|     17      |   "goodbye"    |   FALSE     |</code></pre>
+<div class="fragment fade-right">
+<div style="color: red;">
+<p>Any issues with this?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="file-formats-a-popular-choice-csv" class="slide level2">
+<h2>File Formats: A Popular Choice, CSV</h2>
+<p>One common format for representing tables is <code>.csv</code> – “comma separated values”.</p>
+<div class="fragment">
+<pre><code>name,position,student
+Gaston,Professor,FALSE
+Jakob,uGSI,TRUE
+Joy,Tutor,TRUE</code></pre>
+</div>
+<div class="fragment">
+<p><strong>Each row is represented by a line</strong>, with the values in each column <strong>separated by</strong> <strong>commas</strong>.</p>
+<p>The first row <em>optionally</em> includes the column names.</p>
+</div>
+</section>
+<section id="reading-tables-general" class="slide level2">
+<h2>Reading Tables (General)</h2>
+<p>The general function for importing tables from files is <code>read.table()</code>.</p>
+<div class="fragment">
+<pre><code>read.table(file, header = FALSE, sep = "", quote = "\"'",
+           dec = ".", numerals = c("allow.loss", "warn.loss", "no.loss"),
+           row.names, col.names, as.is = !stringsAsFactors,
+           na.strings = "NA", colClasses = NA, nrows = -1,
+           skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+           strip.white = FALSE, blank.lines.skip = TRUE,
+           comment.char = "#",
+           allowEscapes = FALSE, flush = FALSE,
+           stringsAsFactors = FALSE,
+           fileEncoding = "", encoding = "unknown", text, skipNul = FALSE)</code></pre>
+</div>
+<div class="fragment">
+<ul>
+<li><code>file</code>: The file to read from</li>
+<li><code>header</code>: Does the file have a header for the column names?</li>
+<li><code>sep</code>: What separates the data (e.g., <code>','</code> for <code>.csv</code> files)?</li>
+</ul>
+</div>
+</section>
+<section id="reading-csv-files" class="slide level2">
+<h2>Reading CSV Files</h2>
+<p>To avoid writing passing <code>read.table()</code> arguments to correctly parse <code>.csv</code> files, we have a convenience function:</p>
+<pre><code>read.csv(file, header = TRUE, sep = ",", quote = "\"",
+         dec = ".", fill = TRUE, comment.char = "", ...)</code></pre>
+<div class="fragment">
+<p>And for other common formats:</p>
+<pre><code>read.csv2(file, header = TRUE, sep = ";", quote = "\"",
+          dec = ",", fill = TRUE, comment.char = "", ...)
+
+read.delim(file, header = TRUE, sep = "\t", quote = "\"",
+           dec = ".", fill = TRUE, comment.char = "", ...)
+
+read.delim2(file, header = TRUE, sep = "\t", quote = "\"",
+            dec = ",", fill = TRUE, comment.char = "", ...)</code></pre>
+</div>
+</section>
+<section id="making-sense-of-read.table" class="slide level2">
+<h2>Making Sense of <code>read.table()</code></h2>
+<p>Suppose we have a file <code>starwars.csv</code> including the following contents.</p>
+<pre><code>"name","height","mass"
+"Luke Skywalker",172,77
+"C-3PO",167,75
+"R2-D2",96,32
+"Darth Vader",202,136
+...</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">read.table</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="co"># What arguments do we pass?</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 
 </div>
-<p>We’ve seen how to control <em>which</em> lines of code are ran with <em>conditionals</em>.</p>
-<div class="fragment">
-<p>Today, we’ll review how to control <em>repetition</em> of lines of code.</p>
-</div>
 </section>
-<section id="a-simple-problem" class="slide level2">
-<h2>A Simple Problem</h2>
-<p>Suppose you have a vector with thousands of integers.</p>
+<section id="read.table-solution" class="slide level2">
+<h2><code>read.table()</code> Solution</h2>
+<p>Suppose we have a file <code>starwars.csv</code> including the following contents.</p>
+<pre><code>"name","height","mass"
+"Luke Skywalker",172,77
+"C-3PO",167,75
+"R2-D2",96,32
+"Darth Vader",202,136
+...</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">read.table</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="at">file =</span> <span class="st">"starwars.csv"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="at">sep =</span> <span class="st">","</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="at">colClasses =</span> <span class="fu">c</span>(<span class="st">"character"</span>, <span class="st">"double"</span>, <span class="st">"double"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="fragment fade-right">
-<div style="color: blue;">
-<p>You’d like to find the <em>indices</em> of your favorite number, but you can’t use vectorization or loops.</p>
-</div>
-</div>
-<div class="fragment">
-<p>If you’re familiar with functions, you could use <em>recursion</em>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cn">NULL</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">head</span>(vec, <span class="dv">1</span>) <span class="sc">==</span> num) {</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<div style="color: red;">
+<p>What if our values were separated with <code>';'</code> instead?</p>
 </div>
 </div>
 </section>
-<section id="iterative-instead-of-recusrsive" class="slide level2">
-<h2>Iterative Instead of Recusrsive</h2>
-<p><strong>Recursive</strong> solutions are often elegant but also difficult to write.<sup>1</sup></p>
-<div class="fragment fade-right" style="color: blue;">
-<p>For this reason, we introduce an alternate approach: <strong>iterative</strong> solutions.</p>
-</div>
+<section id="writing-to-files" class="slide level2">
+<h2>Writing to Files</h2>
+<p>We have <code>write.table()</code> for writing tables to files.</p>
+<pre><code>write.table(x, file = "", append = FALSE, quote = TRUE, sep = " ",
+            eol = "\n", na = "NA", dec = ".", row.names = TRUE,
+            col.names = TRUE, qmethod = c("escape", "double"),
+            fileEncoding = "")</code></pre>
 <div class="fragment">
-<p>Iterative solutions contain a block of code that is directly repeated.</p>
-<h3 id="we-call-the-repeated-code-the-loop.">We call the repeated code the <strong>loop</strong>.</h3>
+<p>And for convenience,</p>
+<pre><code>write.csv(...)
+write.csv2(...)</code></pre>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="beyond-conditional-statements" class="slide level2">
-<h2>Beyond Conditional Statements</h2>
-<p>We’ve seen a series of statements (<code>if</code>, <code>else</code>, <code>else if</code>) for <strong><em>conditionally</em></strong> executing bodies of code.</p>
-<div class="fragment fade-right" style="color: blue;">
-<p>We’ll now introduce another series of statements for <strong><em>repeatedly</em></strong> executing bodies of code (<em>looping</em>).</p>
-</div>
-<div class="fragment">
+</section>
+<section id="readr" class="slide level2">
+<h2><code>readr</code></h2>
+<p>Alternatively, there is a package <code>readr</code> which provides similar functionality, but, among other benefits,</p>
 <ul>
-<li><p><code>while</code>: execute its body <em>while</em> a condition holds true.</p></li>
-<li><p><code>for</code>: execute its body <em>for each</em> object in a specified vector.</p></li>
-<li><p><code>repeat</code>: execute its body repeatedly and unconditionally.</p></li>
-</ul>
-</div>
-</section>
-<section id="the-while-statement" class="slide level2">
-<h2>The <code>while</code> Statement</h2>
-<p>The <code>while</code> statement is similar in form and behavior to <code>if</code>:</p>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>while(LOGICAL) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>while</strong> <code>LOGICAL</code> returns <code>TRUE</code>,</p>
-</div>
-<div class="fragment">
-<p>as if an <code>if</code> statement that repeats until <code>LOGICAL == FALSE</code>,</p>
-<div class="r-fit-text" style="color: blue;">
-<p><code>if(LOGICAL) &lt;body&gt; if(LOGICAL) &lt;body&gt; ...</code></p>
-</div>
-</div>
-</section>
-<section id="the-while-statement-example-1" class="slide level2">
-<h2>The <code>while</code> Statement: Example 1</h2>
-<p>Here we count up from <code>from</code> to <code>to</code>, printing the numbers along the way.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>count_up <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">cat</span>(<span class="st">"..."</span>, from, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  }</span>
-<span id="cb2-6"><a href="#cb2-6"></a>}</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">count_up</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>...1...2...3...4...5</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-while-statement-example-2" class="slide level2">
-<h2>The <code>while</code> Statement: Example 2</h2>
-<p>Using a similar idea, we can recreate a (simplified) version of <code>seq</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>while_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to, by) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(from))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    s <span class="ot">&lt;-</span> <span class="fu">append</span>(s, from)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> by</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  }</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  s</span>
-<span id="cb4-8"><a href="#cb4-8"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">while_seq</span>(<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  3  5  7  9 11</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment fade-right" style="color: red;">
-<p>For which input will this function not work?</p>
-</div>
-</section>
-<section id="favorite-number-with-while" class="slide level2">
-<h2>Favorite Number with <code>while</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>while</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb6-5"><a href="#cb6-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    }</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  }</span>
-<span id="cb6-9"><a href="#cb6-9"></a>  indices</span>
-<span id="cb6-10"><a href="#cb6-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-for-statement" class="slide level2">
-<h2>The <code>for</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>for (&lt;variable&gt; in &lt;vector&gt;) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed once <strong>for each</strong> object <strong>in</strong> <code>&lt;vector&gt;</code>.</p>
-</div>
-<div class="fragment">
-<p>Inside <code>&lt;body&gt;</code>, we refer to the currently used object by <code>&lt;variable&gt;</code><sup>1</sup>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>i: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="for-makes-copies" class="slide level2">
-<h2><code>for</code> Makes Copies</h2>
-<p>We <strong><em>cannot modify</em></strong> <code>&lt;vector&gt;</code> by reassigning <code>&lt;variable&gt;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This is because <code>&lt;variable&gt;</code> is a <strong><em>copy</em></strong> of the value in the vector. Refer to the original object instead:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>}</span>
-<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0 0 0 0 0 0 0</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="for-statement-variables" class="slide level2">
-<h2><code>for</code> Statement Variables</h2>
-<p>You are free to name <code>&lt;variable&gt;</code> <em>anything</em>.</p>
-<ul>
-<li>In some cases, a trivial name (e.g., <code>i</code> for index or <code>n</code> for number) may be sufficient.</li>
-<li>Other times, you you may want descriptive names for clarity.</li>
+<li>is 10x-100x faster<sup>1</sup>.</li>
+<li>has more consistent naming conventions.</li>
 </ul>
 <div class="fragment">
-<p>Some students <em>always use <code>i</code></em> - please don’t do this!</p>
-<div class="r-stack">
-<div class="fragment">
+<p>Provides <code>read_csv()</code>, <code>read_tsv()</code>, <code>read_delim()</code>, <code>read_fwf()</code>, <code>read_table()</code>, and <code>read_log()</code>.</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>This is claimed on the documentation <a href="https://www.rdocumentation.org/packages/readr/versions/2.1.3">here</a>.</p></li></ol></aside></section>
+<section id="saving-r-output" class="slide level2">
+<h2>Saving R Output</h2>
+<p>If we want to save the output of our program to a file, we use <code>sink()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sink</span>(<span class="st">"my-output.txt"</span>)  <span class="co"># We specify the file to redirect our output to</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">print</span>(<span class="st">"Hello, World!"</span>)  </span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">sink</span>() <span class="co"># After this call, our output will be printed as usual</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
+<p>The output of our program was not printed to the console, but redirected to the file <code>my-output.txt</code>, which now contains:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1"></a>[1] "Hello World!"</span>
+<span id="cb13-2"><a href="#cb13-2"></a>[1] 5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
-<section id="favorite-number-with-for" class="slide level2">
-<h2>Favorite Number with <code>for</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>for</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="global-state-is-bad-try-withr" class="slide level2">
+<h2>Global State is Bad… Try <code>withr</code></h2>
+<p>Avoid manually chaging global state with the library <code>withr</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb15-5"><a href="#cb15-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    }</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  }</span>
-<span id="cb15-8"><a href="#cb15-8"></a>  indices</span>
-<span id="cb15-9"><a href="#cb15-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(withr) <span class="co"># Make sure to install first</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># Calls sink("my-output.txt"), executes the code block, then sink()</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>withr<span class="sc">::</span><span class="fu">with_output_sink</span>(<span class="st">"my-output.txt"</span>, {</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="fu">print</span>(<span class="st">"Hello, World!"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>    <span class="fu">print</span>(<span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span>)  <span class="co"># We now need to specify print explicitly </span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</section>
-<section id="seq_along" class="slide level2">
-<h2><code>seq_along()</code></h2>
-<p>Notice that to get a vector of the indices, we wrote <code>1:length(vec)</code>.</p>
-<p>The idiomatic way of doing this is with the <code>seq_along()</code> function:</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    }</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  }</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  indices</span>
-<span id="cb16-9"><a href="#cb16-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement" class="slide level2">
-<h2>The <code>repeat</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>repeat &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>repeatedly</strong> and <strong>unconditionally</strong> until a <code>break</code> statement is encountered<sup>1</sup>.</p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
-<section id="break-statement" class="slide level2">
-<h2><code>break</code> statement?</h2>
-<p>The <code>break</code> statement can be used in <em>any loop</em> (<code>for</code>, <code>while</code>, <code>repeat</code>) to immediately stop its execution.</p>
-<div class="fragment">
-<p>The <strong><em>last iteration of the loop’s body is not completed</em></strong>. The body of the loop is <strong><em>immediately exited</em></strong> on encountering <code>break</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
-<span id="cb17-5"><a href="#cb17-5"></a>      <span class="cf">break</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>  }</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  v</span>
-<span id="cb17-10"><a href="#cb17-10"></a>}</span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 is reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2  3  4  5 50 49</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement-example" class="slide level2">
-<h2>The <code>repeat</code> Statement: Example</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>      <span class="cf">break</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  }</span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
-<span id="cb19-11"><a href="#cb19-11"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>I like y ...I like y ...I like y ...I like y ...I like y ...ou</code></pre>
-</div>
-</div>
-</section>
-<section id="favorite-number-with-repeat" class="slide level2">
-<h2>Favorite Number with <code>repeat</code></h2>
-<p>The favorite number problem. Notice the similarity to the <code>while</code> solution.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">break</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb21-8"><a href="#cb21-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    }</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a>  }</span>
-<span id="cb21-12"><a href="#cb21-12"></a>  indices</span>
-<span id="cb21-13"><a href="#cb21-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Note that it seems <code>withr</code> requires we explicitly call <code>print</code> on our desired output, unlike regular <code>sink()</code>.</p>
 
 <div class="footer footer-default">
 <p><a href="https://red-robby.github.io/">Return to Home Page</a></p>
