@@ -221,7 +221,7 @@
     "href": "stat133/lab04.html#global-state-is-bad-try-withr",
     "title": "Lab 04: Tabular Data Files",
     "section": "Global State is Bad… Try withr",
-    "text": "Global State is Bad… Try withr\nAvoid manually chaging global state with the library withr.\n\nlibrary(withr) # Make sure to install first\n\n# Calls sink(\"my-output.txt\"), executes the code block, then sink()\nwithr::with_output_sink(\"my-output.txt\", {\n    print(\"Hello, World!\")\n    print(3 + 2)  # We now need to specify print explicitly \n})\n\nNote that it seems withr requires we explicitly call print on our desired output, unlike regular sink().\n\n\nReturn to Home Page"
+    "text": "Global State is Bad… Try withr\nAvoid manually changing global state with the library withr.\n\nlibrary(withr) # Make sure to install first\n\n# Calls sink(\"my-output.txt\"), executes the code block, then sink()\nwithr::with_output_sink(\"my-output.txt\", {\n    print(\"Hello, World!\")\n    print(3 + 2)  # We now need to specify print explicitly \n})\n\nNote that it seems withr requires we explicitly call print on our desired output, unlike regular sink().\n\n\nReturn to Home Page"
   },
   {
     "objectID": "stat133/lab03.html#packages",
@@ -697,7 +697,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like  ...I like  ...I like  ...I like  ...I like  ...you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

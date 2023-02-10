@@ -227,7 +227,7 @@ The output of our program was not printed to the console, but redirected to the 
 
 ## Global State is Bad... Try ``withr``
 
-Avoid manually chaging global state with the library ``withr``.
+Avoid manually changing global state with the library ``withr``.
 
 ```{r, echo=TRUE, eval=FALSE}
 library(withr) # Make sure to install first
