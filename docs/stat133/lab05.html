@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.313">
 
-  <title>Stat Stuff - Lab 09: Loops</title>
+  <title>Stat Stuff - Lab 05: Terminal Tidbits</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,349 +390,362 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lab 09: Loops</h1>
+  <h1 class="title">Lab 05: Terminal Tidbits</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="repeating-code" class="slide level2">
-<h2>Repeating Code</h2>
-<div class="cell">
-
-</div>
-<p>We’ve seen how to control <em>which</em> lines of code are ran with <em>conditionals</em>.</p>
+<section id="the-joy-and-ease-of-gui" class="slide level2">
+<h2>The Joy and Ease of GUI</h2>
+<p>Your operating system likely provides a convenient, <em>mouse-based</em> and <em>graphical</em> means to interact with your <strong>file system.</strong></p>
 <div class="fragment">
-<p>Today, we’ll review how to control <em>repetition</em> of lines of code.</p>
+<ul>
+<li>Moving files? <em>Click and drag!</em></li>
+<li>Copying files? <em>Right-click. Copy. Paste!</em></li>
+<li>Removing files? <em>Right-click. Delete!</em></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="smaller">
+<blockquote>
+<p>I was so blinded by the first thing they showed me, which was the graphical user interface. I thought it was the best thing I’d ever seen in my life. – Steve Jobs on one of the early GUI systems</p>
+</blockquote>
+</div>
 </div>
 </section>
-<section id="a-simple-problem" class="slide level2">
-<h2>A Simple Problem</h2>
-<p>Suppose you have a vector with thousands of integers.</p>
+<section id="the-terminal" class="slide level2">
+<h2>The Terminal</h2>
+<p>Today, we’ll introduce how to do the same operations and more via <strong><em>the terminal</em></strong>.</p>
+<div class="fragment">
+<p>For now, think of the terminal simply as a text-based way for you to <strong><em>invoke programs</em></strong>. These <em>programs</em> each,</p>
+<ul>
+<li>have a name (e.g., <code>cd</code>),</li>
+<li>will receive <em>arguments</em> from you,</li>
+<li>and will take actions on your computer on your behalf. This often includes communicating directly with the <em>kernel</em>.</li>
+</ul>
+</div>
+</section>
+<section id="programs-commands" class="slide level2">
+<h2>Programs <code>==</code> Commands</h2>
+<p>One note on terminology:</p>
+<p>The programs we’ll be using are often referred to as <strong><em>commands</em></strong>.<sup>1</sup></p>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>I think first presenting them for what they really are–just programs–will aid your understanding.</p></li></ol></aside></section>
+<section id="an-introductory-example" class="slide level2">
+<h2>An Introductory Example</h2>
+<p>Here we invoke a program, <code>cp</code>, which copies <code>note.txt</code> into the directory <code>notes/</code>, but doesn’t override the file if it already exists there.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">cp</span> <span class="at">--no-clobber</span> note.txt notes/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>At a high level, we invoke a program (issue a command) with,</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&lt;</span>program<span class="op">&gt;</span> <span class="op">&lt;</span>arguments <span class="ex">...</span> <span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="what-the-program-sees" class="slide level2">
+<h2>What the Program Sees</h2>
+<p>Programs are unlike functions in R. They do not receive typed objects as arguments, but merely a list of strings. Here’s an example.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">// hello.cpp</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">auto</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">int</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Hello, "</span> <span class="op">&lt;&lt;</span> argv<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="op">}</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Compiling the program:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">g++</span> <span class="at">-std</span><span class="op">=</span>c++20 <span class="at">-o</span> hello hello.cpp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Running it with the argument, <code>Jakob</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">./hello</span> Jakob</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, Jakob</code></pre>
+</div>
+</div>
+</section>
+<section id="what-the-program-sees-1" class="slide level2">
+<h2>What the Program Sees</h2>
+<p>To better demonstrate, here’s a program that simply prints all its arguments.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">// print_all.cpp</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">auto</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">int</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> argc<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Argument #"</span> <span class="op">&lt;&lt;</span> i <span class="op">&lt;&lt;</span> <span class="st">": "</span> <span class="op">&lt;&lt;</span> argv<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>   <span class="op">}</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="r-stack">
+<div class="fragment">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">./print_all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1"></a>Argument #0 : /path/to/.../stat133/lab05/print_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">./print_all</span> a 15</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1"></a>Argument #0: /path/to/.../stat133/lab05/print_all</span>
+<span id="cb11-2"><a href="#cb11-2"></a>Argument #1: a</span>
+<span id="cb11-3"><a href="#cb11-3"></a>Argument #2: 15</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="ex">./print_all</span> a b c d e f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1"></a>Argument #0: /path/to/.../stat133/lab05/print_all</span>
+<span id="cb13-2"><a href="#cb13-2"></a>Argument #1: a</span>
+<span id="cb13-3"><a href="#cb13-3"></a>Argument #2: b</span>
+<span id="cb13-4"><a href="#cb13-4"></a>Argument #3: c</span>
+<span id="cb13-5"><a href="#cb13-5"></a>Argument #4: d</span>
+<span id="cb13-6"><a href="#cb13-6"></a>Argument #5: e</span>
+<span id="cb13-7"><a href="#cb13-7"></a>Argument #6: f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="argument-rules" class="slide level2">
+<h2>Argument Rules</h2>
+<p>As you can see, the program has free rein to do whatever it likes with the strings (arguments) you pass.</p>
+<div class="fragment">
 <div class="fragment fade-right">
-<div style="color: blue;">
-<p>You’d like to find the <em>indices</em> of your favorite number, but you can’t use vectorization or loops.</p>
-</div>
-</div>
-<div class="fragment">
-<p>If you’re familiar with functions, you could use <em>recursion</em>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cn">NULL</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">head</span>(vec, <span class="dv">1</span>) <span class="sc">==</span> num) {</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<p><strong>Thankfully there are a set of conventions.</strong></p>
 </div>
 </div>
 </section>
-<section id="iterative-instead-of-recusrsive" class="slide level2">
-<h2>Iterative Instead of Recusrsive</h2>
-<p><strong>Recursive</strong> solutions are often elegant but also difficult to write.<sup>1</sup></p>
-<div class="fragment fade-right" style="color: blue;">
-<p>For this reason, we introduce an alternate approach: <strong>iterative</strong> solutions.</p>
+<section id="arguments-key-value-options" class="slide level2">
+<h2>Arguments: Key-Value Options</h2>
+<p>Program options are often akin to <em>named arguments</em> in R. That is, they are <strong><em>key-value</em></strong> pairs.</p>
+<div class="fragment">
+<p>Suppose we have a function <code>sum(first, second)</code> in R. We may call it as,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">sum</span>(<span class="at">first =</span> <span class="dv">10</span>, <span class="at">second =</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="fragment">
-<p>Iterative solutions contain a block of code that is directly repeated.</p>
-<h3 id="we-call-the-repeated-code-the-loop.">We call the repeated code the <strong>loop</strong>.</h3>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="beyond-conditional-statements" class="slide level2">
-<h2>Beyond Conditional Statements</h2>
-<p>We’ve seen a series of statements (<code>if</code>, <code>else</code>, <code>else if</code>) for <strong><em>conditionally</em></strong> executing bodies of code.</p>
-<div class="fragment fade-right" style="color: blue;">
-<p>We’ll now introduce another series of statements for <strong><em>repeatedly</em></strong> executing bodies of code (<em>looping</em>).</p>
-</div>
-<div class="fragment">
+<p>Programs typically have the <strong>key</strong> set with</p>
 <ul>
-<li><p><code>while</code>: execute its body <em>while</em> a condition holds true.</p></li>
-<li><p><code>for</code>: execute its body <em>for each</em> object in a specified vector.</p></li>
-<li><p><code>repeat</code>: execute its body repeatedly and unconditionally.</p></li>
+<li><code>--&lt;key name&gt;</code> or,</li>
+<li><code>-&lt;key shorthand&gt;</code>.</li>
+</ul>
+<p>The <strong>value</strong> follows immediately after the <strong>key</strong> name, e.g.,</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">sum</span> <span class="at">--first</span> 10 <span class="at">--second</span> 30</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">sum</span> <span class="at">-f</span> 10 <span class="at">-s</span> 30  <span class="co"># shorthand -- note that it uses 1 dash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="arguments-key-value-options-1" class="slide level2">
+<h2>Arguments: Key-Value Options</h2>
+<p>Or sometimes you will need to set it with an <code>=</code> right after the key name, i.e.,</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">sum</span> <span class="at">--first</span><span class="op">=</span>10 <span class="at">--second</span><span class="op">=</span>30 <span class="co"># note the lack of spaces</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arguments-flag-options" class="slide level2">
+<h2>Arguments: Flag Options</h2>
+<p>Some options are <em>not</em> key-value pairs. Instead, their presence alone informs the program to do something. These are called <strong><em>flags</em></strong>.</p>
+<div class="fragment">
+<p>You can think of it like setting an argument typically defaulted to <code>FALSE</code> to <code>TRUE</code> in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">read.table</span>(<span class="st">"some-file"</span>, <span class="at">flush=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or for an equivalent program,</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="ex">readtable</span> some-file <span class="at">--flush</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="ex">readtable</span> some-file <span class="at">-f</span> <span class="co"># potential shorthand</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="arguments-those-not-optional" class="slide level2">
+<h2>Arguments: Those Not Optional</h2>
+<p>Notice that we called the previous arguments <strong><em>options</em></strong>. They are called as such as they are <strong><em>optional</em></strong>.</p>
+<div class="fragment">
+<p>Some arguments are <strong><em>required</em></strong>. These are typically provided based on <strong><em>position</em></strong>.</p>
+</div>
+<div class="fragment">
+<p>A more accurate summary:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="op">&lt;</span>program<span class="op">&gt;</span> <span class="op">&lt;</span>options...<span class="op">&gt;</span> <span class="op">&lt;</span>required <span class="ex">arguments...</span><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Now reconsider our first example:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">cp</span> <span class="at">--no-clobber</span> note.txt notes/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here, <code>--no-clobber</code> is the <em>option</em> and the next two are the <strong><em>required arguments</em></strong>. They represent the <em>source</em> and <em>destination</em>, respectively.</p>
+</div>
+</section>
+<section id="program-arguments-getting-help" class="slide level2">
+<h2>Program Arguments: Getting Help</h2>
+<p>Enter <code>man &lt;program&gt;</code> to pull up the <code>man</code>ual for a particular command.</p>
+<p>Here’s an example from the command <code>ls</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1"></a>-a, --all</span>
+<span id="cb21-2"><a href="#cb21-2"></a>     do not ignore entries starting with .</span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a>-A, --almost-all</span>
+<span id="cb21-5"><a href="#cb21-5"></a>    do not list implied . and ..</span>
+<span id="cb21-6"><a href="#cb21-6"></a></span>
+<span id="cb21-7"><a href="#cb21-7"></a>--author</span>
+<span id="cb21-8"><a href="#cb21-8"></a>    with -l, print the author of each file</span>
+<span id="cb21-9"><a href="#cb21-9"></a></span>
+<span id="cb21-10"><a href="#cb21-10"></a>-b, --escape</span>
+<span id="cb21-11"><a href="#cb21-11"></a>    print C-style escapes for nongraphic characters</span>
+<span id="cb21-12"><a href="#cb21-12"></a></span>
+<span id="cb21-13"><a href="#cb21-13"></a>--block-size=SIZE</span>
+<span id="cb21-14"><a href="#cb21-14"></a>    with  -l,  scale  sizes  by  SIZE  when  printing  them;   e.g.,</span>
+<span id="cb21-15"><a href="#cb21-15"></a>    '--block-size=M'; see SIZE format below</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Notice that many arguments have both verbose and shorthand versions (e.g., <code>-A</code> vs.&nbsp;<code>--almost-all</code>).</p>
+</section>
+<section id="program-arguments-getting-help-1" class="slide level2">
+<h2>Program Arguments: Getting Help</h2>
+<p>Many programs also have a <code>--help</code> option to output a usage guide instead of running the program as usual.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ls</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>If needed, most programs also allow you to check the version with <code>--version</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ls</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conventions-and-conventions-only" class="slide level2">
+<h2>Conventions and Conventions Only!</h2>
+<p>Remember, these are just <em>conventions</em>, <strong>not rules.</strong></p>
+<div class="r-fit-text">
+<p>Always check the documentation.</p>
+</div>
+</section>
+<section id="where-am-i-anyway" class="slide level2">
+<h2>Where am I, anyway?</h2>
+<p>Think of your terminal as existing inside a <em>directory</em> (folder). All commands issued will be relative to this position.</p>
+<p>We call this the,</p>
+<div class="r-fit-text">
+<p><em>current working directory.</em></p>
+</div>
+<p>Use the command <code>pwd</code> to <code>p</code>rint the current <code>w</code>orking <code>d</code>irectory.</p>
+<div class="fragment">
+<p>Importantly, we use,</p>
+<ul>
+<li><code>.</code> (one period) to refer to the current working directory (often implicit).</li>
+<li><code>..</code> (two periods) to refer to the parent directory.</li>
 </ul>
 </div>
 </section>
-<section id="the-while-statement" class="slide level2">
-<h2>The <code>while</code> Statement</h2>
-<p>The <code>while</code> statement is similar in form and behavior to <code>if</code>:</p>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>while(LOGICAL) &lt;body&gt;</code></p>
-</div>
+<section id="really-where-am-i" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Really, where am I?</h2>
+<p>Consider the following directory structure:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource txt number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode default hljs"><span id="cb24-1" class="hljs-ln-code"><a href="#cb24-1"></a>- stuff</span>
+<span id="cb24-2" class="hljs-ln-code"><a href="#cb24-2"></a>  todo.txt</span>
+<span id="cb24-3" class="hljs-ln-code"><a href="#cb24-3"></a>  - books</span>
+<span id="cb24-4" class="hljs-ln-code"><a href="#cb24-4"></a>    - moby_dick.pdf</span>
+<span id="cb24-5" class="hljs-ln-code"><a href="#cb24-5"></a>    - obedience_to_authority.pdf</span>
+<span id="cb24-6" class="hljs-ln-code"><a href="#cb24-6"></a>    - little_women.pdf</span>
+<span id="cb24-7" class="hljs-ln-code"><a href="#cb24-7"></a>    - school</span>
+<span id="cb24-8" class="hljs-ln-code"><a href="#cb24-8"></a>      - stat133.pdf</span>
+<span id="cb24-9" class="hljs-ln-code"><a href="#cb24-9"></a>  - code</span>
+<span id="cb24-10" class="hljs-ln-code"><a href="#cb24-10"></a>    - hack_nsa.cpp</span>
+<span id="cb24-11" class="hljs-ln-code"><a href="#cb24-11"></a>    - ai_friend.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="really-where-am-i-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Really, where am I?</h2>
+<p>Consider the following directory structure:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource txt number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode default hljs"><span id="cb25-1" class="hljs-ln-code"><a href="#cb25-1"></a>- stuff</span>
+<span id="cb25-2" class="hljs-ln-code"><a href="#cb25-2"></a>  todo.txt</span>
+<span id="cb25-3" class="hljs-ln-code"><a href="#cb25-3"></a>  - books &lt;- suppose this is the current working directory</span>
+<span id="cb25-4" class="hljs-ln-code"><a href="#cb25-4"></a>    - moby_dick.pdf</span>
+<span id="cb25-5" class="hljs-ln-code"><a href="#cb25-5"></a>    - obedience_to_authority.pdf</span>
+<span id="cb25-6" class="hljs-ln-code"><a href="#cb25-6"></a>    - little_women.pdf</span>
+<span id="cb25-7" class="hljs-ln-code"><a href="#cb25-7"></a>    - school</span>
+<span id="cb25-8" class="hljs-ln-code"><a href="#cb25-8"></a>      - stat133.pdf</span>
+<span id="cb25-9" class="hljs-ln-code"><a href="#cb25-9"></a>  - code</span>
+<span id="cb25-10" class="hljs-ln-code"><a href="#cb25-10"></a>    - hack_nsa.cpp</span>
+<span id="cb25-11" class="hljs-ln-code"><a href="#cb25-11"></a>    - ai_friend.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which <em>path</em> should I provide to refer to <code>hask_nsa.cpp</code>?</p>
 <div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>while</strong> <code>LOGICAL</code> returns <code>TRUE</code>,</p>
-</div>
-<div class="fragment">
-<p>as if an <code>if</code> statement that repeats until <code>LOGICAL == FALSE</code>,</p>
-<div class="r-fit-text" style="color: blue;">
-<p><code>if(LOGICAL) &lt;body&gt; if(LOGICAL) &lt;body&gt; ...</code></p>
-</div>
+<p><code>../code/hash_nsa.cpp</code></p>
 </div>
 </section>
-<section id="the-while-statement-example-1" class="slide level2">
-<h2>The <code>while</code> Statement: Example 1</h2>
-<p>Here we count up from <code>from</code> to <code>to</code>, printing the numbers along the way.</p>
-<div class="r-stack">
+<section id="really-where-am-i-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Really, where am I?</h2>
+<p>Consider the following directory structure:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource txt number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode default hljs"><span id="cb26-1" class="hljs-ln-code"><a href="#cb26-1"></a>- stuff</span>
+<span id="cb26-2" class="hljs-ln-code"><a href="#cb26-2"></a>  todo.txt</span>
+<span id="cb26-3" class="hljs-ln-code"><a href="#cb26-3"></a>  - books </span>
+<span id="cb26-4" class="hljs-ln-code"><a href="#cb26-4"></a>    - moby_dick.pdf</span>
+<span id="cb26-5" class="hljs-ln-code"><a href="#cb26-5"></a>    - obedience_to_authority.pdf</span>
+<span id="cb26-6" class="hljs-ln-code"><a href="#cb26-6"></a>    - little_women.pdf</span>
+<span id="cb26-7" class="hljs-ln-code"><a href="#cb26-7"></a>    - school &lt;- suppose this is the current working directory</span>
+<span id="cb26-8" class="hljs-ln-code"><a href="#cb26-8"></a>      - stat133.pdf</span>
+<span id="cb26-9" class="hljs-ln-code"><a href="#cb26-9"></a>  - code</span>
+<span id="cb26-10" class="hljs-ln-code"><a href="#cb26-10"></a>    - hack_nsa.cpp</span>
+<span id="cb26-11" class="hljs-ln-code"><a href="#cb26-11"></a>    - ai_friend.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which <em>path</em> should I provide to refer to <code>todo.txt</code>?</p>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>count_up <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">cat</span>(<span class="st">"..."</span>, from, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  }</span>
-<span id="cb2-6"><a href="#cb2-6"></a>}</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">count_up</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>...1...2...3...4...5</code></pre>
+<p><code>../../todo.txt</code></p>
 </div>
-</div>
-</div>
+<div class="fragment">
+<p>Is <code>../../../stuff/code/../todo.txt</code> equivalent?</p>
 </div>
 </section>
-<section id="the-while-statement-example-2" class="slide level2">
-<h2>The <code>while</code> Statement: Example 2</h2>
-<p>Using a similar idea, we can recreate a (simplified) version of <code>seq</code>.</p>
-<div class="r-stack">
+<section id="really-where-am-i-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Really, where am I?</h2>
+<p>Consider the following directory structure:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource txt number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode default hljs"><span id="cb27-1" class="hljs-ln-code"><a href="#cb27-1"></a>- stuff &lt;- suppose this is the current working directory</span>
+<span id="cb27-2" class="hljs-ln-code"><a href="#cb27-2"></a>  todo.txt</span>
+<span id="cb27-3" class="hljs-ln-code"><a href="#cb27-3"></a>  - books </span>
+<span id="cb27-4" class="hljs-ln-code"><a href="#cb27-4"></a>    - moby_dick.pdf</span>
+<span id="cb27-5" class="hljs-ln-code"><a href="#cb27-5"></a>    - obedience_to_authority.pdf</span>
+<span id="cb27-6" class="hljs-ln-code"><a href="#cb27-6"></a>    - little_women.pdf</span>
+<span id="cb27-7" class="hljs-ln-code"><a href="#cb27-7"></a>    - school </span>
+<span id="cb27-8" class="hljs-ln-code"><a href="#cb27-8"></a>      - stat133.pdf</span>
+<span id="cb27-9" class="hljs-ln-code"><a href="#cb27-9"></a>  - code</span>
+<span id="cb27-10" class="hljs-ln-code"><a href="#cb27-10"></a>    - hack_nsa.cpp</span>
+<span id="cb27-11" class="hljs-ln-code"><a href="#cb27-11"></a>    - ai_friend.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which <em>path</em> should I provide to refer to <code>stat133.pdf</code>?</p>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>while_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to, by) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(from))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    s <span class="ot">&lt;-</span> <span class="fu">append</span>(s, from)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> by</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  }</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  s</span>
-<span id="cb4-8"><a href="#cb4-8"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">while_seq</span>(<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  3  5  7  9 11</code></pre>
+<p><code>./books/school/stat133.pdf</code></p>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment fade-right" style="color: red;">
-<p>For which input will this function not work?</p>
+<div class="fragment">
+<p>Is <code>books/school/stat133.pdf</code> equivalent?</p>
 </div>
 </section>
-<section id="favorite-number-with-while" class="slide level2">
-<h2>Favorite Number with <code>while</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>while</code> loop.</p>
-<div class="r-stack">
+<section id="changing-directories" class="slide level2">
+<h2>Changing Directories</h2>
+<p>It would be inconvenient if we were stuck in one directory. We can <code>c</code>hange our current working <code>d</code>irectory with the commmand <code>cd</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb28-1"><a href="#cb28-1"></a>- stuff &lt;- suppose this is the current working directory</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  todo.txt</span>
+<span id="cb28-3"><a href="#cb28-3"></a>  - books </span>
+<span id="cb28-4"><a href="#cb28-4"></a>    - moby_dick.pdf</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    - obedience_to_authority.pdf</span>
+<span id="cb28-6"><a href="#cb28-6"></a>    - little_women.pdf</span>
+<span id="cb28-7"><a href="#cb28-7"></a>    - school </span>
+<span id="cb28-8"><a href="#cb28-8"></a>      - stat133.pdf</span>
+<span id="cb28-9"><a href="#cb28-9"></a>  - code</span>
+<span id="cb28-10"><a href="#cb28-10"></a>    - hack_nsa.cpp</span>
+<span id="cb28-11"><a href="#cb28-11"></a>    - ai_friend.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>What’s our working directory after running the following line?</p>
+<p><code>cd ../stuff/./code/../books/school/../../.</code>,</p>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb6-5"><a href="#cb6-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    }</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  }</span>
-<span id="cb6-9"><a href="#cb6-9"></a>  indices</span>
-<span id="cb6-10"><a href="#cb6-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<p><code>stuff</code></p>
 </div>
 </section>
-<section id="the-for-statement" class="slide level2">
-<h2>The <code>for</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>for (&lt;variable&gt; in &lt;vector&gt;) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed once <strong>for each</strong> object <strong>in</strong> <code>&lt;vector&gt;</code>.</p>
-</div>
-<div class="fragment">
-<p>Inside <code>&lt;body&gt;</code>, we refer to the currently used object by <code>&lt;variable&gt;</code><sup>1</sup>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>i: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="for-makes-copies" class="slide level2">
-<h2><code>for</code> Makes Copies</h2>
-<p>We <strong><em>cannot modify</em></strong> <code>&lt;vector&gt;</code> by reassigning <code>&lt;variable&gt;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This is because <code>&lt;variable&gt;</code> is a <strong><em>copy</em></strong> of the value in the vector. Refer to the original object instead:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>}</span>
-<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0 0 0 0 0 0 0</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="for-statement-variables" class="slide level2">
-<h2><code>for</code> Statement Variables</h2>
-<p>You are free to name <code>&lt;variable&gt;</code> <em>anything</em>.</p>
+<section id="synopsis-of-helpful-commands" class="slide level2 scrollable">
+<h2>Synopsis of Helpful Commands</h2>
+<p>Below you’ll find a list of helpful commands you should be aware of (<em>you can scroll</em>).</p>
+<div class="smaller">
+<div>
 <ul>
-<li>In some cases, a trivial name (e.g., <code>i</code> for index or <code>n</code> for number) may be sufficient.</li>
-<li>Other times, you you may want descriptive names for clarity.</li>
+<li class="fragment"><code>mkdir &lt;options&gt; &lt;directory&gt;</code>: Make a directory <code>&lt;directory&gt;</code>.</li>
+<li class="fragment"><code>rm &lt;options&gt; &lt;file or directory&gt;</code>: Remove files or directories. Use the flag <code>-r</code> (recursive) to remove directories – be careful!</li>
+<li class="fragment"><code>ls &lt;options&gt; &lt;file or directory&gt;</code>: List information about files or directories. If not specified, the current directory is used.</li>
+<li class="fragment"><code>cp &lt;options&gt; &lt;source&gt; &lt;destination&gt;</code>: Copy file(s) <code>&lt;source&gt;</code> to <code>&lt;destination&gt;</code>. Destination can be a file name or directory.</li>
+<li class="fragment"><code>mv &lt;options&gt; &lt;source&gt; &lt;destination&gt;</code>: Move file(s) <code>&lt;source&gt;</code> to <code>&lt;destination&gt;</code> (or equivalently, rename the file from <code>&lt;source&gt;</code></li>
+<li class="fragment"><code>touch &lt;file&gt;</code>: Create an empty file named <code>&lt;file&gt;</code>.</li>
+<li class="fragment"><code>cat &lt;file&gt;</code>: Print the contents of <code>&lt;file&gt;</code> to the terminal.</li>
+<li class="fragment"><code>head &lt;file&gt;</code>: Print the first part of <code>&lt;file&gt;</code> to the terminal.</li>
+<li class="fragment"><code>tail &lt;file&gt;</code>: Print the last part of <code>&lt;file&gt;</code> to the terminal.</li>
+<li class="fragment"><code>cd &lt;directory&gt;</code>: Change the current working directory to <code>&lt;directory&gt;</code>.</li>
+<li class="fragment"><code>pwd</code>: Print the current working directory to the terminal. to <code>&lt;destination&gt;</code>.</li>
 </ul>
-<div class="fragment">
-<p>Some students <em>always use <code>i</code></em> - please don’t do this!</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
 </div>
 </div>
 </section>
-<section id="favorite-number-with-for" class="slide level2">
-<h2>Favorite Number with <code>for</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>for</code> loop.</p>
-<div class="r-stack">
+<section id="some-tips" class="slide level2">
+<h2>Some Tips</h2>
+<p>My primary tip is this: <strong><em>don’t add spaces to file or directory names!</em></strong></p>
+<p>If you do this, you will be required to add quotes to refer to the name. Compare:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">cat</span> <span class="st">'Stat 133'</span>/<span class="st">'Lab 3'</span>/<span class="st">'My Awesome.Rmd'</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">cat</span> stat133/lab3/my-awesome.Rmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb15-5"><a href="#cb15-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    }</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  }</span>
-<span id="cb15-8"><a href="#cb15-8"></a>  indices</span>
-<span id="cb15-9"><a href="#cb15-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="seq_along" class="slide level2">
-<h2><code>seq_along()</code></h2>
-<p>Notice that to get a vector of the indices, we wrote <code>1:length(vec)</code>.</p>
-<p>The idiomatic way of doing this is with the <code>seq_along()</code> function:</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    }</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  }</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  indices</span>
-<span id="cb16-9"><a href="#cb16-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement" class="slide level2">
-<h2>The <code>repeat</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>repeat &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>repeatedly</strong> and <strong>unconditionally</strong> until a <code>break</code> statement is encountered<sup>1</sup>.</p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
-<section id="break-statement" class="slide level2">
-<h2><code>break</code> statement?</h2>
-<p>The <code>break</code> statement can be used in <em>any loop</em> (<code>for</code>, <code>while</code>, <code>repeat</code>) to immediately stop its execution.</p>
-<div class="fragment">
-<p>The <strong><em>last iteration of the loop’s body is not completed</em></strong>. The body of the loop is <strong><em>immediately exited</em></strong> on encountering <code>break</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
-<span id="cb17-5"><a href="#cb17-5"></a>      <span class="cf">break</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>  }</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  v</span>
-<span id="cb17-10"><a href="#cb17-10"></a>}</span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 is reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2  3  4  5 50 49</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement-example" class="slide level2">
-<h2>The <code>repeat</code> Statement: Example</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>      <span class="cf">break</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  }</span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
-<span id="cb19-11"><a href="#cb19-11"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>I li ...I li ...I li ...I li ...I li ...ke you</code></pre>
-</div>
-</div>
-</section>
-<section id="favorite-number-with-repeat" class="slide level2">
-<h2>Favorite Number with <code>repeat</code></h2>
-<p>The favorite number problem. Notice the similarity to the <code>while</code> solution.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">break</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb21-8"><a href="#cb21-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    }</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a>  }</span>
-<span id="cb21-12"><a href="#cb21-12"></a>  indices</span>
-<span id="cb21-13"><a href="#cb21-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>I also prefer prepending <code>0</code>s to ordered names to ensure they are ordered when listed.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb30-1"><a href="#cb30-1"></a>lab01.Rmd</span>
+<span id="cb30-2"><a href="#cb30-2"></a>lab02.Rmd</span>
+<span id="cb30-3"><a href="#cb30-3"></a>...</span>
+<span id="cb30-4"><a href="#cb30-4"></a>lab10.Rmd</span>
+<span id="cb30-5"><a href="#cb30-5"></a>lab11.Rmd</span>
+<span id="cb30-6"><a href="#cb30-6"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <div class="footer footer-default">
 <p><a href="https://red-robby.github.io/">Return to Home Page</a></p>
+</div>
 </div>
 </section>
 

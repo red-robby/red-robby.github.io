@@ -14,6 +14,160 @@
     "text": "This website is a collection of my (Jakob’s) notes and presentation materials for STAT 33B and STAT 133. It will be updated as the semester progresses.\n\nWell that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   },
   {
+    "objectID": "stat133/lab05.html#the-joy-and-ease-of-gui",
+    "href": "stat133/lab05.html#the-joy-and-ease-of-gui",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "The Joy and Ease of GUI",
+    "text": "The Joy and Ease of GUI\nYour operating system likely provides a convenient, mouse-based and graphical means to interact with your file system.\n\n\nMoving files? Click and drag!\nCopying files? Right-click. Copy. Paste!\nRemoving files? Right-click. Delete!\n\n\n\n\n\nI was so blinded by the first thing they showed me, which was the graphical user interface. I thought it was the best thing I’d ever seen in my life. – Steve Jobs on one of the early GUI systems"
+  },
+  {
+    "objectID": "stat133/lab05.html#the-terminal",
+    "href": "stat133/lab05.html#the-terminal",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "The Terminal",
+    "text": "The Terminal\nToday, we’ll introduce how to do the same operations and more via the terminal.\n\nFor now, think of the terminal simply as a text-based way for you to invoke programs. These programs each,\n\nhave a name (e.g., cd),\nwill receive arguments from you,\nand will take actions on your computer on your behalf. This often includes communicating directly with the kernel."
+  },
+  {
+    "objectID": "stat133/lab05.html#programs-commands",
+    "href": "stat133/lab05.html#programs-commands",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Programs == Commands",
+    "text": "Programs == Commands\nOne note on terminology:\nThe programs we’ll be using are often referred to as commands.1\nI think first presenting them for what they really are–just programs–will aid your understanding."
+  },
+  {
+    "objectID": "stat133/lab05.html#an-introductory-example",
+    "href": "stat133/lab05.html#an-introductory-example",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "An Introductory Example",
+    "text": "An Introductory Example\nHere we invoke a program, cp, which copies note.txt into the directory notes/, but doesn’t override the file if it already exists there.\ncp --no-clobber note.txt notes/\nAt a high level, we invoke a program (issue a command) with,\n<program> <arguments ... >"
+  },
+  {
+    "objectID": "stat133/lab05.html#what-the-program-sees",
+    "href": "stat133/lab05.html#what-the-program-sees",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "What the Program Sees",
+    "text": "What the Program Sees\nPrograms are unlike functions in R. They do not receive typed objects as arguments, but merely a list of strings. Here’s an example.\n// hello.cpp\n#include <iostream>\n\nauto main(int argc, char** argv) -> int {\n  if (argc == 2) {\n    std::cout << \"Hello, \" << argv[1] << '\\n';\n  }\n}\nCompiling the program:\ng++ -std=c++20 -o hello hello.cpp\nRunning it with the argument, Jakob.\n./hello Jakob\n\n\nHello, Jakob"
+  },
+  {
+    "objectID": "stat133/lab05.html#what-the-program-sees-1",
+    "href": "stat133/lab05.html#what-the-program-sees-1",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "What the Program Sees",
+    "text": "What the Program Sees\nTo better demonstrate, here’s a program that simply prints all its arguments.\n// print_all.cpp\n#include <iostream>\n\nauto main(int argc, char** argv) -> int {\n  for (int i = 0; i < argc; ++i) {\n    std::cout << \"Argument #\" << i << \": \" << argv[i] << '\\n';\n   }\n}\n\n\n./print_all\nArgument #0 : /path/to/.../stat133/lab05/print_all\n\n\n./print_all a 15\nArgument #0: /path/to/.../stat133/lab05/print_all\nArgument #1: a\nArgument #2: 15\n\n\n./print_all a b c d e f\nArgument #0: /path/to/.../stat133/lab05/print_all\nArgument #1: a\nArgument #2: b\nArgument #3: c\nArgument #4: d\nArgument #5: e\nArgument #6: f"
+  },
+  {
+    "objectID": "stat133/lab05.html#argument-rules",
+    "href": "stat133/lab05.html#argument-rules",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Argument Rules",
+    "text": "Argument Rules\nAs you can see, the program has free rein to do whatever it likes with the strings (arguments) you pass.\n\n\nThankfully there are a set of conventions."
+  },
+  {
+    "objectID": "stat133/lab05.html#arguments-key-value-options",
+    "href": "stat133/lab05.html#arguments-key-value-options",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Arguments: Key-Value Options",
+    "text": "Arguments: Key-Value Options\nProgram options are often akin to named arguments in R. That is, they are key-value pairs.\n\nSuppose we have a function sum(first, second) in R. We may call it as,\n\nsum(first = 10, second = 30)\n\n\n\nPrograms typically have the key set with\n\n--<key name> or,\n-<key shorthand>.\n\nThe value follows immediately after the key name, e.g.,\nsum --first 10 --second 30\nsum -f 10 -s 30  # shorthand -- note that it uses 1 dash"
+  },
+  {
+    "objectID": "stat133/lab05.html#arguments-key-value-options-1",
+    "href": "stat133/lab05.html#arguments-key-value-options-1",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Arguments: Key-Value Options",
+    "text": "Arguments: Key-Value Options\nOr sometimes you will need to set it with an = right after the key name, i.e.,\nsum --first=10 --second=30 # note the lack of spaces"
+  },
+  {
+    "objectID": "stat133/lab05.html#arguments-flag-options",
+    "href": "stat133/lab05.html#arguments-flag-options",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Arguments: Flag Options",
+    "text": "Arguments: Flag Options\nSome options are not key-value pairs. Instead, their presence alone informs the program to do something. These are called flags.\n\nYou can think of it like setting an argument typically defaulted to FALSE to TRUE in R.\n\nread.table(\"some-file\", flush=TRUE)\n\nOr for an equivalent program,\nreadtable some-file --flush\nreadtable some-file -f # potential shorthand"
+  },
+  {
+    "objectID": "stat133/lab05.html#arguments-those-not-optional",
+    "href": "stat133/lab05.html#arguments-those-not-optional",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Arguments: Those Not Optional",
+    "text": "Arguments: Those Not Optional\nNotice that we called the previous arguments options. They are called as such as they are optional.\n\nSome arguments are required. These are typically provided based on position.\n\n\nA more accurate summary:\n<program> <options...> <required arguments...>\n\n\nNow reconsider our first example:\ncp --no-clobber note.txt notes/\nHere, --no-clobber is the option and the next two are the required arguments. They represent the source and destination, respectively."
+  },
+  {
+    "objectID": "stat133/lab05.html#program-arguments-getting-help",
+    "href": "stat133/lab05.html#program-arguments-getting-help",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Program Arguments: Getting Help",
+    "text": "Program Arguments: Getting Help\nEnter man <program> to pull up the manual for a particular command.\nHere’s an example from the command ls:\n-a, --all\n     do not ignore entries starting with .\n\n-A, --almost-all\n    do not list implied . and ..\n\n--author\n    with -l, print the author of each file\n\n-b, --escape\n    print C-style escapes for nongraphic characters\n\n--block-size=SIZE\n    with  -l,  scale  sizes  by  SIZE  when  printing  them;   e.g.,\n    '--block-size=M'; see SIZE format below\nNotice that many arguments have both verbose and shorthand versions (e.g., -A vs. --almost-all)."
+  },
+  {
+    "objectID": "stat133/lab05.html#program-arguments-getting-help-1",
+    "href": "stat133/lab05.html#program-arguments-getting-help-1",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Program Arguments: Getting Help",
+    "text": "Program Arguments: Getting Help\nMany programs also have a --help option to output a usage guide instead of running the program as usual.\nls --help\n\nIf needed, most programs also allow you to check the version with --version.\nls --version"
+  },
+  {
+    "objectID": "stat133/lab05.html#conventions-and-conventions-only",
+    "href": "stat133/lab05.html#conventions-and-conventions-only",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Conventions and Conventions Only!",
+    "text": "Conventions and Conventions Only!\nRemember, these are just conventions, not rules.\n\nAlways check the documentation."
+  },
+  {
+    "objectID": "stat133/lab05.html#where-am-i-anyway",
+    "href": "stat133/lab05.html#where-am-i-anyway",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Where am I, anyway?",
+    "text": "Where am I, anyway?\nThink of your terminal as existing inside a directory (folder). All commands issued will be relative to this position.\nWe call this the,\n\ncurrent working directory.\n\nUse the command pwd to print the current working directory.\n\nImportantly, we use,\n\n. (one period) to refer to the current working directory (often implicit).\n.. (two periods) to refer to the parent directory."
+  },
+  {
+    "objectID": "stat133/lab05.html#really-where-am-i",
+    "href": "stat133/lab05.html#really-where-am-i",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Really, where am I?",
+    "text": "Really, where am I?\nConsider the following directory structure:\n- stuff\n  todo.txt\n  - books\n    - moby_dick.pdf\n    - obedience_to_authority.pdf\n    - little_women.pdf\n    - school\n      - stat133.pdf\n  - code\n    - hack_nsa.cpp\n    - ai_friend.py"
+  },
+  {
+    "objectID": "stat133/lab05.html#really-where-am-i-1",
+    "href": "stat133/lab05.html#really-where-am-i-1",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Really, where am I?",
+    "text": "Really, where am I?\nConsider the following directory structure:\n- stuff\n  todo.txt\n  - books <- suppose this is the current working directory\n    - moby_dick.pdf\n    - obedience_to_authority.pdf\n    - little_women.pdf\n    - school\n      - stat133.pdf\n  - code\n    - hack_nsa.cpp\n    - ai_friend.py\nWhich path should I provide to refer to hask_nsa.cpp?\n\n../code/hash_nsa.cpp"
+  },
+  {
+    "objectID": "stat133/lab05.html#really-where-am-i-2",
+    "href": "stat133/lab05.html#really-where-am-i-2",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Really, where am I?",
+    "text": "Really, where am I?\nConsider the following directory structure:\n- stuff\n  todo.txt\n  - books \n    - moby_dick.pdf\n    - obedience_to_authority.pdf\n    - little_women.pdf\n    - school <- suppose this is the current working directory\n      - stat133.pdf\n  - code\n    - hack_nsa.cpp\n    - ai_friend.py\nWhich path should I provide to refer to todo.txt?\n\n../../todo.txt\n\n\nIs ../../../stuff/code/../todo.txt equivalent?"
+  },
+  {
+    "objectID": "stat133/lab05.html#really-where-am-i-3",
+    "href": "stat133/lab05.html#really-where-am-i-3",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Really, where am I?",
+    "text": "Really, where am I?\nConsider the following directory structure:\n- stuff <- suppose this is the current working directory\n  todo.txt\n  - books \n    - moby_dick.pdf\n    - obedience_to_authority.pdf\n    - little_women.pdf\n    - school \n      - stat133.pdf\n  - code\n    - hack_nsa.cpp\n    - ai_friend.py\nWhich path should I provide to refer to stat133.pdf?\n\n./books/school/stat133.pdf\n\n\nIs books/school/stat133.pdf equivalent?"
+  },
+  {
+    "objectID": "stat133/lab05.html#changing-directories",
+    "href": "stat133/lab05.html#changing-directories",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Changing Directories",
+    "text": "Changing Directories\nIt would be inconvenient if we were stuck in one directory. We can change our current working directory with the commmand cd.\n- stuff <- suppose this is the current working directory\n  todo.txt\n  - books \n    - moby_dick.pdf\n    - obedience_to_authority.pdf\n    - little_women.pdf\n    - school \n      - stat133.pdf\n  - code\n    - hack_nsa.cpp\n    - ai_friend.py\nWhat’s our working directory after running the following line?\ncd ../stuff/./code/../books/school/../../.,\n\nstuff"
+  },
+  {
+    "objectID": "stat133/lab05.html#synopsis-of-helpful-commands",
+    "href": "stat133/lab05.html#synopsis-of-helpful-commands",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Synopsis of Helpful Commands",
+    "text": "Synopsis of Helpful Commands\nBelow you’ll find a list of helpful commands you should be aware of (you can scroll).\n\n\n\nmkdir <options> <directory>: Make a directory <directory>.\nrm <options> <file or directory>: Remove files or directories. Use the flag -r (recursive) to remove directories – be careful!\nls <options> <file or directory>: List information about files or directories. If not specified, the current directory is used.\ncp <options> <source> <destination>: Copy file(s) <source> to <destination>. Destination can be a file name or directory.\nmv <options> <source> <destination>: Move file(s) <source> to <destination> (or equivalently, rename the file from <source>\ntouch <file>: Create an empty file named <file>.\ncat <file>: Print the contents of <file> to the terminal.\nhead <file>: Print the first part of <file> to the terminal.\ntail <file>: Print the last part of <file> to the terminal.\ncd <directory>: Change the current working directory to <directory>.\npwd: Print the current working directory to the terminal. to <destination>."
+  },
+  {
+    "objectID": "stat133/lab05.html#some-tips",
+    "href": "stat133/lab05.html#some-tips",
+    "title": "Lab 05: Terminal Tidbits",
+    "section": "Some Tips",
+    "text": "Some Tips\nMy primary tip is this: don’t add spaces to file or directory names!\nIf you do this, you will be required to add quotes to refer to the name. Compare:\ncat 'Stat 133'/'Lab 3'/'My Awesome.Rmd'\ncat stat133/lab3/my-awesome.Rmd\n\nI also prefer prepending 0s to ordered names to ensure they are ordered when listed.\nlab01.Rmd\nlab02.Rmd\n...\nlab10.Rmd\nlab11.Rmd\n...\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "stat133/lab01.html#welcome",
     "href": "stat133/lab01.html#welcome",
     "title": "Lab 01: Setup, RMarkdown",
@@ -697,7 +851,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like  ...I like  ...I like  ...I like  ...I like  ...you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI li ...I li ...I li ...I li ...I li ...ke you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

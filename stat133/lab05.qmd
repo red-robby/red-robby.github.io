@@ -1,0 +1,500 @@
+---
+title: "Lab 05: Terminal Tidbits"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## The Joy and Ease of GUI
+
+Your operating system likely provides a convenient, _mouse-based_ and 
+_graphical_ means to interact with your **file system.**
+
+. . .
+
+- Moving files? _Click and drag!_
+- Copying files? _Right-click. Copy. Paste!_
+- Removing files? _Right-click. Delete!_
+
+. . .
+
+::: {.smaller}
+> I was so blinded by the first thing they showed me, which was the graphical user interface. I thought it was the best thing I'd ever seen in my life. -- Steve Jobs on one of the early GUI systems
+:::
+
+## The Terminal 
+
+Today, we'll introduce how to do the same operations and more via **_the terminal_**.
+
+. . .
+
+For now, think of the terminal simply as a text-based way for you to **_invoke programs_**. 
+These _programs_ each, 
+
+- have a name (e.g., ``cd``),
+- will receive _arguments_ from you, 
+- and will take actions on your computer on your behalf. This often includes
+communicating directly with the _kernel_.
+
+## Programs ``==`` Commands
+
+One note on terminology: 
+
+The programs we'll be using are often referred to as **_commands_**.[^3]
+
+[^3]: I think first presenting them for what they really are--just programs--will aid your understanding.
+
+## An Introductory Example
+
+Here we invoke a program, ``cp``, which copies ``note.txt`` into the directory 
+``notes/``, but doesn't override the file if it already exists there.
+
+```bash
+cp --no-clobber note.txt notes/
+```
+
+At a high level, we invoke a program (issue a command) with,
+
+```bash
+<program> <arguments ... >
+```
+
+
+## What the Program Sees
+
+Programs are unlike functions in R. They do not receive typed objects as arguments, 
+but merely a list of strings. Here's an example.
+
+```cpp
+// hello.cpp
+#include <iostream>
+
+auto main(int argc, char** argv) -> int {
+  if (argc == 2) {
+	std::cout << "Hello, " << argv[1] << '\n';
+  }
+}
+```
+
+Compiling the program:
+
+```bash
+g++ -std=c++20 -o hello hello.cpp
+```
+
+Running it with the argument, ``Jakob``.
+
+```bash
+./hello Jakob
+```
+
+```{r,echo=FALSE, eval=TRUE}
+# We give the illusion of running the program here
+cat("Hello, Jakob")
+```
+
+## What the Program Sees
+
+To better demonstrate, here's a program that simply prints all its arguments.
+
+```cpp
+// print_all.cpp
+#include <iostream>
+
+auto main(int argc, char** argv) -> int {
+  for (int i = 0; i < argc; ++i) {
+	std::cout << "Argument #" << i << ": " << argv[i] << '\n';
+   }
+}
+```
+
+:::{.r-stack}
+
+:::{.fragment}
+```bash
+./print_all
+```
+
+```txt
+Argument #0 : /path/to/.../stat133/lab05/print_all
+```
+:::
+
+
+:::{.fragment}
+
+```bash
+./print_all a 15
+```
+
+```txt
+Argument #0: /path/to/.../stat133/lab05/print_all
+Argument #1: a
+Argument #2: 15
+```
+
+:::
+
+:::{.fragment}
+
+```bash
+./print_all a b c d e f
+````
+
+```txt
+Argument #0: /path/to/.../stat133/lab05/print_all
+Argument #1: a
+Argument #2: b
+Argument #3: c
+Argument #4: d
+Argument #5: e
+Argument #6: f
+```
+
+:::
+
+:::
+
+## Argument Rules
+
+As you can see, the program has free rein to do whatever it likes with the strings
+(arguments) you pass.
+
+. . . 
+
+:::{.fragment .fade-right}
+**Thankfully there are a set of conventions.**
+:::
+
+## Arguments: Key-Value Options
+
+Program options are often akin to _named arguments_ in R. That is, they are **_key-value_** pairs.
+
+. . .
+
+Suppose we have a function ``sum(first, second)`` in R. We may call it as,
+
+```{r, eval=FALSE, echo=TRUE}
+sum(first = 10, second = 30)
+```
+
+. . .
+
+Programs typically have the **key** set with 
+
+- ``--<key name>`` or, 
+- ``-<key shorthand>``.
+
+The **value** follows immediately after the **key** name, e.g., 
+
+```bash
+sum --first 10 --second 30
+sum -f 10 -s 30  # shorthand -- note that it uses 1 dash
+```
+
+## Arguments: Key-Value Options
+
+Or sometimes you will need to set it with an ``=`` right after the key name, i.e., 
+
+```bash
+sum --first=10 --second=30 # note the lack of spaces
+```
+
+## Arguments: Flag Options
+
+Some options are _not_ key-value pairs. Instead, their presence alone informs 
+the program to do something. These are called **_flags_**.
+
+. . .
+
+You can think of it like setting an argument typically defaulted to ``FALSE`` to
+``TRUE`` in R.
+
+```{r, echo=TRUE,eval=FALSE}
+read.table("some-file", flush=TRUE)
+```
+
+Or for an equivalent program, 
+
+```bash
+readtable some-file --flush
+readtable some-file -f # potential shorthand
+```
+
+## Arguments: Those Not Optional
+
+Notice that we called the previous arguments **_options_**. They  are
+called as such as they are **_optional_**. 
+
+. . .
+
+Some arguments are **_required_**. These are typically provided based 
+on **_position_**. 
+
+. . .
+
+A more accurate summary:
+
+```bash
+<program> <options...> <required arguments...>
+```
+
+. . .
+
+Now reconsider our first example:
+
+```bash
+cp --no-clobber note.txt notes/
+```
+
+Here, ``--no-clobber`` is the _option_ and the next two are the **_required arguments_**.
+They represent the _source_ and _destination_, respectively.
+
+## Program Arguments: Getting Help
+
+Enter ``man <program>`` to pull up the ``man``ual for a particular 
+command.
+
+Here's an example from the command ``ls``:
+
+```txt
+-a, --all
+     do not ignore entries starting with .
+
+-A, --almost-all
+    do not list implied . and ..
+
+--author
+    with -l, print the author of each file
+
+-b, --escape
+    print C-style escapes for nongraphic characters
+
+--block-size=SIZE
+    with  -l,  scale  sizes  by  SIZE  when  printing  them;   e.g.,
+    '--block-size=M'; see SIZE format below
+```
+
+Notice that many arguments have both verbose and shorthand versions
+(e.g., ``-A`` vs. ``--almost-all``).
+
+## Program Arguments: Getting Help
+
+Many programs also have a ``--help`` option to output a usage guide 
+instead of running the program as usual. 
+
+```bash
+ls --help
+```
+
+. . .
+
+If needed, most programs also allow you to check the version with ``--version``.
+
+```bash
+ls --version
+```
+
+## Conventions and Conventions Only!
+
+Remember, these are just _conventions_, **not rules.** 
+
+::: {.r-fit-text}
+Always check the documentation. 
+:::
+
+## Where am I, anyway?
+
+Think of your terminal as existing inside a _directory_ (folder). All commands
+issued will be relative to this position. 
+
+We call this the,
+
+:::{.r-fit-text}
+_current working directory._
+:::
+
+Use the command ``pwd`` to ``p``rint the current ``w``orking ``d``irectory.
+
+. . .
+
+Importantly, we use,
+
+- ``.`` (one period) to refer to the current working directory (often implicit).
+- ``..`` (two periods) to refer to the parent directory.
+
+
+
+## Really, where am I? {auto-animate=true}
+
+Consider the following directory structure:
+
+```txt
+- stuff
+  todo.txt
+  - books
+    - moby_dick.pdf
+    - obedience_to_authority.pdf
+    - little_women.pdf
+    - school
+      - stat133.pdf
+  - code
+    - hack_nsa.cpp
+    - ai_friend.py
+```
+
+## Really, where am I? {auto-animate=true}
+
+Consider the following directory structure:
+
+```txt
+- stuff
+  todo.txt
+  - books <- suppose this is the current working directory
+    - moby_dick.pdf
+    - obedience_to_authority.pdf
+    - little_women.pdf
+    - school
+      - stat133.pdf
+  - code
+    - hack_nsa.cpp
+    - ai_friend.py
+```
+
+Which _path_ should I provide to refer to ``hask_nsa.cpp``?
+
+. . .
+
+``../code/hash_nsa.cpp``
+
+## Really, where am I? {auto-animate=true}
+
+Consider the following directory structure:
+
+```txt
+- stuff
+  todo.txt
+  - books 
+    - moby_dick.pdf
+    - obedience_to_authority.pdf
+    - little_women.pdf
+    - school <- suppose this is the current working directory
+      - stat133.pdf
+  - code
+    - hack_nsa.cpp
+    - ai_friend.py
+```
+
+Which _path_ should I provide to refer to ``todo.txt``?
+
+. . .
+
+``../../todo.txt``
+
+. . .
+
+Is ``../../../stuff/code/../todo.txt`` equivalent?
+
+## Really, where am I? {auto-animate=true}
+
+Consider the following directory structure:
+
+```txt
+- stuff <- suppose this is the current working directory
+  todo.txt
+  - books 
+    - moby_dick.pdf
+    - obedience_to_authority.pdf
+    - little_women.pdf
+    - school 
+      - stat133.pdf
+  - code
+    - hack_nsa.cpp
+    - ai_friend.py
+```
+
+Which _path_ should I provide to refer to ``stat133.pdf``?
+
+. . .
+
+``./books/school/stat133.pdf``
+
+. . .
+
+Is ``books/school/stat133.pdf`` equivalent?
+
+## Changing Directories
+
+It would be inconvenient if we were stuck in one directory. We can ``c``hange our 
+current working ``d``irectory with the commmand ``cd``.
+
+```txt
+- stuff <- suppose this is the current working directory
+  todo.txt
+  - books 
+    - moby_dick.pdf
+    - obedience_to_authority.pdf
+    - little_women.pdf
+    - school 
+      - stat133.pdf
+  - code
+    - hack_nsa.cpp
+    - ai_friend.py
+```
+
+What's our working directory after running the following line?
+
+``cd ../stuff/./code/../books/school/../../.``, 
+
+. . .
+
+``stuff``
+
+## Synopsis of Helpful Commands {.scrollable}
+
+Below you'll find a list of helpful commands you should be aware of (_you can scroll_).
+
+::: {.smaller}
+
+::: {.incremental}
+- ``mkdir <options> <directory>``: Make a directory ``<directory>``.
+- ``rm <options> <file or directory>``: Remove files or directories. Use the flag `-r` (recursive) to remove directories -- be careful!
+- ``ls <options> <file or directory>``: List information about files or directories. If not specified, the current directory is used.
+- ``cp <options> <source> <destination>``: Copy file(s) ``<source>`` to ``<destination>``. Destination can be a file name or directory.
+- ``mv <options> <source> <destination>``: Move file(s) ``<source>`` to ``<destination>`` (or equivalently, rename the file from ``<source>``
+- ``touch <file>``: Create an empty file named ``<file>``.
+- ``cat <file>``: Print the contents of ``<file>`` to the terminal.
+- ``head <file>``: Print the first part of ``<file>`` to the terminal.
+- ``tail <file>``: Print the last part of ``<file>`` to the terminal.
+- ``cd <directory>``: Change the current working directory to ``<directory>``.
+- ``pwd``: Print the current working directory to the terminal.
+to ``<destination>``.
+:::
+
+:::
+
+## Some Tips
+
+My primary tip is this: **_don't add spaces to file or directory names!_**
+
+If you do this, you will be required to add quotes to refer to the name. Compare:
+
+```bash
+cat 'Stat 133'/'Lab 3'/'My Awesome.Rmd'
+cat stat133/lab3/my-awesome.Rmd
+```
+
+. . .
+
+I also prefer prepending `0`s to ordered names to ensure they are ordered
+when listed.
+
+```txt
+lab01.Rmd
+lab02.Rmd
+...
+lab10.Rmd
+lab11.Rmd
+...
+```
