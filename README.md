@@ -7,7 +7,7 @@ that hosts my presentation materials for STAT 33B/133 at UC Berkeley. The websit
 generated with [Quarto](https://quarto.org/) and hosted by [GitHub Pages](https://pages.github.com/).
 
 If you'd like to generate it locally, you will need to download Quarto. You can do so [here](https://quarto.org/docs/get-started/).
-Once downloaded, clone the repository and run ``quarto render <directory name>``.
+Once downloaded, clone the repository and run ``quarto render <directory>``.
 
 ```
 git clone https://github.com/red-robby/red-robby.github.io.git your-name # or your preferred method
