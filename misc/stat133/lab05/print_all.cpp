@@ -1,4 +1,3 @@
-// print_all.cpp
 #include <iostream>
 
 auto main(int argc, char** argv) -> int {
