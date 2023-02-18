@@ -362,11 +362,11 @@ Consider the following directory structure:
     - ai_friend.py
 ```
 
-Which _path_ should I provide to refer to ``hask_nsa.cpp``?
+Which _path_ should I provide to refer to ``hack_nsa.cpp``?
 
 . . .
 
-``../code/hash_nsa.cpp``
+``../code/hack_nsa.cpp``
 
 ## Really, where am I? {auto-animate=true}
 
