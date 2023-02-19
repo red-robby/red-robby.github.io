@@ -18,7 +18,7 @@ If you'd prefer to open it directly in your browser, replace the last line with 
 quarto preview <directory>
 ```
 
-Here, ``<directory>`` denotes the path to the repository. See [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) if you're new to Git and are unsure how to clone (download) it.
+Here, ``<directory>`` denotes the path to the repository. See [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) if you're new to Git and unsure of how to clone (download) it.
 
 ## Package Dependencies 
 
