@@ -1,7 +1,7 @@
 # This script scans the .qmd files to find the packages used and installs them.
 # This should be ran before attempting to render the website for the first time.
-# You can do so with, `Rscript scripts/install-dep.R`, which should be ran from
-# the root directory. 
+# You can do so with, `Rscript scripts/install-dep.R`, which must be done from 
+# the root directory.
 
 install_if_missing <- function(pkg_name) {
     if (!(pkg_name %in% rownames(installed.packages()))) {
@@ -46,7 +46,3 @@ cat("Checking .qmd dependencies...\n")
 for (p in packages_used) {
     install_if_missing(p)
 }
-
-
-
-
