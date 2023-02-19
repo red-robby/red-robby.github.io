@@ -6,7 +6,7 @@
 install_if_missing <- function(pkg_name) {
     if (!(pkg_name %in% rownames(installed.packages()))) {
         cat("Dependency missing:", pkg_name, "-- attempting to install...\n")
-        install.packages(pkg_name, verbose=TRUE)
+        install.packages(pkg_name, verbose = TRUE)
     } else {
         cat("Dependency satisfied:", pkg_name, "\n")
     }
@@ -30,7 +30,7 @@ doc_directories <- c(
     practice = "./practice/"
 )
 
-docs <- list.files(doc_directories, pattern= "*.qmd$", full.names = TRUE)
+docs <- list.files(doc_directories, pattern = "*.qmd$", full.names = TRUE)
 
 # We look for all calls to library(...).
 package_rgx <- "(?<=library\\()[:alpha:]([:alnum:]|\\.)*(?=\\))"
