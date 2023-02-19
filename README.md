@@ -23,8 +23,8 @@ Here, ``<directory>`` denotes the path to the repository. See [here](https://doc
 ## Package Dependencies 
 
 If you receive a _missing packages_ error when attempting to render the website, run the script
-``script/install-dep.R`` from the project root directory to download all required packages.
+``scripts/install-dep.R`` from the project root directory to download all required packages.
 
 ```
-Rscript script/install-dep.R
+Rscript scripts/install-dep.R
 ```
