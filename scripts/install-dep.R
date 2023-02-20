@@ -33,7 +33,7 @@ doc_directories <- c(
 docs <- list.files(doc_directories, pattern = "*.qmd$", full.names = TRUE)
 
 # We look for all calls to library(...).
-package_rgx <- "(?<=library\\()[:alpha:]([:alnum:]|\\.)*(?=\\))"
+package_rgx <- "(?<=library\\()[:space:]*[:alpha:]([:alnum:]|\\.)*[:space:]*(?=\\))"
 
 packages_used <- sapply(
     docs,
