@@ -609,6 +609,97 @@
     "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "stat133/lab06.html#program-output",
+    "href": "stat133/lab06.html#program-output",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Program Output",
+    "text": "Program Output\nWhen running a command, output is typically printed to your terminal.\n\nThis is referred to as standard output (and is technically a file). But what if we want to…\n\nwrite the output to a named file?\npass the output to another program?"
+  },
+  {
+    "objectID": "stat133/lab06.html#printing-to-the-terminal",
+    "href": "stat133/lab06.html#printing-to-the-terminal",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Printing to the Terminal",
+    "text": "Printing to the Terminal\nRecall that cat can be used to print the contents of a file. Suppose we have the following text in world.txt:\n\n\n\n\n\n\nworld.txt\n\nHello, World!...\nGoodbye, World!\n\n\nRunning cat world.txt gives:\n\n\n\nTerminal\n\n~/ $ cat world.txt \nHello, World!...\nGoodbye, World!"
+  },
+  {
+    "objectID": "stat133/lab06.html#redirecting-to-a-file",
+    "href": "stat133/lab06.html#redirecting-to-a-file",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Redirecting to a File",
+    "text": "Redirecting to a File\nTo redirect output to some file named FILE, follow the command producing the output with > FILE or >> FILE.\n\n\n> overwrites the contents of the existing file.\n>> appends to the contents of the existing file (i.e, it starts at the end).\nBoth will create FILE if it doesn’t already exist.\n\n\n\nHere, instead of printing the contents of world.txt, it is written to world_copy.txt (effectively making a copy).\n\n\n\nTerminal\n\n~/ $ cat world.txt > world_copy.txt"
+  },
+  {
+    "objectID": "stat133/lab06.html#redirecting-to-a-file-1",
+    "href": "stat133/lab06.html#redirecting-to-a-file-1",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Redirecting to a File",
+    "text": "Redirecting to a File\nNow we append the contents to the end of world_copy.txt:\n\n\n\nTerminal\n\n~/ $ cat world.txt >> world_copy.txt \n\n\n\nWhat does world_copy.txt contain now?\n\n\n\n\n\nworld_copy.txt\n\nHello, World!...\nGoodbye, World!\nHello, World!...\nGoodbye, World!"
+  },
+  {
+    "objectID": "stat133/lab06.html#redirecting-to-a-file-2",
+    "href": "stat133/lab06.html#redirecting-to-a-file-2",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Redirecting to a File",
+    "text": "Redirecting to a File\nThe echo command simply prints its input. What does file.txt contain after running these commands?1\n\n\n\nTerminal\n\n~/ $ echo \"What?\" > file.txt\n~/ $ echo \"Why?\" >> file2.txt\n~/ $ cat file.txt >> file.txt\n~/ $ echo \"Really?\" > file2.txt\n~/ $ cat file2.txt >> file.txt\n\n\n\nAnswer:\n\n\n\nfile.txt\n\nWhat?\nWhat?\nReally?\n\n\n\nAssume both files don’t exist prior to running these commands."
+  },
+  {
+    "objectID": "stat133/lab06.html#redirecting-from-a-file",
+    "href": "stat133/lab06.html#redirecting-from-a-file",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Redirecting from a File",
+    "text": "Redirecting from a File\nBy flipping the > operator, we can redirect the contents of a file to a program. That is, for some COMMAND and FILE, we write:\n\nCOMMAND < FILE\n\n\nConsider the file, fruit.txt, which is out of order.\n\n\n\nfruit.txt\n\nbanana\ncherry\napple\n\n\n\n\nThe command sort prints the contents in the correct order.\n\n\n\nTerminal\n\n~/ $ sort < fruit.txt  # gets content from file\napple\nbanana\ncherry"
+  },
+  {
+    "objectID": "stat133/lab06.html#doing-both",
+    "href": "stat133/lab06.html#doing-both",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Doing Both!",
+    "text": "Doing Both!\nWell what if we want to save this output into another file1? We can use both!\n\n\n\nTerminal\n\n~/ $ sort < fruit.txt  > sorted_fruit.txt \napple\nbanana\ncherry\n\n\n\nsorted_fruit.txt now contains:\n\n\n\nsorted_fruit.txt\n\napple\nbanana\ncherry\n\n\n\nThis won’t work if you use the same file. See this Stack Overflow post if you’d like to learn why."
+  },
+  {
+    "objectID": "stat133/lab06.html#redirecting-to-a-program-piping",
+    "href": "stat133/lab06.html#redirecting-to-a-program-piping",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Redirecting to a Program (Piping)",
+    "text": "Redirecting to a Program (Piping)\nIn some cases, you’d like to take the output of one program and pass it directly to another program (without an intermediate file).\n\nFor this, we have the pipe operator (|)1:\n\nCOMMAND1 | COMMAND2\n\n\n\nIt passes the output of the left-hand program (COMMAND1) to the input of the right-hand program (COMMAND2).\n\nThis is similar to the pipe operator in R (|> or %>%)"
+  },
+  {
+    "objectID": "stat133/lab06.html#a-pipe-example-sort-to-uniq",
+    "href": "stat133/lab06.html#a-pipe-example-sort-to-uniq",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "A Pipe Example: sort to uniq",
+    "text": "A Pipe Example: sort to uniq\nThe command uniq outputs all of the unique lines in a file.\n\nBut there’s a problem. It only compares neighboring lines!\n\n\n\nnumbers.txt\n\n1\n2\n3\n3\n1\n2\n\n\nLet’s try uniq on numbers.txt…\n\n\n\nTerminal\n\n~/ $ uniq numbers.txt \n1\n2\n3\n1\n2\n\n\n\n\nWhat’s the solution?"
+  },
+  {
+    "objectID": "stat133/lab06.html#a-pipe-example-sort-to-uniq-1",
+    "href": "stat133/lab06.html#a-pipe-example-sort-to-uniq-1",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "A Pipe Example: sort to uniq",
+    "text": "A Pipe Example: sort to uniq\nWe sort first! We can do this with a pipe.\n\n\n\nTerminal\n\n~/ $ sort numbers.txt | uniq\n1\n2\n3\n\n\n\nNote that we can use many pipes (as with R)1:\n\n\n\nTerminal\n\n~/ $ curl https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.txt | sort | head -n 3\nAaren\nAarika\nAbagael\n\n\n\nAlso note that you can pass options as you usual when piping/redirecting (see head -n 5)."
+  },
+  {
+    "objectID": "stat133/lab06.html#and-why-not",
+    "href": "stat133/lab06.html#and-why-not",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": ">/>> and |? Why not!",
+    "text": ">/>> and |? Why not!\nNote that you can combine these operators. For example:\n\n\n\nTerminal\n\n~/ $ sort numbers.txt | uniq > sorted_numbers.txt"
+  },
+  {
+    "objectID": "stat133/lab06.html#commands-today",
+    "href": "stat133/lab06.html#commands-today",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Commands Today",
+    "text": "Commands Today\nThese are the commands to become familiar with today:\n\nsort\nuniq\ncut\npaste\ngrep"
+  },
+  {
+    "objectID": "stat133/lab06.html#reminder-man-pages",
+    "href": "stat133/lab06.html#reminder-man-pages",
+    "title": "Lab 06: More Terminal Tourism",
+    "section": "Reminder: MAN Pages",
+    "text": "Reminder: MAN Pages\nInstead of me tediously explaining each one, let’s look at some MAN pages together to learn how to read them1.\n\nRecall that to pull up the MAN (manual) pages, we run the following in the terminal,\n\n\n\nTerminal\n\n~/ $ man command     # if you're on Linux or MacOS\n~/ $ command --help  # if you're on Windows\n\n\nreplacing command with the name of your desired program.\n\n\nReturn to Home Page\n\n\nDemonstrated outside of the slides."
+  },
+  {
     "objectID": "stat133/lab02.html#from",
     "href": "stat133/lab02.html#from",
     "title": "Lab 02: More RMarkdown",
@@ -851,7 +942,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

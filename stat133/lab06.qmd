@@ -1,0 +1,326 @@
+---
+title: "Lab 06: More Terminal Tourism"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Program Output 
+
+When running a command, output is typically printed to your **_terminal_**.
+
+. . .
+
+This is referred to as _standard output_ (and is technically a file). But what
+if we want to...
+
+- _write the output to a named file_? 
+- _pass the output to another program_?
+
+## Printing to the Terminal
+
+Recall that ``cat`` can be used to print the contents of a file. Suppose 
+we have the following text in ``world.txt``:
+
+```{r}
+#| echo: false
+#| eval: false
+
+# NOTE: We are using R chunks below to get Quarto to provide a box around
+# the chunks AND still add the filename. It doesn't seem to work without 
+# the language unfortunately.
+```
+
+```{r filename="world.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+Hello, World!...
+Goodbye, World!
+```
+
+Running ``cat world.txt`` gives:
+
+```{r filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ cat world.txt 
+Hello, World!...
+Goodbye, World!
+```
+
+## Redirecting to a File
+
+To redirect output to some file named ``FILE``, follow the command _producing the output_ with 
+``> FILE`` or ``>> FILE``.
+
+. . .
+
+- ``>`` **overwrites** the contents of the existing file. 
+- ``>>`` **appends** to the contents of the existing file (i.e, it starts at the end).
+- _Both_ will **create** ``FILE`` if it doesn't already exist.
+
+. . .
+
+Here, instead of printing the contents of ``world.txt``, it is written
+to ``world_copy.txt`` (effectively making a copy).
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ cat world.txt > world_copy.txt 
+```
+
+## Redirecting to a File
+
+Now we _append_ the contents to the end of ``world_copy.txt``:
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ cat world.txt >> world_copy.txt 
+```
+
+:::{.fragment .fade-right}
+**What does ``world_copy.txt`` contain now?**
+:::
+
+. . .
+
+```{r, filename="world_copy.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+Hello, World!...
+Goodbye, World!
+Hello, World!...
+Goodbye, World!
+```
+
+## Redirecting to a File 
+
+The ``echo`` command simply prints its input. What does ``file.txt``
+contain after running these commands?[^1]
+
+[^1]: Assume both files don't exist prior to running these commands.
+
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ echo "What?" > file.txt
+~/ $ echo "Why?" >> file2.txt
+~/ $ cat file.txt >> file.txt
+~/ $ echo "Really?" > file2.txt
+~/ $ cat file2.txt >> file.txt
+```
+. . .
+
+**Answer:**
+
+```{r, filename="file.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+What?
+What?
+Really?
+```
+
+## Redirecting _from_ a File
+
+By flipping the ``>`` operator, we can redirect the contents of a file to a 
+program. That is, for some ``COMMAND`` and ``FILE``, we write:
+
+> ``COMMAND < FILE``
+
+. . .
+
+Consider the file, ``fruit.txt``, which is out of order.
+
+```{r, filename="fruit.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+banana
+cherry
+apple
+```
+
+. . .
+
+The command ``sort`` prints the contents in the correct order.
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ sort < fruit.txt  # gets content from file
+apple
+banana
+cherry
+```
+
+## Doing Both!
+
+Well what if we want to save this output into another file[^2]? **_We can use both!_**
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ sort < fruit.txt  > sorted_fruit.txt 
+apple
+banana
+cherry
+```
+. . .
+
+``sorted_fruit.txt`` now contains:
+
+```{r, filename="sorted_fruit.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+apple
+banana
+cherry
+```
+
+[^2]: This won't work if you use the _same_ file. See this [Stack Overflow post](https://stackoverflow.com/questions/6696842/how-can-i-use-a-file-in-a-command-and-redirect-output-to-the-same-file-without-t) if you'd like to learn why.
+
+
+## Redirecting to a Program (Piping)
+
+In some cases, 
+you'd like to take the output of one program and **_pass it directly to another program_** 
+(without an intermediate file).
+
+. . .
+
+For this, we have the **pipe operator** (``|``)[^3]:
+
+> ``COMMAND1 | COMMAND2``
+
+. . .
+
+[^3]: This is similar to the pipe operator in R (``|>`` or ``%>%``)
+
+It passes the output
+of the left-hand program (``COMMAND1``) to the input of the right-hand program (``COMMAND2``).
+
+## A Pipe Example: ``sort`` to ``uniq``
+
+The command ``uniq`` outputs _all of the unique lines in a file_.
+
+. . .
+
+**But there's a problem.** It only compares neighboring lines!
+
+```{r, filename="numbers.txt"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+1
+2
+3
+3
+1
+2
+```
+
+Let's try ``uniq`` on ``numbers.txt``...
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ uniq numbers.txt 
+1
+2
+3
+1
+2
+```
+
+. . .
+
+_What's the solution?_
+
+## A Pipe Example: ``sort`` to ``uniq``
+
+**We sort first!** We can do this with a pipe.
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ sort numbers.txt | uniq
+1
+2
+3
+```
+
+. . .
+
+Note that we can use many pipes (as with R)[^4]:
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ curl https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.txt | sort | head -n 3
+Aaren
+Aarika
+Abagael
+```
+[^4]: Also note that you can pass options as you usual when piping/redirecting (see ``head -n 5``).
+
+## ``>``/``>>`` and ``|``? Why not!
+
+Note that you can combine these operators. For example:
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ sort numbers.txt | uniq > sorted_numbers.txt
+```
+
+## Commands Today
+
+These are the commands to become familiar with today:
+
+- ``sort``
+- ``uniq``
+- ``cut``
+- ``paste``
+- ``grep``
+
+## Reminder: MAN Pages
+
+Instead of me tediously explaining each one, let's look at some MAN pages together
+to learn how to read them[^5]. 
+
+. . .
+
+Recall that to pull up the MAN (manual) pages, we run the following in the terminal,
+
+```{r, filename="Terminal"}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+~/ $ man command     # if you're on Linux or MacOS
+~/ $ command --help  # if you're on Windows
+```
+
+replacing ``command`` with the name of your desired program.
+
+[^5]: Demonstrated outside of the slides.
+
+

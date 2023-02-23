@@ -36,6 +36,7 @@ website:
             - stat133/lab03.qmd
             - stat133/lab04.qmd
             - stat133/lab05.qmd
+            - stat133/lab06.qmd	    
       - section: "Notes"
       - section: "Practice Problems"
         contents:
