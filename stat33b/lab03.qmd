@@ -52,7 +52,7 @@ To see what this means, let's turn ``m`` into two matrices, one for each.
 m <- 1:9
 ```
 
-  ::: columns
+::: columns
 
 ::: {.column  width="50%"}
 
