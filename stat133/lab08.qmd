@@ -1,0 +1,1026 @@
+---
+title: "Lab 08: Functions"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = TRUE)
+library(dplyr)
+library(ggplot2)
+```
+
+## Functions?
+
+We've already used them extensively. Some examples:
+
+```{r, echo = TRUE}
+v <- c(1:5, 10:20)                   # create a vector
+v_mean <- mean(v)                    # take its mean 
+df <- data.frame(x = 1:10, y = 10:1) # create a data frame
+df <- filter(df, x > 5)              # subset it
+plot <- ggplot(df, aes(x, y)) +      # plot it
+    geom_point()                     
+```
+
+. . .
+
+They all:
+
+- Take in a (possibly empty) set  of _arguments_.
+- _output_ something or at the very least _perform an operation_.
+
+## Function Syntax
+
+We'll eventually encounter a problem that cannot be solved with functions 
+others have written. In this case, we can write our own.
+
+The _syntax_ of a function definition:
+
+:::{.r-fit-text}
+``function(a0, a1, ..., aN)`` 
+	``<body>``
+:::	
+
+. . .
+
+Here, ``a0, a1, ..., aN`` denotes a arbitrary number of _named arguments_.
+
+## Functions are Objects!
+
+Functions are objects like any other in R. To use a function you've created by
+name, you'll need to assign it. An example:
+
+```{r, echo=TRUE}
+say_hi <- function(name) paste("Hi", name)
+say_hi("Mr. Sandman") # usage
+```
+
+## Function Syntax {.scrollable}
+
+Observe that we specify a set of _named arguments_ then refer to these values 
+by name in the body of the function.
+
+```{r, echo = TRUE}
+example <- function(a, b, c, d) a + b + c + d
+```
+
+With this _call_ to ``example``,
+
+```{r, echo=TRUE, eval=FALSE}
+example(1, 2, 3, 4)
+```
+
+we have 
+
+- ``a = 1``, 
+- ``b = 2``, 
+- ``c = 3``, 
+- ``d = 4``, 
+- and the result is ``1 + 2 + 3 + 4``.
+
+Recall that we can **reorder** the arguments if we specify their names, i.e.,
+the following is equivalent to the above.
+
+```{r, echo=TRUE, eval=FALSE}
+example(d = 4, a = 1, b = 2, c = 3)
+```
+
+## Return Values
+
+What happened to ``a + b + c + d``? 
+
+:::{.fragment .fade-right style="color:blue;"}
+The result was **_returned_** by the function.
+:::
+
+. . .
+
+```{r, echo=TRUE}
+x <- example(1, 2, 3, 4)
+```
+
+Here the result, ``10``, is **_returned_**. We call this the 
+**_return value_**. In this case, we've assigned it to ``x``.
+
+## Return Values are Expressions
+
+Importantly, **_all expressions_** in R evaluate to (**_return_**) some
+value. When you enter an expression in the console, R prints the value.
+
+```{r, echo=TRUE}
+3 + 2
+filter(data.frame(x = 1:10, y = 1:10), x > 5)
+```
+
+Functions simply return the value of the expression we've written in its body.
+
+## The Equivalent
+
+Suppose I enter this code into the console.
+
+```{r, echo=TRUE}
+a <- 1
+b <- 2
+c <- 3
+d <- 4
+a + b + c + d
+```
+
+. . .
+
+The last line is the **_expression_**, which evaluates to (returns) ``10``.
+
+This is equivalent to,
+
+```{r, echo=TRUE}
+example <- function(a, b, c, d) a + b + c + d
+example(1, 2, 3, 4)
+```
+
+_It's ultimately the same expression being evaluated._
+
+## What's the point?
+
+If the result is the same, why write a function?
+
+
+:::{.fragment .fade-right style="color:blue;"}
+To reduce the amount of code you need to write. 
+:::
+
+. . .
+
+Here's a function that returns the unique values from a sorted vector.
+
+
+```{r, echo=TRUE}
+unique <- function(vec, binary_pred = `==`) {
+    prev <- NA; u <- c()
+    for (obj in vec) {
+        if (is.na(prev) || !binary_pred(obj, prev)) {
+            u <- append(u, obj)
+        }
+        prev <- obj
+    }
+    u
+}
+```
+
+Without the function, you'd need to **rewrite** this each time you'd like the unique
+values of a sorted vector!
+
+. . .
+
+## DRY!
+
+There's an important saying in software engineering, **D**on't **R**epeat **Y**ourself! (**DRY**)
+
+. . .
+
+**_Less code_** _is only one reason of many for_ **_DRY_**. Here's a few others:
+
+
+:::{.incremental style="font-size: 70%;"}
+
+
+- What if you'd like to **change the operation** (perhaps to **fix a mistake**)?
+Without a common function, you'll need to pinpoint and fix each use of the
+operation individually. Ah, but after hunting for each of the 17 instances, you
+happily run your _fixed_ code... only to recoil in terror as the program outputs
+_garbage_. You glue your eyes to each of the 17 instances, one at a time,
+carefully checking what might be wrong. After only a brief 4 hours, you realize
+that you set a variable to ``v`` when it should have been ``w``!
+
+- What if your program **doesn't behave as expected**? You glance at your hundreds (thousands?)
+of lines of code, clueless of the origin, so scrutinize each line one-by-one. If you 
+wrote _functions_ instead, you could view each in isolation and verify their correctness 
+(write tests!), starting with the functions that don't depend on other functions and moving upwards.
+
+- I could go on, but you probably get the point.
+
+:::
+
+[^1]: This is only one reason this is important. Having the code in one place also means. - single place of failure, - 
+
+## What's the point?
+
+If the result is the same, why write a function?
+
+:::{.fragment .fade-right style="color:blue;"}
+
+It makes your code easier to read and write as it makes it **_more expressive_**.
+That is, it helps your code indicate **_what it is doing_**, not just **_how_** it is 
+doing it. 
+:::
+
+. . .
+
+What does this _do_?
+
+```{r, eval=FALSE, echo=TRUE}
+sw_males <- starwars[
+    starwars$sex == "male",
+    !(names(starwars) %in% c("sex", "gender"))
+]
+```
+
+. . .
+
+Here's a more _expressive_ version using ``dplyr``.
+
+```{r, eval=FALSE, echo=TRUE}
+sw_males <- starwars |>
+    filter(sex == "male") |>
+    select(!c(sex, gender))
+```
+
+
+## Expressiveness
+
+What does this do?
+
+```{r,echo=TRUE}
+heights <- starwars$heights
+length(heights[heights > 150]) > 0
+```
+
+What about this? Are they equivalent?
+
+```{r, echo=TRUE}
+sum(as.numeric(heights > 150), na.rm = TRUE) > 0
+```
+
+::: {.fragment .fade-right}
+::: {style="color: red;"}
+These are *both* **awful**. Our burden reading and writing this is too great for a task so trivial.
+:::
+:::
+
+. . .
+
+Importantly, the code doesn't *convey* what it does. Instead, it's the reader's
+responsibility to make sense of the computations.
+
+## Expressiveness
+
+Ideally, we'd prefer for our code to ***say what it does*** directly. This makes
+it easier to read and write.
+
+```{r}
+#| echo: true
+any(heights > 100)
+```
+
+```{r}
+#| echo: true
+all(heights > 20, na.rm = TRUE)
+```
+
+::: {.fragment .fade-right}
+::: {style="color: blue;"}
+In both cases, *you know what it does immediately.*
+
+There's no need to make sense of confusing computations.
+:::
+:::
+
+## What's the point? 
+
+If the result is the same, why write a function?[^2]
+
+:::{.fragment .fade-right style="color:blue;"} 
+It helps you reason about -- and
+eventually solve -- your problem by breaking it down into smaller problems. 
+:::
+
+. . . 
+
+Now _back to functions in R_!
+
+[^2]: There are many other reasons, but hopefully you're beginning to see the merit of _abstracting_ operations into functions.
+
+
+## Blocks
+
+Recall the form a function:
+
+:::{.r-fit-text}
+``function(a0, a1, ..., aN)`` 
+	``<body>``
+:::	
+
+. . .
+
+Recall our simple example:
+
+```{r, echo=TRUE}
+example <- function(a, b, c, d) a + b + c + d
+```
+
+. . .
+
+
+**_What if we'd like to write a function consisting of multiple lines?_**
+
+. . .
+
+For this, we need a _block_ of code (i.e., a number of lines grouped together).
+We'll assign this _block_ to ``<body>`` in the function form.
+
+## Brackets
+
+In R, we group code (create _blocks_) with curly brackets (``{ ... }``). 
+
+. . .
+
+This is **similar** to C/C++, Java, Javascript, and many other languages. 
+
+This is **unlike** Python, which uses indenting to distinguish blocks. 
+
+This is **unlike** MatLab, which uses the ``end`` keyword to distinguish blocks.
+
+. . .
+
+```{r, echo = TRUE}
+shout_hey <- function(name) {
+  name <- toupper(name)
+  paste0("HEY ", name, "!")
+}
+shout_hey("Mr. Tambourine Man")
+```
+
+## Brackets
+
+If we have multiple lines of code in brackets, the return value of the _entire block_
+will be the _last expression_ (i.e., the last line).
+
+For this reason, we can write,
+
+```{r, echo = TRUE}
+
+x <- 10
+y <- {
+    a <- x * x
+    z <- a - 10
+    z * 2
+}
+```
+
+What is ``y``?
+
+## Brackets: What is Returned?
+
+The last line of a function is therefore its return value. 
+
+```{r, echo = TRUE}
+square_add_five <- function(x) {
+  x <- x * x
+  x + 5
+}
+square_add_five(5)
+```
+
+## Explicitly Return
+
+You may find this unclear. If so, we can make explicit the return value with the
+``return`` keyword[^4].
+
+```{r, echo = TRUE} 
+square_add_five <- function(x) {
+  x_squared <- x * x
+  return(x_squared + 5)
+}
+square_add_five(5)
+```
+
+[^4]: Note that this is similar to C/C++, Python, Java, Javascript, and many other
+languages, which _require_ the use of ``return``.
+
+## Case by Case
+
+What can we currently do if we want our code to handle different cases?
+
+::: {.fragment .fade-right style="color: blue;"}
+For example, suppose we would like to get the season (as a string) given a month (as an integer).
+:::
+
+. . .
+
+```{r, echo = TRUE}
+which_season <- function(month) {
+   # What should we write here?
+}
+```
+
+## Case by Case
+
+As of now, any options we have are too cumbersome.
+
+```{r, echo = TRUE}
+which_season <- function(month) {
+  c(rep("Winter", 2), 
+    rep("Spring", 3), 
+    rep("Summer", 3), 
+    rep("Fall", 3), 
+    "Winter")[month]
+}
+which_season(10)
+```
+
+## Fizzing, Buzzing, and FizzBuzzing 
+
+Let's consider another case: the famous FizzBuzz problem.  
+
+. . .
+
+Given a number ``n``, return:
+
+- ``"Fizz"`` if it is _divisible by 3_.
+- ``"Buzz"`` if it is _divisible by 5_.
+- ``"FizzBuzz"`` if it is _divisible by 3 and 5_. 
+- The number ``n`` as a string otherwise. 
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  # What should we write here? 
+}
+```
+
+
+## Fizzing, Buzzing, and FizzBuzzing 
+
+Here's an idea: 
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  c(as.character(n),
+    "Fizz",
+    "Buzz",
+    "FizzBuzz")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]
+}
+```
+
+:::{style="color: red;"}
+:::{.fragment .fade-right}
+Oh my, can you make sense of this? 
+:::
+:::
+
+## Fizzing, Buzzing, and FizzBuzzing
+
+Maybe this? 
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  c("FizzBuzz",
+    "Fizz",
+    "Buzz",
+    as.character(n))[
+      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE)
+    ][1]
+}
+```
+
+:::{style="color: red;"}
+:::{.fragment .fade-right}
+Are your eyes hurting yet?
+:::
+:::
+
+## Fizzing, Buzzing, and FizzBuzzing
+
+What about this?
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  c("FizzBuzz",
+    "Fizz",
+    "Buzz",
+    as.character(n))[
+      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE) |> 
+        which() |> 
+        min()
+      ]
+}
+```
+
+:::{style="color: red;"}
+:::{.fragment .fade-right}
+... Isn't that terrible? Can you explain how it works? 
+:::
+:::
+
+:::{style="color: blue;"}
+:::{.fragment .fade-up}
+Clearly we need some better tools for handling cases.
+:::
+:::
+
+## Oh, ``if`` Only! 
+
+Recall that we prefer for our code to be _expressive_. 
+
+::: {.fragment .fade-right}
+Our description of ``fizzbuzz`` included **_"IF"_**. Wouldn't it be nice to 
+write this directly in our code? 
+:::
+
+:::{.fragment .fade-right}
+::: {style="color: blue;"}
+We can! 
+
+```{r}
+#| echo: true
+x <- 10
+if (x >= 10)
+  x <- 5
+x
+```
+:::
+:::
+
+## The ``if`` Statement 
+
+The ``if`` statement follows the intuitive structure:
+
+::: {.fragment .fade-right}
+::: {.r-fit-text style="color: blue;"}
+``if (<logical>) <body>``
+:::
+:::
+
+. . .
+
+where ``<body>`` is executed **_if_** ``<logical>`` is **_true_**.
+
+:::{.fragment .fade-right}
+:::{style="color: red;"}
+Note that the _parenthesis are required_[^1].
+:::
+:::
+
+[^1]: As a comparison to other popular languages, this is unlike Python,
+but like C, C++ and Java. 
+
+## Not This, That!
+
+Maybe we'd like to execute some code _if a condition is true_, and 
+execute some other code otherwise. We could write, 
+
+```{r}
+#| echo: true
+#| eval: false
+
+if (conditional) {
+  # body A
+}
+if (!conditional) {
+  # body B
+}
+```
+
+. . .
+
+But this:
+
+- wastefully evaluates ``conditional`` twice. If the first ``if``
+failed, we know ``conditional`` is ``FALSE``.
+- is not very expressive. 
+- won't work as intended if ``body A`` modifies ``conditional``. 
+
+## The ``if else`` Statement 
+
+Instead, we use the ``if else`` statement:
+
+::: {.fragment .fade-right}
+::: {.r-fit-text style="color: blue;"}
+``if (<logical>) <body A> else <body B>``
+:::
+:::
+
+. . .
+
+where,
+
+- ``<body A>`` is executed **_if_** ``<logical>`` is **_true_**. 
+- ``<body B>`` is executed **_if_** ``<logical>`` is **_false_**. 
+
+. . .
+
+```{r}
+#| echo: true
+can_i_drive <- function(age) {
+  if (age < 16) 
+    "No, you're too young."
+  else
+    "If you have a license."
+}
+can_i_drive(21)
+```
+
+## The ``else if`` Statement
+
+When we need to account for more cases than just two (true or false), we 
+can use an ``else if`` statement:
+
+::: {.fragment .fade-right}
+::: {style="color: blue; font-size: 50px"}
+``if (<logical 1>)`` ``<body 1>``
+
+``else if (<logical 2>)`` ``<body 2>``
+  
+``else if (<logical 3>)`` ``<body 3> ...``
+
+``else`` ``<body N>``
+:::
+:::
+
+. . .
+
+- **_Only one body will be evaluated_**. 
+- The initial ``if`` statement **_is required_**, but the final ``else`` **_is not_**. 
+- You may include as many ``else if``s as you'd like. 
+
+## A Note on Style
+
+The curly brackets are _optional_ if the body is _one line_.
+
+- Some prefer you _always use curly brackets_.
+- Regardless, it is recommended you _use curly brackets for all bodies if at_
+_least one uses curly brackets_.
+
+. . .
+
+::: columns 
+
+::: {.column width="50%"}
+
+:::{style="color: red;"}
+Don't do this. 
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+year <- 2
+is_sophomore <- NA
+if (year == 2) {
+  print("You're a sophomore!")
+  is_sophomore <- TRUE
+} else
+  is_sophomore <- FALSE
+```
+:::
+
+::: {.column width="50%"}
+:::{style="color: blue;"}
+Do this instead. 
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+year <- 2
+is_sophomore <- NA
+if (year == 2) {
+  print("You're a sophomore!")
+  is_sophomore <- TRUE
+} else {
+  is_sophomore <- FALSE
+}
+```
+:::
+
+:::
+
+## A Note on Style
+
+Note that R requires ``else/else if`` be placed after the closing curly bracket
+(``}``).
+
+::: columns
+
+::: {.column width="50%"}
+
+:::{style="color: red;"}
+This is _not allowed_. 
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+year <- 2
+is_sophomore <- NA
+if (year == 2) {
+  print("You're a sophomore!")
+  is_sophomore <- TRUE
+} 
+else {
+  is_sophomore <- FALSE
+}
+```
+:::
+
+::: {.column width="50%"}
+:::{style="color: blue;"}
+This format _is required_. 
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+year <- 2
+is_sophomore <- NA
+if (year == 2) {
+  print("You're a sophomore!")
+  is_sophomore <- TRUE
+} else {
+  is_sophomore <- FALSE
+}
+```
+:::
+:::
+
+## Control Flow, Branching
+
+You may see these statement referred to as, 
+
+- **_Control Flow Statements_**. They control which lines of code are evaluated, which are ignored, and the order in which they're evaluated. 
+- **_Branching Statements_**. They may cause the program to _"branch"_ to another line
+of code (instead of the one immediately after it). 
+
+## Back to ``which_season``
+
+Let's rewrite our ``which_season`` function: 
+
+```{r}
+#| echo: true
+which_season <- function(month) {
+  c(rep("Winter", 2), 
+    rep("Spring", 3), 
+    rep("Summer", 3), 
+    rep("Fall", 3), 
+    "Winter")[month]
+}
+```
+
+## Back to ``which_season``
+
+::: {style="color: blue;"}
+Now with control flow statements. 
+:::
+
+```{r}
+#| echo: true
+
+which_season <- function(month) {
+  if (month < 1 || month > 12)
+    NA
+  else if (month == 12 || month %in% 1:2)
+    "Winter"
+  else if (month %in% 3:5)
+    "Spring"
+  else if (month %in% 6:8)
+    "Summer"
+  else
+    "Fall"
+}
+```
+
+## Back to ``fizzbuzz``
+
+Let's rewrite our ``fizzbuzz`` function: 
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  c(as.character(n),
+    "Fizz",
+    "Buzz",
+    "FizzBuzz")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]
+}
+```
+
+## Back to ``fizzbuzz``   
+
+::: {style="color: blue;"}
+Now with control flow statements. Pick your poison! 
+:::
+
+::: {.r-stack}
+
+:::{.fragment}
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  # This one is what I prefer. 
+  s <- character()
+  if (n %% 3 == 0) {
+    s <- "Fizz"
+  }
+  if (n %% 5 == 0) {
+    s <- paste0(s, "Buzz")
+  }
+  if (!length(s)) {
+    s <- as.character(n)
+  }
+  s
+}
+```
+
+:::
+
+:::{.fragment}
+
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  if (n %% 3 == 0 && n %% 5 == 0) {
+    "FizzBuzz"
+  }
+  else if (n %% 3 == 0) {
+    "Fizz"
+  }
+  else if (n %% 5 == 0) {
+    "Buzz"
+  }
+  else {
+    as.character(n)
+  }
+}
+```
+:::
+
+:::{.fragment}
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  if (n %% 3 == 0) {
+    # To avoid redundant computation. 
+    if (n %% 5 == 0)
+      "FizzBuzz"
+    else
+      "Fizz"
+  } else if (n %% 5 == 0) {
+    "Buzz"
+  } else {
+    as.character(n)
+  }
+}
+```
+:::
+
+:::{.fragment}
+```{r}
+#| echo: true
+fizzbuzz <- function(n) {
+  # To avoid redundant computation. 
+  div_3 <- n %% 3 == 0
+  div_5 <- n %% 5 == 0
+  if (div_3 && div_5) {
+    "FizzBuzz"
+  } else if (div_3) {
+    "Fizz"
+  } else if (div_5) {
+    "Buzz"
+  } else {
+    as.character(n)
+  }
+}
+```
+:::
+
+:::
+
+## The Vectorized ``if else``, ``ifelse()``
+
+We can use the function ``ifelse`` to apply the ``if else`` operation to a vector. 
+Its function signature is
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+ifelse(test, yes, no)
+```
+
+where, 
+
+- ``test`` is a vector of logical values.
+- ``yes`` is the value to be placed in the result vector if the corresponding logical 
+value is _true_. 
+- ``no`` is the value to be placed in the result vector if the corresponding logical 
+values is _false_.
+
+## Simple ``ifelse()`` Example
+
+```{r}
+#| echo: true
+x <- 1:10
+ifelse(x %% 2 == 0, "Divisible by 2", "Not divisible by 2")
+```
+
+
+## Quick Notes: Recursion
+
+Functions can call themselves.
+
+```{r, echo = TRUE}
+countdown <- function(from = 10, outcome = "Takeoff!") {
+  cat("...")
+  if (from > 0) {
+    cat(from)
+    countdown(from - 1, outcome)
+  } 
+  else {
+    cat(outcome)
+  }
+}
+countdown()
+```
+
+## Quick Notes: Functions Making Functions?
+
+Functions can return functions. 
+
+```{r, echo = TRUE}
+make_adder <- function(a) {
+  add_this <- function(b) {
+    return(a + b)
+  }
+}
+add_three <- make_adder(3)
+add_three(4)
+```
+
+
+```{r, echo = TRUE}
+make_greeting <- function(greeting = "Hello,") {
+  greet_this <- function(this = "World") {
+    cat(greeting, this)
+  }
+}
+say_howdy <- make_greeting("Howdy")
+say_howdy("Polly")
+```
+
+## Quick Notes: Passing Functions to Functions?!
+
+Functions can be passed as arguments to other functions. 
+
+```{r, echo = TRUE}
+apply <- function(f, x) {
+  f(x)
+}
+v <- 1:10
+apply(max, v)
+apply(mean, v)
+```
+
+## Quick Notes: Functions are Regular Objects
+
+That is, we can treat functions just like any other object in R. This includes
+assignment. 
+
+```{r, echo = TRUE}
+a_name <- function() "is merely a mask I wear..."
+a_better_name <- a_name
+an_even_better_name <- a_better_name
+an_even_better_name()
+```
+
+## Quick Notes: Stop!
+
+We can stop execution of a function with the ``stop`` function. 
+
+```{r, echo = TRUE, }
+go_driving <- function(age) {
+  if (age < 16) 
+    stop("You're too young to drive.")
+  print("Vroom...")
+}
+go_driving(15)
+```
+
+## Quick Notes: Just a Warning
+
+We can issue a warning (but continue execution) with the ``warning`` function. 
+
+```{r, echo = TRUE, error = TRUE, warning=TRUE}
+go_driving <- function(age) {
+  if (age < 16) 
+    stop("You're too young to drive.")
+  else if (age <= 21)
+    warning("Your insurance company frowns.")
+  print("Vroom...")
+}
+go_driving(20)
+```
