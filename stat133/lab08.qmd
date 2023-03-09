@@ -1,5 +1,5 @@
 ---
-title: "Lab 08: Functions"
+title: "Lab 08: Functions and Conditionals"
 format: 
   revealjs:
     footer: "[Return to Home Page](https://red-robby.github.io/)"

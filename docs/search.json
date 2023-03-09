@@ -702,308 +702,308 @@
   {
     "objectID": "stat133/lab08.html#functions",
     "href": "stat133/lab08.html#functions",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Functions?",
     "text": "Functions?\nWe’ve already used them extensively. Some examples:\n\nv <- c(1:5, 10:20)                   # create a vector\nv_mean <- mean(v)                    # take its mean \ndf <- data.frame(x = 1:10, y = 10:1) # create a data frame\ndf <- filter(df, x > 5)              # subset it\nplot <- ggplot(df, aes(x, y)) +      # plot it\n    geom_point()                     \n\n\nThey all:\n\nTake in a (possibly empty) set of arguments.\noutput something or at the very least perform an operation."
   },
   {
     "objectID": "stat133/lab08.html#function-syntax",
     "href": "stat133/lab08.html#function-syntax",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Function Syntax",
     "text": "Function Syntax\nWe’ll eventually encounter a problem that cannot be solved with functions others have written. In this case, we can write our own.\nThe syntax of a function definition:\n\nfunction(a0, a1, ..., aN) <body>\n\n\nHere, a0, a1, ..., aN denotes a arbitrary number of named arguments."
   },
   {
     "objectID": "stat133/lab08.html#functions-are-objects",
     "href": "stat133/lab08.html#functions-are-objects",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Functions are Objects!",
     "text": "Functions are Objects!\nFunctions are objects like any other in R. To use a function you’ve created by name, you’ll need to assign it. An example:\n\nsay_hi <- function(name) paste(\"Hi\", name)\nsay_hi(\"Mr. Sandman\") # usage\n\n[1] \"Hi Mr. Sandman\""
   },
   {
     "objectID": "stat133/lab08.html#function-syntax-1",
     "href": "stat133/lab08.html#function-syntax-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Function Syntax",
     "text": "Function Syntax\nObserve that we specify a set of named arguments then refer to these values by name in the body of the function.\n\nexample <- function(a, b, c, d) a + b + c + d\n\nWith this call to example,\n\nexample(1, 2, 3, 4)\n\nwe have\n\na = 1,\nb = 2,\nc = 3,\nd = 4,\nand the result is 1 + 2 + 3 + 4.\n\nRecall that we can reorder the arguments if we specify their names, i.e., the following is equivalent to the above.\n\nexample(d = 4, a = 1, b = 2, c = 3)"
   },
   {
     "objectID": "stat133/lab08.html#return-values",
     "href": "stat133/lab08.html#return-values",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Return Values",
     "text": "Return Values\nWhat happened to a + b + c + d?\n\nThe result was returned by the function.\n\n\n\nx <- example(1, 2, 3, 4)\n\nHere the result, 10, is returned. We call this the return value. In this case, we’ve assigned it to x."
   },
   {
     "objectID": "stat133/lab08.html#return-values-are-expressions",
     "href": "stat133/lab08.html#return-values-are-expressions",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Return Values are Expressions",
     "text": "Return Values are Expressions\nImportantly, all expressions in R evaluate to (return) some value. When you enter an expression in the console, R prints the value.\n\n3 + 2\n\n[1] 5\n\nfilter(data.frame(x = 1:10, y = 1:10), x > 5)\n\n   x  y\n1  6  6\n2  7  7\n3  8  8\n4  9  9\n5 10 10\n\n\nFunctions simply return the value of the expression we’ve written in its body."
   },
   {
     "objectID": "stat133/lab08.html#the-equivalent",
     "href": "stat133/lab08.html#the-equivalent",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "The Equivalent",
     "text": "The Equivalent\nSuppose I enter this code into the console.\n\na <- 1\nb <- 2\nc <- 3\nd <- 4\na + b + c + d\n\n[1] 10\n\n\n\nThe last line is the expression, which evaluates to (returns) 10.\nThis is equivalent to,\n\nexample <- function(a, b, c, d) a + b + c + d\nexample(1, 2, 3, 4)\n\n[1] 10\n\n\nIt’s ultimately the same expression being evaluated."
   },
   {
     "objectID": "stat133/lab08.html#whats-the-point",
     "href": "stat133/lab08.html#whats-the-point",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "What’s the point?",
     "text": "What’s the point?\nIf the result is the same, why write a function?\n\nTo reduce the amount of code you need to write.\n\n\nHere’s a function that returns the unique values from a sorted vector.\n\nunique <- function(vec, binary_pred = `==`) {\n    prev <- NA; u <- c()\n    for (obj in vec) {\n        if (is.na(prev) || !binary_pred(obj, prev)) {\n            u <- append(u, obj)\n        }\n        prev <- obj\n    }\n    u\n}\n\nWithout the function, you’d need to rewrite this each time you’d like the unique values of a sorted vector!"
   },
   {
     "objectID": "stat133/lab08.html#dry",
     "href": "stat133/lab08.html#dry",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "DRY!",
     "text": "DRY!\nThere’s an important saying in software engineering, Don’t Repeat Yourself! (DRY)\n\nLess code is only one reason of many for DRY. Here’s a few others:\n\n\nWhat if you’d like to change the operation (perhaps to fix a mistake)? Without a common function, you’ll need to pinpoint and fix each use of the operation individually. Ah, but after hunting for each of the 17 instances, you happily run your fixed code… only to recoil in terror as the program outputs garbage. You glue your eyes to each of the 17 instances, one at a time, carefully checking what might be wrong. After only a brief 4 hours, you realize that you set a variable to v when it should have been w!\nWhat if your program doesn’t behave as expected? You glance at your hundreds (thousands?) of lines of code, clueless of the origin, so scrutinize each line one-by-one. If you wrote functions instead, you could view each in isolation and verify their correctness (write tests!), starting with the functions that don’t depend on other functions and moving upwards.\nI could go on, but you probably get the point."
   },
   {
     "objectID": "stat133/lab08.html#whats-the-point-1",
     "href": "stat133/lab08.html#whats-the-point-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "What’s the point?",
     "text": "What’s the point?\nIf the result is the same, why write a function?\n\nIt makes your code easier to read and write as it makes it more expressive. That is, it helps your code indicate what it is doing, not just how it is doing it.\n\n\nWhat does this do?\n\nsw_males <- starwars[\n    starwars$sex == \"male\",\n    !(names(starwars) %in% c(\"sex\", \"gender\"))\n]\n\n\n\nHere’s a more expressive version using dplyr.\n\nsw_males <- starwars |>\n    filter(sex == \"male\") |>\n    select(!c(sex, gender))"
   },
   {
     "objectID": "stat133/lab08.html#expressiveness",
     "href": "stat133/lab08.html#expressiveness",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Expressiveness",
     "text": "Expressiveness\nWhat does this do?\n\nheights <- starwars$heights\nlength(heights[heights > 150]) > 0\n\n[1] FALSE\n\n\nWhat about this? Are they equivalent?\n\nsum(as.numeric(heights > 150), na.rm = TRUE) > 0\n\n[1] FALSE\n\n\n\n\nThese are both awful. Our burden reading and writing this is too great for a task so trivial.\n\n\n\nImportantly, the code doesn’t convey what it does. Instead, it’s the reader’s responsibility to make sense of the computations."
   },
   {
     "objectID": "stat133/lab08.html#expressiveness-1",
     "href": "stat133/lab08.html#expressiveness-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Expressiveness",
     "text": "Expressiveness\nIdeally, we’d prefer for our code to say what it does directly. This makes it easier to read and write.\n\nany(heights > 100)\n\n[1] FALSE\n\n\n\nall(heights > 20, na.rm = TRUE)\n\n[1] TRUE\n\n\n\n\nIn both cases, you know what it does immediately.\nThere’s no need to make sense of confusing computations."
   },
   {
     "objectID": "stat133/lab08.html#whats-the-point-2",
     "href": "stat133/lab08.html#whats-the-point-2",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "What’s the point?",
     "text": "What’s the point?\nIf the result is the same, why write a function?1\n\nIt helps you reason about – and eventually solve – your problem by breaking it down into smaller problems.\n\n\nNow back to functions in R!\n\nThere are many other reasons, but hopefully you’re beginning to see the merit of abstracting operations into functions."
   },
   {
     "objectID": "stat133/lab08.html#blocks",
     "href": "stat133/lab08.html#blocks",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Blocks",
     "text": "Blocks\nRecall the form a function:\n\nfunction(a0, a1, ..., aN) <body>\n\n\nRecall our simple example:\n\nexample <- function(a, b, c, d) a + b + c + d\n\n\n\nWhat if we’d like to write a function consisting of multiple lines?\n\n\nFor this, we need a block of code (i.e., a number of lines grouped together). We’ll assign this block to <body> in the function form."
   },
   {
     "objectID": "stat133/lab08.html#brackets",
     "href": "stat133/lab08.html#brackets",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Brackets",
     "text": "Brackets\nIn R, we group code (create blocks) with curly brackets ({ ... }).\n\nThis is similar to C/C++, Java, Javascript, and many other languages.\nThis is unlike Python, which uses indenting to distinguish blocks.\nThis is unlike MatLab, which uses the end keyword to distinguish blocks.\n\n\n\nshout_hey <- function(name) {\n  name <- toupper(name)\n  paste0(\"HEY \", name, \"!\")\n}\nshout_hey(\"Mr. Tambourine Man\")\n\n[1] \"HEY MR. TAMBOURINE MAN!\""
   },
   {
     "objectID": "stat133/lab08.html#brackets-1",
     "href": "stat133/lab08.html#brackets-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Brackets",
     "text": "Brackets\nIf we have multiple lines of code in brackets, the return value of the entire block will be the last expression (i.e., the last line).\nFor this reason, we can write,\n\nx <- 10\ny <- {\n    a <- x * x\n    z <- a - 10\n    z * 2\n}\n\nWhat is y?"
   },
   {
     "objectID": "stat133/lab08.html#brackets-what-is-returned",
     "href": "stat133/lab08.html#brackets-what-is-returned",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Brackets: What is Returned?",
     "text": "Brackets: What is Returned?\nThe last line of a function is therefore its return value.\n\nsquare_add_five <- function(x) {\n  x <- x * x\n  x + 5\n}\nsquare_add_five(5)\n\n[1] 30"
   },
   {
     "objectID": "stat133/lab08.html#explicitly-return",
     "href": "stat133/lab08.html#explicitly-return",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Explicitly Return",
     "text": "Explicitly Return\nYou may find this unclear. If so, we can make explicit the return value with the return keyword1.\n\nsquare_add_five <- function(x) {\n  x_squared <- x * x\n  return(x_squared + 5)\n}\nsquare_add_five(5)\n\n[1] 30\n\n\nNote that this is similar to C/C++, Python, Java, Javascript, and many other languages, which require the use of return."
   },
   {
     "objectID": "stat133/lab08.html#case-by-case",
     "href": "stat133/lab08.html#case-by-case",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Case by Case",
     "text": "Case by Case\nWhat can we currently do if we want our code to handle different cases?\n\nFor example, suppose we would like to get the season (as a string) given a month (as an integer).\n\n\n\nwhich_season <- function(month) {\n   # What should we write here?\n}"
   },
   {
     "objectID": "stat133/lab08.html#case-by-case-1",
     "href": "stat133/lab08.html#case-by-case-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Case by Case",
     "text": "Case by Case\nAs of now, any options we have are too cumbersome.\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}\nwhich_season(10)\n\n[1] \"Fall\""
   },
   {
     "objectID": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing",
     "href": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Fizzing, Buzzing, and FizzBuzzing",
     "text": "Fizzing, Buzzing, and FizzBuzzing\nLet’s consider another case: the famous FizzBuzz problem.\n\nGiven a number n, return:\n\n\"Fizz\" if it is divisible by 3.\n\"Buzz\" if it is divisible by 5.\n\"FizzBuzz\" if it is divisible by 3 and 5.\nThe number n as a string otherwise.\n\n\nfizzbuzz <- function(n) {\n  # What should we write here? \n}"
   },
   {
     "objectID": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
     "href": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Fizzing, Buzzing, and FizzBuzzing",
     "text": "Fizzing, Buzzing, and FizzBuzzing\nHere’s an idea:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}\n\n\n\nOh my, can you make sense of this?"
   },
   {
     "objectID": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
     "href": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-2",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Fizzing, Buzzing, and FizzBuzzing",
     "text": "Fizzing, Buzzing, and FizzBuzzing\nMaybe this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE)\n    ][1]\n}\n\n\n\nAre your eyes hurting yet?"
   },
   {
     "objectID": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
     "href": "stat133/lab08.html#fizzing-buzzing-and-fizzbuzzing-3",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Fizzing, Buzzing, and FizzBuzzing",
     "text": "Fizzing, Buzzing, and FizzBuzzing\nWhat about this?\n\nfizzbuzz <- function(n) {\n  c(\"FizzBuzz\",\n    \"Fizz\",\n    \"Buzz\",\n    as.character(n))[\n      c(n %% 3 == 0 && n %% 5 == 0, n %% 3 == 0, n %% 5 == 0, TRUE) |> \n        which() |> \n        min()\n      ]\n}\n\n\n\n… Isn’t that terrible? Can you explain how it works?\n\n\n\n\nClearly we need some better tools for handling cases."
   },
   {
     "objectID": "stat133/lab08.html#oh-if-only",
     "href": "stat133/lab08.html#oh-if-only",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Oh, if Only!",
     "text": "Oh, if Only!\nRecall that we prefer for our code to be expressive.\n\nOur description of fizzbuzz included “IF”. Wouldn’t it be nice to write this directly in our code?\n\n\n\nWe can!\n\nx <- 10\nif (x >= 10)\n  x <- 5\nx\n\n[1] 5"
   },
   {
     "objectID": "stat133/lab08.html#the-if-statement",
     "href": "stat133/lab08.html#the-if-statement",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "The if Statement",
     "text": "The if Statement\nThe if statement follows the intuitive structure:\n\n\nif (<logical>) <body>\n\n\n\nwhere <body> is executed if <logical> is true.\n\n\nNote that the parenthesis are required1.\n\n\n\nAs a comparison to other popular languages, this is unlike Python, but like C, C++ and Java."
   },
   {
     "objectID": "stat133/lab08.html#not-this-that",
     "href": "stat133/lab08.html#not-this-that",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Not This, That!",
     "text": "Not This, That!\nMaybe we’d like to execute some code if a condition is true, and execute some other code otherwise. We could write,\n\nif (conditional) {\n  # body A\n}\nif (!conditional) {\n  # body B\n}\n\n\nBut this:\n\nwastefully evaluates conditional twice. If the first if failed, we know conditional is FALSE.\nis not very expressive.\nwon’t work as intended if body A modifies conditional."
   },
   {
     "objectID": "stat133/lab08.html#the-if-else-statement",
     "href": "stat133/lab08.html#the-if-else-statement",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "The if else Statement",
     "text": "The if else Statement\nInstead, we use the if else statement:\n\n\nif (<logical>) <body A> else <body B>\n\n\n\nwhere,\n\n<body A> is executed if <logical> is true.\n<body B> is executed if <logical> is false.\n\n\n\n\ncan_i_drive <- function(age) {\n  if (age < 16) \n    \"No, you're too young.\"\n  else\n    \"If you have a license.\"\n}\ncan_i_drive(21)\n\n[1] \"If you have a license.\""
   },
   {
     "objectID": "stat133/lab08.html#the-else-if-statement",
     "href": "stat133/lab08.html#the-else-if-statement",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "The else if Statement",
     "text": "The else if Statement\nWhen we need to account for more cases than just two (true or false), we can use an else if statement:\n\n\nif (<logical 1>) <body 1>\nelse if (<logical 2>) <body 2>\nelse if (<logical 3>) <body 3> ...\nelse <body N>\n\n\n\n\nOnly one body will be evaluated.\nThe initial if statement is required, but the final else is not.\nYou may include as many else ifs as you’d like."
   },
   {
     "objectID": "stat133/lab08.html#a-note-on-style",
     "href": "stat133/lab08.html#a-note-on-style",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "A Note on Style",
     "text": "A Note on Style\nThe curly brackets are optional if the body is one line.\n\nSome prefer you always use curly brackets.\nRegardless, it is recommended you use curly brackets for all bodies if at least one uses curly brackets.\n\n\n\n\n\nDon’t do this.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else\n  is_sophomore <- FALSE\n\n\n\nDo this instead.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
   },
   {
     "objectID": "stat133/lab08.html#a-note-on-style-1",
     "href": "stat133/lab08.html#a-note-on-style-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "A Note on Style",
     "text": "A Note on Style\nNote that R requires else/else if be placed after the closing curly bracket (}).\n\n\n\nThis is not allowed.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} \nelse {\n  is_sophomore <- FALSE\n}\n\n\n\nThis format is required.\n\n\nyear <- 2\nis_sophomore <- NA\nif (year == 2) {\n  print(\"You're a sophomore!\")\n  is_sophomore <- TRUE\n} else {\n  is_sophomore <- FALSE\n}"
   },
   {
     "objectID": "stat133/lab08.html#control-flow-branching",
     "href": "stat133/lab08.html#control-flow-branching",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Control Flow, Branching",
     "text": "Control Flow, Branching\nYou may see these statement referred to as,\n\nControl Flow Statements. They control which lines of code are evaluated, which are ignored, and the order in which they’re evaluated.\nBranching Statements. They may cause the program to “branch” to another line of code (instead of the one immediately after it)."
   },
   {
     "objectID": "stat133/lab08.html#back-to-which_season",
     "href": "stat133/lab08.html#back-to-which_season",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Back to which_season",
     "text": "Back to which_season\nLet’s rewrite our which_season function:\n\nwhich_season <- function(month) {\n  c(rep(\"Winter\", 2), \n    rep(\"Spring\", 3), \n    rep(\"Summer\", 3), \n    rep(\"Fall\", 3), \n    \"Winter\")[month]\n}"
   },
   {
     "objectID": "stat133/lab08.html#back-to-which_season-1",
     "href": "stat133/lab08.html#back-to-which_season-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Back to which_season",
     "text": "Back to which_season\n\nNow with control flow statements.\n\n\nwhich_season <- function(month) {\n  if (month < 1 || month > 12)\n    NA\n  else if (month == 12 || month %in% 1:2)\n    \"Winter\"\n  else if (month %in% 3:5)\n    \"Spring\"\n  else if (month %in% 6:8)\n    \"Summer\"\n  else\n    \"Fall\"\n}"
   },
   {
     "objectID": "stat133/lab08.html#back-to-fizzbuzz",
     "href": "stat133/lab08.html#back-to-fizzbuzz",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Back to fizzbuzz",
     "text": "Back to fizzbuzz\nLet’s rewrite our fizzbuzz function:\n\nfizzbuzz <- function(n) {\n  c(as.character(n),\n    \"Fizz\",\n    \"Buzz\",\n    \"FizzBuzz\")[((n %% 3 == 0) + (2 * (n %% 5 == 0))) + 1]\n}"
   },
   {
     "objectID": "stat133/lab08.html#back-to-fizzbuzz-1",
     "href": "stat133/lab08.html#back-to-fizzbuzz-1",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Back to fizzbuzz",
     "text": "Back to fizzbuzz\n\nNow with control flow statements. Pick your poison!\n\n\n\n\nfizzbuzz <- function(n) {\n  # This one is what I prefer. \n  s <- character()\n  if (n %% 3 == 0) {\n    s <- \"Fizz\"\n  }\n  if (n %% 5 == 0) {\n    s <- paste0(s, \"Buzz\")\n  }\n  if (!length(s)) {\n    s <- as.character(n)\n  }\n  s\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0 && n %% 5 == 0) {\n    \"FizzBuzz\"\n  }\n  else if (n %% 3 == 0) {\n    \"Fizz\"\n  }\n  else if (n %% 5 == 0) {\n    \"Buzz\"\n  }\n  else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  if (n %% 3 == 0) {\n    # To avoid redundant computation. \n    if (n %% 5 == 0)\n      \"FizzBuzz\"\n    else\n      \"Fizz\"\n  } else if (n %% 5 == 0) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}\n\n\n\n\nfizzbuzz <- function(n) {\n  # To avoid redundant computation. \n  div_3 <- n %% 3 == 0\n  div_5 <- n %% 5 == 0\n  if (div_3 && div_5) {\n    \"FizzBuzz\"\n  } else if (div_3) {\n    \"Fizz\"\n  } else if (div_5) {\n    \"Buzz\"\n  } else {\n    as.character(n)\n  }\n}"
   },
   {
     "objectID": "stat133/lab08.html#the-vectorized-if-else-ifelse",
     "href": "stat133/lab08.html#the-vectorized-if-else-ifelse",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "The Vectorized if else, ifelse()",
     "text": "The Vectorized if else, ifelse()\nWe can use the function ifelse to apply the if else operation to a vector. Its function signature is\n\nifelse(test, yes, no)\n\nwhere,\n\ntest is a vector of logical values.\nyes is the value to be placed in the result vector if the corresponding logical value is true.\nno is the value to be placed in the result vector if the corresponding logical values is false."
   },
   {
     "objectID": "stat133/lab08.html#simple-ifelse-example",
     "href": "stat133/lab08.html#simple-ifelse-example",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Simple ifelse() Example",
     "text": "Simple ifelse() Example\n\nx <- 1:10\nifelse(x %% 2 == 0, \"Divisible by 2\", \"Not divisible by 2\")\n\n [1] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n [4] \"Divisible by 2\"     \"Not divisible by 2\" \"Divisible by 2\"    \n [7] \"Not divisible by 2\" \"Divisible by 2\"     \"Not divisible by 2\"\n[10] \"Divisible by 2\""
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-recursion",
     "href": "stat133/lab08.html#quick-notes-recursion",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Recursion",
     "text": "Quick Notes: Recursion\nFunctions can call themselves.\n\ncountdown <- function(from = 10, outcome = \"Takeoff!\") {\n  cat(\"...\")\n  if (from > 0) {\n    cat(from)\n    countdown(from - 1, outcome)\n  } \n  else {\n    cat(outcome)\n  }\n}\ncountdown()\n\n...10...9...8...7...6...5...4...3...2...1...Takeoff!"
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-functions-making-functions",
     "href": "stat133/lab08.html#quick-notes-functions-making-functions",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Functions Making Functions?",
     "text": "Quick Notes: Functions Making Functions?\nFunctions can return functions.\n\nmake_adder <- function(a) {\n  add_this <- function(b) {\n    return(a + b)\n  }\n}\nadd_three <- make_adder(3)\nadd_three(4)\n\n[1] 7\n\n\n\nmake_greeting <- function(greeting = \"Hello,\") {\n  greet_this <- function(this = \"World\") {\n    cat(greeting, this)\n  }\n}\nsay_howdy <- make_greeting(\"Howdy\")\nsay_howdy(\"Polly\")\n\nHowdy Polly"
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-passing-functions-to-functions",
     "href": "stat133/lab08.html#quick-notes-passing-functions-to-functions",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Passing Functions to Functions?!",
     "text": "Quick Notes: Passing Functions to Functions?!\nFunctions can be passed as arguments to other functions.\n\napply <- function(f, x) {\n  f(x)\n}\nv <- 1:10\napply(max, v)\n\n[1] 10\n\napply(mean, v)\n\n[1] 5.5"
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-functions-are-regular-objects",
     "href": "stat133/lab08.html#quick-notes-functions-are-regular-objects",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Functions are Regular Objects",
     "text": "Quick Notes: Functions are Regular Objects\nThat is, we can treat functions just like any other object in R. This includes assignment.\n\na_name <- function() \"is merely a mask I wear...\"\na_better_name <- a_name\nan_even_better_name <- a_better_name\nan_even_better_name()\n\n[1] \"is merely a mask I wear...\""
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-stop",
     "href": "stat133/lab08.html#quick-notes-stop",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Stop!",
     "text": "Quick Notes: Stop!\nWe can stop execution of a function with the stop function.\n\ngo_driving <- function(age) {\n  if (age < 16) \n    stop(\"You're too young to drive.\")\n  print(\"Vroom...\")\n}\ngo_driving(15)\n\nError in go_driving(15): You're too young to drive."
   },
   {
     "objectID": "stat133/lab08.html#quick-notes-just-a-warning",
     "href": "stat133/lab08.html#quick-notes-just-a-warning",
-    "title": "Lab 08: Functions",
+    "title": "Lab 08: Functions and Conditionals",
     "section": "Quick Notes: Just a Warning",
     "text": "Quick Notes: Just a Warning\nWe can issue a warning (but continue execution) with the warning function.\n\ngo_driving <- function(age) {\n  if (age < 16) \n    stop(\"You're too young to drive.\")\n  else if (age <= 21)\n    warning(\"Your insurance company frowns.\")\n  print(\"Vroom...\")\n}\ngo_driving(20)\n\nWarning in go_driving(20): Your insurance company frowns.\n\n\n[1] \"Vroom...\"\n\n\n\n\nReturn to Home Page"
   },
@@ -1250,7 +1250,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like ...I like ...I like ...I like ...I like ... you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
