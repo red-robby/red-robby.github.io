@@ -1,0 +1,473 @@
+---
+title: "Lab 09: Loops"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Repeating Code 
+
+```{r}
+# We'll be using starwars
+library(dplyr)
+```
+
+We've seen how to control _which_ lines of code are ran with _conditionals_. 
+
+. . .
+
+Today, we'll review how to control _repetition_ of lines of code.
+
+## A Simple Problem
+
+Suppose you have a vector with thousands of integers. 
+
+::: {.fragment .fade-right}
+:::{style="color: blue;"}
+You'd like to find the _indices_ of your favorite number, but you can't use 
+vectorization or loops. 
+:::
+:::
+
+. . .
+
+If you're familiar with functions, you could use _recursion_.
+
+:::{.r-stack}
+
+:::{.fragment}
+
+```{r}
+#| echo: true
+num_indices <- function(vec, num) {
+  if (!length(vec)) {
+    NULL
+  } else if (head(vec, 1) == num) {
+    c(1, 1 + num_indices(tail(vec, -1), num))
+  } else {
+    c(1 + num_indices(tail(vec, -1), num))
+  }
+}
+```
+
+:::
+:::
+
+## Iterative Instead of Recusrsive
+
+**Recursive** solutions are often elegant but also difficult to write.[^1]
+
+[^1]: You aren't expected to use or understand recursion for this course. 
+
+:::{.fragment .fade-right style="color: blue;"}
+For this reason, we introduce an alternate approach:  **iterative** solutions. 
+:::
+
+. . .   
+
+Iterative solutions contain a block of code that is directly repeated. 
+
+### We call the repeated code the **loop**. 
+
+## Beyond Conditional Statements
+
+We've seen a series of statements (``if``, ``else``, ``else if``) for **_conditionally_** executing bodies of code. 
+
+::: {.fragment .fade-right style="color: blue;"}
+We'll now introduce another series of statements for **_repeatedly_** executing bodies of code (_looping_).
+:::
+
+. . .
+
+- ``while``: execute its body _while_ a condition holds true. 
+
+- ``for``: execute its body _for each_ object in a specified vector. 
+
+- ``repeat``: execute its body repeatedly and unconditionally. 
+
+## The ``while`` Statement
+
+The ``while`` statement is similar in form and behavior to ``if``:
+
+::: {.fragment .fade-right .r-fit-text style="color: blue;"}
+``while(LOGICAL) <body>``
+:::
+
+. . .
+
+where ``<body>`` is executed **while** ``LOGICAL`` returns ``TRUE``,
+
+. . .
+
+as if an ``if`` statement that repeats until ``LOGICAL == FALSE``, 
+
+::: {.r-fit-text style="color: blue;"}
+``if(LOGICAL) <body> if(LOGICAL) <body> ...``
+:::
+
+## The ``while`` Statement: Example 1
+
+Here we count up from ``from`` to ``to``, printing the numbers along the way. 
+
+:::{.r-stack}
+:::{.fragment}
+```{r}
+#| echo: true
+count_up <- function(from, to) {
+  while (from <= to) {
+    cat("...", from, sep = '')
+    from <- from + 1
+  }
+}
+count_up(1, 5)
+```
+:::
+:::
+
+## The ``while`` Statement: Example 2
+
+Using a similar idea, we can recreate a (simplified) version of ``seq``.
+
+::: {.r-stack}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+while_seq <- function(from, to, by) {
+  s <- vector(typeof(from))
+  while (from <= to) {
+    s <- append(s, from)
+    from <- from + by
+  }
+  s
+}
+while_seq(3, 12, 2)
+```
+:::
+
+:::
+
+:::{.fragment .fade-right style="color: red;"}
+For which input will this function not work?
+:::
+
+## Favorite Number with ``while``
+
+Let's rewrite ``num_indices`` with a ``while`` loop. 
+
+::: {.r-stack}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+num_indices <- function(vec, num) {
+  indices <- integer(); i <- 1
+  while (i <= length(vec)) {
+    if (vec[i] == num) {
+      indices <- append(indices, i)
+    }
+    i <- i + 1
+  }
+  indices
+}
+```
+:::
+
+:::
+
+## Your Turn: ``while`` (1)
+
+Let's write our own simplified version of ``sum`` with a ``while`` loop.
+
+::: {.r-stack}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+my_sum <- function(vec) {
+    # Your code here
+}
+```
+:::
+
+:::
+
+## Your Turn: ``while`` (2)
+
+Let's write a function that prints all the odd values in ``vec`` using a
+``while`` loop.
+
+::: {.r-stack}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+print_odd <- function(vec) {
+    # Your code here
+}
+```
+
+:::
+
+:::
+
+## The ``for`` Statement 
+
+::: {.fragment .fade-right .r-fit-text style="color: blue;"}
+``for (<variable> in <vector>) <body>``
+::: 
+
+. . .
+
+where ``<body>`` is executed once **for each** object **in** ``<vector>``. 
+
+. . .
+
+Inside ``<body>``, we refer to the currently used object by ``<variable>``[^1].
+
+[^1]: You can name ``<variable>`` whatever you'd like.
+
+:::{.r-stack}
+:::{.fragment}
+```{r}
+#| echo: true
+for (i in 1:7) {
+  cat("i:", i, '\t')
+}
+```
+:::
+:::
+
+## ``for`` Makes Copies
+
+We **_cannot modify_** ``<vector>`` by reassigning ``<variable>``.
+
+```{r}
+#| echo: true
+x <- 1:7
+for (num in x) {
+  num <- 0
+}
+x
+```
+
+. . .
+
+This is because ``<variable>`` is a **_copy_** of the value in the vector. Refer
+to the original object instead: 
+
+```{r}
+#| echo: true
+x <- 1:7
+for (i in 1:length(x)) {
+  x[i] <- 0
+}
+x
+```
+
+## ``for`` Statement Variables
+
+You are free to name ``<variable>`` _anything_. 
+
+- In some cases, a trivial name (e.g., ``i`` for index or ``n`` for number) may be sufficient. 
+- Other times, you you may want descriptive names for clarity.
+
+. . .
+
+Some students _always use ``i``_ - please don't do this! 
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| echo: true
+for (i in starwars$eye_color) {
+  # ... BAD! Doesn't express the meaning of the object.
+}
+```
+:::
+
+:::{.fragment}
+```{r}
+#| echo: true
+for (color in starwars$eye_color) {
+  # ... GOOD! The meaning of the object is obvious to the reader. 
+}
+```
+:::
+:::
+
+
+## Favorite Number with ``for``
+
+Let's rewrite ``num_indices`` with a ``for`` loop. 
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| echo: true
+num_indices <- function(vec, num) {
+  indices <- integer()
+  for (i in 1:length(vec)) {
+    if (vec[i] == num) {
+      indices <- append(indices, i)
+    }
+  }
+  indices
+}
+```
+:::
+:::
+
+## ``seq_along()``
+
+Notice that to get a vector of the indices, we wrote ``1:length(vec)``. 
+
+The idiomatic way of doing this is with the ``seq_along()`` function: 
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| echo: true
+num_indices <- function(vec, num) {
+  indices <- integer()
+  for (i in seq_along(vec)) {
+    if (vec[i] == num) {
+      indices <- append(indices, i)
+    }
+  }
+  indices
+}
+```
+:::
+:::
+
+## Your Turn: ``for``
+
+Using a ``for`` loop[^4], let's write a function that prints all possible pairs of
+values from ``vec``, where the pairs are printed in the form, ``(<A>, <B>)``.
+
+. . .
+
+- For example, given, ``c(1, 2, 3)``, one of the printed pairs would be ``(2, 3)``.
+- Pairing a value with itself is not valid. In the above example, ``(1, 1)`` is not valid.
+- A pairing such as ``c(1, 1)`` is valid _if_ there are two ``1``s in ``vec``.
+
+[^4]: Or maybe two...
+
+## Your Turn: ``for``
+
+Using a ``for`` loop, let's write a function that prints all possible pairs of
+values from ``vec``, where the pairs are printed in the form, ``(<A>, <B>)``.
+
+::: {.r-stack}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+print_pairs <- function(vec) {
+    # Your code here
+}
+```
+
+:::
+
+:::
+
+## The ``repeat`` Statement 
+
+::: {.fragment .fade-right .r-fit-text style="color: blue;"}
+``repeat <body>``
+:::
+
+. . .
+
+where ``<body>`` is executed **repeatedly** and **unconditionally** until a ``break`` statement 
+is encountered[^2].
+
+[^2]: The ``repeat`` statement is not found in other commonly used programming languages. 
+
+## ``break`` statement?
+
+The ``break`` statement can be used in _any loop_ (``for``, ``while``, ``repeat``) 
+to immediately stop its execution. 
+
+. . .
+
+The **_last iteration of the loop's body is not completed_**. The body of the loop 
+is **_immediately exited_** on encountering ``break``.
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| echo: true
+all_until <- function(vec, stop_value) {
+  v <- vector(typeof(vec)) 
+  for (obj in vec) {
+    if (obj == stop_value) {
+      break
+    }
+    v <- append(v, obj)
+  }
+  v
+}
+all_until(c(1:5, 50:45), 48) # all values until 48 are reached
+```
+:::
+:::
+
+## The ``repeat`` Statement: Example
+
+```{r, error = TRUE}
+#| echo: true
+print_hesitantly <- function(sentence, times) {
+  cutoff <- sample(1:nchar(sentence))
+  to_repeat <- substr(sentence, 1, cutoff)
+  repeat {
+    cat(to_repeat, '...'); times <- times - 1
+    if (times <= 0) {
+      break
+    }
+  }
+  cat(substr(sentence, cutoff + 1, nchar(sentence)))
+}
+print_hesitantly("I like you", 5)
+```
+
+## Favorite Number with ``repeat``
+
+The favorite number problem. Notice the similarity to the ``while`` solution.
+
+```{r}
+#| echo: true
+num_indices <- function(vec, num) {
+  indices <- integer(); i <- 1
+  repeat {
+    if (i > length(vec)) { # the opposite of the while condition
+      break
+    }
+    if (vec[i] == num) {
+      indices <- append(indices, i)
+    }
+    i <- i + 1
+  }
+  indices
+}
+```
+
+## Your Turn: ``repeat``
+
+Using a ``repeat`` loop, let's write a function that takes a positive integer
+``n`` and returns whether it's prime[^5].
+
+```{r}
+#| echo: true
+is_prime <- function(n) {
+    # Your code here
+}
+```

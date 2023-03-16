@@ -539,6 +539,32 @@
 </div>
 </div>
 </section>
+<section id="your-turn-while-1" class="slide level2">
+<h2>Your Turn: <code>while</code> (1)</h2>
+<p>Let’s write our own simplified version of <code>sum</code> with a <code>while</code> loop.</p>
+<div class="r-stack">
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>my_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(vec) {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="co"># Your code here</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="your-turn-while-2" class="slide level2">
+<h2>Your Turn: <code>while</code> (2)</h2>
+<p>Let’s write a function that prints all the odd values in <code>vec</code> using a <code>while</code> loop.</p>
+<div class="r-stack">
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>print_odd <span class="ot">&lt;-</span> <span class="cf">function</span>(vec) {</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="co"># Your code here</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="the-for-statement" class="slide level2">
 <h2>The <code>for</code> Statement</h2>
 <div class="fragment fade-right r-fit-text" style="color: blue;">
@@ -552,9 +578,9 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>i: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    </code></pre>
 </div>
@@ -567,11 +593,11 @@
 <h2><code>for</code> Makes Copies</h2>
 <p>We <strong><em>cannot modify</em></strong> <code>&lt;vector&gt;</code> by reassigning <code>&lt;variable&gt;</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>}</span>
+<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4 5 6 7</code></pre>
 </div>
@@ -579,11 +605,11 @@
 <div class="fragment">
 <p>This is because <code>&lt;variable&gt;</code> is a <strong><em>copy</em></strong> of the value in the vector. Refer to the original object instead:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>}</span>
-<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>}</span>
+<span id="cb13-5"><a href="#cb13-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 0 0 0 0 0 0</code></pre>
 </div>
@@ -602,16 +628,16 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -623,15 +649,15 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb15-5"><a href="#cb15-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    }</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  }</span>
-<span id="cb15-8"><a href="#cb15-8"></a>  indices</span>
-<span id="cb15-9"><a href="#cb15-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
+<span id="cb17-5"><a href="#cb17-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
+<span id="cb17-7"><a href="#cb17-7"></a>  }</span>
+<span id="cb17-8"><a href="#cb17-8"></a>  indices</span>
+<span id="cb17-9"><a href="#cb17-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -643,15 +669,39 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    }</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  }</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  indices</span>
-<span id="cb16-9"><a href="#cb16-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
+<span id="cb18-5"><a href="#cb18-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
+<span id="cb18-6"><a href="#cb18-6"></a>    }</span>
+<span id="cb18-7"><a href="#cb18-7"></a>  }</span>
+<span id="cb18-8"><a href="#cb18-8"></a>  indices</span>
+<span id="cb18-9"><a href="#cb18-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="your-turn-for" class="slide level2">
+<h2>Your Turn: <code>for</code></h2>
+<p>Using a <code>for</code> loop<sup>1</sup>, let’s write a function that prints all possible pairs of values from <code>vec</code>, where the pairs are printed in the form, <code>(&lt;A&gt;, &lt;B&gt;)</code>.</p>
+<div class="fragment">
+<ul>
+<li>For example, given, <code>c(1, 2, 3)</code>, one of the printed pairs would be <code>(2, 3)</code>.</li>
+<li>Pairing a value with itself is not valid. In the above example, <code>(1, 1)</code> is not valid.</li>
+<li>A pairing such as <code>c(1, 1)</code> is valid <em>if</em> there are two <code>1</code>s in <code>vec</code>.</li>
+</ul>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>Or maybe two…</p></li></ol></aside></section>
+<section id="your-turn-for-1" class="slide level2">
+<h2>Your Turn: <code>for</code></h2>
+<p>Using a <code>for</code> loop, let’s write a function that prints all possible pairs of values from <code>vec</code>, where the pairs are printed in the form, <code>(&lt;A&gt;, &lt;B&gt;)</code>.</p>
+<div class="r-stack">
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_pairs <span class="ot">&lt;-</span> <span class="cf">function</span>(vec) {</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    <span class="co"># Your code here</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -664,7 +714,7 @@
 <div class="fragment">
 <p>where <code>&lt;body&gt;</code> is executed <strong>repeatedly</strong> and <strong>unconditionally</strong> until a <code>break</code> statement is encountered<sup>1</sup>.</p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
 <section id="break-statement" class="slide level2">
 <h2><code>break</code> statement?</h2>
 <p>The <code>break</code> statement can be used in <em>any loop</em> (<code>for</code>, <code>while</code>, <code>repeat</code>) to immediately stop its execution.</p>
@@ -673,17 +723,17 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
-<span id="cb17-5"><a href="#cb17-5"></a>      <span class="cf">break</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>  }</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  v</span>
-<span id="cb17-10"><a href="#cb17-10"></a>}</span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 is reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
+<span id="cb20-5"><a href="#cb20-5"></a>      <span class="cf">break</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>    }</span>
+<span id="cb20-7"><a href="#cb20-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
+<span id="cb20-8"><a href="#cb20-8"></a>  }</span>
+<span id="cb20-9"><a href="#cb20-9"></a>  v</span>
+<span id="cb20-10"><a href="#cb20-10"></a>}</span>
+<span id="cb20-11"><a href="#cb20-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 are reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  1  2  3  4  5 50 49</code></pre>
 </div>
@@ -695,20 +745,20 @@
 <section id="the-repeat-statement-example" class="slide level2">
 <h2>The <code>repeat</code> Statement: Example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>      <span class="cf">break</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  }</span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
-<span id="cb19-11"><a href="#cb19-11"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
+<span id="cb22-7"><a href="#cb22-7"></a>      <span class="cf">break</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a>    }</span>
+<span id="cb22-9"><a href="#cb22-9"></a>  }</span>
+<span id="cb22-10"><a href="#cb22-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
+<span id="cb22-11"><a href="#cb22-11"></a>}</span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I  ...I  ...I  ...I  ...I  ...like you</code></pre>
+<pre><code>I lik ...I lik ...I lik ...I lik ...I lik ...e you</code></pre>
 </div>
 </div>
 </section>
@@ -716,19 +766,28 @@
 <h2>Favorite Number with <code>repeat</code></h2>
 <p>The favorite number problem. Notice the similarity to the <code>while</code> solution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">break</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb21-8"><a href="#cb21-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    }</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a>  }</span>
-<span id="cb21-12"><a href="#cb21-12"></a>  indices</span>
-<span id="cb21-13"><a href="#cb21-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
+<span id="cb24-2"><a href="#cb24-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>      <span class="cf">break</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>    }</span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
+<span id="cb24-8"><a href="#cb24-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
+<span id="cb24-9"><a href="#cb24-9"></a>    }</span>
+<span id="cb24-10"><a href="#cb24-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>  }</span>
+<span id="cb24-12"><a href="#cb24-12"></a>  indices</span>
+<span id="cb24-13"><a href="#cb24-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="your-turn-repeat" class="slide level2">
+<h2>Your Turn: <code>repeat</code></h2>
+<p>Using a <code>repeat</code> loop, let’s write a function that takes a positive integer <code>n</code> and returns whether it’s prime[^5].</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>is_prime <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    <span class="co"># Your code here</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">
