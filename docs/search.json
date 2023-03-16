@@ -151,7 +151,7 @@
     "href": "stat133/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like  ...I like  ...I like  ...I like  ...I like  ...you"
   },
   {
     "objectID": "stat133/lab09.html#favorite-number-with-repeat",
@@ -1404,7 +1404,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI  ...I  ...I  ...I  ...I  ...like you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
