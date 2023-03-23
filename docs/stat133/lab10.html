@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.313">
 
-  <title>Stat Stuff - Lab 09: Loops</title>
+  <title>Stat Stuff - Lab 10: Shiny Apps</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -384,358 +384,344 @@
       margin-right: 0; 
     }
   </style>
+  <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lab 09: Loops</h1>
+  <h1 class="title">Lab 10: Shiny Apps</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="repeating-code" class="slide level2">
-<h2>Repeating Code</h2>
+<section id="interactive-apps" class="slide level2">
+<h2>Interactive Apps</h2>
+<p>Today, we’ll introduce <strong>Shiny</strong>, which allows us to easily produce interactive webpages with R! Make sure to install and load it:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="st">"shiny"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(shiny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="drawing-updating-text" class="slide level2">
+<h2>Drawing, Updating Text?</h2>
+<p>Let’s say we wanted to write an extremely simple interactive application:</p>
+<div class="fragment fade-right" style="color: blue;">
+<p>The user types some text into a textbox and what they’ve entered is displayed to them.</p>
+</div>
+<div class="fragment">
+<p>Something like this:</p>
+<div class="r-stack">
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="38" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 37;"><span id="cb2-38"><a href="#cb2-38"></a>viewof text <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Feed me some text!"</span> })</span>
+<span id="cb2-39"><a href="#cb2-39"></a>output <span class="op">=</span> text <span class="op">?</span> text <span class="op">:</span> <span class="st">"I'm hungry!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
 
 </div>
-<p>We’ve seen how to control <em>which</em> lines of code are ran with <em>conditionals</em>.</p>
-<div class="fragment">
-<p>Today, we’ll review how to control <em>repetition</em> of lines of code.</p>
-</div>
-</section>
-<section id="a-simple-problem" class="slide level2">
-<h2>A Simple Problem</h2>
-<p>Suppose you have a vector with thousands of integers.</p>
-<div class="fragment fade-right">
-<div style="color: blue;">
-<p>You’d like to find the <em>indices</em> of your favorite number, but you can’t use vectorization or loops.</p>
 </div>
 </div>
-<div class="fragment">
-<p>If you’re familiar with functions, you could use <em>recursion</em>.</p>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cn">NULL</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">head</span>(vec, <span class="dv">1</span>) <span class="sc">==</span> num) {</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div style="color: blue;">
+<p><span><span id="ojs-element-id-1"></span></span></p>
 </div>
 </div>
 </div>
 </section>
-<section id="iterative-instead-of-recusrsive" class="slide level2">
-<h2>Iterative Instead of Recusrsive</h2>
-<p><strong>Recursive</strong> solutions are often elegant but also difficult to write.<sup>1</sup></p>
-<div class="fragment fade-right" style="color: blue;">
-<p>For this reason, we introduce an alternate approach: <strong>iterative</strong> solutions.</p>
-</div>
-<div class="fragment">
-<p>Iterative solutions contain a block of code that is directly repeated.</p>
-<h3 id="we-call-the-repeated-code-the-loop.">We call the repeated code the <strong>loop</strong>.</h3>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="beyond-conditional-statements" class="slide level2">
-<h2>Beyond Conditional Statements</h2>
-<p>We’ve seen a series of statements (<code>if</code>, <code>else</code>, <code>else if</code>) for <strong><em>conditionally</em></strong> executing bodies of code.</p>
-<div class="fragment fade-right" style="color: blue;">
-<p>We’ll now introduce another series of statements for <strong><em>repeatedly</em></strong> executing bodies of code (<em>looping</em>).</p>
-</div>
+<section id="updates" class="slide level2">
+<h2>Updates?</h2>
+<p>There’s a piece of data, the <em>input string</em>, on which the printed text <strong><em>depends</em></strong>.</p>
 <div class="fragment">
 <ul>
-<li><p><code>while</code>: execute its body <em>while</em> a condition holds true.</p></li>
-<li><p><code>for</code>: execute its body <em>for each</em> object in a specified vector.</p></li>
-<li><p><code>repeat</code>: execute its body repeatedly and unconditionally.</p></li>
+<li><strong>When</strong> and <strong>how</strong> do we update the printed text?</li>
+<li>Said another way, when do we <strong><em>draw</em></strong> the printed text?</li>
 </ul>
-</div>
-</section>
-<section id="the-while-statement" class="slide level2">
-<h2>The <code>while</code> Statement</h2>
-<p>The <code>while</code> statement is similar in form and behavior to <code>if</code>:</p>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>while(LOGICAL) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>while</strong> <code>LOGICAL</code> returns <code>TRUE</code>,</p>
-</div>
-<div class="fragment">
-<p>as if an <code>if</code> statement that repeats until <code>LOGICAL == FALSE</code>,</p>
-<div class="r-fit-text" style="color: blue;">
-<p><code>if(LOGICAL) &lt;body&gt; if(LOGICAL) &lt;body&gt; ...</code></p>
+<div class="fragment fade-right" style="color: blue;">
+<p>We need some system of answering these questions.</p>
 </div>
 </div>
 </section>
-<section id="the-while-statement-example-1" class="slide level2">
-<h2>The <code>while</code> Statement: Example 1</h2>
-<p>Here we count up from <code>from</code> to <code>to</code>, printing the numbers along the way.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="draw-constantly" class="slide level2">
+<h2>Draw Constantly!</h2>
+<p>We could redraw the text from the input <em>each frame</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>count_up <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">cat</span>(<span class="st">"..."</span>, from, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  }</span>
-<span id="cb2-6"><a href="#cb2-6"></a>}</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">count_up</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>...1...2...3...4...5</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-while-statement-example-2" class="slide level2">
-<h2>The <code>while</code> Statement: Example 2</h2>
-<p>Using a similar idea, we can recreate a (simplified) version of <code>seq</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>while_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to, by) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(from))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    s <span class="ot">&lt;-</span> <span class="fu">append</span>(s, from)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> by</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  }</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  s</span>
-<span id="cb4-8"><a href="#cb4-8"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">while_seq</span>(<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  3  5  7  9 11</code></pre>
-</div>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    val <span class="ot">&lt;-</span> <span class="fu">textbox_value</span>() <span class="co"># get value in text box</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="fu">draw</span>(val)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment fade-right" style="color: red;">
-<p>For which input will this function not work?</p>
+<p>Problem: this is <em>very slow</em>.</p>
 </div>
 </section>
-<section id="favorite-number-with-while" class="slide level2">
-<h2>Favorite Number with <code>while</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>while</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="draw-on-change" class="slide level2">
+<h2>Draw on Change</h2>
+<p>We should only update the text when the input <em>has changed</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb6-5"><a href="#cb6-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    }</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  }</span>
-<span id="cb6-9"><a href="#cb6-9"></a>  indices</span>
-<span id="cb6-10"><a href="#cb6-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>last_val <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="cf">repeat</span> {</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    val <span class="ot">&lt;-</span> <span class="fu">textbox_value</span>() <span class="co"># get value in textbox</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="cf">if</span> (val <span class="sc">!=</span> last_val) {</span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="fu">draw</span>(val)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        last_val <span class="ot">&lt;-</span> val</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    }</span>
+<span id="cb4-8"><a href="#cb4-8"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+<div class="fragment fade-right" style="color: red;">
+<p>Problem: this is <em>difficult to write and manage</em>.</p>
 </div>
 </section>
-<section id="the-for-statement" class="slide level2">
-<h2>The <code>for</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>for (&lt;variable&gt; in &lt;vector&gt;) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed once <strong>for each</strong> object <strong>in</strong> <code>&lt;vector&gt;</code>.</p>
-</div>
-<div class="fragment">
-<p>Inside <code>&lt;body&gt;</code>, we refer to the currently used object by <code>&lt;variable&gt;</code><sup>1</sup>.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="reactivity" class="slide level2">
+<h2>Reactivity</h2>
+<p>It’d be nice if we could set a variable and specify what to do <strong><em>when it changes</em></strong> without having to track the changes ourselves.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>i: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    </code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>update <span class="ot">&lt;-</span> <span class="cf">function</span>(val) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="fu">draw</span>(val)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>}</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>val <span class="ot">&lt;-</span> <span class="fu">on_change</span>(<span class="cn">NA</span>, update) <span class="co"># starts as NA, calls update when changed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="for-makes-copies" class="slide level2">
-<h2><code>for</code> Makes Copies</h2>
-<p>We <strong><em>cannot modify</em></strong> <code>&lt;vector&gt;</code> by reassigning <code>&lt;variable&gt;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This is because <code>&lt;variable&gt;</code> is a <strong><em>copy</em></strong> of the value in the vector. Refer to the original object instead:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>}</span>
-<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0 0 0 0 0 0 0</code></pre>
-</div>
-</div>
+<div class="fragment fade-right" style="color: blue;">
+<p>This, at a high level, is how Shiny works. Shiny is <strong><em>reactive</em></strong>, which makes our lives much easier.</p>
+<p><em>Let’s explore Shiny and see what this means.</em></p>
 </div>
 </section>
-<section id="for-statement-variables" class="slide level2">
-<h2><code>for</code> Statement Variables</h2>
-<p>You are free to name <code>&lt;variable&gt;</code> <em>anything</em>.</p>
+<section id="shiny-overview" class="slide level2">
+<h2>Shiny Overview</h2>
+<p>Your Shiny application will consist of two objects.</p>
+<h3 id="ui-user-interface">UI (User Interface)</h3>
+<p>Here you define the <em>components</em> that make up the webpage. Some examples:</p>
 <ul>
-<li>In some cases, a trivial name (e.g., <code>i</code> for index or <code>n</code> for number) may be sufficient.</li>
-<li>Other times, you you may want descriptive names for clarity.</li>
+<li>Textboxes</li>
+<li>Buttons</li>
+<li>Regular text</li>
+<li>Sliders</li>
 </ul>
-<div class="fragment">
-<p>Some students <em>always use <code>i</code></em> - please don’t do this!</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
+<p>You give each a <strong><em>name</em></strong>.</p>
 </section>
-<section id="favorite-number-with-for" class="slide level2">
-<h2>Favorite Number with <code>for</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>for</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb15-5"><a href="#cb15-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    }</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  }</span>
-<span id="cb15-8"><a href="#cb15-8"></a>  indices</span>
-<span id="cb15-9"><a href="#cb15-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
+<section id="shiny-overview-1" class="slide level2">
+<h2>Shiny Overview</h2>
+<p>Your Shiny application will consist of two objects.</p>
+<h3 id="server">Server</h3>
+<p>Here you define the <em>rules</em> for how the webpage will <em>react</em> to changes in the component’s values.</p>
+<ul>
+<li>You refer to the UI components by the <strong><em>names</em></strong> you set in the UI object.</li>
+</ul>
 </section>
-<section id="seq_along" class="slide level2">
-<h2><code>seq_along()</code></h2>
-<p>Notice that to get a vector of the indices, we wrote <code>1:length(vec)</code>.</p>
-<p>The idiomatic way of doing this is with the <code>seq_along()</code> function:</p>
-<div class="r-stack">
+<section id="example-ui" class="slide level2">
+<h2>Example (UI)</h2>
+<p>In the UI object, you define the components of the webpage.</p>
 <div class="fragment">
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Overview</a></li><li><a href="#tabset-1-2">Example Code</a></li><li><a href="#tabset-1-3">Composition</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<ul>
+<li>There are functions for each component (e.g., <code>textInput</code>).</li>
+<li>There are <strong>input</strong> components and <strong>output</strong> components.</li>
+<li>The first argument of each component will become the <strong><em>name</em></strong> of the component (this is a string). You will later use this name in the <strong>server</strong> code.</li>
+<li>Some components may have additional arguments to define its appearance and behavior. For example, <code>textInput</code> takes a <em>prompt</em>.</li>
+<li>See <a href="https://shiny.rstudio.com/reference/shiny/1.7.4/">here</a> for a list of all the components.</li>
+</ul>
+</div>
+<div id="tabset-1-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    }</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  }</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  indices</span>
-<span id="cb16-9"><a href="#cb16-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="fu">textInput</span>(           <span class="co"># input component:</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>        <span class="st">"text_input"</span>,         <span class="co"># - name</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>        <span class="st">"Feed me some text!"</span>  <span class="co"># - prompt</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    ),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="fu">textOutput</span>(          <span class="co"># output component:</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>        <span class="st">"text_output"</span>         <span class="co"># - name</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    )</span>
+<span id="cb6-9"><a href="#cb6-9"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb6-13"><a href="#cb6-13"></a>        <span class="cf">if</span> (<span class="fu">nChars</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb6-14"><a href="#cb6-14"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        } <span class="cf">else</span> {</span>
+<span id="cb6-16"><a href="#cb6-16"></a>            <span class="st">"I'm hungry!"</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>        }</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    })</span>
+<span id="cb6-19"><a href="#cb6-19"></a>}</span>
+<span id="cb6-20"><a href="#cb6-20"></a></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</div>
-</section>
-<section id="the-repeat-statement" class="slide level2">
-<h2>The <code>repeat</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>repeat &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>repeatedly</strong> and <strong>unconditionally</strong> until a <code>break</code> statement is encountered<sup>1</sup>.</p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
-<section id="break-statement" class="slide level2">
-<h2><code>break</code> statement?</h2>
-<p>The <code>break</code> statement can be used in <em>any loop</em> (<code>for</code>, <code>while</code>, <code>repeat</code>) to immediately stop its execution.</p>
-<div class="fragment">
-<p>The <strong><em>last iteration of the loop’s body is not completed</em></strong>. The body of the loop is <strong><em>immediately exited</em></strong> on encountering <code>break</code>.</p>
-<div class="r-stack">
-<div class="fragment">
+<div id="tabset-1-3">
+<p>You structure the webpage by the order of nested function calls. There are additional components <strong><em>just for structuring</em></strong> the components (i.e., <strong><em>layout components</em></strong>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
-<span id="cb17-5"><a href="#cb17-5"></a>      <span class="cf">break</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>  }</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  v</span>
-<span id="cb17-10"><a href="#cb17-10"></a>}</span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 is reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2  3  4  5 50 49</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(     <span class="co"># This is the top level layout component.</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">column</span>(          <span class="co"># This defines a column in the webpage.</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>        <span class="fu">textInput</span>(), </span>
+<span id="cb7-4"><a href="#cb7-4"></a>        <span class="fu">textOutput</span>(),</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    ),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="fu">column</span>(</span>
+<span id="cb7-7"><a href="#cb7-7"></a>        <span class="fu">textInput</span>(),</span>
+<span id="cb7-8"><a href="#cb7-8"></a>        <span class="fu">textOutput</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9"></a>   )</span>
+<span id="cb7-10"><a href="#cb7-10"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="the-repeat-statement-example" class="slide level2">
-<h2>The <code>repeat</code> Statement: Example</h2>
+<section id="example-server" class="slide level2">
+<h2>Example (Server)</h2>
+<p>The <strong>server</strong> is a function that takes <strong>input</strong>, <strong>output</strong>, and a session (don’t worry about the last).</p>
+<div class="fragment">
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Overview</a></li><li><a href="#tabset-2-2">Example Code</a></li><li><a href="#tabset-2-3">Reactivity</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<ul>
+<li>The <strong>input</strong> and <strong>output</strong> objects are both <em>lists</em>.</li>
+<li>These lists will have the <em>named objects</em> you defined in the UI. For example, we named a <code>textInput</code> object <code>"text_input"</code> so access it with <code>input$text_input</code>.</li>
+<li>You will need to assign to each value in the <strong>object</strong> list a call to a <strong><em>rendering function</em></strong> (e.g., <code>renderText</code>, <code>renderPlot</code>).</li>
+</ul>
+</div>
+<div id="tabset-2-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>      <span class="cf">break</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  }</span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
-<span id="cb19-11"><a href="#cb19-11"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>I like y ...I like y ...I like y ...I like y ...I like y ...ou</code></pre>
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="11-19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="fu">textInput</span>(           <span class="co"># input component:</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>        <span class="st">"text_input"</span>,         <span class="co"># - name</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>        <span class="st">"Feed me some text!"</span>  <span class="co"># - prompt</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    ),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="fu">textOutput</span>(          <span class="co"># output component:</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>        <span class="st">"text_output"</span>         <span class="co"># - name</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    )</span>
+<span id="cb8-9"><a href="#cb8-9"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb8-13"><a href="#cb8-13"></a>        <span class="cf">if</span> (<span class="fu">nchar</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-14"><a href="#cb8-14"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb8-15"><a href="#cb8-15"></a>        } <span class="cf">else</span> {</span>
+<span id="cb8-16"><a href="#cb8-16"></a>            <span class="st">"I'm hungry!"</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>        }</span>
+<span id="cb8-18"><a href="#cb8-18"></a>    })</span>
+<span id="cb8-19"><a href="#cb8-19"></a>}</span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-3">
+<p>Note that <code>output$text_output</code> <em>depends on</em> <code>input$text_input</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb9-3"><a href="#cb9-3"></a>        <span class="cf">if</span> (<span class="fu">nchar</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb9-4"><a href="#cb9-4"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb9-5"><a href="#cb9-5"></a>        } <span class="cf">else</span> {</span>
+<span id="cb9-6"><a href="#cb9-6"></a>            <span class="st">"I'm hungry!"</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>        }</span>
+<span id="cb9-8"><a href="#cb9-8"></a>    })</span>
+<span id="cb9-9"><a href="#cb9-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="color: blue;">
+<p>Shiny will track this dependency for us and will update the output component whenever the input changes!</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="favorite-number-with-repeat" class="slide level2">
-<h2>Favorite Number with <code>repeat</code></h2>
-<p>The favorite number problem. Notice the similarity to the <code>while</code> solution.</p>
+<section id="example-running-the-app" class="slide level2">
+<h2>Example (Running the App)</h2>
+<p>Finally, we run the application by calling <code>shinyApp(ui, server)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">break</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb21-8"><a href="#cb21-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    }</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a>  }</span>
-<span id="cb21-12"><a href="#cb21-12"></a>  indices</span>
-<span id="cb21-13"><a href="#cb21-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="fu">textInput</span>(           <span class="co"># input component:</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>        <span class="st">"text_input"</span>,         <span class="co"># - name</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="st">"Feed me some text!"</span>  <span class="co"># - prompt</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    ),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="fu">textOutput</span>(          <span class="co"># output component:</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>        <span class="st">"text_output"</span>         <span class="co"># - name</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>    )</span>
+<span id="cb10-9"><a href="#cb10-9"></a>)</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb10-13"><a href="#cb10-13"></a>        <span class="cf">if</span> (<span class="fu">nchar</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb10-14"><a href="#cb10-14"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb10-15"><a href="#cb10-15"></a>        } <span class="cf">else</span> {</span>
+<span id="cb10-16"><a href="#cb10-16"></a>            <span class="st">"I'm hungry!"</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a>        }</span>
+<span id="cb10-18"><a href="#cb10-18"></a>    })</span>
+<span id="cb10-19"><a href="#cb10-19"></a>}</span>
+<span id="cb10-20"><a href="#cb10-20"></a></span>
+<span id="cb10-21"><a href="#cb10-21"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="more-on-reactivity" class="slide level2">
+<h2>More on Reactivity</h2>
+<p>The value <code>output$text_output</code> was made <em>reactive</em> as we assigned a <code>renderText</code> call to it.</p>
+<p>The dependencies and updates are then managed by Shiny.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="cf">if</span> (<span class="fu">nchar</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    }</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="cf">else</span> {</span>
+<span id="cb11-6"><a href="#cb11-6"></a>        <span class="st">"I'm hungry!"</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>    }</span>
+<span id="cb11-8"><a href="#cb11-8"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment fade-right" style="color: blue;">
+<p>What if we want some <em>variable</em> to react to changes in input?</p>
+</div>
+</section>
+<section id="reactive-variables" class="slide level2">
+<h2>Reactive Variables</h2>
+<p>To do this, you instead wrap the code that determines the value in a call to the <code>reactive</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    text <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb12-3"><a href="#cb12-3"></a>        <span class="cf">if</span> (<span class="fu">nchar</span>(input<span class="sc">$</span>text_input) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-4"><a href="#cb12-4"></a>            input<span class="sc">$</span>text_input</span>
+<span id="cb12-5"><a href="#cb12-5"></a>        }</span>
+<span id="cb12-6"><a href="#cb12-6"></a>        <span class="cf">else</span> {</span>
+<span id="cb12-7"><a href="#cb12-7"></a>            <span class="st">"I'm hungry"</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>        }</span>
+<span id="cb12-9"><a href="#cb12-9"></a>    })</span>
+<span id="cb12-10"><a href="#cb12-10"></a></span>
+<span id="cb12-11"><a href="#cb12-11"></a>    output<span class="sc">$</span>text_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb12-12"><a href="#cb12-12"></a>        <span class="fu">text</span>() <span class="co"># Call the variable like a function to get its value.</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>    })</span>
+<span id="cb12-14"><a href="#cb12-14"></a></span>
+<span id="cb12-15"><a href="#cb12-15"></a>    <span class="co"># Now we can use this value in multiple components!</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>    output<span class="sc">$</span>text_output2 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb12-17"><a href="#cb12-17"></a>        <span class="fu">paste0</span>(<span class="st">"You entered: "</span>, <span class="fu">text</span>())</span>
+<span id="cb12-18"><a href="#cb12-18"></a>    })</span>
+<span id="cb12-19"><a href="#cb12-19"></a>    </span>
+<span id="cb12-20"><a href="#cb12-20"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, when <code>text</code>’s dependents change, all of the outputs that depend on <code>text</code> will also update.</p>
 
 <div class="footer footer-default">
 <p><a href="https://red-robby.github.io/">Return to Home Page</a></p>
 </div>
+<script type="ojs-module-contents">
+{"contents":[
+  {"methodName":"interpret","inline":"true","source":"htl.html`<span>${output}</span>`", "cellName":"ojs-element-id-1"}
+]}
+</script>
 </section>
-
     </div>
   </div>
 
@@ -948,6 +934,16 @@
           RevealZoom
         ]
       });
+    </script>
+    <script type="ojs-module-contents">
+    {"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"viewof text = Inputs.text({placeholder: \"Feed me some text!\" })\noutput = text ? text : \"I'm hungry!\"\n"},{"methodName":"interpretQuiet","source":"shinyInput('text')"}]}
+    </script>
+    <script type="module">
+    window._ojs.paths.runtimeToDoc = "../../stat133";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
     </script>
     
     <script>

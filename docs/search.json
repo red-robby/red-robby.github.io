@@ -151,7 +151,7 @@
     "href": "stat133/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like  ...I like  ...I like  ...I like  ...I like  ...you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
   },
   {
     "objectID": "stat133/lab09.html#favorite-number-with-repeat",
@@ -1218,6 +1218,97 @@
     "text": "Cheatsheets and Helpful Links\n\nhttps://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet\nhttps://rmarkdown.rstudio.com/lesson-1.html\nhttps://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf\n\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "stat133/lab10.html#interactive-apps",
+    "href": "stat133/lab10.html#interactive-apps",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Interactive Apps",
+    "text": "Interactive Apps\nToday, we’ll introduce Shiny, which allows us to easily produce interactive webpages with R! Make sure to install and load it:\n\ninstall.packages(\"shiny\")\nlibrary(shiny)"
+  },
+  {
+    "objectID": "stat133/lab10.html#drawing-updating-text",
+    "href": "stat133/lab10.html#drawing-updating-text",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Drawing, Updating Text?",
+    "text": "Drawing, Updating Text?\nLet’s say we wanted to write an extremely simple interactive application:\n\nThe user types some text into a textbox and what they’ve entered is displayed to them.\n\n\nSomething like this:\n\n\nviewof text = Inputs.text({placeholder: \"Feed me some text!\" })\noutput = text ? text : \"I'm hungry!\""
+  },
+  {
+    "objectID": "stat133/lab10.html#updates",
+    "href": "stat133/lab10.html#updates",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Updates?",
+    "text": "Updates?\nThere’s a piece of data, the input string, on which the printed text depends.\n\n\nWhen and how do we update the printed text?\nSaid another way, when do we draw the printed text?\n\n\nWe need some system of answering these questions."
+  },
+  {
+    "objectID": "stat133/lab10.html#draw-constantly",
+    "href": "stat133/lab10.html#draw-constantly",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Draw Constantly!",
+    "text": "Draw Constantly!\nWe could redraw the text from the input each frame.\n\nrepeat {\n    val <- textbox_value() # get value in text box\n    draw(val)\n}\n\n\nProblem: this is very slow."
+  },
+  {
+    "objectID": "stat133/lab10.html#draw-on-change",
+    "href": "stat133/lab10.html#draw-on-change",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Draw on Change",
+    "text": "Draw on Change\nWe should only update the text when the input has changed.\n\nlast_val <- NA\nrepeat {\n    val <- textbox_value() # get value in textbox\n    if (val != last_val) {\n        draw(val)\n        last_val <- val\n    }\n}\n\n\nProblem: this is difficult to write and manage."
+  },
+  {
+    "objectID": "stat133/lab10.html#reactivity",
+    "href": "stat133/lab10.html#reactivity",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Reactivity",
+    "text": "Reactivity\nIt’d be nice if we could set a variable and specify what to do when it changes without having to track the changes ourselves.\n\nupdate <- function(val) {\n    draw(val)\n}\n\nval <- on_change(NA, update) # starts as NA, calls update when changed\n\n\nThis, at a high level, is how Shiny works. Shiny is reactive, which makes our lives much easier.\nLet’s explore Shiny and see what this means."
+  },
+  {
+    "objectID": "stat133/lab10.html#shiny-overview",
+    "href": "stat133/lab10.html#shiny-overview",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Shiny Overview",
+    "text": "Shiny Overview\nYour Shiny application will consist of two objects.\nUI (User Interface)\nHere you define the components that make up the webpage. Some examples:\n\nTextboxes\nButtons\nRegular text\nSliders\n\nYou give each a name."
+  },
+  {
+    "objectID": "stat133/lab10.html#shiny-overview-1",
+    "href": "stat133/lab10.html#shiny-overview-1",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Shiny Overview",
+    "text": "Shiny Overview\nYour Shiny application will consist of two objects.\nServer\nHere you define the rules for how the webpage will react to changes in the component’s values.\n\nYou refer to the UI components by the names you set in the UI object."
+  },
+  {
+    "objectID": "stat133/lab10.html#example-ui",
+    "href": "stat133/lab10.html#example-ui",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Example (UI)",
+    "text": "Example (UI)\nIn the UI object, you define the components of the webpage.\n\n\nOverviewExample CodeComposition\n\n\n\nThere are functions for each component (e.g., textInput).\nThere are input components and output components.\nThe first argument of each component will become the name of the component (this is a string). You will later use this name in the server code.\nSome components may have additional arguments to define its appearance and behavior. For example, textInput takes a prompt.\nSee here for a list of all the components.\n\n\n\n\nui <- fluidPage(\n    textInput(           # input component:\n        \"text_input\",         # - name\n        \"Feed me some text!\"  # - prompt\n    ),\n    textOutput(          # output component:\n        \"text_output\"         # - name\n    )\n)\n\nserver <- function(input, output, session) {\n    output$text_output <- renderText({\n        if (nChars(input$text_input) > 0) {\n            input$text_input\n        } else {\n            \"I'm hungry!\"\n        }\n    })\n}\n\nshinyApp(ui, server)\n\n\n\nYou structure the webpage by the order of nested function calls. There are additional components just for structuring the components (i.e., layout components).\n\nui <- fluidPage(     # This is the top level layout component.\n    column(          # This defines a column in the webpage.\n        textInput(), \n        textOutput(),\n    ),\n    column(\n        textInput(),\n        textOutput(),\n   )\n)"
+  },
+  {
+    "objectID": "stat133/lab10.html#example-server",
+    "href": "stat133/lab10.html#example-server",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Example (Server)",
+    "text": "Example (Server)\nThe server is a function that takes input, output, and a session (don’t worry about the last).\n\n\nOverviewExample CodeReactivity\n\n\n\nThe input and output objects are both lists.\nThese lists will have the named objects you defined in the UI. For example, we named a textInput object \"text_input\" so access it with input$text_input.\nYou will need to assign to each value in the object list a call to a rendering function (e.g., renderText, renderPlot).\n\n\n\n\nui <- fluidPage(\n    textInput(           # input component:\n        \"text_input\",         # - name\n        \"Feed me some text!\"  # - prompt\n    ),\n    textOutput(          # output component:\n        \"text_output\"         # - name\n    )\n)\n\nserver <- function(input, output, session) {\n    output$text_output <- renderText({\n        if (nchar(input$text_input) > 0) {\n            input$text_input\n        } else {\n            \"I'm hungry!\"\n        }\n    })\n}\n\nshinyApp(ui, server)\n\n\n\nNote that output$text_output depends on input$text_input.\n\nserver <- function(input, output, session) {\n    output$text_output <- renderText({\n        if (nchar(input$text_input) > 0) {\n            input$text_input\n        } else {\n            \"I'm hungry!\"\n        }\n    })\n}\n\n\nShiny will track this dependency for us and will update the output component whenever the input changes!"
+  },
+  {
+    "objectID": "stat133/lab10.html#example-running-the-app",
+    "href": "stat133/lab10.html#example-running-the-app",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Example (Running the App)",
+    "text": "Example (Running the App)\nFinally, we run the application by calling shinyApp(ui, server).\n\nui <- fluidPage(\n    textInput(           # input component:\n        \"text_input\",         # - name\n        \"Feed me some text!\"  # - prompt\n    ),\n    textOutput(          # output component:\n        \"text_output\"         # - name\n    )\n)\n\nserver <- function(input, output, session) {\n    output$text_output <- renderText({\n        if (nchar(input$text_input) > 0) {\n            input$text_input\n        } else {\n            \"I'm hungry!\"\n        }\n    })\n}\n\nshinyApp(ui, server)"
+  },
+  {
+    "objectID": "stat133/lab10.html#more-on-reactivity",
+    "href": "stat133/lab10.html#more-on-reactivity",
+    "title": "Lab 10: Shiny Apps",
+    "section": "More on Reactivity",
+    "text": "More on Reactivity\nThe value output$text_output was made reactive as we assigned a renderText call to it.\nThe dependencies and updates are then managed by Shiny.\n\noutput$text_output <- renderText({\n    if (nchar(input$text_input) > 0) {\n            input$text_input\n    }\n    else {\n        \"I'm hungry!\"\n    }\n})\n\n\nWhat if we want some variable to react to changes in input?"
+  },
+  {
+    "objectID": "stat133/lab10.html#reactive-variables",
+    "href": "stat133/lab10.html#reactive-variables",
+    "title": "Lab 10: Shiny Apps",
+    "section": "Reactive Variables",
+    "text": "Reactive Variables\nTo do this, you instead wrap the code that determines the value in a call to the reactive function.\n\nserver <- function(input, output, session) {\n    text <- reactive({\n        if (nchar(input$text_input) > 0) {\n            input$text_input\n        }\n        else {\n            \"I'm hungry\"\n        }\n    })\n\n    output$text_output <- renderText({\n        text() # Call the variable like a function to get its value.\n    })\n\n    # Now we can use this value in multiple components!\n    output$text_output2 <- renderText({\n        paste0(\"You entered: \", text())\n    })\n    \n}\n\nHere, when text’s dependents change, all of the outputs that depend on text will also update.\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "times.html",
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
@@ -1404,7 +1495,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
