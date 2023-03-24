@@ -1,0 +1,394 @@
+---
+title: "Lab 10: Shiny Apps"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Interactive Apps
+
+Today, we'll introduce **Shiny**, which allows us to easily produce
+interactive webpages with R! Make sure to install and load it:
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages("shiny")
+library(shiny)
+```
+
+## Drawing, Updating Text?
+
+Let's say we wanted to write an extremely simple interactive application:
+
+::: {.fragment .fade-right style="color: blue;"}
+The user types some text into a textbox and what they've entered is displayed
+to them.
+:::
+
+. . .
+
+Something like this: 
+
+::: {.r-stack}
+
+```{ojs}
+viewof text = Inputs.text({placeholder: "Feed me some text!" })
+output = text ? text : "I'm hungry!"
+```
+
+:::
+
+::: {.r-stack}
+
+::: {style="color: blue;"}
+${output}
+:::
+
+:::
+
+## Updates?
+
+There's a piece of data, the _input string_, on which the printed text **_depends_**.
+
+. . .
+
+- **When** and **how** do we update the printed text? 
+- Said another way, when do we **_draw_** the printed text?
+
+::: {.fragment .fade-right style="color: blue;"}
+We need some system of answering these questions. 
+:::
+
+## Draw Constantly!
+
+We could redraw the text from the input _each frame_.
+
+```{r}
+#| echo: true
+#| eval: false
+repeat {
+    val <- textbox_value() # get value in text box
+    draw(val)
+}
+```
+
+::: {.fragment .fade-right style="color: red;"}
+Problem: this is _very slow_.
+:::
+
+## Draw on Change
+
+We should only update the text when the input _has changed_.
+
+```{r}
+#| echo: true
+#| eval: false
+last_val <- NA
+repeat {
+    val <- textbox_value() # get value in textbox
+    if (val != last_val) {
+        draw(val)
+        last_val <- val
+    }
+}
+```
+
+::: {.fragment .fade-right style="color: red;"}
+Problem: this is _difficult to write and manage_.
+:::
+
+
+## Reactivity
+
+It'd be nice if we could set a variable and specify what to do **_when it
+changes_** without having to track the changes ourselves.
+
+```{r}
+#| echo: true
+#| eval: false
+update <- function(val) {
+    draw(val)
+}
+
+val <- on_change(NA, update) # starts as NA, calls update when changed
+
+```
+
+::: {.fragment .fade-right style="color: blue;"}
+This, at a high level, is how Shiny works. Shiny is **_reactive_**, which 
+makes our lives much easier. 
+
+_Let's explore Shiny and see what this means._
+:::
+
+## Shiny Overview
+
+Your Shiny application will consist of two objects.
+
+### UI (User Interface)
+
+Here you define the _components_ that make up the webpage. Some examples:
+
+- Textboxes
+- Buttons
+- Regular text 
+- Sliders
+
+You give each a **_name_**.
+
+## Shiny Overview
+
+Your Shiny application will consist of two objects.
+
+### Server
+
+Here you define the _rules_ for how the webpage will _react_ to changes in the
+component's values.
+
+- You refer to the UI components by the **_names_** you set in the UI object.
+
+## Example (UI)
+
+In the UI object, you define the components of the webpage. 
+
+. . .
+
+::: {.panel-tabset}
+
+### Overview
+
+- There are functions for each component (e.g., ``textInput``).
+- There are **input** components and **output** components.
+- The first argument of each component will become the **_name_** of the
+component (this is a string). You will later use this name in the **server** code.
+- Some components may have additional arguments to define its appearance and 
+behavior. For example, ``textInput`` takes a _prompt_.
+- See [here](https://shiny.rstudio.com/reference/shiny/1.7.4/) for a list of all the components.
+
+### Example Code
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "1-9"
+
+ui <- fluidPage(
+    textInput(           # input component:
+        "text_input",         # - name
+        "Feed me some text!"  # - prompt
+    ),
+    textOutput(          # output component:
+        "text_output"         # - name
+    )
+)
+
+server <- function(input, output, session) {
+    output$text_output <- renderText({
+        if (nChars(input$text_input) > 0) {
+            input$text_input
+        } else {
+            "I'm hungry!"
+        }
+    })
+}
+
+shinyApp(ui, server)
+
+```
+
+### Composition
+
+You structure the webpage by the order of nested function calls.  There are
+additional components **_just for structuring_** the components (i.e., **_layout
+components_**). 
+
+```{r}
+#| echo: true
+#| eval: false
+ui <- fluidPage(     # This is the top level layout component.
+    column(          # This defines a column in the webpage.
+        textInput(), 
+        textOutput(),
+    ),
+    column(
+        textInput(),
+        textOutput(),
+   )
+)
+```
+
+:::
+
+## Example (Server)
+
+The **server** is a function that takes **input**, **output**, and a 
+session (don't worry about the last). 
+
+. . .
+
+::: {.panel-tabset}
+
+### Overview
+
+- The **input** and **output** objects are both _lists_.
+- These lists will have the _named objects_ you defined in the UI. For 
+example, we named a ``textInput`` object ``"text_input"`` so access 
+it with ``input$text_input``.
+- You will need to assign to each value in the **object** list a call 
+to a **_rendering function_** (e.g., ``renderText``, ``renderPlot``).
+
+### Example Code
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "11-19"
+
+ui <- fluidPage(
+    textInput(           # input component:
+        "text_input",         # - name
+        "Feed me some text!"  # - prompt
+    ),
+    textOutput(          # output component:
+        "text_output"         # - name
+    )
+)
+
+server <- function(input, output, session) {
+    output$text_output <- renderText({
+        if (nchar(input$text_input) > 0) {
+            input$text_input
+        } else {
+            "I'm hungry!"
+        }
+    })
+}
+
+shinyApp(ui, server)
+
+```
+
+### Reactivity
+
+Note that ``output$text_output`` _depends on_ ``input$text_input``. 
+
+
+```{r}
+#| echo: true
+#| eval: false
+
+server <- function(input, output, session) {
+    output$text_output <- renderText({
+        if (nchar(input$text_input) > 0) {
+            input$text_input
+        } else {
+            "I'm hungry!"
+        }
+    })
+}
+```
+
+::: {style="color: blue;"}
+Shiny will track this dependency for us and will update the output
+component whenever the input changes!
+:::
+
+
+:::
+
+
+## Example (Running the App)
+
+Finally, we run the application by calling ``shinyApp(ui, server)``.
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "21"
+
+ui <- fluidPage(
+    textInput(           # input component:
+        "text_input",         # - name
+        "Feed me some text!"  # - prompt
+    ),
+    textOutput(          # output component:
+        "text_output"         # - name
+    )
+)
+
+server <- function(input, output, session) {
+    output$text_output <- renderText({
+        if (nchar(input$text_input) > 0) {
+            input$text_input
+        } else {
+            "I'm hungry!"
+        }
+    })
+}
+
+shinyApp(ui, server)
+
+```
+
+## More on Reactivity
+
+The value ``output$text_output`` was made _reactive_ as we assigned a
+``renderText`` call to it. 
+
+The dependencies and updates are then managed by Shiny.
+
+```{r}
+#| echo: true
+#| eval: false
+output$text_output <- renderText({
+    if (nchar(input$text_input) > 0) {
+            input$text_input
+    }
+    else {
+        "I'm hungry!"
+    }
+})
+```
+
+::: {.fragment .fade-right style="color: blue;"}
+What if we want some _variable_ to react to changes in input? 
+:::
+
+## Reactive Variables 
+
+To do this, you instead wrap the code that determines the value in a 
+call to the ``reactive`` function.
+
+```{r}
+#| echo: true
+#| eval: false
+
+server <- function(input, output, session) {
+    text <- reactive({
+        if (nchar(input$text_input) > 0) {
+            input$text_input
+        }
+        else {
+            "I'm hungry"
+        }
+    })
+
+    output$text_output <- renderText({
+        text() # Call the variable like a function to get its value.
+    })
+
+    # Now we can use this value in multiple components!
+    output$text_output2 <- renderText({
+        paste0("You entered: ", text())
+    })
+    
+}
+
+```
+
+Here, when ``text``'s dependents change, all of the outputs that depend on
+``text`` will also update.
+
