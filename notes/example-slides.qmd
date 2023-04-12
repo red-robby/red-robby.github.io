@@ -196,7 +196,7 @@ _... fade out text._
 ```
 
 - You need to add a dot (``.``) before the class name. 
-- Unlike code chunks options, which separate options with commas, here 
+- Unlike code chunks, which separate options with commas, here 
 we separate options with _spaces_. 
 
 ## Fragments: Multiple Classes
