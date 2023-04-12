@@ -1,0 +1,262 @@
+---
+title: "Quarto Presentations"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+# Introduction
+
+These slides will introduce creating **RevealJS** slides with **Quarto Markdown**. 
+It's highly recommended you follow along with the source code. 
+
+## The YAML Header
+
+As with R Markdown (``.rmd``) files, you'll need to provide a _YAML header_
+at the top of your Quarto Markdown (``.qmd``) files. 
+
+. . .
+
+To produce RevealJS slides, you'll need to specify ``format: revealjs``. Here
+is a minimal header for these slides: 
+
+```{yaml}
+---
+title: "Quarto Example Presentation"
+format: revealjs
+---
+```
+
+# Formatting: Just Like R Markdown
+
+## Familiarities: Headers
+
+As in R Markdown, use ``#`` to denote headers.
+
+### What's the difference?
+
+- One ``#`` denotes a section, for which a title slide will be created.
+- Two ``#``s denote a slide title, for which a regular slide will be created. 
+- Three or more creates subheaders as usual.
+
+## Familiarities: Lists 
+
+Lists are created as with R Markdown.
+
+### Bullets
+
+- Value 1 
+- Value 2 
+
+### Numbered
+
+1. Value 1 
+2. Value 2
+
+## Familiarities: Tables
+
+Tables are created as with R Markdown.
+
+| x | y | z |
+|---|---|---|
+| 0 | 0 | 0 | 
+| 1 | 1 | 0 |
+
+## Familiarities: Font Face
+
+You can control the font face as with R Markdown.
+
+- **Bold**.
+- _Italicized_.
+- **_Bold and italicized!_**
+- ``monospaced``
+
+## Familiarities: Links and Images
+
+Links and images can be included as with R Markdown. 
+
+Have you heard of [wormholes](https://en.wikipedia.org/wiki/Wormhole)?
+
+![Here's a 2D representation from Wikipedia.](https://upload.wikimedia.org/wikipedia/commons/7/7b/Wormhole-demo.png)
+
+## Familiarities: Code Chunks
+
+Code chunks are created as with R Markdown. As usual, the output can be 
+included directly in the document.
+
+```{r}
+#| echo: true
+greet <- function(greeting) {
+    paste0(greeting, ", from Quarto!")
+}
+
+greet("Howdy")
+```
+
+. . .
+
+Quarto provides an alternate way to specify code chunk options
+as comments in the form ``#| <option>: <value>`` at the top 
+of the code chunk[^1].
+
+[^1]: For example, for the code chunk on this slide, I've written ``#| echo:
+true`` on its first line.
+
+# Fragments
+
+## Fragments: Transitions
+
+**_Fragments_** give Quarto Markdown an expressive power _not_ found
+in R Markdown: **transitions**.
+
+. . . 
+
+The simplest way to do this is by separating sections between 3 dots
+(with a space between each). See below:
+
+```{text}
+#| echo: true
+**_Fragments_** give Quarto Markdown an expressive power _not_ found
+in R Markdown: **transitions**.
+
+. . . 
+
+The simplest way to do this is by separating sections between 3 dots
+(with a space between each). See below:
+```
+
+## Fragments: Syntax
+
+For more advanced transitions, we introduce a new syntax:
+
+```{text}
+#| echo: true
+::: {.fragment}
+Your text here.
+::: 
+```
+
+. . .
+
+- Surround your text with three colons (``:::``) on each end.
+- As with code chunks, we will specify options in curly brackets ``{
+... }``. Start with ``.fragment`` to create a fragment.
+- You can think of this as a _format chunk_ by noting the similarity in syntax
+to code chunks, which instead of colons use backticks.
+
+## Fragments: Classes 
+
+You provide a **fragment class** in the curly brackets to specify a transition.
+Here are some examples, showing you can...
+
+::: {.fragment .highlight-red}
+... highlight text.
+:::
+
+::: {.fragment .shrink}
+_... shrink and grow text._
+:::
+
+::: {.fragment .fade-out}
+_... fade out text._
+:::
+
+::: {.fragment .fade-right}
+**... fade in text.**
+:::
+
+::: {.fragment .grow}
+See [here](https://quarto.org/docs/presentations/revealjs/advanced.html#fragment-classes) for a 
+list of all available classes. 
+:::
+
+## Fragments: Classes
+
+Here's the code for the shown fragments. 
+
+```{text}
+#| echo: true
+::: {.fragment .highlight-red}
+... highlight text.
+:::
+
+::: {.fragment .shrink}
+_... shrink and grow text._
+:::
+
+::: {.fragment .fade-out}
+_... fade out text._
+:::
+
+::: {.fragment .fade-right}
+**... fade in text.**
+:::
+```
+
+- You need to add a dot (``.``) before the class name. 
+- Unlike code chunks options, which separate options with commas, here 
+we separate options with _spaces_. 
+
+## Fragments: Multiple Classes
+
+You can specify multiple classes to combine transitions. 
+
+::: {.fragment .grow .highlight-blue}
+**Pay attention to this!**
+:::
+
+```{text}
+#| echo: true
+::: {.fragment .grow .highlight-blue}
+**Pay attention to this!**
+:::
+```
+
+## Fragments: Nesting 
+
+You can nest fragments[^2] to provide multiple transitions for one chunk of text. 
+They will be executed in order (from the outer to inner fragments).
+
+::: {.fragment .fade-up}
+::: {.fragment .grow .highlight-red}
+::: {.fragment .shrink .highlight-blue}
+::: {.fragment .fade-out}
+I'm feeling animated today!
+:::
+:::
+:::
+:::
+
+```{text}
+#| echo: true
+::: {.fragment .fade-up}
+::: {.fragment .grow .highlight-red}
+::: {.fragment .shrink .highlight-blue}
+::: {.fragment .fade-out}
+I'm feeling animated today!
+:::
+:::
+:::
+:::
+```
+
+## Styling with CSS 
+
+You can make changes beyond the provided fragment classes. For example, 
+if you're familiar with CSS, you can control the style of the text directly:
+
+::: {.fragment .fade-right style="color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em"}
+Here's some mutilated text! :)
+:::
+
+. . .
+
+```{text}
+#| echo: true
+::: {.fragment .fade-right style="color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em"}
+Here's some mutilated text! :)
+:::
+```
+
+[^2]: The syntax is unfortunately verbose.

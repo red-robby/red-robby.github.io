@@ -41,6 +41,8 @@ website:
             - stat133/lab09.qmd
             - stat133/lab10.qmd
       - section: "Notes"
+        contents:
+          - notes/example-slides.qmd
       - section: "Practice Problems"
         contents:
           - practice/practice-vector.qmd

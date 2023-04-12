@@ -14,6 +14,104 @@
     "text": "This website is a collection of my (Jakob’s) notes and presentation materials for STAT 33B and STAT 133. It will be updated as the semester progresses.\n\nWell that’s not right…\nIf you’ve spotted a bug on the website or a discrepancy between my notes and the official course material, please let me know so it can be corrected.\nNote that in the case of a discrepancy, the official course material takes precedence.\n\n\nSource Code\nIf you’re interested, the source code for this website is available here."
   },
   {
+    "objectID": "misc/stat133/example/example.html#the-yaml-header",
+    "href": "misc/stat133/example/example.html#the-yaml-header",
+    "title": "Quarto Presentations",
+    "section": "The YAML Header",
+    "text": "The YAML Header\nAs with R Markdown (.rmd) files, you’ll need to provide a YAML header at the top of your Quarto Markdown (.qmd) files.\n\nTo produce RevealJS slides, you’ll need to specify format: revealjs. Here is a minimal header for these slides:"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-headers",
+    "href": "misc/stat133/example/example.html#familiarities-headers",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Headers",
+    "text": "Familiarities: Headers\nAs in R Markdown, use # to denote headers.\nWhat’s the difference?\n\nOne # denotes a section, for which a title slide will be created.\nTwo #s denote a slide title, for which a regular slide will be created.\nThree or more creates subheaders as usual."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-lists",
+    "href": "misc/stat133/example/example.html#familiarities-lists",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Lists",
+    "text": "Familiarities: Lists\nLists are created as with R Markdown.\nBullets\n\nValue 1\nValue 2\n\nNumbered\n\nValue 1\nValue 2"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-tables",
+    "href": "misc/stat133/example/example.html#familiarities-tables",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Tables",
+    "text": "Familiarities: Tables\nTables are created as with R Markdown.\n\n\n\nx\ny\nz\n\n\n\n\n0\n0\n0\n\n\n1\n1\n0"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-font-face",
+    "href": "misc/stat133/example/example.html#familiarities-font-face",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Font Face",
+    "text": "Familiarities: Font Face\nYou can control the font face as with R Markdown.\n\nBold.\nItalicized.\nBold and italicized!\nmonospaced"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-links-and-images",
+    "href": "misc/stat133/example/example.html#familiarities-links-and-images",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Links and Images",
+    "text": "Familiarities: Links and Images\nLinks and images can be included as with R Markdown.\nHave you heard of wormholes?\n\nHere’s a 2D representation from Wikipedia."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#familiarities-code-chunks",
+    "href": "misc/stat133/example/example.html#familiarities-code-chunks",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Code Chunks",
+    "text": "Familiarities: Code Chunks\nCode chunks are created as with R Markdown. As usual, the output can be included directly in the document.\n\ngreet <- function(greeting) {\n    paste0(greeting, \", from Quarto!\")\n}\n\ngreet(\"Howdy\")\n\n[1] \"Howdy, from Quarto!\"\n\n\n\nQuarto provides an alternate way to specify code chunk options as comments in the form #| <option>: <value> at the top of the code chunk1.\n\nFor example, for the code chunk on this slide, I’ve written #| echo: true on its first line."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-transitions",
+    "href": "misc/stat133/example/example.html#fragments-transitions",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Transitions",
+    "text": "Fragments: Transitions\nFragments give Quarto Markdown an expressive power not found in R Markdown: transitions.\n\nThe simplest way to do this is by separating sections between 3 dots (with a space between each). See below:\n\n**_Fragments_** give Quarto Markdown an expressive power _not_ found\nin R Markdown: **transitions**.\n\n. . . \n\nThe simplest way to do this is by separating sections between 3 dots\n(with a space between each). See below:"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-syntax",
+    "href": "misc/stat133/example/example.html#fragments-syntax",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Syntax",
+    "text": "Fragments: Syntax\nFor more advanced transitions, we introduce a new syntax:\n\n::: {.fragment}\nYour text here.\n::: \n\n\n\nSurround your text with three colons (:::) on each end.\nAs with code chunks, we will specify options in curly brackets { ... }. Start with .fragment to create a fragment.\nYou can think of this as a format chunk by noting the similarity in syntax to code chunks, which instead of colons use backticks."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-classes",
+    "href": "misc/stat133/example/example.html#fragments-classes",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Classes",
+    "text": "Fragments: Classes\nYou provide a fragment class in the curly brackets to specify a transition. Here are some examples, showing you can…\n\n… highlight text.\n\n\n… shrink and grow text.\n\n\n… fade out text.\n\n\n… fade in text.\n\n\nSee here for a list of all available classes."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-classes-1",
+    "href": "misc/stat133/example/example.html#fragments-classes-1",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Classes",
+    "text": "Fragments: Classes\nHere’s the code for the shown fragments.\n\n::: {.fragment .highlight-red}\n... highlight text.\n:::\n\n::: {.fragment .shrink}\n_... shrink and grow text._\n:::\n\n::: {.fragment .fade-out}\n_... fade out text._\n:::\n\n::: {.fragment .fade-right}\n**... fade in text.**\n:::\n\n\nYou need to add a dot (.) before the class name.\nUnlike code chunks options, which separate options with commas, here we separate options with spaces."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-multiple-classes",
+    "href": "misc/stat133/example/example.html#fragments-multiple-classes",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Multiple Classes",
+    "text": "Fragments: Multiple Classes\nYou can specify multiple classes to combine transitions.\n\nPay attention to this!\n\n\n::: {.fragment .grow .highlight-blue}\n**Pay attention to this!**\n:::"
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#fragments-nesting",
+    "href": "misc/stat133/example/example.html#fragments-nesting",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Nesting",
+    "text": "Fragments: Nesting\nYou can nest fragments1 to provide multiple transitions for one chunk of text. They will be executed in order (from the outer to inner fragments).\n\n\n\n\nI’m feeling animated today!\n\n\n\n\n\n::: {.fragment .fade-up}\n::: {.fragment .grow .highlight-red}\n::: {.fragment .shrink .highlight-blue}\n::: {.fragment .fade-out}\nI'm feeling animated today!\n:::\n:::\n:::\n:::\n\nThe syntax is unfortunately verbose."
+  },
+  {
+    "objectID": "misc/stat133/example/example.html#styling-with-css",
+    "href": "misc/stat133/example/example.html#styling-with-css",
+    "title": "Quarto Presentations",
+    "section": "Styling with CSS",
+    "text": "Styling with CSS\nYou can make changes beyond the provided fragment classes. For example, if you’re familiar with CSS, you can control the style of the text directly:\n\nHere’s some mutilated text! :)\n\n\n\n::: {.fragment .fade-right style=\"color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em\"}\nHere's some mutilated text! :)\n:::\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "stat133/lab09.html#repeating-code",
     "href": "stat133/lab09.html#repeating-code",
     "title": "Lab 09: Loops",
@@ -151,7 +249,7 @@
     "href": "stat133/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like you ...I like you ...I like you ...I like you ...I like you ..."
   },
   {
     "objectID": "stat133/lab09.html#favorite-number-with-repeat",
@@ -1309,6 +1407,104 @@
     "text": "Reactive Variables\nTo do this, you instead wrap the code that determines the value in a call to the reactive function.\n\nserver <- function(input, output, session) {\n    text <- reactive({\n        if (nchar(input$text_input) > 0) {\n            input$text_input\n        }\n        else {\n            \"I'm hungry\"\n        }\n    })\n\n    output$text_output <- renderText({\n        text() # Call the variable like a function to get its value.\n    })\n\n    # Now we can use this value in multiple components!\n    output$text_output2 <- renderText({\n        paste0(\"You entered: \", text())\n    })\n    \n}\n\nHere, when text’s dependents change, all of the outputs that depend on text will also update.\n\n\nReturn to Home Page"
   },
   {
+    "objectID": "notes/example-slides.html#the-yaml-header",
+    "href": "notes/example-slides.html#the-yaml-header",
+    "title": "Quarto Presentations",
+    "section": "The YAML Header",
+    "text": "The YAML Header\nAs with R Markdown (.rmd) files, you’ll need to provide a YAML header at the top of your Quarto Markdown (.qmd) files.\n\nTo produce RevealJS slides, you’ll need to specify format: revealjs. Here is a minimal header for these slides:"
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-headers",
+    "href": "notes/example-slides.html#familiarities-headers",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Headers",
+    "text": "Familiarities: Headers\nAs in R Markdown, use # to denote headers.\nWhat’s the difference?\n\nOne # denotes a section, for which a title slide will be created.\nTwo #s denote a slide title, for which a regular slide will be created.\nThree or more creates subheaders as usual."
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-lists",
+    "href": "notes/example-slides.html#familiarities-lists",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Lists",
+    "text": "Familiarities: Lists\nLists are created as with R Markdown.\nBullets\n\nValue 1\nValue 2\n\nNumbered\n\nValue 1\nValue 2"
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-tables",
+    "href": "notes/example-slides.html#familiarities-tables",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Tables",
+    "text": "Familiarities: Tables\nTables are created as with R Markdown.\n\n\n\nx\ny\nz\n\n\n\n\n0\n0\n0\n\n\n1\n1\n0"
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-font-face",
+    "href": "notes/example-slides.html#familiarities-font-face",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Font Face",
+    "text": "Familiarities: Font Face\nYou can control the font face as with R Markdown.\n\nBold.\nItalicized.\nBold and italicized!\nmonospaced"
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-links-and-images",
+    "href": "notes/example-slides.html#familiarities-links-and-images",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Links and Images",
+    "text": "Familiarities: Links and Images\nLinks and images can be included as with R Markdown.\nHave you heard of wormholes?\n\nHere’s a 2D representation from Wikipedia."
+  },
+  {
+    "objectID": "notes/example-slides.html#familiarities-code-chunks",
+    "href": "notes/example-slides.html#familiarities-code-chunks",
+    "title": "Quarto Presentations",
+    "section": "Familiarities: Code Chunks",
+    "text": "Familiarities: Code Chunks\nCode chunks are created as with R Markdown. As usual, the output can be included directly in the document.\n\ngreet <- function(greeting) {\n    paste0(greeting, \", from Quarto!\")\n}\n\ngreet(\"Howdy\")\n\n[1] \"Howdy, from Quarto!\"\n\n\n\nQuarto provides an alternate way to specify code chunk options as comments in the form #| <option>: <value> at the top of the code chunk1.\n\nFor example, for the code chunk on this slide, I’ve written #| echo: true on its first line."
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-transitions",
+    "href": "notes/example-slides.html#fragments-transitions",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Transitions",
+    "text": "Fragments: Transitions\nFragments give Quarto Markdown an expressive power not found in R Markdown: transitions.\n\nThe simplest way to do this is by separating sections between 3 dots (with a space between each). See below:\n\n**_Fragments_** give Quarto Markdown an expressive power _not_ found\nin R Markdown: **transitions**.\n\n. . . \n\nThe simplest way to do this is by separating sections between 3 dots\n(with a space between each). See below:"
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-syntax",
+    "href": "notes/example-slides.html#fragments-syntax",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Syntax",
+    "text": "Fragments: Syntax\nFor more advanced transitions, we introduce a new syntax:\n\n::: {.fragment}\nYour text here.\n::: \n\n\n\nSurround your text with three colons (:::) on each end.\nAs with code chunks, we will specify options in curly brackets { ... }. Start with .fragment to create a fragment.\nYou can think of this as a format chunk by noting the similarity in syntax to code chunks, which instead of colons use backticks."
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-classes",
+    "href": "notes/example-slides.html#fragments-classes",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Classes",
+    "text": "Fragments: Classes\nYou provide a fragment class in the curly brackets to specify a transition. Here are some examples, showing you can…\n\n… highlight text.\n\n\n… shrink and grow text.\n\n\n… fade out text.\n\n\n… fade in text.\n\n\nSee here for a list of all available classes."
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-classes-1",
+    "href": "notes/example-slides.html#fragments-classes-1",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Classes",
+    "text": "Fragments: Classes\nHere’s the code for the shown fragments.\n\n::: {.fragment .highlight-red}\n... highlight text.\n:::\n\n::: {.fragment .shrink}\n_... shrink and grow text._\n:::\n\n::: {.fragment .fade-out}\n_... fade out text._\n:::\n\n::: {.fragment .fade-right}\n**... fade in text.**\n:::\n\n\nYou need to add a dot (.) before the class name.\nUnlike code chunks options, which separate options with commas, here we separate options with spaces."
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-multiple-classes",
+    "href": "notes/example-slides.html#fragments-multiple-classes",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Multiple Classes",
+    "text": "Fragments: Multiple Classes\nYou can specify multiple classes to combine transitions.\n\nPay attention to this!\n\n\n::: {.fragment .grow .highlight-blue}\n**Pay attention to this!**\n:::"
+  },
+  {
+    "objectID": "notes/example-slides.html#fragments-nesting",
+    "href": "notes/example-slides.html#fragments-nesting",
+    "title": "Quarto Presentations",
+    "section": "Fragments: Nesting",
+    "text": "Fragments: Nesting\nYou can nest fragments1 to provide multiple transitions for one chunk of text. They will be executed in order (from the outer to inner fragments).\n\n\n\n\nI’m feeling animated today!\n\n\n\n\n\n::: {.fragment .fade-up}\n::: {.fragment .grow .highlight-red}\n::: {.fragment .shrink .highlight-blue}\n::: {.fragment .fade-out}\nI'm feeling animated today!\n:::\n:::\n:::\n:::\n\nThe syntax is unfortunately verbose."
+  },
+  {
+    "objectID": "notes/example-slides.html#styling-with-css",
+    "href": "notes/example-slides.html#styling-with-css",
+    "title": "Quarto Presentations",
+    "section": "Styling with CSS",
+    "text": "Styling with CSS\nYou can make changes beyond the provided fragment classes. For example, if you’re familiar with CSS, you can control the style of the text directly:\n\nHere’s some mutilated text! :)\n\n\n\n::: {.fragment .fade-right style=\"color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em\"}\nHere's some mutilated text! :)\n:::\n\n\n\nReturn to Home Page"
+  },
+  {
     "objectID": "times.html",
     "href": "times.html",
     "title": "Office Hours/Lab Sections",
@@ -1495,7 +1691,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like y ...I like y ...I like y ...I like y ...I like y ...ou"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI li ...I li ...I li ...I li ...I li ...ke you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",
