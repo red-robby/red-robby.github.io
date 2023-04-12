@@ -407,7 +407,10 @@
 <div class="fragment">
 <p>To produce RevealJS slides, you’ll need to specify <code>format: revealjs</code>. Here is a minimal header for these slides:</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Quarto Example Presentation"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> revealjs</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -485,11 +488,11 @@
 <h2>Familiarities: Code Chunks</h2>
 <p>Code chunks are created as with R Markdown. As usual, the output can be included directly in the document.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>greet <span class="ot">&lt;-</span> <span class="cf">function</span>(greeting) {</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="fu">paste0</span>(greeting, <span class="st">", from Quarto!"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>}</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">greet</span>(<span class="st">"Howdy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>greet <span class="ot">&lt;-</span> <span class="cf">function</span>(greeting) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="fu">paste0</span>(greeting, <span class="st">", from Quarto!"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">greet</span>(<span class="st">"Howdy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Howdy, from Quarto!"</code></pre>
 </div>
@@ -509,13 +512,13 @@
 <div class="fragment">
 <p>The simplest way to do this is by separating sections between 3 dots (with a space between each). See below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>**_Fragments_** give Quarto Markdown an expressive power _not_ found</span>
-<span id="cb3-2"><a href="#cb3-2"></a>in R Markdown: **transitions**.</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>. . . </span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a>The simplest way to do this is by separating sections between 3 dots</span>
-<span id="cb3-7"><a href="#cb3-7"></a>(with a space between each). See below:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>**_Fragments_** give Quarto Markdown an expressive power _not_ found</span>
+<span id="cb4-2"><a href="#cb4-2"></a>in R Markdown: **transitions**.</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>. . . </span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>The simplest way to do this is by separating sections between 3 dots</span>
+<span id="cb4-7"><a href="#cb4-7"></a>(with a space between each). See below:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -523,9 +526,9 @@
 <h2>Fragments: Syntax</h2>
 <p>For more advanced transitions, we introduce a new syntax:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>::: {.fragment}</span>
-<span id="cb4-2"><a href="#cb4-2"></a>Your text here.</span>
-<span id="cb4-3"><a href="#cb4-3"></a>::: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>::: {.fragment}</span>
+<span id="cb5-2"><a href="#cb5-2"></a>Your text here.</span>
+<span id="cb5-3"><a href="#cb5-3"></a>::: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
@@ -558,21 +561,21 @@
 <h2>Fragments: Classes</h2>
 <p>Here’s the code for the shown fragments.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>::: {.fragment .highlight-red}</span>
-<span id="cb5-2"><a href="#cb5-2"></a>... highlight text.</span>
-<span id="cb5-3"><a href="#cb5-3"></a>:::</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>::: {.fragment .shrink}</span>
-<span id="cb5-6"><a href="#cb5-6"></a>_... shrink and grow text._</span>
-<span id="cb5-7"><a href="#cb5-7"></a>:::</span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a>::: {.fragment .fade-out}</span>
-<span id="cb5-10"><a href="#cb5-10"></a>_... fade out text._</span>
-<span id="cb5-11"><a href="#cb5-11"></a>:::</span>
-<span id="cb5-12"><a href="#cb5-12"></a></span>
-<span id="cb5-13"><a href="#cb5-13"></a>::: {.fragment .fade-right}</span>
-<span id="cb5-14"><a href="#cb5-14"></a>**... fade in text.**</span>
-<span id="cb5-15"><a href="#cb5-15"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>::: {.fragment .highlight-red}</span>
+<span id="cb6-2"><a href="#cb6-2"></a>... highlight text.</span>
+<span id="cb6-3"><a href="#cb6-3"></a>:::</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>::: {.fragment .shrink}</span>
+<span id="cb6-6"><a href="#cb6-6"></a>_... shrink and grow text._</span>
+<span id="cb6-7"><a href="#cb6-7"></a>:::</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>::: {.fragment .fade-out}</span>
+<span id="cb6-10"><a href="#cb6-10"></a>_... fade out text._</span>
+<span id="cb6-11"><a href="#cb6-11"></a>:::</span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a>::: {.fragment .fade-right}</span>
+<span id="cb6-14"><a href="#cb6-14"></a>**... fade in text.**</span>
+<span id="cb6-15"><a href="#cb6-15"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>You need to add a dot (<code>.</code>) before the class name.</li>
@@ -586,9 +589,9 @@
 <p><strong>Pay attention to this!</strong></p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>::: {.fragment .grow .highlight-blue}</span>
-<span id="cb6-2"><a href="#cb6-2"></a>**Pay attention to this!**</span>
-<span id="cb6-3"><a href="#cb6-3"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>::: {.fragment .grow .highlight-blue}</span>
+<span id="cb7-2"><a href="#cb7-2"></a>**Pay attention to this!**</span>
+<span id="cb7-3"><a href="#cb7-3"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fragments-nesting" class="slide level2">
@@ -604,15 +607,15 @@
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>::: {.fragment .fade-up}</span>
-<span id="cb7-2"><a href="#cb7-2"></a>::: {.fragment .grow .highlight-red}</span>
-<span id="cb7-3"><a href="#cb7-3"></a>::: {.fragment .shrink .highlight-blue}</span>
-<span id="cb7-4"><a href="#cb7-4"></a>::: {.fragment .fade-out}</span>
-<span id="cb7-5"><a href="#cb7-5"></a>I'm feeling animated today!</span>
-<span id="cb7-6"><a href="#cb7-6"></a>:::</span>
-<span id="cb7-7"><a href="#cb7-7"></a>:::</span>
-<span id="cb7-8"><a href="#cb7-8"></a>:::</span>
-<span id="cb7-9"><a href="#cb7-9"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>::: {.fragment .fade-up}</span>
+<span id="cb8-2"><a href="#cb8-2"></a>::: {.fragment .grow .highlight-red}</span>
+<span id="cb8-3"><a href="#cb8-3"></a>::: {.fragment .shrink .highlight-blue}</span>
+<span id="cb8-4"><a href="#cb8-4"></a>::: {.fragment .fade-out}</span>
+<span id="cb8-5"><a href="#cb8-5"></a>I'm feeling animated today!</span>
+<span id="cb8-6"><a href="#cb8-6"></a>:::</span>
+<span id="cb8-7"><a href="#cb8-7"></a>:::</span>
+<span id="cb8-8"><a href="#cb8-8"></a>:::</span>
+<span id="cb8-9"><a href="#cb8-9"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>The syntax is unfortunately verbose.</p></li></ol></aside></section>
 <section id="styling-with-css" class="slide level2">
@@ -623,9 +626,9 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>::: {.fragment .fade-right style="color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em"}</span>
-<span id="cb8-2"><a href="#cb8-2"></a>Here's some mutilated text! :)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>::: {.fragment .fade-right style="color: #85271E; text-shadow: 2px 2px 5px #7D3F39; font-weight: bold; letter-spacing: 5px; text-align: center; font-size: 2.5em"}</span>
+<span id="cb9-2"><a href="#cb9-2"></a>Here's some mutilated text! :)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">

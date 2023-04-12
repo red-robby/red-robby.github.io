@@ -22,6 +22,7 @@ To produce RevealJS slides, you'll need to specify ``format: revealjs``. Here
 is a minimal header for these slides: 
 
 ```{yaml}
+#| echo: true
 ---
 title: "Quarto Example Presentation"
 format: revealjs
