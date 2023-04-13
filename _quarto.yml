@@ -40,6 +40,7 @@ website:
             - stat133/lab08.qmd
             - stat133/lab09.qmd
             - stat133/lab10.qmd
+            - stat133/lab12.qmd
       - section: "Notes"
         contents:
           - notes/example-slides.qmd

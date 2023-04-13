@@ -249,7 +249,7 @@
     "href": "stat133/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI lik ...I lik ...I lik ...I lik ...I lik ...e you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI l ...I l ...I l ...I l ...I l ...ike you"
   },
   {
     "objectID": "stat133/lab09.html#favorite-number-with-repeat",
@@ -859,6 +859,153 @@
     "title": "Lab 03: Intro to dplyr and ggplot2",
     "section": "Theme Example, Plot",
     "text": "Theme Example, Plot\n\n\nShow Plot Code\n# We label these colors for clarity.\nred <- \"#C24A40\"\ndark_red <- \"#732C26\"\n\nstarwars |>\n  filter(mass < 200) |>\n  ggplot(aes(x = height, y = mass)) +\n    geom_line(\n      color = red,   \n      alpha = 0.8,        \n      size = 1.15,      \n      lineend = \"round\",\n      linejoin = \"round\"\n    ) +\n    geom_point(\n      color = dark_red,  \n      alpha = 1,     \n      shape = 18,       \n      size = 2.5,         \n    ) + \n    labs(\n      title = \"Height and Weight of Star Wars Characters\",\n      x = \"Height (cm)\",\n      y = \"Weight (kg)\"\n    ) + \n    example_theme  # We add the theme here\n\n\n\n\n\nReturn to Home Page"
+  },
+  {
+    "objectID": "stat133/lab12.html#introduction",
+    "href": "stat133/lab12.html#introduction",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Introduction",
+    "text": "Introduction\n\n\n\nDeclarative language for expressing patterns in strings.\n\nOften referred to as RegEx (“ree-jex” or “reg-ecks”).\nThe RegEx engine (a program) will read your pattern(s) and attempt to find matches in any strings you provide."
+  },
+  {
+    "objectID": "stat133/lab12.html#declarative-patterns",
+    "href": "stat133/lab12.html#declarative-patterns",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Declarative Patterns",
+    "text": "Declarative Patterns\nConsider the following strings:\n\n\n[1] \"Mr. Evans\"   \"Mrs. Evans\"  \"Mr. Sproul\"  \"Mrs. Sproul\"\n\n\nIn words, if we wanted to obtain the last names (e.g., “Evans” for the first two), what pattern would we look for?\n\n\nThe second capital letter followed by letters?\nA number of letters which come after a space?\nAll connected letters that touch the end of the string?"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-formalizes-this",
+    "href": "stat133/lab12.html#regex-formalizes-this",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx Formalizes This",
+    "text": "RegEx Formalizes This\nWe can express these patterns formally with RegEx so that the engine can utilize them.\n\nFor a preview, we can formalize the last expression, “all connected letters which touch the end of the string”, to obtain the last names:\n\nnames <- c(\"Mr. Evans\", \"Mrs. Evans\", \"Mr. Sproul\", \"Mrs. Sproul\")\nstr_extract(names, \"[:alpha:]+$\")\n\n[1] \"Evans\"  \"Evans\"  \"Sproul\" \"Sproul\""
+  },
+  {
+    "objectID": "stat133/lab12.html#stringr-regex-functions-preview",
+    "href": "stat133/lab12.html#stringr-regex-functions-preview",
+    "title": "Lab 12: RegEx Intro",
+    "section": "stringr RegEx Functions Preview",
+    "text": "stringr RegEx Functions Preview\nTo demonstrate, we introduce the following functions from the library stringr:\n\n\nstr_detect(string, pattern) returns a logical indicating if pattern is found in string.\nstr_match(string, pattern) returns the first match of pattern found in string.\nstr_match_all(string, pattern) returns all matches of pattern found in string."
+  },
+  {
+    "objectID": "stat133/lab12.html#substring-matches",
+    "href": "stat133/lab12.html#substring-matches",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Substring Matches",
+    "text": "Substring Matches\nIn the simplest case, we can express a finite sequence of characters to match against1.\n\nwords <- c(\"hotel\", \"hotel\", \"remotely\", \"biotelemtry\")\nstr_detect(words, \"otel\") # otel is found in all of these strings\n\n[1] TRUE TRUE TRUE TRUE\n\n\n\n\nWhile helpful, this is clearly insufficient for most patterns.\nFor this reason, we introduce the ability to specify a type of character (instead of an exact one such as 'a').\n\n\nWe write regular expressions (patterns) in quotes (as strings) in R."
+  },
+  {
+    "objectID": "stat133/lab12.html#matching-against-digits",
+    "href": "stat133/lab12.html#matching-against-digits",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Matching Against Digits",
+    "text": "Matching Against Digits\nConsider the following strings, each containing an ID:\n\n\n[1] \"ID: 4056\" \"ID: 5149\" \"ID: 4132\" \"ID: 5156\" \"ID: 5145\" \"ID: 5157\" \"ID: 5657\"\n\n\n\nSuppose we wanted only the IDs (not \"ID: \"). To express this as a pattern, we note that each ID consists of 4 digits."
+  },
+  {
+    "objectID": "stat133/lab12.html#matching-against-digits-1",
+    "href": "stat133/lab12.html#matching-against-digits-1",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Matching Against Digits",
+    "text": "Matching Against Digits\nSo our expression should consist of 4 characters, each of type digit. We express this type with \\d or [:digit:]:\n\nstr_match(ids, \"[:digit:][:digit:][:digit:][:digit:]\") \n\n     [,1]  \n[1,] \"4056\"\n[2,] \"5149\"\n[3,] \"4132\"\n[4,] \"5156\"\n[5,] \"5145\"\n[6,] \"5157\"\n[7,] \"5657\""
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-character-types",
+    "href": "stat133/lab12.html#regex-character-types",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx Character Types",
+    "text": "RegEx Character Types\nThis works similarly for other types of characters. Here are a few important cases:\n\n\n\nExpression\nMatches with\n\n\n\n\n[:digits:] or \\\\d\ndigits\n\n\n[:alpha:]\nletters\n\n\n[:lower:]\nlowercase letters\n\n\n[:upper:]\nuppercase letters\n\n\n[:punctuation:]\npunctuation\n\n\n.\nall characters except new line (\\n)"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-repetitions",
+    "href": "stat133/lab12.html#regex-repetitions",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx Repetitions",
+    "text": "RegEx Repetitions\nWe can express the desired number of repetitions of a pattern with:\n\n\n\nExpression\nMatches with (of pattern)\n\n\n\n\n\\<pattern\\>?\nZero or one\n\n\n\\<pattern\\>*\nZero or more\n\n\n\\<pattern\\>+\nOne or more\n\n\n\\<pattern\\>{n}\nExactly n\n\n\n\\<pattern\\>{n, }\nn or more\n\n\n\\<pattern\\>{n, m}\nbetween n and m"
+  },
+  {
+    "objectID": "stat133/lab12.html#matching-against-digits-repetition",
+    "href": "stat133/lab12.html#matching-against-digits-repetition",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Matching Against Digits (Repetition)",
+    "text": "Matching Against Digits (Repetition)\nWe can therefore replace\n\nstr_match(ids, \"[:digit:][:digit:][:digit:][:digit:]\")``\n\n\nwith the following:\n\nstr_match(ids, \"[:digit:]{4}\") # could also do [:digits:]+\n\n     [,1]  \n[1,] \"4056\"\n[2,] \"5149\"\n[3,] \"4132\"\n[4,] \"5156\"\n[5,] \"5145\"\n[6,] \"5157\"\n[7,] \"5657\""
+  },
+  {
+    "objectID": "stat133/lab12.html#matching-against-allowable-characters",
+    "href": "stat133/lab12.html#matching-against-allowable-characters",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Matching Against Allowable Characters",
+    "text": "Matching Against Allowable Characters\nInstead of specifying a character type…\n\nWe can also specify that it can be one of a specified set of allowable characters.\n\n\nList these characters one after another without spaces in square brackets ([]).\n\nstr_match(ids, \"[0123456789]{4}\") # equivalent to [:digits:]{4}"
+  },
+  {
+    "objectID": "stat133/lab12.html#yesno-example",
+    "href": "stat133/lab12.html#yesno-example",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Yes/No Example",
+    "text": "Yes/No Example\nSuppose we’d like to evaluate a yes/no answer received from a user.\n\n\neval_answer <- function(answer) {\n  if (str_detect(answer, \"[Yy]+[Ee]+[Ss]+\"))\n    TRUE\n  else if (str_detect(answer, \"[Nn]+[Oo]+\"))\n    FALSE\n  else\n    NA\n} \n\n\nBut wait…\n\n\n\nWhat happens if the user enters \"Well, yes but actually no.\"?\nWhat about \"Yesterday, but not today...\" or \"I dunno\"?"
+  },
+  {
+    "objectID": "stat133/lab12.html#unallowed-characters",
+    "href": "stat133/lab12.html#unallowed-characters",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Unallowed Characters",
+    "text": "Unallowed Characters\nWe can also allow any BUT a set of characters with [^<unallowed characters>].\n\n\ngrades <- \"Math Grade: B, English Grade: C, Statistics Grade: F, History Grade: D\"\nstr_match_all(grades, \"[:alpha:]+ Grade: [^DF]\")\n\n[[1]]\n     [,1]              \n[1,] \"Math Grade: B\"   \n[2,] \"English Grade: C\""
+  },
+  {
+    "objectID": "stat133/lab12.html#ranges",
+    "href": "stat133/lab12.html#ranges",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Ranges",
+    "text": "Ranges\nWe can specify a range of allowable values. Some examples:\n\n\n\nExpression\nMatches\n\n\n\n\n[a-z]\nAll lowercase letters\n\n\n[a-f]\nAll lowercase letters between a and f (inclusive)\n\n\n[A-K]\nAll capital letters between A and K (inclusive)\n\n\n[0-5]\nAll digits between 0 and 5 (inclusive)\n\n\n[0-5A-Ka-f]\nAll of the previous three.\n\n\n[^0-5A-Ka-f]\nNone of the previous."
+  },
+  {
+    "objectID": "stat133/lab12.html#or-operator",
+    "href": "stat133/lab12.html#or-operator",
+    "title": "Lab 12: RegEx Intro",
+    "section": "OR Operator",
+    "text": "OR Operator\nWe can allow one pattern OR another with <pattern A>|<pattern B>.\n\nstr_detect(names, \"(Mr|Mrs)\\\\. Evans\")\n\n[1]  TRUE  TRUE FALSE FALSE\n\n\nNote the use of parenthesis - otherwise it will look for \"Mr\" or \"Mrs\\\\. Evans\".\n\n\nNote the use of \\\\ before the period.\nSome characters are used as symbols ( the . is used to represent any character). To indicate we would like to use the actual character in the pattern, we must precede it with \\\\."
+  },
+  {
+    "objectID": "stat133/lab12.html#anchors",
+    "href": "stat133/lab12.html#anchors",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Anchors",
+    "text": "Anchors\nWe can “anchor” our desired patterns to the front or end of the string with ^ and $, respectively.\n\nstr_match(ids, \"[:digit:]{4}$\") # all IDs touch the end of the string\n\n     [,1]  \n[1,] \"4056\"\n[2,] \"5149\"\n[3,] \"4132\"\n[4,] \"5156\"\n[5,] \"5145\"\n[6,] \"5157\"\n[7,] \"5657\"\n\n\n\n\nstr_match(ids, \"^[:digit]{4}\") # none touch the front \n\n     [,1]\n[1,] NA  \n[2,] NA  \n[3,] NA  \n[4,] NA  \n[5,] NA  \n[6,] NA  \n[7,] NA  \n\n\n\nDon’t confuse this ^ with the one found in square brackets!"
+  },
+  {
+    "objectID": "stat133/lab12.html#lookahead-lookbehind",
+    "href": "stat133/lab12.html#lookahead-lookbehind",
+    "title": "Lab 12: RegEx Intro",
+    "section": "Lookahead, Lookbehind",
+    "text": "Lookahead, Lookbehind\nWe can check if a pattern exists or (oe doesn’t) before or after a pattern (without needing to include it in the resulting match).\n\n\n\nExpression\nMatches\n\n\n\n\n\\<pattern A\\>(?=\\<pattern B\\>)\nfollowed by\n\n\n\\<pattern A\\>(?!\\<pattern B\\>)\nnot followed by\n\n\n(?\\<=\\<pattern B\\>)\\<pattern A\\>\npreceded by\n\n\n(?\\<!\\<pattern B\\>)\\<pattern A\\>\nnot preceded by"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-practice",
+    "href": "stat133/lab12.html#regex-practice",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx: Practice",
+    "text": "RegEx: Practice\n\n\n[1] \"Saab 900 SE Turbo\"           \"Plymouth Barracuda\"         \n[3] \"Nissan Skyline 2000GT\"       \"BMW 2002\"                   \n[5] \"Chevrolet Corvette Stingray\" \"Porsche 928\"                \n\n\nHow do we obtain the car manufacturer?"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-practice-1",
+    "href": "stat133/lab12.html#regex-practice-1",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx: Practice",
+    "text": "RegEx: Practice\n\n\n[1] \"Saab 900 SE Turbo\"           \"Plymouth Barracuda\"         \n[3] \"Nissan Skyline 2000GT\"       \"BMW 2002\"                   \n[5] \"Chevrolet Corvette Stingray\" \"Porsche 928\"                \n\n\nHow do we obtain the cars whose model contains a number?"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-practice-2",
+    "href": "stat133/lab12.html#regex-practice-2",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx: Practice",
+    "text": "RegEx: Practice\n\n\n[1] \"Saab 900 SE Turbo\"           \"Plymouth Barracuda\"         \n[3] \"Nissan Skyline 2000GT\"       \"BMW 2002\"                   \n[5] \"Chevrolet Corvette Stingray\" \"Porsche 928\"                \n\n\nHow do we obtain the cars whose model does not contain a number?"
+  },
+  {
+    "objectID": "stat133/lab12.html#regex-practice-3",
+    "href": "stat133/lab12.html#regex-practice-3",
+    "title": "Lab 12: RegEx Intro",
+    "section": "RegEx: Practice",
+    "text": "RegEx: Practice\n\n\n[1] \"Saab 900 SE Turbo\"           \"Plymouth Barracuda\"         \n[3] \"Nissan Skyline 2000GT\"       \"BMW 2002\"                   \n[5] \"Chevrolet Corvette Stingray\" \"Porsche 928\"                \n\n\nHow do we obtain the car model?\n\n\nReturn to Home Page"
   },
   {
     "objectID": "stat133/lab06.html#program-output",
@@ -1691,7 +1838,7 @@
     "href": "stat33b/lab09.html#the-repeat-statement-example",
     "title": "Lab 09: Loops",
     "section": "The repeat Statement: Example",
-    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI l ...I l ...I l ...I l ...I l ...ike you"
+    "text": "The repeat Statement: Example\n\nprint_hesitantly <- function(sentence, times) {\n  cutoff <- sample(1:nchar(sentence))\n  to_repeat <- substr(sentence, 1, cutoff)\n  repeat {\n    cat(to_repeat, '...'); times <- times - 1\n    if (times <= 0) {\n      break\n    }\n  }\n  cat(substr(sentence, cutoff + 1, nchar(sentence)))\n}\nprint_hesitantly(\"I like you\", 5)\n\nI like ...I like ...I like ...I like ...I like ... you"
   },
   {
     "objectID": "stat33b/lab09.html#favorite-number-with-repeat",

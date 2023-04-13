@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.313">
 
-  <title>Stat Stuff - Lab 09: Loops</title>
+  <title>Stat Stuff - Lab 12: RegEx Intro</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,346 +390,427 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lab 09: Loops</h1>
+  <h1 class="title">Lab 12: RegEx Intro</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="repeating-code" class="slide level2">
-<h2>Repeating Code</h2>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
 <div class="cell">
 
 </div>
-<p>We’ve seen how to control <em>which</em> lines of code are ran with <em>conditionals</em>.</p>
-<div class="fragment">
-<p>Today, we’ll review how to control <em>repetition</em> of lines of code.</p>
-</div>
-</section>
-<section id="a-simple-problem" class="slide level2">
-<h2>A Simple Problem</h2>
-<p>Suppose you have a vector with thousands of integers.</p>
-<div class="fragment fade-right">
-<div style="color: blue;">
-<p>You’d like to find the <em>indices</em> of your favorite number, but you can’t use vectorization or loops.</p>
-</div>
-</div>
-<div class="fragment">
-<p>If you’re familiar with functions, you could use <em>recursion</em>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cn">NULL</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">head</span>(vec, <span class="dv">1</span>) <span class="sc">==</span> num) {</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">num_indices</span>(<span class="fu">tail</span>(vec, <span class="sc">-</span><span class="dv">1</span>), num))</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  }</span>
-<span id="cb1-9"><a href="#cb1-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="iterative-instead-of-recusrsive" class="slide level2">
-<h2>Iterative Instead of Recusrsive</h2>
-<p><strong>Recursive</strong> solutions are often elegant but also difficult to write.<sup>1</sup></p>
-<div class="fragment fade-right" style="color: blue;">
-<p>For this reason, we introduce an alternate approach: <strong>iterative</strong> solutions.</p>
-</div>
-<div class="fragment">
-<p>Iterative solutions contain a block of code that is directly repeated.</p>
-<h3 id="we-call-the-repeated-code-the-loop.">We call the repeated code the <strong>loop</strong>.</h3>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="beyond-conditional-statements" class="slide level2">
-<h2>Beyond Conditional Statements</h2>
-<p>We’ve seen a series of statements (<code>if</code>, <code>else</code>, <code>else if</code>) for <strong><em>conditionally</em></strong> executing bodies of code.</p>
-<div class="fragment fade-right" style="color: blue;">
-<p>We’ll now introduce another series of statements for <strong><em>repeatedly</em></strong> executing bodies of code (<em>looping</em>).</p>
-</div>
-<div class="fragment">
+<h3 id="declarative-language-for-expressing-patterns-in-strings.">Declarative language for <strong>expressing patterns</strong> in strings.</h3>
 <ul>
-<li><p><code>while</code>: execute its body <em>while</em> a condition holds true.</p></li>
-<li><p><code>for</code>: execute its body <em>for each</em> object in a specified vector.</p></li>
-<li><p><code>repeat</code>: execute its body repeatedly and unconditionally.</p></li>
+<li>Often referred to as RegEx (“ree-jex” or “reg-ecks”).</li>
+<li>The RegEx engine (a program) will read your pattern(s) and attempt to find matches in any strings you provide.</li>
+</ul>
+</section>
+<section id="declarative-patterns" class="slide level2">
+<h2>Declarative Patterns</h2>
+<p>Consider the following strings:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mr. Evans"   "Mrs. Evans"  "Mr. Sproul"  "Mrs. Sproul"</code></pre>
+</div>
+</div>
+<p>In words, if we wanted to obtain the <strong>last names</strong> (e.g., “Evans” for the first two), what <em>pattern</em> would we look for?</p>
+<div style="color: dodgerblue;">
+<ul>
+<li class="fragment"><em>The second capital letter followed by letters?</em></li>
+<li class="fragment"><em>A number of letters which come after a space?</em></li>
+<li class="fragment"><em>All connected letters that touch the end of the string?</em></li>
 </ul>
 </div>
 </section>
-<section id="the-while-statement" class="slide level2">
-<h2>The <code>while</code> Statement</h2>
-<p>The <code>while</code> statement is similar in form and behavior to <code>if</code>:</p>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>while(LOGICAL) &lt;body&gt;</code></p>
-</div>
+<section id="regex-formalizes-this" class="slide level2">
+<h2>RegEx Formalizes This</h2>
+<p>We can express these patterns formally with RegEx so that the engine can utilize them.</p>
 <div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>while</strong> <code>LOGICAL</code> returns <code>TRUE</code>,</p>
-</div>
-<div class="fragment">
-<p>as if an <code>if</code> statement that repeats until <code>LOGICAL == FALSE</code>,</p>
-<div class="r-fit-text" style="color: blue;">
-<p><code>if(LOGICAL) &lt;body&gt; if(LOGICAL) &lt;body&gt; ...</code></p>
-</div>
-</div>
-</section>
-<section id="the-while-statement-example-1" class="slide level2">
-<h2>The <code>while</code> Statement: Example 1</h2>
-<p>Here we count up from <code>from</code> to <code>to</code>, printing the numbers along the way.</p>
-<div class="r-stack">
-<div class="fragment">
+<p>For a preview, we can formalize the last expression, <em>“all connected letters which</em> <em>touch the end of the string”</em>, to obtain the last names:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>count_up <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="fu">cat</span>(<span class="st">"..."</span>, from, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  }</span>
-<span id="cb2-6"><a href="#cb2-6"></a>}</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">count_up</span>(<span class="dv">1</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mr. Evans"</span>, <span class="st">"Mrs. Evans"</span>, <span class="st">"Mr. Sproul"</span>, <span class="st">"Mrs. Sproul"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">str_extract</span>(names, <span class="st">"[:alpha:]+$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>...1...2...3...4...5</code></pre>
-</div>
+<pre><code>[1] "Evans"  "Evans"  "Sproul" "Sproul"</code></pre>
 </div>
 </div>
 </div>
 </section>
-<section id="the-while-statement-example-2" class="slide level2">
-<h2>The <code>while</code> Statement: Example 2</h2>
-<p>Using a similar idea, we can recreate a (simplified) version of <code>seq</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>while_seq <span class="ot">&lt;-</span> <span class="cf">function</span>(from, to, by) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(from))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="cf">while</span> (from <span class="sc">&lt;=</span> to) {</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    s <span class="ot">&lt;-</span> <span class="fu">append</span>(s, from)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    from <span class="ot">&lt;-</span> from <span class="sc">+</span> by</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  }</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  s</span>
-<span id="cb4-8"><a href="#cb4-8"></a>}</span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">while_seq</span>(<span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  3  5  7  9 11</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment fade-right" style="color: red;">
-<p>For which input will this function not work?</p>
-</div>
-</section>
-<section id="favorite-number-with-while" class="slide level2">
-<h2>Favorite Number with <code>while</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>while</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb6-5"><a href="#cb6-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    }</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  }</span>
-<span id="cb6-9"><a href="#cb6-9"></a>  indices</span>
-<span id="cb6-10"><a href="#cb6-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-for-statement" class="slide level2">
-<h2>The <code>for</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>for (&lt;variable&gt; in &lt;vector&gt;) &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed once <strong>for each</strong> object <strong>in</strong> <code>&lt;vector&gt;</code>.</p>
-</div>
-<div class="fragment">
-<p>Inside <code>&lt;body&gt;</code>, we refer to the currently used object by <code>&lt;variable&gt;</code><sup>1</sup>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">cat</span>(<span class="st">"i:"</span>, i, <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>i: 1    i: 2    i: 3    i: 4    i: 5    i: 6    i: 7    </code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>You can name <code>&lt;variable&gt;</code> whatever you’d like.</p></li></ol></aside></section>
-<section id="for-makes-copies" class="slide level2">
-<h2><code>for</code> Makes Copies</h2>
-<p>We <strong><em>cannot modify</em></strong> <code>&lt;vector&gt;</code> by reassigning <code>&lt;variable&gt;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="cf">for</span> (num <span class="cf">in</span> x) {</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  num <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5 6 7</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This is because <code>&lt;variable&gt;</code> is a <strong><em>copy</em></strong> of the value in the vector. Refer to the original object instead:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>}</span>
-<span id="cb11-5"><a href="#cb11-5"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0 0 0 0 0 0 0</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="for-statement-variables" class="slide level2">
-<h2><code>for</code> Statement Variables</h2>
-<p>You are free to name <code>&lt;variable&gt;</code> <em>anything</em>.</p>
+<section id="stringr-regex-functions-preview" class="slide level2">
+<h2><code>stringr</code> RegEx Functions Preview</h2>
+<p>To demonstrate, we introduce the following functions from the library <code>stringr</code>:</p>
+<div>
 <ul>
-<li>In some cases, a trivial name (e.g., <code>i</code> for index or <code>n</code> for number) may be sufficient.</li>
-<li>Other times, you you may want descriptive names for clarity.</li>
+<li class="fragment"><code>str_detect(string, pattern)</code> returns a logical indicating if <code>pattern</code> is found in <code>string</code>.</li>
+<li class="fragment"><code>str_match(string, pattern)</code> returns the first match of <code>pattern</code> found in <code>string</code>.</li>
+<li class="fragment"><code>str_match_all(string, pattern)</code> returns all matches of <code>pattern</code> found in <code>string</code>.</li>
 </ul>
-<div class="fragment">
-<p>Some students <em>always use <code>i</code></em> - please don’t do this!</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> (i <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="co"># ... BAD! Doesn't express the meaning of the object.</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">for</span> (color <span class="cf">in</span> starwars<span class="sc">$</span>eye_color) {</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co"># ... GOOD! The meaning of the object is obvious to the reader. </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
 </div>
 </section>
-<section id="favorite-number-with-for" class="slide level2">
-<h2>Favorite Number with <code>for</code></h2>
-<p>Let’s rewrite <code>num_indices</code> with a <code>for</code> loop.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="substring-matches" class="slide level2">
+<h2>Substring Matches</h2>
+<p>In the simplest case, we can express a finite sequence of characters to match against<sup>1</sup>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb15-5"><a href="#cb15-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb15-6"><a href="#cb15-6"></a>    }</span>
-<span id="cb15-7"><a href="#cb15-7"></a>  }</span>
-<span id="cb15-8"><a href="#cb15-8"></a>  indices</span>
-<span id="cb15-9"><a href="#cb15-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="seq_along" class="slide level2">
-<h2><code>seq_along()</code></h2>
-<p>Notice that to get a vector of the indices, we wrote <code>1:length(vec)</code>.</p>
-<p>The idiomatic way of doing this is with the <code>seq_along()</code> function:</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>()</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb16-5"><a href="#cb16-5"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    }</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  }</span>
-<span id="cb16-8"><a href="#cb16-8"></a>  indices</span>
-<span id="cb16-9"><a href="#cb16-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement" class="slide level2">
-<h2>The <code>repeat</code> Statement</h2>
-<div class="fragment fade-right r-fit-text" style="color: blue;">
-<p><code>repeat &lt;body&gt;</code></p>
-</div>
-<div class="fragment">
-<p>where <code>&lt;body&gt;</code> is executed <strong>repeatedly</strong> and <strong>unconditionally</strong> until a <code>break</code> statement is encountered<sup>1</sup>.</p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>The <code>repeat</code> statement is not found in other commonly used programming languages.</p></li></ol></aside></section>
-<section id="break-statement" class="slide level2">
-<h2><code>break</code> statement?</h2>
-<p>The <code>break</code> statement can be used in <em>any loop</em> (<code>for</code>, <code>while</code>, <code>repeat</code>) to immediately stop its execution.</p>
-<div class="fragment">
-<p>The <strong><em>last iteration of the loop’s body is not completed</em></strong>. The body of the loop is <strong><em>immediately exited</em></strong> on encountering <code>break</code>.</p>
-<div class="r-stack">
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>all_until <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, stop_value) {</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  v <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="fu">typeof</span>(vec)) </span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="cf">for</span> (obj <span class="cf">in</span> vec) {</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    <span class="cf">if</span> (obj <span class="sc">==</span> stop_value) {</span>
-<span id="cb17-5"><a href="#cb17-5"></a>      <span class="cf">break</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7"></a>    v <span class="ot">&lt;-</span> <span class="fu">append</span>(v, obj)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>  }</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  v</span>
-<span id="cb17-10"><a href="#cb17-10"></a>}</span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="fu">all_until</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">50</span><span class="sc">:</span><span class="dv">45</span>), <span class="dv">48</span>) <span class="co"># all values until 48 is reached</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"hotel"</span>, <span class="st">"hotel"</span>, <span class="st">"remotely"</span>, <span class="st">"biotelemtry"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">str_detect</span>(words, <span class="st">"otel"</span>) <span class="co"># otel is found in all of these strings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2  3  4  5 50 49</code></pre>
+<pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
 </div>
 </div>
+<div>
+<ul>
+<li class="fragment">While helpful, this is clearly insufficient for most patterns.</li>
+<li class="fragment">For this reason, we introduce the ability to specify a <em>type</em> of character (instead of an exact one such as <code>'a'</code>).</li>
+</ul>
 </div>
-</div>
-</div>
-</section>
-<section id="the-repeat-statement-example" class="slide level2">
-<h2>The <code>repeat</code> Statement: Example</h2>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>We write regular expressions (patterns) in quotes (as strings) in R.</p></li></ol></aside></section>
+<section id="matching-against-digits" class="slide level2">
+<h2>Matching Against Digits</h2>
+<p>Consider the following strings, each containing an ID:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>print_hesitantly <span class="ot">&lt;-</span> <span class="cf">function</span>(sentence, times) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  cutoff <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nchar</span>(sentence))</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  to_repeat <span class="ot">&lt;-</span> <span class="fu">substr</span>(sentence, <span class="dv">1</span>, cutoff)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    <span class="fu">cat</span>(to_repeat, <span class="st">'...'</span>); times <span class="ot">&lt;-</span> times <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">if</span> (times <span class="sc">&lt;=</span> <span class="dv">0</span>) {</span>
-<span id="cb19-7"><a href="#cb19-7"></a>      <span class="cf">break</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>    }</span>
-<span id="cb19-9"><a href="#cb19-9"></a>  }</span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">cat</span>(<span class="fu">substr</span>(sentence, cutoff <span class="sc">+</span> <span class="dv">1</span>, <span class="fu">nchar</span>(sentence)))</span>
-<span id="cb19-11"><a href="#cb19-11"></a>}</span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="fu">print_hesitantly</span>(<span class="st">"I like you"</span>, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I like ...I like ...I like ...I like ...I like ... you</code></pre>
+<pre><code>[1] "ID: 4056" "ID: 5149" "ID: 4132" "ID: 5156" "ID: 5145" "ID: 5157" "ID: 5657"</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Suppose we wanted only the IDs (not <code>"ID: "</code>). To express this as a pattern, we note that <em>each ID consists of 4 digits.</em></p>
+</div>
+</section>
+<section id="matching-against-digits-1" class="slide level2">
+<h2>Matching Against Digits</h2>
+<p>So our expression should consist of 4 characters, each of type <strong>digit</strong>. We express this type with <code>\d</code> or <code>[:digit:]</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">str_match</span>(ids, <span class="st">"[:digit:][:digit:][:digit:][:digit:]"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]  
+[1,] "4056"
+[2,] "5149"
+[3,] "4132"
+[4,] "5156"
+[5,] "5145"
+[6,] "5157"
+[7,] "5657"</code></pre>
 </div>
 </div>
 </section>
-<section id="favorite-number-with-repeat" class="slide level2">
-<h2>Favorite Number with <code>repeat</code></h2>
-<p>The favorite number problem. Notice the similarity to the <code>while</code> solution.</p>
+<section id="regex-character-types" class="slide level2">
+<h2>RegEx Character Types</h2>
+<p>This works similarly for other <em>types</em> of characters. Here are a few important cases:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Expression</th>
+<th>Matches with</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[:digits:]</code> or <code>\\d</code></td>
+<td>digits</td>
+</tr>
+<tr class="even">
+<td><code>[:alpha:]</code></td>
+<td>letters</td>
+</tr>
+<tr class="odd">
+<td><code>[:lower:]</code></td>
+<td>lowercase letters</td>
+</tr>
+<tr class="even">
+<td><code>[:upper:]</code></td>
+<td>uppercase letters</td>
+</tr>
+<tr class="odd">
+<td><code>[:punctuation:]</code></td>
+<td>punctuation</td>
+</tr>
+<tr class="even">
+<td><code>.</code></td>
+<td>all characters except new line (<code>\n</code>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regex-repetitions" class="slide level2">
+<h2>RegEx Repetitions</h2>
+<p>We can express the desired number of <strong>repetitions of a pattern</strong> with:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Expression</th>
+<th>Matches with (of pattern)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>\&lt;pattern\&gt;?</code></td>
+<td>Zero or one</td>
+</tr>
+<tr class="even">
+<td><code>\&lt;pattern\&gt;*</code></td>
+<td>Zero or more</td>
+</tr>
+<tr class="odd">
+<td><code>\&lt;pattern\&gt;+</code></td>
+<td>One or more</td>
+</tr>
+<tr class="even">
+<td><code>\&lt;pattern\&gt;{n}</code></td>
+<td>Exactly n</td>
+</tr>
+<tr class="odd">
+<td><code>\&lt;pattern\&gt;{n, }</code></td>
+<td>n or more</td>
+</tr>
+<tr class="even">
+<td><code>\&lt;pattern\&gt;{n, m}</code></td>
+<td>between n and m</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="matching-against-digits-repetition" class="slide level2">
+<h2>Matching Against Digits (Repetition)</h2>
+<p>We can therefore replace</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>num_indices <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, num) {</span>
-<span id="cb21-2"><a href="#cb21-2"></a>  indices <span class="ot">&lt;-</span> <span class="fu">integer</span>(); i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="cf">repeat</span> {</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="fu">length</span>(vec)) { <span class="co"># the opposite of the while condition</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="cf">break</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> num) {</span>
-<span id="cb21-8"><a href="#cb21-8"></a>      indices <span class="ot">&lt;-</span> <span class="fu">append</span>(indices, i)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    }</span>
-<span id="cb21-10"><a href="#cb21-10"></a>    i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a>  }</span>
-<span id="cb21-12"><a href="#cb21-12"></a>  indices</span>
-<span id="cb21-13"><a href="#cb21-13"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">str_match</span>(ids, <span class="st">"[:digit:][:digit:][:digit:][:digit:]"</span>)<span class="st">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
+<p>with the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">str_match</span>(ids, <span class="st">"[:digit:]{4}"</span>) <span class="co"># could also do [:digits:]+</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]  
+[1,] "4056"
+[2,] "5149"
+[3,] "4132"
+[4,] "5156"
+[5,] "5145"
+[6,] "5157"
+[7,] "5657"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="matching-against-allowable-characters" class="slide level2">
+<h2>Matching Against <em>Allowable Characters</em></h2>
+<p>Instead of specifying a character type…</p>
+<div class="fragment fade-right" style="color: dodgerblue;">
+<p><strong>We can also specify that it can be one of a specified set of <em>allowable characters</em>.</strong></p>
+</div>
+<div class="fragment">
+<p>List these characters one after another without spaces in square brackets (<code>[]</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">str_match</span>(ids, <span class="st">"[0123456789]{4}"</span>) <span class="co"># equivalent to [:digits:]{4}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="yesno-example" class="slide level2">
+<h2>Yes/No Example</h2>
+<p>Suppose we’d like to evaluate a yes/no answer received from a user.</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>eval_answer <span class="ot">&lt;-</span> <span class="cf">function</span>(answer) {</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="cf">if</span> (<span class="fu">str_detect</span>(answer, <span class="st">"[Yy]+[Ee]+[Ss]+"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="cn">TRUE</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">str_detect</span>(answer, <span class="st">"[Nn]+[Oo]+"</span>))</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="cn">FALSE</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="cf">else</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="cn">NA</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment fade-right" style="color: indianred;">
+<p>But wait…</p>
+</div>
+<div>
+<ul>
+<li class="fragment">What happens if the user enters <code>"Well, yes but actually no."</code>?</li>
+<li class="fragment">What about <code>"Yesterday, but not today..."</code> or <code>"I dunno"</code>?</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="unallowed-characters" class="slide level2">
+<h2><em>Unallowed Characters</em></h2>
+<p>We can also allow any <strong>BUT</strong> a set of characters with <code>[^&lt;unallowed characters&gt;]</code>.</p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>grades <span class="ot">&lt;-</span> <span class="st">"Math Grade: B, English Grade: C, Statistics Grade: F, History Grade: D"</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">str_match_all</span>(grades, <span class="st">"[:alpha:]+ Grade: [^DF]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+     [,1]              
+[1,] "Math Grade: B"   
+[2,] "English Grade: C"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="ranges" class="slide level2">
+<h2>Ranges</h2>
+<p>We can specify a range of allowable values. Some examples:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Expression</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[a-z]</code></td>
+<td>All lowercase letters</td>
+</tr>
+<tr class="even">
+<td><code>[a-f]</code></td>
+<td>All lowercase letters between a and f (inclusive)</td>
+</tr>
+<tr class="odd">
+<td><code>[A-K]</code></td>
+<td>All capital letters between A and K (inclusive)</td>
+</tr>
+<tr class="even">
+<td><code>[0-5]</code></td>
+<td>All digits between 0 and 5 (inclusive)</td>
+</tr>
+<tr class="odd">
+<td><code>[0-5A-Ka-f]</code></td>
+<td>All of the previous three.</td>
+</tr>
+<tr class="even">
+<td><code>[^0-5A-Ka-f]</code></td>
+<td>None of the previous.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="or-operator" class="slide level2">
+<h2><strong>OR</strong> Operator</h2>
+<p>We can allow one pattern <strong>OR</strong> another with <code>&lt;pattern A&gt;|&lt;pattern B&gt;</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">str_detect</span>(names, <span class="st">"(Mr|Mrs)</span><span class="sc">\\</span><span class="st">. Evans"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+<p>Note the use of parenthesis - otherwise it will look for <code>"Mr"</code> or <code>"Mrs\\. Evans"</code>.</p>
+<div>
+<ul>
+<li class="fragment">Note the use of <code>\\</code> before the period.</li>
+<li class="fragment">Some characters are used as symbols ( the <code>.</code> is used to represent any character). To indicate we would like to use the actual character in the pattern, we must precede it with <code>\\</code>.</li>
+</ul>
+</div>
+</section>
+<section id="anchors" class="slide level2">
+<h2>Anchors</h2>
+<p>We can “anchor” our desired patterns to the <em>front</em> or <em>end</em> of the string with <code>^</code> and <code>$</code>, respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">str_match</span>(ids, <span class="st">"[:digit:]{4}$"</span>) <span class="co"># all IDs touch the end of the string</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]  
+[1,] "4056"
+[2,] "5149"
+[3,] "4132"
+[4,] "5156"
+[5,] "5145"
+[6,] "5157"
+[7,] "5657"</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">str_match</span>(ids, <span class="st">"^[:digit]{4}"</span>) <span class="co"># none touch the front </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,] NA  
+[2,] NA  
+[3,] NA  
+[4,] NA  
+[5,] NA  
+[6,] NA  
+[7,] NA  </code></pre>
+</div>
+</div>
+<div class="fragment fade-right" style="color: indianred;">
+<p><em>Don’t confuse this <code>^</code> with the one found in square brackets!</em></p>
+</div>
+</div>
+</section>
+<section id="lookahead-lookbehind" class="slide level2">
+<h2>Lookahead, Lookbehind</h2>
+<p>We can check if a pattern exists or (oe doesn’t) before or after a pattern (without needing to include it in the resulting match).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Expression</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>\&lt;pattern A\&gt;(?=\&lt;pattern B\&gt;)</code></td>
+<td>followed by</td>
+</tr>
+<tr class="even">
+<td><code>\&lt;pattern A\&gt;(?!\&lt;pattern B\&gt;)</code></td>
+<td>not followed by</td>
+</tr>
+<tr class="odd">
+<td><code>(?\&lt;=\&lt;pattern B\&gt;)\&lt;pattern A\&gt;</code></td>
+<td>preceded by</td>
+</tr>
+<tr class="even">
+<td><code>(?\&lt;!\&lt;pattern B\&gt;)\&lt;pattern A\&gt;</code></td>
+<td>not preceded by</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regex-practice" class="slide level2">
+<h2>RegEx: Practice</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Saab 900 SE Turbo"           "Plymouth Barracuda"         
+[3] "Nissan Skyline 2000GT"       "BMW 2002"                   
+[5] "Chevrolet Corvette Stingray" "Porsche 928"                </code></pre>
+</div>
+</div>
+<p>How do we obtain the car manufacturer?</p>
+</section>
+<section id="regex-practice-1" class="slide level2">
+<h2>RegEx: Practice</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Saab 900 SE Turbo"           "Plymouth Barracuda"         
+[3] "Nissan Skyline 2000GT"       "BMW 2002"                   
+[5] "Chevrolet Corvette Stingray" "Porsche 928"                </code></pre>
+</div>
+</div>
+<p>How do we obtain the cars whose model contains a number?</p>
+</section>
+<section id="regex-practice-2" class="slide level2">
+<h2>RegEx: Practice</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Saab 900 SE Turbo"           "Plymouth Barracuda"         
+[3] "Nissan Skyline 2000GT"       "BMW 2002"                   
+[5] "Chevrolet Corvette Stingray" "Porsche 928"                </code></pre>
+</div>
+</div>
+<p>How do we obtain the cars whose model does <em>not</em> contain a number?</p>
+</section>
+<section id="regex-practice-3" class="slide level2">
+<h2>RegEx: Practice</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Saab 900 SE Turbo"           "Plymouth Barracuda"         
+[3] "Nissan Skyline 2000GT"       "BMW 2002"                   
+[5] "Chevrolet Corvette Stingray" "Porsche 928"                </code></pre>
+</div>
+</div>
+<p>How do we obtain the car model?</p>
 
 <div class="footer footer-default">
 <p><a href="https://red-robby.github.io/">Return to Home Page</a></p>

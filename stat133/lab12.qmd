@@ -1,0 +1,300 @@
+---
+title: "Lab 12: RegEx Intro"
+format: 
+  revealjs:
+    footer: "[Return to Home Page](https://red-robby.github.io/)"
+    chalkboard: true
+---
+
+## Introduction
+
+```{r}
+library(stringr)
+```
+
+### Declarative language for **expressing patterns** in strings. 
+
+- Often referred to as RegEx ("ree-jex" or "reg-ecks").
+- The RegEx engine (a program) will read your pattern(s) and attempt to find matches
+in any strings you provide. 
+
+## Declarative Patterns
+
+Consider the following strings:
+
+```{r, echo = FALSE}
+print(c("Mr. Evans", "Mrs. Evans", "Mr. Sproul", "Mrs. Sproul"))
+```
+
+In words, if we wanted to obtain the **last names** (e.g., "Evans" for the first two),
+what _pattern_ would we look for?
+
+::: {.incremental style="color: dodgerblue;"}
+- _The second capital letter followed by letters?_
+- _A number of letters which come after a space?_
+- _All connected letters that touch the end of the string?_
+:::
+
+## RegEx Formalizes This
+
+We can express these patterns formally with RegEx so that the engine can utilize
+them. 
+
+. . .
+
+For a preview, we can formalize the last expression, _"all connected letters which_ 
+_touch the end of the string"_, to obtain the last names:
+
+```{r, echo=TRUE}
+names <- c("Mr. Evans", "Mrs. Evans", "Mr. Sproul", "Mrs. Sproul")
+str_extract(names, "[:alpha:]+$")
+```
+
+## ``stringr`` RegEx Functions Preview
+
+To demonstrate, we introduce the following functions from the library
+``stringr``:
+
+
+::: {.incremental}
+- ``str_detect(string, pattern)`` returns a logical indicating if ``pattern`` is found in ``string``. 
+- ``str_match(string, pattern)`` returns the first match of ``pattern`` found in ``string``.
+- ``str_match_all(string, pattern)`` returns all matches of ``pattern`` found in ``string``.
+:::
+
+## Substring Matches
+
+In the simplest case, we can express a finite sequence of characters to match
+against[^1].
+
+```{r, echo=TRUE}
+words <- c("hotel", "hotel", "remotely", "biotelemtry")
+str_detect(words, "otel") # otel is found in all of these strings
+```
+
+::: {.incremental}
+- While helpful, this is clearly insufficient for most patterns. 
+- For this reason, we introduce the ability to specify a _type_ of character 
+(instead of an exact one such as ``'a'``).
+:::
+
+[^1]: We write regular expressions (patterns) in quotes (as strings) in R.
+
+## Matching Against Digits
+
+Consider the following strings, each containing an ID:
+
+```{r, echo = FALSE}
+ids <- c("ID: 4056", "ID: 5149", "ID: 4132", "ID: 5156", "ID: 5145", "ID: 5157", "ID: 5657")
+print(ids)
+```
+
+. . .
+
+Suppose we wanted only the IDs (not ``"ID: "``). To express this as a pattern, we
+note that _each ID consists of 4 digits._
+
+## Matching Against Digits
+
+So our expression should consist of 4 characters, each of type **digit**. We express
+this type with ``\d`` or ``[:digit:]``:
+
+```{r, echo=TRUE}
+str_match(ids, "[:digit:][:digit:][:digit:][:digit:]") 
+```
+
+## RegEx Character Types
+
+This works similarly for other _types_ of characters. Here are a few important cases:
+
+| Expression                | Matches with                            |
+|---------------------------|-----------------------------------------|
+| ``[:digits:]`` or ``\\d`` | digits                                  |
+| ``[:alpha:]``             | letters                                 |
+| ``[:lower:]``             | lowercase letters                       |
+| ``[:upper:]``             | uppercase letters                       |
+| ``[:punctuation:]``       | punctuation                             |
+| ``.``                     | all characters except new line (``\n``) | 
+
+## RegEx Repetitions
+
+We can express the desired number of **repetitions of a pattern** with:
+
+| Expression            | Matches with (of pattern) | 
+|-----------------------|---------------------------|
+| ``\<pattern\>?``      | Zero or one               |
+| ``\<pattern\>*``      | Zero or more              |
+| ``\<pattern\>+``      | One or more               |
+| ``\<pattern\>{n}``    | Exactly n                 |
+| ``\<pattern\>{n, }``  | n or more                 |
+| ``\<pattern\>{n, m}`` | between n and m           |
+
+
+## Matching Against Digits (Repetition)
+
+We can therefore replace
+```{r, eval = FALSE, echo=TRUE}
+str_match(ids, "[:digit:][:digit:][:digit:][:digit:]")``
+```
+
+. . .
+
+with the following:
+
+```{r, echo=TRUE}
+str_match(ids, "[:digit:]{4}") # could also do [:digits:]+
+```
+
+## Matching Against _Allowable Characters_
+
+Instead of specifying a character type... 
+
+::: {.fragment .fade-right style="color: dodgerblue;"}
+**We can also specify that it can be one of a specified set of _allowable characters_.**
+:::
+
+. . .
+
+List these characters one after another without spaces in square brackets (``[]``).
+
+```{r, eval = FALSE, echo=TRUE}
+str_match(ids, "[0123456789]{4}") # equivalent to [:digits:]{4}
+```
+
+## Yes/No Example
+
+Suppose we'd like to evaluate a yes/no answer received from a user.
+
+. . .
+
+```{r, echo=TRUE}
+eval_answer <- function(answer) {
+  if (str_detect(answer, "[Yy]+[Ee]+[Ss]+"))
+    TRUE
+  else if (str_detect(answer, "[Nn]+[Oo]+"))
+    FALSE
+  else
+    NA
+} 
+```
+
+::: {.fragment .fade-right style="color: indianred;"}
+But wait...
+::: 
+
+::: {.incremental}
+- What happens if the user enters ``"Well, yes but actually no."``?
+- What about ``"Yesterday, but not today..."`` or ``"I dunno"``?
+:::
+
+## _Unallowed Characters_
+
+We can also allow any **BUT** a set of characters with ``[^<unallowed characters>]``.
+
+. . .
+
+```{r, echo=TRUE}
+grades <- "Math Grade: B, English Grade: C, Statistics Grade: F, History Grade: D"
+str_match_all(grades, "[:alpha:]+ Grade: [^DF]")
+```
+
+## Ranges
+
+We can specify a range of allowable values. Some examples:
+
+| Expression       | Matches                                           |
+|------------------|---------------------------------------------------|
+| ``[a-z]``        | All lowercase letters                             |
+| ``[a-f]``        | All lowercase letters between a and f (inclusive) |
+| ``[A-K]``        | All capital letters between A and K (inclusive)   |
+| ``[0-5]``        | All digits between 0 and 5 (inclusive)            |
+| ``[0-5A-Ka-f]``  | All of the previous three.                        |
+| ``[^0-5A-Ka-f]`` | None of the previous.                             |
+
+## **OR** Operator
+
+We can allow one pattern **OR** another with ``<pattern A>|<pattern B>``.
+
+```{r, echo=TRUE}
+str_detect(names, "(Mr|Mrs)\\. Evans")
+```
+
+Note the use of parenthesis - otherwise it will look for ``"Mr"`` or ``"Mrs\\. Evans"``.
+
+::: {.incremental}
+- Note the use of ``\\`` before the period. 
+- Some characters are used as symbols (
+the ``.`` is used to represent any character). To indicate we would like to use the 
+actual character in the pattern, we must precede it with ``\\``.
+:::
+
+## Anchors
+
+We can "anchor" our desired patterns to the _front_ or _end_ of the string with 
+``^`` and ``$``, respectively. 
+
+```{r, echo=TRUE}
+str_match(ids, "[:digit:]{4}$") # all IDs touch the end of the string
+```
+
+. . .
+
+```{r, echo=TRUE}
+str_match(ids, "^[:digit]{4}") # none touch the front 
+```
+
+::: {.fragment .fade-right style="color: indianred;"}
+_Don't confuse this ``^`` with the one found in square brackets!_
+:::
+
+## Lookahead, Lookbehind
+
+We can check if a pattern exists or (oe doesn't) before or after a pattern
+(without needing to include it in the resulting match).
+
+| Expression                            | Matches             |
+|---------------------------------------|---------------------|
+| ``\<pattern A\>(?=\<pattern B\>)``    | followed by         |
+| ``\<pattern A\>(?!\<pattern B\>)``    | not followed by     |
+| ``(?\<=\<pattern B\>)\<pattern A\>``  | preceded by         |
+| ``(?\<!\<pattern B\>)\<pattern A\>``  | not preceded by     |
+
+## RegEx: Practice
+
+```{r, echo = FALSE}
+cars <- c("Saab 900 SE Turbo", "Plymouth Barracuda", "Nissan Skyline 2000GT",
+          "BMW 2002", "Chevrolet Corvette Stingray", "Porsche 928")
+print(cars)
+```
+
+How do we obtain the car manufacturer?
+
+## RegEx: Practice
+
+```{r, echo = FALSE}
+cars <- c("Saab 900 SE Turbo", "Plymouth Barracuda", "Nissan Skyline 2000GT",
+          "BMW 2002", "Chevrolet Corvette Stingray", "Porsche 928")
+print(cars)
+```
+
+How do we obtain the cars whose model contains a number?
+
+## RegEx: Practice
+
+```{r, echo = FALSE}
+cars <- c("Saab 900 SE Turbo", "Plymouth Barracuda", "Nissan Skyline 2000GT",
+          "BMW 2002", "Chevrolet Corvette Stingray", "Porsche 928")
+print(cars)
+```
+
+How do we obtain the cars whose model does _not_ contain a number?
+
+## RegEx: Practice
+
+```{r, echo = FALSE}
+cars <- c("Saab 900 SE Turbo", "Plymouth Barracuda", "Nissan Skyline 2000GT",
+          "BMW 2002", "Chevrolet Corvette Stingray", "Porsche 928")
+print(cars)
+```
+
+How do we obtain the car model?
